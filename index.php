@@ -9,6 +9,7 @@ define('WP_DEBUG_LOG', true);
 define('WP_DEBUG_DISPLAY', false);
 
 session_start();
+//GIT
 //include('../security.php');
 // include('../database/dbconfig.php');
 //include "../../connections/database.php";
