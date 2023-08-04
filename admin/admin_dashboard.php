@@ -14,7 +14,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <?php
+      include '../cdn/cdns.php';
+  ?>
+  
   <title>Left Side Navigation Bar</title>
   <style>
     body {
@@ -111,7 +114,21 @@
 
   </style>
 </head>
+
 <body>
+  <?php
+      if($_SESSION['kakalogin_lang'] == true)
+      {
+          echo "<script>
+              Swal.fire(
+              'Success!',
+              'Login Successfully!',
+              'success'
+            )
+          </script>";
+          $_SESSION['kakalogin_lang'] = false;
+      }
+  ?>
   <div class="navbar">
     <div class="navbar-header">
       <div class="logo">
@@ -131,22 +148,10 @@
       <li><a href="#">Sample</a></li>
       <li><a href="#">Sample</a></li>
       <!-- Add logout button -->
-      <li><a href="logout.php">Logout</a></li>
+      <li><a href="../logout.php">Logout</a></li>
     </ul>
   </div>
   <script src="script.js"></script>
 </body>
 </html>
-<?php
-     if($_SESSION['kaka_login_lang'] == true)
-     {
-        echo "<script>
-             Swal.fire(
-             'Success!',
-             'Login Successfully!',
-             'success'
-           )
-         </script>";
-         $_SESSION['kaka_login_lang'] = false;
-     }
-?>
+

@@ -18,11 +18,14 @@ session_start();
 
     <meta charset="utf-8" />
     <title>Login Form</title>
-    <link rel="icon" href="images/ffpi.png">
+    <!-- <link rel="icon" href="images/ffpi.png"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/loginstyle.css" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+    <link rel="stylesheet" href="login.css" />
+
+    <?php
+        include '../cdn/cdns.php';
+    ?>
 </head>
 
 <body>
@@ -47,7 +50,7 @@ session_start();
                 <input type="radio" name="slide" id="signup" />
                 <label for="login" class="slide login">Student</label>
                 <label for="signup" class="slide signup">Admin</label>
-                <div class="slider-tab" style="background-image: url('https://image.shutterstock.com/image-vector/light-blue-green-vector-abstract-260nw-1674832030.jpg');"></div>
+                <div class="slider-tab" style="background-image: url('../images/green_background.jpg');"></div>
             </div>
 
             <div class="form-inner">
@@ -62,33 +65,31 @@ session_start();
                     <br>
                     <a href="#">Forgot password?</a>
                     <div class="field btn">
-                        <div class="btn-layer" style="background-image: url('https://image.shutterstock.com/image-vector/light-blue-green-vector-abstract-260nw-1674832030.jpg');">
+                        <div class="btn-layer" style="background-image: url('../images/green_background.jpg');">
                         </div>
                         <input type="submit" name="login_btn" value="Login" />
                     </div>
                     <br>
-                    <span>Not a member? </span><a href="index.php">Signup now</a>
+                    <span>Not a member? </span><a href="../registration/registration_form.php">Signup now</a>
                 </form>
 
                 <form action="" class="signup" method="POST">
                     <div class="field">
-                        <input type="text" name="username" placeholder="Username" required />
+                        <input type="text" name="admin_username" id="admin_username" placeholder="Username" required />
                     </div>
                     <div class="field">
-                        <input type="password" name="password" placeholder="Password" required />
+                        <input type="password" name="admin_password" id="admin_password" placeholder="Password" required />
                     </div>
                     <br>
                     <a href="#">Forgot password?</a>
                     <div class="field btn">
-                        <div class="btn-layer" style="background-image: url('https://image.shutterstock.com/image-vector/light-blue-green-vector-abstract-260nw-1674832030.jpg');"></div>
-                        <input type="submit" name="newreg" value="Login" />
+                        <!-- <div class="btn-layer" style="background-image: url('../images/green_background.jpg');"></div> -->
+                        <input type="button" name="admin_login_button" id="admin_login_button" value="Login" onclick="admin_login_button_function();" style="background-image: url('../images/green_background.jpg');"/>
                     </div>
                 </form>
-                
             </div>
         </div>
     </div>
-
     <script>
         const loginText = document.querySelector(".title-text .login");
         const loginForm = document.querySelector("form.login");
@@ -111,6 +112,7 @@ session_start();
 
 </body>
 
+<script src="login.js"></script>
 </html>
 <?php
     if($_SESSION['kaka_create_lang'] == true)
