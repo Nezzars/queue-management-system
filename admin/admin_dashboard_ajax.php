@@ -33,6 +33,7 @@
         $echoes[0] = "add_successfully";
         $echoes[1] = "";
 
+        $count = 1;
         $sql = "  SELECT * FROM ptc_departments;  ";
         $result = mysqli_query($con, $sql);
         while($row = mysqli_fetch_assoc($result))
@@ -46,9 +47,10 @@
             $transformed_department_name = implode(" ", $words);
 
             $echoes[1] .= '
-                <li style="padding-top:10px; padding-bottom:10px; cursor:pointer;" id="li_id_'.$row['id'].'" onclick="document.getElementById(\'department_id_'.$row['id'].'\').click();"><a style="cursor:pointer;" id="department_id_'.$row['id'].'">'.$transformed_department_name.'</a></li>
+                <li style="padding-top:10px; padding-bottom:10px; cursor:pointer;" id="li_id_'.$row['id'].'" onclick="document.getElementById(\'department_id_'.$row['id'].'\').click();"><a style="cursor:pointer;" id="department_id_'.$row['id'].'">'.$count.'. '.$transformed_department_name.'</a></li>
                 <hr style="width:100%;">
-          ';
+            ';
+            $count++;
         }
 
         $sql = "  SELECT * FROM ptc_departments WHERE department_name = '$add_department_department_name_textfield';  ";

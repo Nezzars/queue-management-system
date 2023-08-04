@@ -295,6 +295,7 @@
 
         <div id="department_lists_from_db">
           <?php
+            $count = 1;
             $sql = "  SELECT * FROM ptc_departments;  ";
             $result = mysqli_query($con, $sql);
             while($row = mysqli_fetch_assoc($result))
@@ -308,9 +309,10 @@
                 $transformed_department_name = implode(" ", $words);
 
                 echo '
-                  <li style="padding-top:10px; padding-bottom:10px; cursor:pointer;" id="li_id_'.$row['id'].'" onclick="document.getElementById(\'department_id_'.$row['id'].'\').click();"><a style="cursor:pointer;" id="department_id_'.$row['id'].'">'.$transformed_department_name.'</a></li>
+                  <li style="padding-top:10px; padding-bottom:10px; cursor:pointer;" id="li_id_'.$row['id'].'" onclick="document.getElementById(\'department_id_'.$row['id'].'\').click();"><a style="cursor:pointer;" id="department_id_'.$row['id'].'">'.$count.'. '.$transformed_department_name.'</a></li>
                   <hr style="width:100%;">
                 ';
+                $count++;
             }
           ?>
         </div>
@@ -319,6 +321,9 @@
         <hr style="width:100%;">
       </ul>
     </div>
+      <ul class="navbar1-items" id="dashboard_button">
+        <li style="cursor:pointer;"><a onclick="" style="cursor:pointer;" id="dashboard_with_icon_button"><i class="fa fa-solid fa-book-open" style="color:green;"></i> &nbsp&nbsp Guide</a></li>
+      </ul>
       <hr style="width:100%;">
       <ul class="navbar1-items" id="navbar1-items">
         <li><a onclick="logout_button()" style="cursor:pointer;"><i class="fa fa-solid fa-right-from-bracket" style="color:green;"></i> &nbsp&nbsp Log-out</a></li>
