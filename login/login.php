@@ -22,7 +22,12 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="login.css" />
-
+    <style>
+        body{
+            background-image: url('../homepage/homepageimg.jpg');
+            background-size: cover;
+        }
+    </style>
     <?php
         include '../cdn/cdns.php';
     ?>
@@ -50,7 +55,7 @@ session_start();
                 <input type="radio" name="slide" id="signup" />
                 <label for="login" class="slide login">Student</label>
                 <label for="signup" class="slide signup">Admin</label>
-                <div class="slider-tab" style="background-image: url('../images/green_background.jpg');"></div>
+                <div class="slider-tab" style="background-color:rgb(29,87,63);"></div>
             </div>
 
             <div class="form-inner">
@@ -65,7 +70,7 @@ session_start();
                     <br>
                     <a href="#">Forgot password?</a>
                     <div class="field btn">
-                        <div class="btn-layer" style="background-image: url('../images/green_background.jpg');">
+                        <div class="btn-layer" style="background-color:rgb(29,87,63);">
                         </div>
                         <input type="submit" name="login_btn" value="Login" />
                     </div>
@@ -84,7 +89,7 @@ session_start();
                     <a href="#">Forgot password?</a>
                     <div class="field btn">
                         <!-- <div class="btn-layer" style="background-image: url('../images/green_background.jpg');"></div> -->
-                        <input type="button" name="admin_login_button" id="admin_login_button" value="Login" onclick="admin_login_button_function();" style="background-image: url('../images/green_background.jpg');"/>
+                        <input type="button" name="admin_login_button" id="admin_login_button" value="Login" onclick="admin_login_button_function();" style="background-color:rgb(29,87,63);"/>
                     </div>
                 </form>
             </div>
