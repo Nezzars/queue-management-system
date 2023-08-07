@@ -9,6 +9,8 @@ define('WP_DEBUG_LOG', true);
 define('WP_DEBUG_DISPLAY', false);
 
 session_start();
+
+include '../connections/my_cnx.php';
 //GIT2
 //include('../security.php');
 // include('../database/dbconfig.php');
@@ -323,16 +325,38 @@ $today = date("Y-m-d");
                     <input type="text" required id="street_address" class="form-control form-control-sm mb-2" name="street_address" placeholder="House No. and Street Name">
                 </div>
                 <div class="form-row">
-                    <label for="address">State / County</label>
-                    <input type="text" required="" id="town_city" name="town_city" class="form-control form-control-sm mb-2" id="inputls" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="20">
+                    <label for="address">Province</label>
+                    <select class="form-control form-control-sm mb-2" name="province_dropdownlist" id="province_dropdownlist" onchange="select_province_ajax();">
+                      <option value="" disabled selected>Choose...</option>
+                      <option value="Metro Manila">Metro Manila</option>
+                      <?php
+                        $sql = "SELECT DISTINCT Province FROM ptc_setupaddress;";
+                        $result = mysqli_query($con, $sql);
+                        
+                        if ($result) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $province = $row['Province'];
+                                echo '<option value="' . $province . '">' . $province . '</option>';
+                            }
+                        } else {
+                            echo "Error: " . mysqli_error($con);
+                        }
+                        
+                        mysqli_close($con);
+                      ?>
+                    </select>
                 </div>
                 <div class="form-row">
                     <label for="address">Town / City</label>
-                    <input type="text" required="" id="town_city" name="town_city" class="form-control form-control-sm mb-2" id="inputls" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="20">
+                    <select class="form-control form-control-sm mb-2" name="town_city_dropdownlist" id="town_city_dropdownlist" onchange="select_town_city_ajax();">
+                      <!-- may laman na -->
+                    </select>
                 </div>
                 <div class="form-row">
                     <label for="address">Barangay</label>
-                    <input type="text" required="" id="barangay" name="barangay" class="form-control form-control-sm mb-2" id="inputls" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="20">
+                    <select class="form-control form-control-sm mb-2" name="barangay_dropdownlist" id="barangay_dropdownlist">
+                      
+                    </select>
                 </div>
                 <div class="form-row">
                     <label for="address">Postcode / ZIP</label>
@@ -1421,5 +1445,54 @@ if (str.length == 0) {
             
             form.submit();
         }
+    }
+
+    function select_province_ajax()
+    {
+      // alert(document.getElementById("province_dropdownlist").value);
+
+      var data = 
+      {
+        action1: 'select_province_ajax',
+        province_dropdownlist: document.getElementById("province_dropdownlist").value,
+      };
+
+      $.ajax({
+        url: 'registration_form_ajax.php',
+        type: 'post',
+        data: data,
+
+        success:function(response)
+        {
+          // alert(response); //alert metro manila
+          document.getElementById("town_city_dropdownlist").innerHTML = response;
+          document.getElementById("barangay_dropdownlist").innerHTML = "";
+        }
+
+      });
+    }
+
+    function select_town_city_ajax()
+    {
+      // alert(document.getElementById("town_city_dropdownlist").value);
+      
+      var data = 
+      {
+        action1: 'select_town_city_ajax',
+        town_city_dropdownlist: document.getElementById("town_city_dropdownlist").value,
+      };
+
+      $.ajax({
+        url: 'registration_form_ajax.php',
+        type: 'post',
+        data: data,
+
+        success:function(response)
+        {
+          // alert(response); //alert metro manila
+          document.getElementById("barangay_dropdownlist").innerHTML = response;
+        }
+
+      });
     }
 </script>
