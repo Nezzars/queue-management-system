@@ -523,7 +523,7 @@ $(document).ready(function() {
       };
 
       $.ajax({
-        url: 'admin_dashboard_ajax.php',
+        url: 'admin_ajax.php',
         type: 'post',
         data: data,
 
@@ -579,7 +579,7 @@ $(document).ready(function() {
         };
 
         $.ajax({
-          url: 'admin_dashboard_ajax.php',
+          url: 'admin_ajax.php',
           type: 'post',
           data: data,
 

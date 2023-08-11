@@ -7,7 +7,7 @@
 </head>
 <body>
     <script>
-        window.location.href = 'homepage/index.html';
+        window.location.href = 'homepage/index.php';
     </script>
 </body>
 </html>

@@ -8,7 +8,6 @@ define('WP_DEBUG_DISPLAY', false);
 
 session_start();
 
-
 ?>
 
 <!DOCTYPE html>
@@ -22,21 +21,25 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="login.css" />
+    <?php
+        include '../cdn/cdns.php';
+    ?>
     <style>
         body{
             background-image: url('../homepage/homepageimg.jpg');
             background-size: cover;
         }
     </style>
-    <?php
-        include '../cdn/cdns.php';
-    ?>
+    
+    
 </head>
 
 <body>
-
+    <br>
+    <?php
+        include "../navbars/homepage_navbar.php";
+      ?>
     <div class="wrapper">
-
         <div class="title-text">
             <div class="title login">Student Login</div>
 
@@ -60,19 +63,20 @@ session_start();
 
             <div class="form-inner">
 
-                <form action="login_function.php" class="login" method="POST">
+                <!-- <form action="login_function.php" class="login" method="POST"> -->
+                <form action="" class="login" method="POST">
                     <div class="field">
-                        <input type="text" name="username" placeholder="Username" required />
+                        <input type="text" name="student_username" id="student_username" placeholder="Username" required />
                     </div>
                     <div class="field">
-                        <input type="password" name="password" placeholder="Password" required />
+                        <input type="password" name="student_password" id="student_password" placeholder="Password" required />
                     </div>
                     <br>
                     <a href="#">Forgot password?</a>
                     <div class="field btn">
                         <div class="btn-layer" style="background-color:rgb(29,87,63);">
                         </div>
-                        <input type="submit" name="login_btn" value="Login" />
+                        <input type="button" name="student_login_button" id="student_login_button" value="Login" onclick="student_login_button_function();" style="background-color:rgb(29,87,63);"/>
                     </div>
                     <br>
                     <span>Not a member? </span><a href="../registration/registration_form.php">Signup now</a>
@@ -117,7 +121,108 @@ session_start();
 
 </body>
 
-<script src="login.js"></script>
+<!-- <script src="login.js"></script> -->
+<script>
+    function student_login_button_function()
+    {
+        if(document.getElementById("student_username").value === "")
+        {
+            document.getElementById("student_username").setCustomValidity("Username cannot be empty.");
+            document.getElementById("student_username").reportValidity();
+        }
+        else if(document.getElementById("student_password").value === "")
+        {
+            document.getElementById("student_password").setCustomValidity("Password cannot be empty.");
+            document.getElementById("student_password").reportValidity();
+        }
+        else
+        {
+            var data = 
+            {
+                action: 'student_login_button_function',
+                student_username: $("#student_username").val(),
+                student_password: $("#student_password").val(),
+            };
+        
+            $.ajax
+            ({
+                url: 'login_ajax.php',
+                type: 'post',
+                data: data,
+        
+                success:function(response)
+                {
+                    if(response == 1)
+                    {
+                        // alert("1");
+                        window.location.href = "../student/student.php";
+                    }
+                    else
+                    {
+                        // alert("0");
+                        Swal.fire(
+                            'Failed!',
+                            'Invalid Credentials!',
+                            'error'
+                        );
+                    }
+        
+                    // alert(response);
+                }
+            });
+        }
+    }
+
+    function admin_login_button_function()
+    {
+        if(document.getElementById("admin_username").value === "")
+        {
+            document.getElementById("admin_username").setCustomValidity("Username cannot be empty.");
+            document.getElementById("admin_username").reportValidity();
+        }
+        else if(document.getElementById("admin_password").value === "")
+        {
+            document.getElementById("admin_password").setCustomValidity("Password cannot be empty.");
+            document.getElementById("admin_password").reportValidity();
+        }
+        else
+        {
+            var data = 
+            {
+                action: 'admin_login_button_function',
+                admin_username: $("#admin_username").val(),
+                admin_password: $("#admin_password").val(),
+            };
+        
+            $.ajax
+            ({
+                url: 'login_ajax.php',
+                type: 'post',
+                data: data,
+        
+                success:function(response)
+                {
+                    if(response == 1)
+                    {
+                        // alert("1");
+                        window.location.href = "../admin/admin.php";
+                    }
+                    else
+                    {
+                        // alert("0");
+                        Swal.fire(
+                            'Failed!',
+                            'Invalid Credentials!',
+                            'error'
+                        );
+                    }
+        
+                    // alert(response);
+                }
+            });
+        }
+    }
+</script>
 </html>
 <?php
     if($_SESSION['kaka_create_lang'] == true)

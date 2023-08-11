@@ -4,44 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Web Base Queing Management System</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous"> -->
+    <?php
+      include '../cdn/cdns.php';
+    ?>
   </head>
   <body>
-      <nav class="navbar navbar-expand-lg fixed-top" style="background-color:rgb(31,86,66);">
-        <div class="container">
-            <div>
-                <img src="logo.png" style="width: 50px; margin-right: 5px;" alt="">
-            </div>
-          <a class="navbar-brand text-light fs-3 fw-bold" href="#">WQMS</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link active text-light fs-4" aria-current="page" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active text-light fs-4" aria-current="page" href="#aboutus">About Us</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active text-light fs-4" aria-current="page" href="#aboutsystem">Team</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-light fs-4" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Account
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Login</a></li>
-                  <li><a class="dropdown-item" href="#">Register</a></li>
-                </ul>
-              </li>
-            </ul>
-            
-          </div>
-        </div>
-      </nav>
+      <?php
+        include "../navbars/homepage_navbar.php";
+      ?>
       <section id="home">
         <img style="width: 100%; height: 100vh; margin-top: 40px;" src="homepageimg.jpg" alt="">
       </section>
@@ -129,29 +100,29 @@
         }
       </style>
 
-      <section id="aboutsystem" style="position: relative;">
+      <section id="team" style="position: relative;">
         <img style="position: absolute; text-align: center; z-index: -1; width: 100%;" src="aboutsystembg.jpg" alt="">
         <div style="padding: 100px; color: rgb(31, 86, 66);">
           <p class="display-4 text-center text-light fw-bold font-border "><b>My Team</b></p>
           <div class="row justify-content-center mt-3">
             <div class="col-sm-6 col-md-3 text-center text-warning mb-4">
               <img src="homepageimg.jpg" alt="" id="my_team_images" style="clip-path: circle(50% at 50% 50%); margin: 0 auto;">
-              <p class="fs-5">Marky Cielo</p>
+              <p class="fs-5">Example</p>
               <p class="fs-6">Programmer</p>
             </div>
             <div class="col-sm-6 col-md-3 text-center text-warning mb-4">
               <img src="homepageimg.jpg" alt="" id="my_team_images" style="clip-path: circle(50% at 50% 50%); margin: 0 auto;">
-              <p class="fs-5">Marky Cielo</p>
+              <p class="fs-5">Example</p>
               <p class="fs-6">Programmer</p>
             </div>
             <div class="col-sm-6 col-md-3 text-center text-warning mb-4">
               <img src="homepageimg.jpg" alt="" id="my_team_images" style="clip-path: circle(50% at 50% 50%); margin: 0 auto;">
-              <p class="fs-5">Marky Cielo</p>
+              <p class="fs-5">Example</p>
               <p class="fs-6">Programmer</p>
             </div>
             <div class="col-sm-6 col-md-3 text-center text-warning mb-4">
               <img src="homepageimg.jpg" alt="" id="my_team_images" style="clip-path: circle(50% at 50% 50%); margin: 0 auto;">
-              <p class="fs-5">Marky Cielo</p>
+              <p class="fs-5">Example</p>
               <p class="fs-6">Programmer</p>
             </div>
           </div>
@@ -159,6 +130,6 @@
       </section>
       
     
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script> -->
   </body>
 </html>

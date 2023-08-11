@@ -41,12 +41,20 @@ $today = date("Y-m-d");
   <head>
     <meta charset="utf-8" />
     <title>Registration</title>
-    <link rel="icon" href="images/ffpi.png">
+    <!-- <link rel="icon" href="images/ffpi.png"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content"ie=edge">
     <link rel="stylesheet" href="registration_form.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <?php
+      include '../cdn/cdns.php';
+    ?>
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+    <style>
+        body{
+            background-image: url('../homepage/homepageimg.jpg');
+            background-size: cover;
+        }
+    </style>
     <style>
         @media screen and (max-width: 600px) {
             .main-container {
@@ -75,6 +83,12 @@ $today = date("Y-m-d");
   </head>
 
   <body>
+    <br>
+    <br>
+    <br>
+    <?php
+      include "../navbars/homepage_navbar.php";
+    ?>
     <!-- Loading SPINNER -->
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal11" id="launch_modal_id" style="display:none;">
   open loading
@@ -146,10 +160,10 @@ $today = date("Y-m-d");
 <!-- Loading SPINNER -->
   <!-- START OF TEST FORM NILABAS KO SYA SA MAIN CONTAINER -->
 
-  <form id="test-form" class="mb-3 p-2" action="registration_form_function.php" method="post" name="registration_form">
+  <form id="test-form" class="mb-3 p-2 " style="background-color:white; border-radius:10px;" action="registration_form_function.php" method="post" name="registration_form">
 
   
-    <div id="personal-details" class="form-group">
+    <div id="personal-details" class="form-group" >
 
     <!-- OPENING DIV 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">-->
@@ -240,7 +254,7 @@ $today = date("Y-m-d");
                     <div id="error-message" class="text-danger"></div>
                 </div>
                 <!-- Add Font Awesome CSS for the eye icon -->
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+                <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> -->
         
                 <script>
                 document.getElementById("togglePassword").addEventListener("click", function() {
@@ -1112,11 +1126,11 @@ if (str.length == 0) {
 <!-- END OF FOOTER -->
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script> -->
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
 
 </body>
 </html>

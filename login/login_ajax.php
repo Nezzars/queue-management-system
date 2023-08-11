@@ -1,6 +1,28 @@
 <?php
     require '../connections/my_cnx.php';
-    
+
+    if($_POST["action"] == "student_login_button_function")
+    {
+      global $con;
+      session_start();
+      $student_username = $_POST["student_username"];
+      $student_password = $_POST["student_password"];
+      $success = 0;
+  
+      $queryy = "SELECT * FROM ptc_student_users WHERE username='$student_username' AND password='$student_password' LIMIT 1";
+      $queryy_run = mysqli_query($con, $queryy);
+      if (mysqli_num_rows($queryy_run) > 0) //if meron
+      {
+        $success = 1;
+        $_SESSION['kakalogin_lang'] = true;
+      }
+      else
+      {
+        $success = 0;
+      }
+      
+      echo $success;
+    }
 
     if($_POST["action"] == "admin_login_button_function")
     {
@@ -10,9 +32,9 @@
       $admin_password = $_POST["admin_password"];
       $success = 0;
   
-      $agent_query = "SELECT * FROM ptc_admin WHERE username='$admin_username' AND password='$admin_password' LIMIT 1";
-      $agent_query_run = mysqli_query($con, $agent_query);
-      if (mysqli_num_rows($agent_query_run) > 0) //if meron
+      $queryy = "SELECT * FROM ptc_admin WHERE username='$admin_username' AND password='$admin_password' LIMIT 1";
+      $queryy_run = mysqli_query($con, $queryy);
+      if (mysqli_num_rows($queryy_run) > 0) //if meron
       {
         $success = 1;
         $_SESSION['kakalogin_lang'] = true;
