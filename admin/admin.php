@@ -16,16 +16,60 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?php
-      include '../cdn/cdns.php';
+      // include '../cdn/cdns.php';
   ?>
+  <link href='admin.css' rel='stylesheet' />
   
+  <!-- Include Font Awesome for icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <!-- font-awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- swal -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' rel='stylesheet' />
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
+ Add Bootstrap CSS and JS for the modal -->
+  <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' rel='stylesheet' />
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
+  <!-- Add Bootstrap CSS and JS for the modal -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.8/index.global.min.js'></script>
+  <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.8/index.global.min.js'></script>
+  <!-- datatables -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
   <title>Administrator</title>
+  
+
   <style>
+    .fc-event-center-title 
+    {
+      text-align: center;
+      width:97%;
+      cursor:pointer;
+      background-color:blue;
+    }
+    .fc-event-total {
+        background-color: lightgray;
+        border: 1px solid gray;
+        font-weight: bold;
+    }
+
     body, html {
       height: 100%;
       margin: 0;
       padding: 0;
-      background-color:#F7F7F7;
+      background-color:lightgreen;
     }
     hr
     {
@@ -36,6 +80,75 @@
 </head>
 
 <body>
+  <!-- Loading SPINNER -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal11" id="launch_modal_id" style="display:none;">
+  open loading
+</button>
+
+<div class="modal fade" id="exampleModal11" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="loader">
+        <div class="loading">
+        </div>
+    </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="display:none;">
+        <div class="modal-header" style="display:none;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close_loading_button">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        </div>
+    </div>
+</div>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.loader {
+  display: none;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.loading {
+  border: 2px solid #ccc;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border-top-color: #1ecd97;
+  border-left-color: #1ecd97;
+  animation: spin 1s infinite ease-in;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+</style>
+
+<script type="text/javascript">
+    function open_loading() 
+    {
+        document.getElementById("launch_modal_id").click();
+        document.getElementsByClassName("loader")[0].style.display = "block";
+        document.getElementById("exampleModal11").style.pointerEvents = "none";
+    }
+    function close_loading() 
+    {
+        document.getElementById("close_loading_button").click();
+    }
+</script>  
+<!-- Loading SPINNER -->
   <?php
       if($_SESSION['kakalogin_lang'] == true)
       {
@@ -50,9 +163,115 @@
       }
   ?>
 
-  <?php
-    include '../navbars/admin_navbar.php';
-  ?>
+<style>
+        /* Reset default margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Style the navigation bar */
+        .navbar {
+            background-color: #333;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Container to center the content */
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+        
+        /* Style the logo */
+        .logo img {
+            height: 40px;
+            width: auto;
+            display: block;
+        }
+        
+        /* Style the navigation list */
+        .nav-list {
+            list-style: none;
+            display: flex;
+        }
+        
+        /* Style navigation list items */
+        .nav-list li {
+            margin: 0 15px;
+        }
+        
+        /* Style navigation links */
+        .nav-list li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        
+        /* Style navigation link on hover */
+        .nav-list li a:hover {
+            background-color: #555;
+        }
+        
+        /* Style logout link */
+        .logout {
+            margin-left: auto;
+        }
+        
+        /* Style logout link on hover */
+        .logout a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 15px;
+            background-color: #d9534f;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .logout a:hover {
+            background-color: #c9302c;
+        }
+
+        /* Base styling for desktop */
+        .nav-list {
+            display: flex;
+            align-items: center;
+            margin-right: 30px;
+        }
+
+        /* Responsive styling for mobile */
+        @media (max-width: 767px) {
+            .nav-list {
+                margin-right: 0;
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+    </style>
+    <?php
+      $sql = "  SELECT * FROM ptc_admin WHERE username='".$_SESSION['admin_username']."';";
+      $result = mysqli_query($con, $sql);
+      $top_nav_bar = mysqli_fetch_assoc($result);
+    ?>
+    <div style="display: flex; justify-content: flex-end; padding:15px; background-color:white; border:1px solid lightgray;">
+        <div style="color:black;">
+            <ul class="nav-list" style="margin: 0; padding: 0; list-style: none;">
+                <li style="pointer-events: none;">Type: <b><?php echo strtoupper($top_nav_bar['type']); ?></b></li>
+                <li style="pointer-events: none;">Name: <b><?php echo strtoupper($top_nav_bar['full_name']); ?></b></li>
+                <li style="pointer-events: none;">Username: <b><?php echo strtoupper($top_nav_bar['username']); ?></b></li>
+            </ul>
+        </div>
+    </div>
+  
 <style>
     .dropdown1 {
       position: relative;
@@ -234,8 +453,8 @@
   <style>
     .department-container {
       width: 100%;
-      display: flex;
-      justify-content: space-between;
+      /* display: flex; */
+      /* justify-content: space-between; */
       align-items: center;
       padding: 20px;
       border: 1px solid lightgray;
@@ -270,7 +489,7 @@
     }
 </style>
 
-  <div class="navbar1" style="overflow-x:scroll;">
+  <div class="navbar1" id="left_nav_bar" style="overflow-x:scroll;">
     <center>
       <div class="navbar1-header">
           <div class="logo">
@@ -279,55 +498,64 @@
       </div>
     </center>
     <h2>Administrator</h2>
-    <hr style="width:100%;">
+    <hr style="width:100%; margin-bottom:10px;">
     <ul class="navbar1-items" id="dashboard_button">
       <li style="cursor:pointer;" onclick="document.getElementById('dashboard_with_icon_button').click();"><a onclick="show_dashboard_panel();" style="cursor:pointer;" id="dashboard_with_icon_button"><i class="fas fa-tachometer-alt" style="color:green;"></i> &nbsp&nbsp Dashboard</a></li>
-    </ul>
-    <ul class="navbar1-items" id="navbar1-items">
-      <li><a onclick="department_toggle();" style="cursor:pointer;" id="department_with_icon_button"><i class="fa fa-solid fa-building" style="color:green;"></i> &nbsp&nbsp Departments &nbsp&nbsp&nbsp<i class="fa fa-solid fa-caret-down"></i></a></li>
     </ul>
     <script>
       document.getElementById("dashboard_button").style.backgroundColor = "lightgreen";
     </script>
+    <ul class="navbar1-items" id="appointments_button">
+      <li style="cursor:pointer;" onclick="document.getElementById('appointments_with_icon_button').click();"><a onclick="show_appointments_panel();" style="cursor:pointer;" id="appointments_with_icon_button"><i class="fa fa-solid fa-calendar-days" style="color:green;"></i> &nbsp&nbsp Appointments</a></li>
+    </ul>
+    <ul class="navbar1-items" id="admin_users_button">
+      <li style="cursor:pointer;" onclick="document.getElementById('admin_users_with_icon_button').click();"><a onclick="show_admin_users_panel();" style="cursor:pointer;" id="admin_users_with_icon_button"><i class="fa fa-solid fa-users" style="color:green;"></i> &nbsp&nbsp Admin Users</a></li>
+    </ul>
+    <!-- <ul class="navbar1-items" id="navbar1-items">
+      <li><a onclick="department_toggle();" style="cursor:pointer;" id="department_with_icon_button"><i class="fa fa-solid fa-building" style="color:green;"></i> &nbsp&nbsp Departments &nbsp&nbsp&nbsp<i class="fa fa-solid fa-caret-down"></i></a></li>
+    </ul>
     <div id="department_lists" style="width:100%; display:none;">
       <ul class="department_lists-items" id="department_lists-items">
         <hr style="width:100%;">
 
         <div id="department_lists_from_db">
           <?php
-            $count = 1;
-            $sql = "  SELECT * FROM ptc_departments;  ";
-            $result = mysqli_query($con, $sql);
-            while($row = mysqli_fetch_assoc($result))
-            {
-                $department_name = $row['department_name'];
-                $words = explode("_", $department_name);
-                foreach ($words as &$word) 
-                {
-                    $word = ucfirst($word);
-                }
-                $transformed_department_name = implode(" ", $words);
+            // $count = 1;
+            // $sql = "  SELECT * FROM ptc_departments;  ";
+            // $result = mysqli_query($con, $sql);
+            // while($row = mysqli_fetch_assoc($result))
+            // {
+            //     $department_name = $row['department_name'];
+            //     $words = explode("_", $department_name);
+            //     foreach ($words as &$word) 
+            //     {
+            //         $word = ucfirst($word);
+            //     }
+            //     $transformed_department_name = implode(" ", $words);
 
-                echo '
-                  <li style="padding-top:10px; padding-bottom:10px; cursor:pointer;" id="li_id_'.$row['id'].'" onclick="document.getElementById(\'department_id_'.$row['id'].'\').click();"><a style="cursor:pointer;" id="department_id_'.$row['id'].'">'.$count.'. '.$transformed_department_name.'</a></li>
-                  <hr style="width:100%;">
-                ';
-                $count++;
-            }
+            //     echo '
+            //       <li style="padding-top:10px; padding-bottom:10px; cursor:pointer;" id="li_id_'.$row['id'].'" onclick="document.getElementById(\'department_id_'.$row['id'].'\').click();"><a style="cursor:pointer;" id="department_id_'.$row['id'].'">'.$count.'. '.$transformed_department_name.'</a></li>
+            //       <hr style="width:100%;">
+            //     ';
+            //     $count++;
+            // }
           ?>
         </div>
         
         <li style="padding-top:10px; padding-bottom:10px; cursor:pointer;" onclick="document.getElementById('plus_add_department_button').click();"><a onclick="document.getElementById('add_department_button').click();" style="cursor:pointer;" id="plus_add_department_button"><b>+ ADD DEPARTMENT</b></a></li>
         <hr style="width:100%;">
       </ul>
-    </div>
-      <ul class="navbar1-items" id="dashboard_button">
-        <li style="cursor:pointer;"><a onclick="" style="cursor:pointer;" id="dashboard_with_icon_button"><i class="fa fa-solid fa-book-open" style="color:green;"></i> &nbsp&nbsp Guide</a></li>
-      </ul>
-      <hr style="width:100%;">
-      <ul class="navbar1-items" id="navbar1-items">
-        <li><a onclick="logout_button()" style="cursor:pointer;"><i class="fa fa-solid fa-right-from-bracket" style="color:green;"></i> &nbsp&nbsp Log-out</a></li>
-      </ul>
+    </div> -->
+    <!-- <ul class="navbar1-items" id="dashboard_button">
+      <li style="cursor:pointer;"><a onclick="" style="cursor:pointer;" id="dashboard_with_icon_button"><i class="fa fa-solid fa-book-open" style="color:green;"></i> &nbsp&nbsp Guide</a></li>
+    </ul> -->
+    <hr style="width:100%; margin-top:10px;">
+    <ul class="navbar1-items" id="my_account_button">
+      <li style="cursor:pointer;" onclick="document.getElementById('my_account_with_icon_button').click();"><a onclick="show_my_account_panel();" style="cursor:pointer;" id="my_account_with_icon_button"><i class="fa fa-solid fa-user" style="color:green;"></i> &nbsp&nbsp My Account</a></li>
+    </ul>
+    <ul class="navbar1-items" id="logout_button">
+      <li style="cursor:pointer;" onclick="document.getElementById('logout_with_icon_button').click();"><a onclick="logout_button()" style="cursor:pointer;" id="logout_with_icon_button"><i class="fa fa-solid fa-right-from-bracket" style="color:green;"></i> &nbsp&nbsp Log-out</a></li>
+    </ul>
   </div>
 
 <!-- Button trigger modal -->
@@ -362,21 +590,25 @@
   </div>
 </div>
 
+<div id="main_panel">
+  <script>
+    open_loading();
+  </script>
 <!-- DASHBOARD PANEL -->
-  <div id="dashboard_panel" style="width: calc(100% - 250px); margin-left:250px;">
-    <h1 style="padding:20px; border:1px solid lightgray; text-align:center; background-color:white;">Dashboard</h1>
+  <div id="dashboard_panel" class="left_nav_bar_buttons" style="width: calc(100% - 250px); margin-left:250px;">
+    <h1 style="padding:10px; border:1px solid lightgray; text-align:center; background-color:#1F5642; color:white;"><b>Dashboard</b> </h1>
     <div style="display: table;table-layout: fixed; border-spacing: 30px; width:100%; text-align:center;">
-      <div style="display: table-cell; float:left; width:30%; background-color:white;">
+      <div style="display: table-cell; float:left; width:30%; background-color:white; border-radius:10px;">
         <br>
         <h1><i class="fa-solid fa-calendar-days" style="color:green;"></i></h1>
-        <h4><b>August 4, 2023</b></h4> 
+        <h4><b id="currentDate"></b></h4>
         <h5>Date Today</h5> 
         <br>
       </div>
       <div style="display: table-cell; float:left; width:5%;">
         <br>
       </div>
-      <div style="display: table-cell; float:left; width:30%; background-color:white;">
+      <div style="display: table-cell; float:left; width:30%; background-color:white; border-radius:10px;">
         <br>
         <h1><i class="fa fa-solid fa-building" style="color:green;"></i></h1>
         <h4><b>0</b></h4> 
@@ -386,7 +618,7 @@
       <div style="display: table-cell; float:left; width:5%;">
         <br>
       </div>
-      <div style="display: table-cell; float:left; width:30%; background-color:white;">
+      <div style="display: table-cell; float:left; width:30%; background-color:white; border-radius:10px;">
         <br>
         <h1><i class="fa fa-solid fa-chalkboard-user" style="color:green;"></i></h1>
         <h4><b>0</b></h4> 
@@ -394,10 +626,192 @@
         <br>
       </div>
     </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
   </div>
 <!-- DASHBOARD PANEL -->
+<!-- APPOINTMENT PANEL -->
+<div id="appointments_panel" class="left_nav_bar_buttons" style="width: calc(100% - 250px); margin-left: 250px;">
+  <h1 style="padding:10px; border:1px solid lightgray; text-align:center; background-color:#1F5642; color:white;"><b>Appointments</b> </h1>
+    <br>
+    <div style="width:95%; margin:auto; padding:20px; background-color:white; border-top:3px solid green; border-radius:5px;">
+    <div class="card">
+        <div class="card-body">
+            <div id="calendar"></div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eventModalLabel">Appointment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="eventTitle"></p>
+                    <p id="eventStart"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  var calendarEl = document.getElementById('calendar');
+
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+      // ... (other calendar options)
+
+      // Event click callback
+      eventClick: function(info) {
+          $('#eventTitle').text(info.event.title);
+          $('#eventStart').text('Start: ' + moment(info.event.start).format('YYYY-MM-DD'));
+          $('#eventModal').modal('show');
+      },
+
+      events: [
+          {
+              title: '50/50',
+              start: '2023-08-10',
+              classNames: ['fc-event-center-title']
+          },
+
+
+
+
+
+
+
+          {
+              title: '1/50',
+              start: '2023-08-11',
+              classNames: ['fc-event-center-title']
+          },
+          
+
+
+
+
+
+
+          {
+              title: '23/50',
+              start: '2023-08-12',
+              classNames: ['fc-event-center-title']
+          },
+
+
+
+
+
+
+          {
+              title: '43/50',
+              start: '2023-08-13',
+              classNames: ['fc-event-center-title']
+          },
+
+
+
+
+
+          {
+              title: '50/50',
+              start: '2023-08-14',
+              classNames: ['fc-event-center-title']
+          },
+
+
+
+          {
+              title: '10/50',
+              start: '2023-08-15',
+              classNames: ['fc-event-center-title']
+          }
+      ]
+  });
+
+  calendar.render();
+});
+</script>
+<!-- APPOINTMENT PANEL -->
+<!-- ADMIN USERS PANEL -->
+<div id="admin_users_panel" class="left_nav_bar_buttons" style="width: calc(100% - 250px); margin-left:250px;">
+  <h1 style="padding:10px; border:1px solid lightgray; text-align:center; background-color:#1F5642; color:white;"><b>Admin Users</b> </h1>
+  <br>
+  <div style="width:95%; margin:auto; padding:20px; background-color:white; border-top:3px solid green; border-radius:5px;">
+  <input type="button" value="Add User" class="btn btn-primary">
+        <br>
+        <br>
+        <table id="department_table" class="table table-striped" style="overflow-x:auto; border-collapse: collapse; text-align:center;">
+          <thead class="thead-dark">
+            <tr>
+              <th>ID</th>
+              <th>Full Name</th>
+              <th>Username</th>
+              <th>Admin Type</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+              $sql = "  SELECT * FROM ptc_admin;  ";
+              $result = mysqli_query($con, $sql);
+          
+              while($row = mysqli_fetch_assoc($result))
+              {
+                  echo '
+                  <tr>
+                    <td>'.strtoupper($row['id']).'</td>
+                    <td>'.strtoupper($row['full_name']).'</td>
+                    <td>'.strtoupper($row['username']).'</td>
+                    <td>'.strtoupper($row['type']).'</td>
+                    <td>
+                      <input type="button" value="Update" class="btn btn-success">
+                      <input type="button" value="Delete" class="btn btn-danger">
+                    </td>
+                  </tr>
+                  ';
+              }
+            ?>
+            
+            
+          </tbody>
+        </table>
+  </div>
+</div>
+<!-- ADMIN USERS PANEL -->
+<!-- MY ACCOUNT PANEL -->
+<div id="my_account_panel" class="left_nav_bar_buttons" style="width: calc(100% - 250px); margin-left:250px;">
+  <h1 style="padding:10px; border:1px solid lightgray; text-align:center; background-color:#1F5642; color:white;"><b>My Account</b> </h1>
+  <br>
+  <div style="width:95%; margin:auto; padding:20px; background-color:white; border-top:3px solid green; border-radius:5px;">
+    <br>
+    <br>
+  </div>
+</div>
+<!-- MY ACCOUNT PANEL -->
+
 <!-- DEPARTMENT PANEL -->
-<div id="department_panel" style="width: calc(100% - 250px); margin-left: 250px; display:none;">
+<!-- <div id="department_panel" class="left_nav_bar_buttons" style="width: calc(100% - 250px); margin-left: 250px; display:none;">
     <div id="department_name_and_action" style="padding:0; background-color: white;">
     </div>
     <br>
@@ -432,8 +846,9 @@
         </table>
       </div>
     </div>
-</div>
+</div>  -->
 <!-- DEPARTMENT PANEL -->
+</div><!-- END OF MAIN PANEL-->
 
 <script>
 $(document).ready(function() {
@@ -443,8 +858,18 @@ $(document).ready(function() {
 });
 </script>
 
+<script>
+  setTimeout(function() {
+    close_loading();
+    document.querySelector('.fc-next-button').click();
+    setTimeout(function() {
+      document.querySelector('.fc-prev-button').click();
+      document.getElementById("dashboard_with_icon_button").click();
+    }, 800);
+  }, 1000); // 2000 milliseconds = 2 seconds
+</script>
+
 </body>
-<script src="script.js"></script>
 <script>
   function logout_button()
   {
@@ -471,35 +896,95 @@ $(document).ready(function() {
     });
   }
 
-  function department_toggle()
-  {
-    $("#department_lists").slideToggle();
-  }
+  // function department_toggle()
+  // {
+  //   $("#department_lists").slideToggle();
+  // }
 </script>
 <script>
   
   function show_dashboard_panel()
   {
     document.getElementById('dashboard_panel').style.display = "Inherit";
-    document.getElementById('department_panel').style.display = "none";
+    document.getElementById('appointments_panel').style.display = "none";
+    document.getElementById('admin_users_panel').style.display = "none";
+    document.getElementById('my_account_panel').style.display = "none";
 
     document.getElementById("dashboard_button").style.backgroundColor = "lightgreen";
-    var elements = document.querySelectorAll('[id^="li_id_"]');
-    elements.forEach(function(element) {
-      element.style.backgroundColor = "white";
-    });
+    document.getElementById("appointments_button").style.backgroundColor = "white";
+    document.getElementById('admin_users_button').style.backgroundColor = "white";
+    document.getElementById("my_account_button").style.backgroundColor = "white";
+    // var elements = document.querySelectorAll('[id^="li_id_"]');
+    // elements.forEach(function(element) {
+    //   element.style.backgroundColor = "white";
+    // });
   }
-  function show_department_panel()
+  function show_appointments_panel()
   {
+    // alert("qwe");
     document.getElementById('dashboard_panel').style.display = "none";
-    document.getElementById('department_panel').style.display = "Inherit";
+    document.getElementById('appointments_panel').style.display = "Inherit";
+    document.getElementById('admin_users_panel').style.display = "none";
+    document.getElementById('my_account_panel').style.display = "none";
 
     document.getElementById("dashboard_button").style.backgroundColor = "white";
-    var elements = document.querySelectorAll('[id^="li_id_"]');
-    elements.forEach(function(element) {
-      element.style.backgroundColor = "white";
-    });
+    document.getElementById("appointments_button").style.backgroundColor = "lightgreen";
+    document.getElementById('admin_users_button').style.backgroundColor = "white";
+    document.getElementById("my_account_button").style.backgroundColor = "white";
+
+    // var elements = document.querySelectorAll('[id^="li_id_"]');
+    // elements.forEach(function(element) {
+    //   element.style.backgroundColor = "white";
+    // });
   }
+  function show_admin_users_panel()
+  {
+    // alert("qwe");
+    document.getElementById('dashboard_panel').style.display = "none";
+    document.getElementById('appointments_panel').style.display = "none";
+    document.getElementById('admin_users_panel').style.display = "Inherit";
+    document.getElementById('my_account_panel').style.display = "none";
+
+    document.getElementById("dashboard_button").style.backgroundColor = "white";
+    document.getElementById("appointments_button").style.backgroundColor = "white";
+    document.getElementById('admin_users_button').style.backgroundColor = "lightgreen";
+    document.getElementById("my_account_button").style.backgroundColor = "white";
+
+    // var elements = document.querySelectorAll('[id^="li_id_"]');
+    // elements.forEach(function(element) {
+    //   element.style.backgroundColor = "white";
+    // });
+  }
+  function show_my_account_panel()
+  {
+    // alert("qwe");
+    document.getElementById('dashboard_panel').style.display = "none";
+    document.getElementById('appointments_panel').style.display = "none";
+    document.getElementById('admin_users_panel').style.display = "none";
+    document.getElementById('my_account_panel').style.display = "Inherit";
+
+    document.getElementById("dashboard_button").style.backgroundColor = "white";
+    document.getElementById("appointments_button").style.backgroundColor = "white";
+    document.getElementById('admin_users_button').style.backgroundColor = "white";
+    document.getElementById("my_account_button").style.backgroundColor = "lightgreen";
+
+    // var elements = document.querySelectorAll('[id^="li_id_"]');
+    // elements.forEach(function(element) {
+    //   element.style.backgroundColor = "white";
+    // });
+  }
+  
+  // function show_department_panel()
+  // {
+  //   document.getElementById('dashboard_panel').style.display = "none";
+  //   document.getElementById('department_panel').style.display = "Inherit";
+
+  //   document.getElementById("dashboard_button").style.backgroundColor = "white";
+  //   var elements = document.querySelectorAll('[id^="li_id_"]');
+  //   elements.forEach(function(element) {
+  //     element.style.backgroundColor = "white";
+  //   });
+  // }
 
   function add_department_ajax()
   {
@@ -565,68 +1050,92 @@ $(document).ready(function() {
   }
 </script>
 <script>
-    const department_lists_from_db = e => 
-    {
-      var department_id = `${e.target.id}`;
-      // alert(department_id);  
+    // const department_lists_from_db = e => 
+    // {
+    //   var department_id = `${e.target.id}`;
+    //   // alert(department_id);  
 
-      if (department_id.startsWith("department_id_")) 
-      {
-        var data = 
-        {
-          action: 'ipasok_sa_department_panel_mga_details',
-          department_id: department_id,
-        };
+    //   if (department_id.startsWith("department_id_")) 
+    //   {
+    //     var data = 
+    //     {
+    //       action: 'ipasok_sa_department_panel_mga_details',
+    //       department_id: department_id,
+    //     };
 
-        $.ajax({
-          url: 'admin_ajax.php',
-          type: 'post',
-          data: data,
+    //     $.ajax({
+    //       url: 'admin_ajax.php',
+    //       type: 'post',
+    //       data: data,
 
-          success:function(response)
-          {
-            var parsedResponse = JSON.parse(response);
-          // document.getElementById("tbodies_pending").innerHTML = parsedResponse[0];
+    //       success:function(response)
+    //       {
+    //         var parsedResponse = JSON.parse(response);
+    //       // document.getElementById("tbodies_pending").innerHTML = parsedResponse[0];
 
-            //ilagay department name sa header
-            // document.getElementById("department_name_and_action").innerHTML = '<span style="font-size:26px;">Department Name: <b>'+parsedResponse[0]+'</b></span><input type="button" value="Delete" class="btn btn-danger" style="float:right;"><input type="button" value="Rename" class="btn btn-info" style="float:right; margin-right:10px;">';
-            document.getElementById("department_name_and_action").innerHTML = '<div class="department-container">'+
-            '<span>Department Name: <b>'+parsedResponse[0]+'</b></span>'+
-            '<div class="department-actions">'+
-            '  <input type="button" value="Rename" class="btn btn-info">'+
-            '  <input type="button" value="Delete" class="btn btn-danger">'+
-            '</div>'+
-            '</div>';
+    //         //ilagay department name sa header
+    //         // document.getElementById("department_name_and_action").innerHTML = '<span style="font-size:26px;">Department Name: <b>'+parsedResponse[0]+'</b></span><input type="button" value="Delete" class="btn btn-danger" style="float:right;"><input type="button" value="Rename" class="btn btn-info" style="float:right; margin-right:10px;">';
+    //         document.getElementById("department_name_and_action").innerHTML = '<div class="department-container">'+
+    //         '<span>Department Name: <b>'+parsedResponse[0]+'</b></span>'+
+    //         '<div class="department-actions">'+
+    //         '  <input type="button" value="Rename" class="btn btn-info">'+
+    //         '  <input type="button" value="Delete" class="btn btn-danger">'+
+    //         '</div>'+
+    //         '</div>';
 
-            document.getElementById("department_table").innerHTML = "";
-            document.getElementById("department_table").innerHTML += '<thead class="thead-dark">'
-            + '<tr>'
-            + '<th>ID</th>'
-            + '<th>Full Name</th>'
-            + '<th>Username</th>'
-            + '<th>Admin Type</th>'
-            + '<th>Actions</th>'
-            + '</tr>'
-            + '</thead>';
+    //         document.getElementById("department_table").innerHTML = "";
+    //         document.getElementById("department_table").innerHTML += '<thead class="thead-dark">'
+    //         + '<tr>'
+    //         + '<th>ID</th>'
+    //         + '<th>Full Name</th>'
+    //         + '<th>Username</th>'
+    //         + '<th>Admin Type</th>'
+    //         + '<th>Actions</th>'
+    //         + '</tr>'
+    //         + '</thead>';
 
-            document.getElementById("department_table").innerHTML += parsedResponse[1];
+    //         document.getElementById("department_table").innerHTML += parsedResponse[1];
 
-            document.getElementById("li_id_"+parsedResponse[2]).style.backgroundColor = "lightgreen";
+    //         document.getElementById("li_id_"+parsedResponse[2]).style.backgroundColor = "lightgreen";
             
-            // Destroy the existing DataTable instance
-            var dataTable = $("#department_table").DataTable();
-            dataTable.destroy();
+    //         // Destroy the existing DataTable instance
+    //         var dataTable = $("#department_table").DataTable();
+    //         dataTable.destroy();
 
-            // Now you can reinitialize the DataTable with new settings or data
-            $("#department_table").DataTable({});
+    //         // Now you can reinitialize the DataTable with new settings or data
+    //         $("#department_table").DataTable({});
             
-            show_department_panel();
-            document.getElementById("li_id_"+parsedResponse[2]).style.backgroundColor = "lightgreen";
-          }
-        });
-      }
-    }
-    document.getElementById("department_lists_from_db").addEventListener("click", department_lists_from_db);
+    //         show_department_panel();
+    //         document.getElementById("li_id_"+parsedResponse[2]).style.backgroundColor = "lightgreen";
+    //       }
+    //     });
+    //   }
+    // }
+    // document.getElementById("department_lists_from_db").addEventListener("click", department_lists_from_db);
+    
+</script>
+<script>
+function getCurrentFormattedDate() {
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    
+    const currentDate = new Date();
+    const monthIndex = currentDate.getMonth();
+    const day = currentDate.getDate();
+    const year = currentDate.getFullYear();
+
+    const formattedDate = months[monthIndex] + " " + day + ", " + year;
+    return formattedDate;
+}
+
+document.getElementById('currentDate').textContent = getCurrentFormattedDate();
+
+document.getElementById("left_nav_bar").addEventListener('mousedown', function(event) {
+    event.preventDefault();
+});
+
+document.getElementById("left_nav_bar").addEventListener('mouseup', function(event) {
+    event.preventDefault();
+});
 </script>
 </html>
 

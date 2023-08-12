@@ -38,6 +38,7 @@
       {
         $success = 1;
         $_SESSION['kakalogin_lang'] = true;
+        $_SESSION['admin_username'] = $admin_username;
       }
       else
       {
