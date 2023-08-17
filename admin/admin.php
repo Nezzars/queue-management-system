@@ -626,16 +626,62 @@
         <br>
       </div>
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+    <div id="biar">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    </div>
   </div>
 <!-- DASHBOARD PANEL -->
 <!-- APPOINTMENT PANEL -->
@@ -865,8 +911,9 @@ $(document).ready(function() {
     setTimeout(function() {
       document.querySelector('.fc-prev-button').click();
       document.getElementById("dashboard_with_icon_button").click();
+      document.getElementById("biar").style.display = "none";
     }, 800);
-  }, 1000); // 2000 milliseconds = 2 seconds
+  }, 1500); // 2000 milliseconds = 2 seconds
 </script>
 
 </body>

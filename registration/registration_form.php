@@ -48,6 +48,7 @@ $today = date("Y-m-d");
     <?php
       include '../cdn/cdns.php';
     ?>
+    
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
     <style>
         body{
@@ -83,6 +84,77 @@ $today = date("Y-m-d");
   </head>
 
   <body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Loading SPINNER -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal11" id="launch_modal_id" style="display:none;">
+  open loading
+</button>
+
+<div class="modal fade" id="exampleModal11" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="loader">
+        <div class="loading">
+        </div>
+    </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="display:none;">
+        <div class="modal-header" style="display:none;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close_loading_button">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        </div>
+    </div>
+</div>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.loader {
+  display: none;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.loading {
+  border: 2px solid #ccc;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border-top-color: #1ecd97;
+  border-left-color: #1ecd97;
+  animation: spin 1s infinite ease-in;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+</style>
+
+<script type="text/javascript">
+    function open_loading() 
+    {
+        document.getElementById("launch_modal_id").click();
+        document.getElementsByClassName("loader")[0].style.display = "block";
+        document.getElementById("exampleModal11").style.pointerEvents = "none";
+    }
+    function close_loading() 
+    {
+        document.getElementById("close_loading_button").click();
+    }
+</script>  
+<!-- Loading SPINNER -->
     <br>
     <br>
     <br>
@@ -160,16 +232,12 @@ $today = date("Y-m-d");
 <!-- Loading SPINNER -->
   <!-- START OF TEST FORM NILABAS KO SYA SA MAIN CONTAINER -->
 
-  <form id="test-form" class="mb-3 p-2 " style="background-color:white; border-radius:10px;" action="registration_form_function.php" method="post" name="registration_form">
-
   
-    <div id="personal-details" class="form-group" >
-
-    <!-- OPENING DIV 
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">-->
-        <center>
-            <h2 id="title" class="h2 mb-0 text-gray-800 p-2">Student Registration Form</h2>
-        </center><br>
+  <form id="test-form" class="mb-3 p-2 " style="background-color:white; border-radius:10px; margin-top:20px; margin-bottom:40px;" action="registration_form_function.php" method="post" name="registration_form">
+  <h1 id="title" class="h2 mb-0 text-gray-800 p-2" style="text-align:center; background-color:#1F5642; color:white;margin:-8px; border-radius:10px;">Student Registration Form</h1>
+    <div id="personal-details" class="form-group" style="padding:40px;">
+        
+        <br>
     <!--</div>
      CLOSING DIV -->
 
@@ -184,7 +252,7 @@ $today = date("Y-m-d");
         <!-- <div class="row">
             <div class="col">
 
-                <label for="memberusername"><b>ORDER ID</b></label>
+                <label for="username_textfield"><b>ORDER ID</b></label>
                 
                 <input type="text" required id="order_id" name="order_id" class="form-control form-control-sm mb-2">
                 <script>
@@ -225,11 +293,12 @@ $today = date("Y-m-d");
             }
 
         </style>
+        <h5 style="text-align:center; margin-top:-40px;">Account Information</h5>
         <div class="form-row">
             <!-- OPENING DIV COL-->
                 <div class="col">
-                    <label for="memberusername">Username</label>
-                    <input type="text" required id="memberusername" name="memberusername" class="form-control form-control-sm mb-2">
+                    <label for="username_textfield">Username</label>
+                    <input type="text" required id="username_textfield" name="username_textfield" class="form-control form-control-sm mb-2">
                 </div>
             <!-- CLOSING DIV -->
 
@@ -242,12 +311,25 @@ $today = date("Y-m-d");
                 </div>-->
 
                 <div class="col">
-                    <label for="memberpassword">Password</label>
+                    <label for="password_textfield">Password</label>
                     <div class="input-group">
-                        <input type="password" required id="memberpassword" name="memberpassword" class="form-control form-control-sm">
+                        <input type="password" required id="password_textfield" name="password_textfield" class="form-control form-control-sm">
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary toggle-password" type="button" id="togglePassword">
                                 <i class="fa fa-eye" id="eyeIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="error-message" class="text-danger"></div>
+                </div>
+
+                <div class="col">
+                    <label for="confirm_password_textfield">Confirm Password</label>
+                    <div class="input-group">
+                        <input type="password" required id="confirm_password_textfield" name="confirm_password_textfield" class="form-control form-control-sm">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary toggle-password" type="button" id="toggleConfirmPassword">
+                                <i class="fa fa-eye" id="eyeIcon1"></i>
                             </button>
                         </div>
                     </div>
@@ -257,45 +339,76 @@ $today = date("Y-m-d");
                 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> -->
         
                 <script>
-                document.getElementById("togglePassword").addEventListener("click", function() {
-                const passwordInput = document.getElementById("memberpassword");
-                const eyeIcon = document.getElementById("eyeIcon");
+                  document.getElementById("togglePassword").addEventListener("click", function() {
+                  const passwordInput = document.getElementById("password_textfield");
+                  const eyeIcon = document.getElementById("eyeIcon");
 
-                if (passwordInput.type === "password") {
-                    passwordInput.type = "text";
-                    eyeIcon.classList.remove("fa-eye");
-                    eyeIcon.classList.add("fa-eye-slash");
-                } else {
-                    passwordInput.type = "password";
-                    eyeIcon.classList.remove("fa-eye-slash");
-                    eyeIcon.classList.add("fa-eye");
-                }
-                });
+                  if (passwordInput.type === "password") {
+                      passwordInput.type = "text";
+                      eyeIcon.classList.remove("fa-eye");
+                      eyeIcon.classList.add("fa-eye-slash");
+                  } else {
+                      passwordInput.type = "password";
+                      eyeIcon.classList.remove("fa-eye-slash");
+                      eyeIcon.classList.add("fa-eye");
+                  }
+                  });
+                </script>
+
+                <script>
+                  document.getElementById("toggleConfirmPassword").addEventListener("click", function() {
+                  const passwordInput = document.getElementById("confirm_password_textfield");
+                  const eyeIcon = document.getElementById("eyeIcon1");
+
+                  if (passwordInput.type === "password") {
+                      passwordInput.type = "text";
+                      eyeIcon.classList.remove("fa-eye");
+                      eyeIcon.classList.add("fa-eye-slash");
+                  } else {
+                      passwordInput.type = "password";
+                      eyeIcon.classList.remove("fa-eye-slash");
+                      eyeIcon.classList.add("fa-eye");
+                  }
+                  });
                 </script>
 
         </div>
         <!-- CLOSING DIV -->
 
-                <!-- EMAIL -->
-                <div class="form-row">
-                    <label for="email">Email</label>
-                    <input type="email" required name="email" class="form-control mb-2" id="email">
-                </div>
-            <!-- CLOSING DIV OF ROW-->
+        <hr>
+        <h5 style="text-align:center;">Institute Information</h5>
+        <div class="form-row">
+            <label for="email">Student Number: </label>
+            <input type="email" required name="student_number_textfield" class="form-control mb-2" id="student_number_textfield" placeholder="Ex. 2018-1132">
+        </div>
+        <div class="form-row">
+            <label for="email">Institute Email</label>
+            <input type="email" required name="email" class="form-control mb-2" id="institute_email_textfield" placeholder="@paterostechnologicalcollege.edu.ph">
+        </div>
+        <div class="form-row">
+            <label for="gender">Student Type</label>
+            <select class="form-control form-control-sm mb-2" name="student_type_dropdownlist" id="student_type_dropdownlist">
+              <option value="" disabled selected>Choose...</option>
+              <option value="Regular">Regular</option>
+              <option value="Irregular">Irregular</option>
+            </select>
+        </div>
+        <div class="form-row">
+            <label for="email">Course</label>
+            <input type="email" required name="email" class="form-control mb-2" id="course_textfield" placeholder="Ex. BSIT">
+        </div>
 
-
-        <!--</div> <!-- CLOSING DIV OF USER PASS -->
-
-    <!-- FIRST NAME -->
+        <hr>
+        <h5 style="text-align:center;">Personal Information</h5>
                 <div class="form-row">
                     <label for="firstname">First Name</label>
-                    <input type="text" required id="firstname" name="firstname" class="form-control form-control-sm mb-2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="20">
+                    <input type="text" required id="first_name_textfield" name="firstname" class="form-control form-control-sm mb-2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="20">
                 </div>
 
                 <!-- MIDDLE NAME -->
                  <div class="form-row">
                                     <label for="middlename">Middle Name</label>
-                                    <input type="text" placeholder="Leave if none" id="middlename" name="middlename" class="form-control form-control-sm mb-2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="20">
+                                    <input type="text" placeholder="Leave if none" id="middle_name_textfield" name="middlename" class="form-control form-control-sm mb-2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="20">
                  </div>
 
 
@@ -303,12 +416,12 @@ $today = date("Y-m-d");
                 <!-- LAST NAME -->
                 <div class="form-row">
                     <label for="lastname">Last Name</label>
-                    <input type="text" required="" id="lastname" name="lastname" class="form-control form-control-sm mb-2" id="inputls" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="20">
+                    <input type="text" required="" id="last_name_textfield" name="lastname" class="form-control form-control-sm mb-2" id="inputls" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="20">
                 </div>
 
                 <div class="form-row">
                                 <label for="suffix">Suffix</label>
-                                <input type="text" placeholder="Leave if none" id="suffix" name="suffix" class="form-control form-control-sm mb-2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="15">
+                                <input type="text" placeholder="Leave if none" id="suffix_textfield" name="suffix" class="form-control form-control-sm mb-2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="15">
                             </div>
 
                 <!-- <div class="form-row">
@@ -321,22 +434,26 @@ $today = date("Y-m-d");
                 
                 <div class="form-row">
                     <label for="gender">Gender</label>
-                    <input type="text" required="" id="lastname" name="lastname" class="form-control form-control-sm mb-2" id="inputls" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="20">
+                    <select class="form-control form-control-sm mb-2" name="gender_dropdownlist" id="gender_dropdownlist">
+                      <option value="" disabled selected>Choose...</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </select>
                 </div>
 
                 <div class="form-row">
                     <label for="bday">Birthday</label>
-                    <input type="date" required id="bday" value="" name="bday" class="form-control form-control-sm mb-2">
+                    <input type="date" required id="birthday_textfield" value="" name="bday" class="form-control form-control-sm mb-2">
                 </div>
 
                 <div class="form-row">
                     <label for="contactnumber">Contact No.</label>
-                    <input type="text" required name="contactnumber" class="form-control form-control-sm mb-2" id="number" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11">
+                    <input type="text" required name="contactnumber" class="form-control form-control-sm mb-2" id="contact_no_textfield" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11" placeholder="Leave if none">
                 </div>
 
                 <div class="form-row">
                     <label for="address">Street Address</label>
-                    <input type="text" required id="street_address" class="form-control form-control-sm mb-2" name="street_address" placeholder="House No. and Street Name">
+                    <input type="text" required id="street_address_textfield" class="form-control form-control-sm mb-2" name="street_address" placeholder="House No. and Street Name">
                 </div>
                 <div class="form-row">
                     <label for="address">Province</label>
@@ -374,7 +491,7 @@ $today = date("Y-m-d");
                 </div>
                 <div class="form-row">
                     <label for="address">Postcode / ZIP</label>
-                    <input type="text" required id="postcode" class="form-control form-control-sm mb-2" name="postcode" placeholder="Optional">
+                    <input type="text" required id="postcode_textfield" class="form-control form-control-sm mb-2" name="postcode" placeholder="Optional">
                 </div>
 
                 <!-- PREVIOUS POSITION OF AFFILIATE COUPON -->
@@ -383,8 +500,8 @@ $today = date("Y-m-d");
 
                 <div class="form-group">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-                        <label class="form-check-label" for="invalidCheck">
+                        <input class="form-check-input" type="checkbox" value="" id="agree_checkbox" required>
+                        <label class="form-check-label" for="invalidCheck" onclick="document.getElementById('agree_checkbox').click();">
                         I Agree to terms and conditions. Read the complete <a href="#">Privacy Statement</a> to know more.
                         </label>
                         <div class="invalid-feedback">
@@ -395,7 +512,9 @@ $today = date("Y-m-d");
 
                 <!--<input type="submit" id="temp_submit" name = "temp_submit" style="display:none;"> -->
                 <center>
-                  <input type = "button" name = "submitMember" id = "submitMember" value="Sign up" class="btn btn-success" style="width:100px;" onclick="submitMember_function()">
+                  <br>
+                  <input type = "button" name = "submitMember" id = "submitMember" value="Sign Up" class="btn btn-success" style="width:100%;" onclick="submitMember_function()">
+                  <br>
                   <br>
                   Already have an account? <a href="../login/login.php">Login</a>
                 </center>
@@ -1125,20 +1244,21 @@ if (str.length == 0) {
 </footer>
 <!-- END OF FOOTER -->
 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script> -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script> -->
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
 
 </body>
+
 </html>
 
 
  <script>
   $(document).ready(function(){
-   $('#memberusername').blur(function(){
+   $('#username_textfield').blur(function(){
 
    var member_username = $(this).val();
     $.ajax({
@@ -1253,9 +1373,9 @@ if (str.length == 0) {
 </script>
 
 <!-- If using a CDN -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
-<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-</script>
+
+<!-- <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+</script> -->
 <script type="text/javascript">
         function select_data_using_order_id(action){
         $(document).ready(function(){
@@ -1339,125 +1459,281 @@ if (str.length == 0) {
         });
         }
 </script>
-
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
     function submitMember_function()
     {
-        if (document.getElementById("memberusername").value.trim() == "")
+        if (document.getElementById("username_textfield").value.trim() == "")
         {
-            document.getElementById("memberusername").setCustomValidity("Please fill out this field.");
-            document.getElementById("memberusername").reportValidity();
+            document.getElementById("username_textfield").setCustomValidity("Please fill out this field.");
+            document.getElementById("username_textfield").reportValidity();
+            Swal.fire(
+              'Invalid!',
+              'Please put your username!',
+              'error'
+            )
         }
-        else if (document.getElementById("memberusername").value.trim().length < 5)
+        else if (document.getElementById("username_textfield").value.trim().length < 5)
         {
-            document.getElementById("memberusername").setCustomValidity("Username must be at least 5 characters long.");
-            document.getElementById("memberusername").reportValidity();
+            document.getElementById("username_textfield").setCustomValidity("Username must be at least 5 characters long.");
+            document.getElementById("username_textfield").reportValidity();
+            Swal.fire(
+              'Invalid!',
+              'Username must be at least 5 characters long!',
+              'error'
+            )
         }
-        else if (document.getElementById("memberusername").value.trim().length > 18)
+        else if (document.getElementById("username_textfield").value.trim().length > 18)
         {
-            document.getElementById("memberusername").setCustomValidity("Username must be 18 characters or less.");
-            document.getElementById("memberusername").reportValidity();
+            document.getElementById("username_textfield").setCustomValidity("Username must be 18 characters or less.");
+            document.getElementById("username_textfield").reportValidity();
+            Swal.fire(
+              'Invalid!',
+              'Username must be 18 characters or less!',
+              'error'
+            )
         }
-        else if (document.getElementById("availability2").innerHTML === '<span class="text-danger" id="username_validity">User Existing</span>') 
+        else if (document.getElementById("password_textfield").value == "")
         {
-            document.getElementById("memberusername").setCustomValidity("Username already exists. Please choose a different one.");
-            document.getElementById("memberusername").reportValidity();
+            document.getElementById("password_textfield").setCustomValidity("Please fill out this field.");
+            document.getElementById("password_textfield").reportValidity();
+
+            Swal.fire(
+              'Invalid!',
+              'Please put your password!',
+              'error'
+            )
         }
-        else if (document.getElementById("memberpassword").value.trim() == "")
+        else if (document.getElementById("confirm_password_textfield").value == "")
         {
-            document.getElementById("memberpassword").setCustomValidity("Please fill out this field.");
-            document.getElementById("memberpassword").reportValidity();
+            document.getElementById("confirm_password_textfield").setCustomValidity("Please fill out this field.");
+            document.getElementById("confirm_password_textfield").reportValidity();
+
+            Swal.fire(
+              'Invalid!',
+              'Please put your confirm password!',
+              'error'
+            )
         }
-        // else if (document.getElementById("email").value.trim() == "")
-        // {
-        //     document.getElementById("email").setCustomValidity("Please fill out this field.");
-        //     document.getElementById("email").reportValidity();
-        // }
-        // else if (document.getElementById("email").value.trim().indexOf("@") === -1) 
-        // {
-        //     document.getElementById("email").setCustomValidity("Please include an '@' in the email address.");
-        //     document.getElementById("email").reportValidity();
-        // }
-        // else if (document.getElementById("firstname").value.trim() == "")
-        // {
-        //     document.getElementById("firstname").setCustomValidity("Please fill out this field.");
-        //     document.getElementById("firstname").reportValidity();
-        // }
-        // else if (document.getElementById("lastname").value.trim() == "")
-        // {
-        //     document.getElementById("lastname").setCustomValidity("Please fill out this field.");
-        //     document.getElementById("lastname").reportValidity();
-        // }
-        // else if (document.getElementById("lastname").value.trim() == "")
-        // {
-        //     document.getElementById("lastname").setCustomValidity("Please fill out this field.");
-        //     document.getElementById("lastname").reportValidity();
-        // }
-        // else if (document.getElementById("agent_username").value.trim() == "")
-        // {
-        //     document.getElementById("agent_username").setCustomValidity("Please fill out this field.");
-        //     document.getElementById("agent_username").reportValidity();
-        // }
-        // else if (document.getElementById("affiliate_code_validity").innerHTML == "Coupon Not Found") 
-        // {
-        //     document.getElementById("agent_username").setCustomValidity("Coupon Not Found");
-        //     document.getElementById("agent_username").reportValidity();
-        // }
-        // else if (document.getElementById("agent_username").value.trim() == "")
-        // {
-        //     document.getElementById("agent_username").setCustomValidity("Please fill out this field.");
-        //     document.getElementById("agent_username").reportValidity();
-        // }
-        // else if (document.getElementById("gender").value.trim() == "Choose...")
-        // {
-        //     document.getElementById("gender").setCustomValidity("Select your gender!");
-        //     document.getElementById("gender").reportValidity();
-        // }
-        // else if (document.getElementById("bday").value.trim() == "")
-        // {
-        //     document.getElementById("bday").setCustomValidity("Please fill out this field.");
-        //     document.getElementById("bday").reportValidity();
-        // }
-        // else if (document.getElementById("number").value.trim() == "")
-        // {
-        //     document.getElementById("number").setCustomValidity("Please fill out this field.");
-        //     document.getElementById("number").reportValidity();
-        // }
-        // else if (/^[0-9]*$/.test(document.getElementById("number").value.trim()) === false) 
-        // {
-        //     document.getElementById("number").setCustomValidity("Invalid input. Only numbers are allowed.");
-        //     document.getElementById("number").reportValidity();
-        // }
-        // else if (document.getElementById("street_address").value.trim() == "")
-        // {
-        //     document.getElementById("street_address").setCustomValidity("Please fill out this field.");
-        //     document.getElementById("street_address").reportValidity();
-        // }
-        // else if (document.getElementById("state_country").selectedIndex === 0 || document.getElementById("state_country").value === "")
-        // {
-        //     document.getElementById("state_country").setCustomValidity("Select your State or Province! example: Metro Manila");
-        //     document.getElementById("state_country").reportValidity();
-        // }
-        // else if (document.getElementById("town_city").selectedIndex === 0 || document.getElementById("town_city").value === "") 
-        // {
-        //     document.getElementById("town_city").setCustomValidity("Select your Town City!");
-        //     document.getElementById("town_city").reportValidity();
-        // }
-        // else if (document.getElementById("barangay_textfield").selectedIndex === 0 || document.getElementById("barangay_textfield").value === "") 
-        // {
-        //     document.getElementById("barangay_textfield").setCustomValidity("Select your Barangay!");
-        //     document.getElementById("barangay_textfield").reportValidity();
-        // }
-        // else if(!document.getElementById("invalidCheck").checked)
-        // {
-        //     document.getElementById("invalidCheck").setCustomValidity("You must agree to the terms and conditions.");
-        //     document.getElementById("invalidCheck").reportValidity();
-        // }
-        else
+        else if (document.getElementById("confirm_password_textfield").value !== document.getElementById("password_textfield").value) {
+            document.getElementById("confirm_password_textfield").setCustomValidity("Passwords do not match");
+            document.getElementById("confirm_password_textfield").reportValidity();
+
+            Swal.fire(
+                'Invalid!',
+                'Passwords are not the same!',
+                'error'
+            );
+        }
+        else if (document.getElementById("student_number_textfield").value.trim() == "")
         {
-            var form = document.getElementById("test-form");
-            
-            form.submit();
+            document.getElementById("student_number_textfield").setCustomValidity("Please fill out this field.");
+            document.getElementById("student_number_textfield").reportValidity();
+
+            Swal.fire(
+              'Invalid!',
+              'Please put your Student Number!',
+              'error'
+            )
+        }
+        else if (document.getElementById("institute_email_textfield").value.trim() == "")
+        {
+            document.getElementById("institute_email_textfield").setCustomValidity("Please fill out this field.");
+            document.getElementById("institute_email_textfield").reportValidity();
+
+            Swal.fire(
+              'Invalid!',
+              'Please put your Institute Email!',
+              'error'
+            )
+        }
+        else if (!document.getElementById("institute_email_textfield").value.endsWith("@paterostechnologicalcollege.edu.ph"))
+        {
+            document.getElementById("institute_email_textfield").setCustomValidity("Email must end with @paterostechnologicalcollege.edu.ph.");
+            document.getElementById("institute_email_textfield").reportValidity();
+
+            Swal.fire(
+              'Invalid!',
+              'Email is invalid! You must put your Institute Email!',
+              'error'
+            )
+        }
+        else if (document.getElementById("student_type_dropdownlist").value.trim() == "")
+        {
+            document.getElementById("student_type_dropdownlist").setCustomValidity("Please fill out this field.");
+            document.getElementById("student_type_dropdownlist").reportValidity();
+
+            Swal.fire(
+              'Invalid!',
+              'Please select your Student Type!',
+              'error'
+            )
+        }
+        else if (document.getElementById("course_textfield").value.trim() == "")
+        {
+            document.getElementById("course_textfield").setCustomValidity("Please fill out this field.");
+            document.getElementById("course_textfield").reportValidity();
+
+            Swal.fire(
+              'Invalid!',
+              'Please put your Course!',
+              'error'
+            )
+        }
+        else if (document.getElementById("first_name_textfield").value.trim() == "")
+        {
+            document.getElementById("first_name_textfield").setCustomValidity("Please fill out this field.");
+            document.getElementById("first_name_textfield").reportValidity();
+
+            Swal.fire(
+              'Invalid!',
+              'Please put your First Name!',
+              'error'
+            )
+        }
+        else if (document.getElementById("last_name_textfield").value.trim() == "")
+        {
+            document.getElementById("last_name_textfield").setCustomValidity("Please fill out this field.");
+            document.getElementById("last_name_textfield").reportValidity();
+
+            Swal.fire(
+              'Invalid!',
+              'Please put your Last Name!',
+              'error'
+            )
+        }
+        else if (document.getElementById("gender_dropdownlist").value.trim() == "")
+        {
+            document.getElementById("gender_dropdownlist").setCustomValidity("Please fill out this field.");
+            document.getElementById("gender_dropdownlist").reportValidity();
+
+            Swal.fire(
+              'Invalid!',
+              'Please select your Gender!',
+              'error'
+            )
+        }
+        else if (document.getElementById("birthday_textfield").value.trim() == "")
+        {
+            document.getElementById("birthday_textfield").setCustomValidity("Please fill out this field.");
+            document.getElementById("birthday_textfield").reportValidity();
+
+            Swal.fire(
+              'Invalid!',
+              'Please put your Birthday!',
+              'error'
+            )
+        }
+        else if (document.getElementById("street_address_textfield").value.trim() == "")
+        {
+            document.getElementById("street_address_textfield").setCustomValidity("Please fill out this field.");
+            document.getElementById("street_address_textfield").reportValidity();
+
+            Swal.fire(
+              'Invalid!',
+              'Please put your Street Address!',
+              'error'
+            )
+        }
+        else if (document.getElementById("province_dropdownlist").value.trim() == "")
+        {
+            document.getElementById("province_dropdownlist").setCustomValidity("Please fill out this field.");
+            document.getElementById("province_dropdownlist").reportValidity();
+
+            Swal.fire(
+              'Invalid!',
+              'Please select your Province!',
+              'error'
+            )
+        }
+        else if (document.getElementById("town_city_dropdownlist").value.trim() == "")
+        {
+            document.getElementById("town_city_dropdownlist").setCustomValidity("Please fill out this field.");
+            document.getElementById("town_city_dropdownlist").reportValidity();
+
+            Swal.fire(
+              'Invalid!',
+              'Please select your Town / City!',
+              'error'
+            )
+        }
+        else if (document.getElementById("barangay_dropdownlist").value.trim() == "")
+        {
+            document.getElementById("barangay_dropdownlist").setCustomValidity("Please fill out this field.");
+            document.getElementById("barangay_dropdownlist").reportValidity();
+
+            Swal.fire(
+              'Invalid!',
+              'Please select your Barangay!',
+              'error'
+            )
+        }
+        else if (!document.getElementById("agree_checkbox").checked)
+        {
+            // document.getElementById("barangay_dropdownlist").setCustomValidity("Please fill out this field.");
+            // document.getElementById("barangay_dropdownlist").reportValidity();
+
+            Swal.fire(
+              'Invalid!',
+              'Please Agree to terms and conditions!',
+              'error'
+            )
+        }
+        else 
+        {
+          open_loading();
+          var data = 
+          {
+            action1: 'student_registration_ajax',
+            username_textfield: document.getElementById("username_textfield").value.trim(),
+            password_textfield: document.getElementById("password_textfield").value,
+            student_number_textfield: document.getElementById("student_number_textfield").value.trim(),
+            institute_email_textfield: document.getElementById("institute_email_textfield").value.trim(),
+            student_type_dropdownlist: document.getElementById("student_type_dropdownlist").value.trim(),
+            course_textfield: document.getElementById("course_textfield").value.trim(),
+            first_name_textfield: document.getElementById("first_name_textfield").value.trim(),
+            middle_name_textfield: document.getElementById("middle_name_textfield").value.trim(),
+            last_name_textfield: document.getElementById("last_name_textfield").value.trim(),
+            suffix_textfield: document.getElementById("suffix_textfield").value.trim(),
+            gender_dropdownlist: document.getElementById("gender_dropdownlist").value.trim(),
+            birthday_textfield: document.getElementById("birthday_textfield").value.trim(),
+            contact_no_textfield: document.getElementById("contact_no_textfield").value.trim(),
+            street_address_textfield: document.getElementById("street_address_textfield").value.trim(),
+            province_dropdownlist: document.getElementById("province_dropdownlist").value.trim(),
+            town_city_dropdownlist: document.getElementById("town_city_dropdownlist").value.trim(),
+            barangay_dropdownlist: document.getElementById("barangay_dropdownlist").value.trim(),
+            postcode_textfield: document.getElementById("postcode_textfield").value.trim(),
+          };
+
+          $.ajax({
+            url: 'registration_form_ajax.php',
+            type: 'post',
+            data: data,
+
+            success:function(response){
+              // alert(response);
+              
+              if(response.trim() == "username_existing")
+              {
+                setTimeout(function() {
+                    Swal.fire(
+                        'Invalid!',
+                        'Username already exists! Please try a different one!',
+                        'error'
+                    );
+                    close_loading();
+                    document.getElementById("username_textfield").scrollIntoView();
+                    document.getElementById("username_textfield").focus();
+                }, 1000);
+              }
+              else
+              {
+                var loginPageURL = '../login/login.php';
+                window.location.href = loginPageURL;
+              }
+            }
+              
+          });
         }
     }
 
