@@ -58,6 +58,12 @@
       cursor:pointer;
       background-color:blue;
     }
+    /* .fc-event-center-title::before 
+    {
+      content: " ";
+      display: block;
+      height: 1em; /* Adjust this value to control the spacing
+    }  */
     .fc-event-total {
         background-color: lightgray;
         border: 1px solid gray;
@@ -320,6 +326,7 @@
         .fc-event-center-title {
             text-align: center;
         }
+        
 
         #main_panel
         {
