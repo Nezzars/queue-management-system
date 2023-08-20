@@ -15,6 +15,7 @@
       {
         $success = 1;
         $_SESSION['kakalogin_lang'] = true;
+        $_SESSION['student_username'] = $student_username;
       }
       else
       {
