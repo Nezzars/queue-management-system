@@ -279,6 +279,115 @@
 
 
     </style>
+    <style>
+      /* .modal-body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f4f4f4;
+      } */
+      
+      .checkbox-container {
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+      
+      .checkbox {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      
+      .checkbox label {
+        margin-left: 10px;
+        font-size: 16px;
+      }
+      
+      .checkbox input[type="checkbox"] {
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #007BFF;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: border-color 0.3s;
+        margin-top:-10px;
+      }
+      
+      .checkbox input[type="checkbox"]:checked {
+        border-color: #28A745;
+        background-color: #28A745;
+      }
+    </style>
+    <style>
+      /* MOBILE VIEW LEFT NAV BAR TOGGLE DESIGN */
+        #checkbox_leftnavbar {
+        display: none;
+        }
+
+        .toggle_leftnavbar {
+        position: relative;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        transition-duration: .5s;
+        }
+
+        .bars_leftnavbar {
+        width: 100%;
+        height: 4px;
+        background-color: #1F5642;
+        border-radius: 4px;
+        }
+
+        #bar2_leftnavbar {
+        transition-duration: .8s;
+        }
+
+        #bar1_leftnavbar,#bar3_leftnavbar {
+        width: 70%;
+        }
+
+        #checkbox_leftnavbar:checked + .toggle_leftnavbar .bars_leftnavbar {
+        position: absolute;
+        transition-duration: .5s;
+        }
+
+        #checkbox_leftnavbar:checked + .toggle_leftnavbar #bar2_leftnavbar {
+        transform: scaleX(0);
+        transition-duration: .5s;
+        }
+
+        #checkbox_leftnavbar:checked + .toggle_leftnavbar #bar1_leftnavbar {
+        width: 100%;
+        transform: rotate(45deg);
+        transition-duration: .5s;
+        }
+
+        #checkbox_leftnavbar:checked + .toggle_leftnavbar #bar3_leftnavbar {
+        width: 100%;
+        transform: rotate(-45deg);
+        transition-duration: .5s;
+        }
+
+        #checkbox_leftnavbar:checked + .toggle_leftnavbar {
+        transition-duration: .5s;
+        transform: rotate(180deg);
+        }
+    /* MOBILE VIEW LEFT NAV BAR TOGGLE DESIGN */
+    </style>
 </head>
 
 
@@ -558,10 +667,57 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p id="eventDate"></p>
-                    <p id="totalAppointment"></p>
+                  <!-- appointment modal -->
+                    <div class="checkbox-container">
+                      <div class="mb-3">
+                        <label for="" class="form-label"><b>Record Requested <span style="color:red;">*</span></b></label><br>
+                        <span id="eventDate"></span><br>
+                        <span id="totalAppointment"></span><br>
+                      </div>
+                      <div class="checkbox">
+                        <input type="checkbox" id="transcript_checkbox">
+                        <label for="transcript_checkbox">Transcript</label>
+                      </div>
+                      <div class="checkbox">
+                        <input type="checkbox" id="diploma_checkbox">
+                        <label for="diploma_checkbox">Diploma</label>
+                      </div>
+                      <div class="checkbox">
+                        <input type="checkbox" id="form_137_checkbox">
+                        <label for="form_137_checkbox">Form 137</label>
+                      </div>
+                      <div class="checkbox">
+                        <input type="checkbox" id="certification_checkbox" onchange="appointment_certification_function();">
+                        <label for="certification_checkbox">Certification</label>
+                      </div>
+                      <div class="mb-3" style="margin-left:20px; display:none;" id="certification_checkboxes">
+                        <label for="others_textfield" class="form-label">Certifications</label>
+                        <div class="checkbox">
+                          <input type="checkbox" id="honorable_dismissal_checkbox">
+                          <label for="honorable_dismissal_checkbox">Honorable Dismissal</label>
+                        </div>
+                        <div class="checkbox">
+                          <input type="checkbox" id="good_moral_character_checkbox">
+                          <label for="good_moral_character_checkbox">Good Moral Character</label>
+                        </div>
+                      </div>
+                      <div class="checkbox">
+                        <input type="checkbox" id="others_checkbox" onchange="appointment_others_function();">
+                        <label for="others_checkbox">Others</label>
+                      </div>
+                      <div class="mb-3" style="margin-left:20px; display:none;" id="others_label_and_textfield">
+                        <label for="others_textfield" class="form-label">Please specify requested document if not in the list</label>
+                        <input type="text" class="form-control" id="others_textfield" placeholder="Please Specify your request">
+                      </div>
+                      <hr>
+                      <div class="mb-3">
+                        <label for="purpose_of_request_textfield" class="form-label">Purpose of request</label>
+                        <input type="text" class="form-control" id="purpose_of_request_textfield" placeholder="Type purpose of request">
+                      </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Submit</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -679,7 +835,42 @@
 
 
 
+<script>
+  //2am
+  var mobile_view = false;
+  function leftnavbar_toggle_button_function()
+  {
+    if(document.getElementById("checkbox_leftnavbar").checked)
+    {
+      $('#left_nav_bar').animate({ marginLeft: '0' });
+    }
+  }
 
+  function myFunction(x)
+  {
+    if (x.matches) 
+    { // mobile view
+      $('#left_nav_bar').animate({ marginLeft: '-250px' }); //display = "none"
+      document.getElementById('leftnavbar_toggle_button').style.display = "block";
+      document.getElementById('main_panel').style.width = "100%";
+      $('#main_panel').animate({ marginLeft: '0' });
+      document.getElementById("checkbox_leftnavbar").checked = false;
+      mobile_view = true;
+    } 
+    else 
+    {
+      $('#left_nav_bar').animate({ marginLeft: '0' }); //display = 'block';
+      document.getElementById('leftnavbar_toggle_button').style.display = "none";
+      document.getElementById('main_panel').style.width = "calc(100% - 250px)";
+      $('#main_panel').animate({ marginLeft: '250px' });
+      document.getElementById("checkbox_leftnavbar").checked = true;
+      mobile_view = false;
+    }
+  }
+  var x = window.matchMedia("(max-width: 914px)")
+  myFunction(x) // Call listener function at run time
+  x.addListener(myFunction)
+</script>
 <script>
 $(document).ready(function() {
   $('#department_table').DataTable({
@@ -832,8 +1023,27 @@ $(document).ready(function() {
       }
       else
       {
-        $('#totalAppointment').html(info.event.title);
-        $('#eventDate').html('Date: <b>' + moment(info.event.start).format('YYYY-MM-DD') + '</b>');
+        if(document.getElementById("certification_checkbox").checked)
+        {
+          $('#certification_checkboxes').toggle();
+          document.getElementById("honorable_dismissal_checkbox").checked = false;
+          document.getElementById("good_moral_character_checkbox").checked = false;
+        }
+        if(document.getElementById("others_checkbox").checked)
+        {
+          $('#others_label_and_textfield').toggle();
+          document.getElementById("others_textfield").value = "";
+        }
+
+        document.getElementById("transcript_checkbox").checked = false;
+        document.getElementById("diploma_checkbox").checked = false;
+        document.getElementById("form_137_checkbox").checked = false;
+        document.getElementById("certification_checkbox").checked = false;
+        document.getElementById("others_checkbox").checked = false;
+        document.getElementById("purpose_of_request_textfield").value = "";
+
+        $('#totalAppointment').html('Total Appointments: <b>'+info.event.title+'</b>');
+        $('#eventDate').html('Appointment Date: <b>' + moment(info.event.start).format('YYYY-MM-DD') + '</b>');
         $('#eventModal').modal('show');
       }
     },
@@ -905,4 +1115,35 @@ function generateEvents() {
       document.getElementById("biar").style.display = "none";
     }, 800);
   }, 1500); // 2000 milliseconds = 2 seconds
+</script>
+<script>
+  function appointment_others_function()
+  {
+    if(document.getElementById("others_checkbox").checked)
+    {
+      $('#others_label_and_textfield').slideToggle('2000');
+      document.getElementById("others_textfield").value = "";
+    }
+    else
+    {
+      $('#others_label_and_textfield').slideToggle('2000');
+      document.getElementById("others_textfield").value = "";
+    }
+  }
+
+  function appointment_certification_function()
+  {
+    if(document.getElementById("certification_checkbox").checked)
+    {
+      $('#certification_checkboxes').slideToggle('2000');
+      document.getElementById("honorable_dismissal_checkbox").checked = false;
+      document.getElementById("good_moral_character_checkbox").checked = false;
+    }
+    else
+    {
+      $('#certification_checkboxes').slideToggle('2000');
+      document.getElementById("honorable_dismissal_checkbox").checked = false;
+      document.getElementById("good_moral_character_checkbox").checked = false;
+    }
+  }
 </script>
