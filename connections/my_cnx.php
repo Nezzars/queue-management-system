@@ -1,1 +1,1 @@
-<?php $con = mysqli_connect("localhost", "root", "", "queue_management_system_db"); ?>
+<?php $con = mysqli_connect("localhost", "root", "", "qms-db"); ?>
