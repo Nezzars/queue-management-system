@@ -233,7 +233,7 @@ $today = date("Y-m-d");
   <!-- START OF TEST FORM NILABAS KO SYA SA MAIN CONTAINER -->
 
   
-  <form id="test-form" class="mb-3 p-2 " style="background-color:white; border-radius:10px; margin-top:20px; margin-bottom:40px;" action="registration_form_function.php" method="post" name="registration_form">
+  <form id="test-form" class="mb-3 p-2" style="background-color:white; border-radius:10px; margin-top:20px; margin-bottom:40px;" action="registration_form_function.php" method="post" name="registration_form">
   <h1 id="title" class="h2 mb-0 text-gray-800 p-2" style="text-align:center; background-color:#1F5642; color:white;margin:-8px; border-radius:10px;">Student Registration Form</h1>
     <div id="personal-details" class="form-group" style="padding:40px;">
         

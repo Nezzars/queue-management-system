@@ -18,7 +18,6 @@
   <?php
       // include '../cdn/cdns.php';
   ?>
-  <link href='admin.css' rel='stylesheet' />
   
   <!-- Include Font Awesome for icons -->
   <script src="https://kit.fontawesome.com/a076d05399.js"></script>
@@ -49,9 +48,9 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
   <title>Administrator</title>
-  
 
   <style>
+      
     .fc-event-center-title 
     {
       text-align: center;
@@ -59,6 +58,12 @@
       cursor:pointer;
       background-color:blue;
     }
+    /* .fc-event-center-title::before 
+    {
+      content: " ";
+      display: block;
+      height: 1em; /* Adjust this value to control the spacing
+    }  */
     .fc-event-total {
         background-color: lightgray;
         border: 1px solid gray;
@@ -76,10 +81,72 @@
       padding:0;
       margin:0;
     }
+
+    /* MOBILE VIEW LEFT NAV BAR TOGGLE DESIGN */
+    #checkbox_leftnavbar {
+    display: none;
+    }
+
+    .toggle_leftnavbar {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition-duration: .5s;
+    }
+
+    .bars_leftnavbar {
+    width: 100%;
+    height: 4px;
+    background-color: #1F5642;
+    border-radius: 4px;
+    }
+
+    #bar2_leftnavbar {
+    transition-duration: .8s;
+    }
+
+    #bar1_leftnavbar,#bar3_leftnavbar {
+    width: 70%;
+    }
+
+    #checkbox_leftnavbar:checked + .toggle_leftnavbar .bars_leftnavbar {
+    position: absolute;
+    transition-duration: .5s;
+    }
+
+    #checkbox_leftnavbar:checked + .toggle_leftnavbar #bar2_leftnavbar {
+    transform: scaleX(0);
+    transition-duration: .5s;
+    }
+
+    #checkbox_leftnavbar:checked + .toggle_leftnavbar #bar1_leftnavbar {
+    width: 100%;
+    transform: rotate(45deg);
+    transition-duration: .5s;
+    }
+
+    #checkbox_leftnavbar:checked + .toggle_leftnavbar #bar3_leftnavbar {
+    width: 100%;
+    transform: rotate(-45deg);
+    transition-duration: .5s;
+    }
+
+    #checkbox_leftnavbar:checked + .toggle_leftnavbar {
+    transition-duration: .5s;
+    transform: rotate(180deg);
+    }
+/* MOBILE VIEW LEFT NAV BAR TOGGLE DESIGN */
   </style>
 </head>
 
 <body>
+  
   <!-- Loading SPINNER -->
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal11" id="launch_modal_id" style="display:none;">
   open loading
@@ -256,21 +323,44 @@
             }
         }
 
+        .fc-event-center-title {
+            text-align: center;
+        }
+        
+
+        #main_panel
+        {
+            width: calc(100% - 250px); 
+            margin-left:250px;
+        }
+
+
     </style>
     <?php
       $sql = "  SELECT * FROM ptc_admin WHERE username='".$_SESSION['admin_username']."';";
       $result = mysqli_query($con, $sql);
       $top_nav_bar = mysqli_fetch_assoc($result);
     ?>
-    <div style="display: flex; justify-content: flex-end; padding:15px; background-color:white; border:1px solid lightgray;">
-        <div style="color:black;">
-            <ul class="nav-list" style="margin: 0; padding: 0; list-style: none;">
-                <li style="pointer-events: none;">Type: <b><?php echo strtoupper($top_nav_bar['type']); ?></b></li>
-                <li style="pointer-events: none;">Name: <b><?php echo strtoupper($top_nav_bar['full_name']); ?></b></li>
-                <li style="pointer-events: none;">Username: <b><?php echo strtoupper($top_nav_bar['username']); ?></b></li>
-            </ul>
-        </div>
-    </div>
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background-color: white; border: 1px solid lightgray;">
+      <div id="i want this on left">
+          <ul class="nav-list" style="margin: 0; padding: 0; list-style: none;" id="leftnavbar_toggle_button">
+            <input type="checkbox" id="checkbox_leftnavbar" onclick="leftnavbar_toggle_button_function();">
+            <label for="checkbox_leftnavbar" class="toggle_leftnavbar">
+                <div class="bars_leftnavbar" id="bar1_leftnavbar"></div>
+                <div class="bars_leftnavbar" id="bar2_leftnavbar"></div>
+                <div class="bars_leftnavbar" id="bar3_leftnavbar"></div>
+            </label>
+          </ul>
+      </div>
+      <div id="i want this on right" style="color: black;">
+          <ul class="nav-list" style="margin: 0; padding: 0; list-style: none;">
+              <li style="pointer-events: none;">Type: <b><?php echo strtoupper($top_nav_bar['type']); ?></b></li>
+              <li style="pointer-events: none;">Name: <b><?php echo strtoupper($top_nav_bar['full_name']); ?></b></li>
+              <li style="pointer-events: none;">Username: <b><?php echo strtoupper($top_nav_bar['username']); ?></b></li>
+          </ul>
+      </div>
+  </div>
+
   
 <style>
     .dropdown1 {
@@ -487,17 +577,31 @@
         margin-top: 5px;
       }
     }
+
+    /* Media query for mobile devices */
+    @media (max-width: 767px) {
+        table {
+            width: 100%;
+        }
+        th, td {
+            padding: 8px;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+    }
+
 </style>
 
   <div class="navbar1" id="left_nav_bar" style="overflow-x:scroll;">
     <center>
       <div class="navbar1-header">
           <div class="logo">
-              <img src="../images/ptc_logo_whitebg.jpg" style="width:150px; height:150px;" alt="Your Logo" width="300" height="300">
+              <img src="../images/ptc_logo_whitebg.jpg" style="width:180px; height:180px;" alt="Your Logo" width="300" height="300">
           </div>
       </div>
-    </center>
     <h2>Administrator</h2>
+    </center>
     <hr style="width:100%; margin-bottom:10px;">
     <ul class="navbar1-items" id="dashboard_button">
       <li style="cursor:pointer;" onclick="document.getElementById('dashboard_with_icon_button').click();"><a onclick="show_dashboard_panel();" style="cursor:pointer;" id="dashboard_with_icon_button"><i class="fas fa-tachometer-alt" style="color:green;"></i> &nbsp&nbsp Dashboard</a></li>
@@ -590,25 +694,25 @@
   </div>
 </div>
 
-<div id="main_panel">
+<div id="main_panel" style="">
   <script>
     open_loading();
   </script>
 <!-- DASHBOARD PANEL -->
-  <div id="dashboard_panel" class="left_nav_bar_buttons" style="width: calc(100% - 250px); margin-left:250px;">
+  <div id="dashboard_panel" class="left_nav_bar_buttons" >
     <h1 style="padding:10px; border:1px solid lightgray; text-align:center; background-color:#1F5642; color:white;"><b>Dashboard</b> </h1>
     <div style="display: table;table-layout: fixed; border-spacing: 30px; width:100%; text-align:center;">
-      <div style="display: table-cell; float:left; width:30%; background-color:white; border-radius:10px;">
+      <div style="display: table-cell; float:left; width:100%; background-color:white; border-radius:10px;">
         <br>
         <h1><i class="fa-solid fa-calendar-days" style="color:green;"></i></h1>
         <h4><b id="currentDate"></b></h4>
         <h5>Date Today</h5> 
         <br>
       </div>
-      <div style="display: table-cell; float:left; width:5%;">
+      <!-- <div style="display: table-cell; float:left; width:5%;">
         <br>
-      </div>
-      <div style="display: table-cell; float:left; width:30%; background-color:white; border-radius:10px;">
+      </div> -->
+      <!-- <div style="display: table-cell; float:left; width:30%; background-color:white; border-radius:10px;">
         <br>
         <h1><i class="fa fa-solid fa-building" style="color:green;"></i></h1>
         <h4><b>0</b></h4> 
@@ -624,7 +728,7 @@
         <h4><b>0</b></h4> 
         <h5>Total Students</h5> 
         <br>
-      </div>
+      </div> -->
     </div>
     <div id="biar">
         <br>
@@ -685,7 +789,7 @@
   </div>
 <!-- DASHBOARD PANEL -->
 <!-- APPOINTMENT PANEL -->
-<div id="appointments_panel" class="left_nav_bar_buttons" style="width: calc(100% - 250px); margin-left: 250px;">
+<div id="appointments_panel" class="left_nav_bar_buttons">
   <h1 style="padding:10px; border:1px solid lightgray; text-align:center; background-color:#1F5642; color:white;"><b>Appointments</b> </h1>
     <br>
     <div style="width:95%; margin:auto; padding:20px; background-color:white; border-top:3px solid green; border-radius:5px;">
@@ -800,53 +904,55 @@
 </script>
 <!-- APPOINTMENT PANEL -->
 <!-- ADMIN USERS PANEL -->
-<div id="admin_users_panel" class="left_nav_bar_buttons" style="width: calc(100% - 250px); margin-left:250px;">
+<div id="admin_users_panel" class="left_nav_bar_buttons">
   <h1 style="padding:10px; border:1px solid lightgray; text-align:center; background-color:#1F5642; color:white;"><b>Admin Users</b> </h1>
   <br>
-  <div style="width:95%; margin:auto; padding:20px; background-color:white; border-top:3px solid green; border-radius:5px;">
-  <input type="button" value="Add User" class="btn btn-primary">
-        <br>
-        <br>
-        <table id="department_table" class="table table-striped" style="overflow-x:auto; border-collapse: collapse; text-align:center;">
-          <thead class="thead-dark">
-            <tr>
-              <th>ID</th>
-              <th>Full Name</th>
-              <th>Username</th>
-              <th>Admin Type</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-              $sql = "  SELECT * FROM ptc_admin;  ";
-              $result = mysqli_query($con, $sql);
-          
-              while($row = mysqli_fetch_assoc($result))
-              {
-                  echo '
-                  <tr>
-                    <td>'.strtoupper($row['id']).'</td>
-                    <td>'.strtoupper($row['full_name']).'</td>
-                    <td>'.strtoupper($row['username']).'</td>
-                    <td>'.strtoupper($row['type']).'</td>
-                    <td>
-                      <input type="button" value="Update" class="btn btn-success">
-                      <input type="button" value="Delete" class="btn btn-danger">
-                    </td>
-                  </tr>
-                  ';
-              }
-            ?>
-            
-            
-          </tbody>
-        </table>
+  <div style="width: 95%; margin: auto; padding: 20px; background-color: white; border-top: 3px solid green; border-radius: 5px;">
+    <input type="button" value="Add User" class="btn btn-primary">
+    <br>
+    <br>
+    <div class="table-responsive">
+        <table id="department_table" class="table table-striped" style="overflow-x: auto; border-collapse: collapse; text-align: center;">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Full Name</th>
+                    <th>Username</th>
+                    <th>Admin Type</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+        <?php
+          $sql = "  SELECT * FROM ptc_admin;  ";
+          $result = mysqli_query($con, $sql);
+      
+          while($row = mysqli_fetch_assoc($result))
+          {
+              echo '
+              <tr>
+                <td>'.strtoupper($row['id']).'</td>
+                <td>'.strtoupper($row['full_name']).'</td>
+                <td>'.strtoupper($row['username']).'</td>
+                <td>'.strtoupper($row['type']).'</td>
+                <td>
+                  <input type="button" value="Update" class="btn btn-success">
+                  <input type="button" value="Delete" class="btn btn-danger">
+                </td>
+              </tr>
+              ';
+          }
+        ?>
+        
+        
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 <!-- ADMIN USERS PANEL -->
 <!-- MY ACCOUNT PANEL -->
-<div id="my_account_panel" class="left_nav_bar_buttons" style="width: calc(100% - 250px); margin-left:250px;">
+<div id="my_account_panel" class="left_nav_bar_buttons" >
   <h1 style="padding:10px; border:1px solid lightgray; text-align:center; background-color:#1F5642; color:white;"><b>My Account</b> </h1>
   <br>
   <div style="width:95%; margin:auto; padding:20px; background-color:white; border-top:3px solid green; border-radius:5px;">
@@ -949,6 +1055,42 @@ $(document).ready(function() {
   }, 1500); // 2000 milliseconds = 2 seconds
 </script>
 
+<script>
+  //2am
+  var mobile_view = false;
+  function leftnavbar_toggle_button_function()
+  {
+    if(document.getElementById("checkbox_leftnavbar").checked)
+    {
+      $('#left_nav_bar').animate({ marginLeft: '0' });
+    }
+  }
+
+  function myFunction(x)
+  {
+    if (x.matches) 
+    { // mobile view
+      $('#left_nav_bar').animate({ marginLeft: '-250px' }); //display = "none"
+      document.getElementById('leftnavbar_toggle_button').style.display = "block";
+      document.getElementById('main_panel').style.width = "100%";
+      $('#main_panel').animate({ marginLeft: '0' });
+      document.getElementById("checkbox_leftnavbar").checked = false;
+      mobile_view = true;
+    } 
+    else 
+    {
+      $('#left_nav_bar').animate({ marginLeft: '0' }); //display = 'block';
+      document.getElementById('leftnavbar_toggle_button').style.display = "none";
+      document.getElementById('main_panel').style.width = "calc(100% - 250px)";
+      $('#main_panel').animate({ marginLeft: '250px' });
+      document.getElementById("checkbox_leftnavbar").checked = true;
+      mobile_view = false;
+    }
+  }
+  var x = window.matchMedia("(max-width: 914px)")
+  myFunction(x) // Call listener function at run time
+  x.addListener(myFunction)
+</script>
 </body>
 <script>
   function logout_button()
@@ -994,10 +1136,12 @@ $(document).ready(function() {
     document.getElementById("appointments_button").style.backgroundColor = "white";
     document.getElementById('admin_users_button').style.backgroundColor = "white";
     document.getElementById("my_account_button").style.backgroundColor = "white";
-    // var elements = document.querySelectorAll('[id^="li_id_"]');
-    // elements.forEach(function(element) {
-    //   element.style.backgroundColor = "white";
-    // });
+    
+    if(mobile_view == true)
+    {
+      $('#left_nav_bar').animate({ marginLeft: '-250px' }); //display = "none"
+      document.getElementById("checkbox_leftnavbar").checked = false;
+    }
   }
   function show_appointments_panel()
   {
@@ -1012,10 +1156,11 @@ $(document).ready(function() {
     document.getElementById('admin_users_button').style.backgroundColor = "white";
     document.getElementById("my_account_button").style.backgroundColor = "white";
 
-    // var elements = document.querySelectorAll('[id^="li_id_"]');
-    // elements.forEach(function(element) {
-    //   element.style.backgroundColor = "white";
-    // });
+    if(mobile_view == true)
+    {
+      $('#left_nav_bar').animate({ marginLeft: '-250px' }); //display = "none"
+      document.getElementById("checkbox_leftnavbar").checked = false;
+    }
   }
   function show_admin_users_panel()
   {
@@ -1030,10 +1175,11 @@ $(document).ready(function() {
     document.getElementById('admin_users_button').style.backgroundColor = "lightgreen";
     document.getElementById("my_account_button").style.backgroundColor = "white";
 
-    // var elements = document.querySelectorAll('[id^="li_id_"]');
-    // elements.forEach(function(element) {
-    //   element.style.backgroundColor = "white";
-    // });
+    if(mobile_view == true)
+    {
+      $('#left_nav_bar').animate({ marginLeft: '-250px' }); //display = "none"
+      document.getElementById("checkbox_leftnavbar").checked = false;
+    }
   }
   function show_my_account_panel()
   {
@@ -1048,10 +1194,11 @@ $(document).ready(function() {
     document.getElementById('admin_users_button').style.backgroundColor = "white";
     document.getElementById("my_account_button").style.backgroundColor = "lightgreen";
 
-    // var elements = document.querySelectorAll('[id^="li_id_"]');
-    // elements.forEach(function(element) {
-    //   element.style.backgroundColor = "white";
-    // });
+    if(mobile_view == true)
+    {
+      $('#left_nav_bar').animate({ marginLeft: '-250px' }); //display = "none"
+      document.getElementById("checkbox_leftnavbar").checked = false;
+    }
   }
   
   // function show_department_panel()
