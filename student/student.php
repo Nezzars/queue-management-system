@@ -651,8 +651,9 @@
     <br>
     <div style="width:95%; margin:auto; padding:20px; background-color:white; border-top:3px solid green; border-radius:5px;">
     <div class="card">
-        <div class="card-body">
-            <div id="calendar"></div>
+    <div class="card-body">
+        <div id="calendar"></div>
+
         </div>
     </div>
 
@@ -784,6 +785,9 @@
 </div>
 <!-- MY ACCOUNT PANEL -->
 </div> <!-- end of main_panel -->
+<!-- <button onclick="qweqwe();" type="button">
+  qwe
+</button> -->
 </body>
 
 
@@ -928,6 +932,7 @@ $(document).ready(function() {
       event.preventDefault();
   });
 
+  var pinindot_appointment_panel = false;
   function show_dashboard_panel()
   {
     document.getElementById('dashboard_panel').style.display = "Inherit";
@@ -983,6 +988,7 @@ $(document).ready(function() {
       $('#left_nav_bar').animate({ marginLeft: '-250px' }); //display = "none"
       document.getElementById("checkbox_leftnavbar").checked = false;
     }
+    pinindot_appointment_panel = true;
   }
   function show_my_profile_panel()
   {
@@ -1005,10 +1011,11 @@ $(document).ready(function() {
   }
 </script>
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-  var calendarEl = document.getElementById('calendar');
+  document.addEventListener('DOMContentLoaded', function() 
+  {
+    var calendarEl = document.getElementById('calendar');
 
-  var calendar = new FullCalendar.Calendar(calendarEl, {
+    var calendar = new FullCalendar.Calendar(calendarEl, {
     // ... (other calendar options)
 
     // Event click callback
@@ -1077,11 +1084,9 @@ $(document).ready(function() {
     //   },
       // ... (other events)
     // ]
+    });
+    calendar.render();
   });
-
-  calendar.render();
-});
-
 function generateEvents() {
   var startDate = moment();
   var events = [];
@@ -1146,4 +1151,70 @@ function generateEvents() {
       document.getElementById("good_moral_character_checkbox").checked = false;
     }
   }
+</script>
+<script>
+  setInterval(function() {
+      if(pinindot_appointment_panel == true)
+      {
+        var calendarEl = document.getElementById('calendar');
+        calendarEl.innerHTML = '';
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+
+          eventClick: function(info) {
+          if(info.event.title == "50/50")
+          {
+            Swal.fire(
+              'Invalid!',
+              'No Slot Available!',
+              'error'
+            )
+          }
+          else
+          {
+            if(document.getElementById("certification_checkbox").checked)
+            {
+              $('#certification_checkboxes').toggle();
+              document.getElementById("honorable_dismissal_checkbox").checked = false;
+              document.getElementById("good_moral_character_checkbox").checked = false;
+            }
+            if(document.getElementById("others_checkbox").checked)
+            {
+              $('#others_label_and_textfield').toggle();
+              document.getElementById("others_textfield").value = "";
+            }
+
+            document.getElementById("transcript_checkbox").checked = false;
+            document.getElementById("diploma_checkbox").checked = false;
+            document.getElementById("form_137_checkbox").checked = false;
+            document.getElementById("certification_checkbox").checked = false;
+            document.getElementById("others_checkbox").checked = false;
+            document.getElementById("purpose_of_request_textfield").value = "";
+
+            $('#totalAppointment').html('Total Appointments: <b>'+info.event.title+'</b>');
+            $('#eventDate').html('Appointment Date: <b>' + moment(info.event.start).format('YYYY-MM-DD') + '</b>');
+            $('#eventModal').modal('show');
+          }
+        },
+
+        eventContent: function(info) {
+          var iconClass = info.event.extendedProps.iconClass;
+          if(iconClass == 'fa fa-solid fa-check')
+            var iconHtml = iconClass ? '<i class="' + iconClass + '"></i> <span id="title_label"><br>Slot Available<br></span>  <br> ' : '';
+          else if(iconClass == 'fa fa-solid fa-x')
+            var iconHtml = iconClass ? '<i class="' + iconClass + '"></i> <span id="title_label"><br>No Slot Available<br></span>  <br> ' : '';
+          return {
+            html: iconHtml + info.event.title
+          };
+        },
+
+        events: generateEvents(),
+        });
+        calendar.render();
+      }
+    }, 2000);
+  // function qweqwe()
+  // {
+    
+  // }
 </script>
