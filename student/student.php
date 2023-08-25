@@ -24,7 +24,7 @@
   <?php
     // include '../cdn/cdns.php';
   ?>
-  <link rel="stylesheet" href="student.css">
+  <!-- <link rel="stylesheet" href="student.css"> -->
   <!-- Include Font Awesome for icons -->
   <script src="https://kit.fontawesome.com/a076d05399.js"></script>
   <!-- font-awesome -->
@@ -69,6 +69,16 @@
       width:97%;
       cursor:pointer;
       background-color:red;
+      font-size:14px;
+      color:white;
+    }
+
+    .fc-event-holidayy 
+    {
+      text-align: center;
+      width:97%;
+      cursor:pointer;
+      background-color:#F72D93;
       font-size:14px;
       color:white;
     }
@@ -264,6 +274,11 @@
               font-size:10px;
             }
 
+            .fc-event-holidayy
+            {
+              font-size:10px;
+            }
+
             #title_label
             {
               display:none;
@@ -438,6 +453,31 @@
 
 
 <body>
+<?php
+  if($_SESSION['kakasubmit_lang_ng_appointment'] == true)
+  {
+      echo "<script>
+        Swal.fire(
+          'Success!',
+          'Submiting an appointment Successfully!',
+          'success'
+          )
+      </script>";
+      $_SESSION['kakasubmit_lang_ng_appointment'] = false;
+  }
+
+  if($_SESSION['kakacancel_lang_ng_appointment'] == true)
+  {
+      echo "<script>
+        Swal.fire(
+          'Success!',
+          'Your appointment has been cancelled.',
+          'success'
+          )
+      </script>";
+      $_SESSION['kakacancel_lang_ng_appointment'] = false;
+  }
+?>
   <!-- Loading SPINNER -->
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal11" id="launch_modal_id" style="display:none;">
   open loading
@@ -536,7 +576,7 @@
           <ul class="nav-list" style="margin: 0; padding: 0; list-style: none;">
               <li style="pointer-events: none;">Type: <b>STUDENT</b></li>
               <li style="pointer-events: none;">Name: <b><?php echo strtoupper($top_nav_bar['full_name']); ?></b></li>
-              <li style="pointer-events: none;">Username: <b><?php echo strtoupper($top_nav_bar['username']); ?></b></li>
+              <li style="pointer-events: none;">Username: <b><input type="hidden" value="<?php echo strtoupper($top_nav_bar['username']); ?>" id="username"><?php echo strtoupper($top_nav_bar['username']); ?></b></li>
           </ul>
       </div>
   </div>
@@ -651,10 +691,11 @@
     <br>
     <div style="width:95%; margin:auto; padding:20px; background-color:white; border-top:3px solid green; border-radius:5px;">
     <div class="card">
-    <div class="card-body">
-        <div id="calendar"></div>
+      <div class="card-body">
+          <div id="calendar">
 
-        </div>
+          </div>
+      </div>
     </div>
 
     <!-- Modal -->
@@ -673,6 +714,7 @@
                       <div class="mb-3">
                         <label for="" class="form-label"><b>Record Requested <span style="color:red;">*</span></b></label><br>
                         <span id="eventDate"></span><br>
+                        <input type="hidden" value="qwe" id="date_hidden">
                         <span id="totalAppointment"></span><br>
                       </div>
                       <div class="checkbox">
@@ -713,13 +755,13 @@
                       <hr>
                       <div class="mb-3">
                         <label for="purpose_of_request_textfield" class="form-label">Purpose of request</label>
-                        <input type="text" class="form-control" id="purpose_of_request_textfield" placeholder="Type purpose of request">
+                        <input type="text" class="form-control" id="purpose_of_request_textfield" placeholder="Type purpose of request (optional)">
                       </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Submit</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="appointment_submit_function();">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="appointment_close_button">Close</button>
                 </div>
             </div>
         </div>
@@ -739,36 +781,44 @@
             <thead class="thead-dark">
                 <tr>
                     <th>ID</th>
-                    <th>Full Name</th>
-                    <th>Username</th>
-                    <th>Admin Type</th>
+                    <th>Requested Documents</th>
+                    <th>Purpose of request</th>
+                    <th>Date</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
         <?php
-          // $sql = "  SELECT * FROM ptc_admin;  ";
-          // $result = mysqli_query($con, $sql);
+          $sql = "  SELECT DISTINCT * FROM ptc_student_appointments WHERE username = '".$top_nav_bar['username']."';  ";
+          $result = mysqli_query($con, $sql);
+          $counter = 1;
       
-          // while($row = mysqli_fetch_assoc($result))
-          // {
-          //     echo '
-          //     <tr>
-          //       <td>'.strtoupper($row['id']).'</td>
-          //       <td>'.strtoupper($row['full_name']).'</td>
-          //       <td>'.strtoupper($row['username']).'</td>
-          //       <td>'.strtoupper($row['type']).'</td>
-          //       <td>
-          //         <input type="button" value="Update" class="btn btn-success">
-          //         <input type="button" value="Delete" class="btn btn-danger">
-          //       </td>
-          //     </tr>
-          //     ';
-          // }
+          while($row = mysqli_fetch_assoc($result))
+          {
+            $requested_documents = $row['requested_documents'];
+            $modified_requested_documents = str_replace(" --- ", ", ", $requested_documents); 
+
+            $datee = $row['datee'];
+            $datetime = new DateTime($datee);
+            $formatted_date = $datetime->format("F d, Y");
+
+              echo '
+              <tr>
+                <td>'.$counter.'</td>
+                <td>'.strtoupper($modified_requested_documents).'</td>
+                <td>'.strtoupper($row['purpose_of_request']).'</td>
+                <td>'.strtoupper($formatted_date).'</td>
+                <td>
+                  <input type="button" value="Cancel" class="btn btn-danger" onclick="cancel_appointment('.$row['id'].', \''.$row['datee'].'\')">
+                </td>
+              </tr>
+              ';
+              $counter++;
+          }
         ?>
         
         
-        </tbody>
+          </tbody>
       </table>
     </div>
   </div>
@@ -839,382 +889,6 @@
 
 
 
-<script>
-  //2am
-  var mobile_view = false;
-  function leftnavbar_toggle_button_function()
-  {
-    if(document.getElementById("checkbox_leftnavbar").checked)
-    {
-      $('#left_nav_bar').animate({ marginLeft: '0' });
-    }
-  }
-
-  function myFunction(x)
-  {
-    if (x.matches) 
-    { // mobile view
-      $('#left_nav_bar').animate({ marginLeft: '-250px' }); //display = "none"
-      document.getElementById('leftnavbar_toggle_button').style.display = "block";
-      document.getElementById('main_panel').style.width = "100%";
-      $('#main_panel').animate({ marginLeft: '0' });
-      document.getElementById("checkbox_leftnavbar").checked = false;
-      mobile_view = true;
-    } 
-    else 
-    {
-      $('#left_nav_bar').animate({ marginLeft: '0' }); //display = 'block';
-      document.getElementById('leftnavbar_toggle_button').style.display = "none";
-      document.getElementById('main_panel').style.width = "calc(100% - 250px)";
-      $('#main_panel').animate({ marginLeft: '250px' });
-      document.getElementById("checkbox_leftnavbar").checked = true;
-      mobile_view = false;
-    }
-  }
-  var x = window.matchMedia("(max-width: 914px)")
-  myFunction(x) // Call listener function at run time
-  x.addListener(myFunction)
-</script>
-<script>
-$(document).ready(function() {
-  $('#department_table').DataTable({
-    responsive: true
-  });
-});
-</script>
-  <script>
-    function logout_button()
-    {
-      Swal.fire({
-        title: 'Warning!',
-        text: "Are you sure you want to log out?",
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes',
-        cancelButtonText: 'No'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.href = "../logout.php";
-        } else {
-          // User clicked "No" or closed the dialog
-          Swal.fire(
-            'Cancelled',
-            'Your action has been cancelled.',
-            'error'
-          );
-        }
-      });
-    }
-</script>
-
-<script>
-    function getCurrentFormattedDate() {
-      const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-      
-      const currentDate = new Date();
-      const monthIndex = currentDate.getMonth();
-      const day = currentDate.getDate();
-      const year = currentDate.getFullYear();
-
-      const formattedDate = months[monthIndex] + " " + day + ", " + year;
-      return formattedDate;
-  }
-
-  document.getElementById('currentDate').textContent = getCurrentFormattedDate();
-
-  document.getElementById("left_nav_bar").addEventListener('mousedown', function(event) {
-      event.preventDefault();
-  });
-
-  document.getElementById("left_nav_bar").addEventListener('mouseup', function(event) {
-      event.preventDefault();
-  });
-
-  var pinindot_appointment_panel = false;
-  function show_dashboard_panel()
-  {
-    document.getElementById('dashboard_panel').style.display = "Inherit";
-    document.getElementById('schedule_an_appointment_panel').style.display = "none";
-    document.getElementById('my_appointments_panel').style.display = "none";
-    document.getElementById('my_profile_panel').style.display = "none";
-
-    document.getElementById("dashboard_button").style.backgroundColor = "lightgreen";
-    document.getElementById("schedule_an_appointment_button").style.backgroundColor = "white";
-    document.getElementById('my_appointments_button').style.backgroundColor = "white";
-    document.getElementById("my_profile_button").style.backgroundColor = "white";
-    
-    if(mobile_view == true)
-    {
-      $('#left_nav_bar').animate({ marginLeft: '-250px' }); //display = "none"
-      document.getElementById("checkbox_leftnavbar").checked = false;
-    }
-  }
-  function show_schedule_an_appointment_panel()
-  {
-    // alert("qwe");
-    document.getElementById('dashboard_panel').style.display = "none";
-    document.getElementById('schedule_an_appointment_panel').style.display = "Inherit";
-    document.getElementById('my_appointments_panel').style.display = "none";
-    document.getElementById('my_profile_panel').style.display = "none";
-
-    document.getElementById("dashboard_button").style.backgroundColor = "white";
-    document.getElementById("schedule_an_appointment_button").style.backgroundColor = "lightgreen";
-    document.getElementById('my_appointments_button').style.backgroundColor = "white";
-    document.getElementById("my_profile_button").style.backgroundColor = "white";
-
-    if(mobile_view == true)
-    {
-      $('#left_nav_bar').animate({ marginLeft: '-250px' }); //display = "none"
-      document.getElementById("checkbox_leftnavbar").checked = false;
-    }
-  }
-  function show_my_appointments_panel()
-  {
-    // alert("qwe");
-    document.getElementById('dashboard_panel').style.display = "none";
-    document.getElementById('schedule_an_appointment_panel').style.display = "none";
-    document.getElementById('my_appointments_panel').style.display = "Inherit";
-    document.getElementById('my_profile_panel').style.display = "none";
-
-    document.getElementById("dashboard_button").style.backgroundColor = "white";
-    document.getElementById("schedule_an_appointment_button").style.backgroundColor = "white";
-    document.getElementById('my_appointments_button').style.backgroundColor = "lightgreen";
-    document.getElementById("my_profile_button").style.backgroundColor = "white";
-
-    if(mobile_view == true)
-    {
-      $('#left_nav_bar').animate({ marginLeft: '-250px' }); //display = "none"
-      document.getElementById("checkbox_leftnavbar").checked = false;
-    }
-    pinindot_appointment_panel = true;
-  }
-  function show_my_profile_panel()
-  {
-    // alert("qwe");
-    document.getElementById('dashboard_panel').style.display = "none";
-    document.getElementById('schedule_an_appointment_panel').style.display = "none";
-    document.getElementById('my_appointments_panel').style.display = "none";
-    document.getElementById('my_profile_panel').style.display = "Inherit";
-
-    document.getElementById("dashboard_button").style.backgroundColor = "white";
-    document.getElementById("schedule_an_appointment_button").style.backgroundColor = "white";
-    document.getElementById('my_appointments_button').style.backgroundColor = "white";
-    document.getElementById("my_profile_button").style.backgroundColor = "lightgreen";
-
-    if(mobile_view == true)
-    {
-      $('#left_nav_bar').animate({ marginLeft: '-250px' }); //display = "none"
-      document.getElementById("checkbox_leftnavbar").checked = false;
-    }
-  }
-</script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() 
-  {
-    var calendarEl = document.getElementById('calendar');
-
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-    // ... (other calendar options)
-
-    // Event click callback
-    eventClick: function(info) {
-      if(info.event.title == "50/50")
-      {
-        Swal.fire(
-          'Invalid!',
-          'No Slot Available!',
-          'error'
-        )
-      }
-      else
-      {
-        if(document.getElementById("certification_checkbox").checked)
-        {
-          $('#certification_checkboxes').toggle();
-          document.getElementById("honorable_dismissal_checkbox").checked = false;
-          document.getElementById("good_moral_character_checkbox").checked = false;
-        }
-        if(document.getElementById("others_checkbox").checked)
-        {
-          $('#others_label_and_textfield').toggle();
-          document.getElementById("others_textfield").value = "";
-        }
-
-        document.getElementById("transcript_checkbox").checked = false;
-        document.getElementById("diploma_checkbox").checked = false;
-        document.getElementById("form_137_checkbox").checked = false;
-        document.getElementById("certification_checkbox").checked = false;
-        document.getElementById("others_checkbox").checked = false;
-        document.getElementById("purpose_of_request_textfield").value = "";
-
-        $('#totalAppointment').html('Total Appointments: <b>'+info.event.title+'</b>');
-        $('#eventDate').html('Appointment Date: <b>' + moment(info.event.start).format('YYYY-MM-DD') + '</b>');
-        $('#eventModal').modal('show');
-      }
-    },
-
-    eventContent: function(info) {
-      var iconClass = info.event.extendedProps.iconClass;
-      if(iconClass == 'fa fa-solid fa-check')
-        var iconHtml = iconClass ? '<i class="' + iconClass + '"></i> <span id="title_label"><br>Slot Available<br></span>  <br> ' : '';
-      else if(iconClass == 'fa fa-solid fa-x')
-        var iconHtml = iconClass ? '<i class="' + iconClass + '"></i> <span id="title_label"><br>No Slot Available<br></span>  <br> ' : '';
-      return {
-        html: iconHtml + info.event.title
-      };
-    },
-
-    events: generateEvents(),
-
-    // events: [
-    //   {
-    //     title: '50/50',
-    //     start: '2023-08-21',
-    //     classNames: ['fc-event-slot-available'],
-    //     iconClass: 'fa fa-solid fa-check'
-    //   },
-      
-    //   {
-    //     title: '50/50',
-    //     start: '2023-08-22',
-    //     classNames: ['fc-event-no-slot-available'],
-    //     iconClass: 'fa fa-solid fa-x'
-    //   },
-      // ... (other events)
-    // ]
-    });
-    calendar.render();
-  });
-function generateEvents() {
-  var startDate = moment();
-  var events = [];
-
-  for (var i = 0; i < 90; i++) {
-    var eventDate = startDate.clone().add(i, 'days');
-
-    // Skip Saturdays (6) and Sundays (0)
-    if (eventDate.day() !== 6 && eventDate.day() !== 0) {
-      var event = {
-        title: '0/50',
-        start: eventDate.format('YYYY-MM-DD'),
-        classNames: ['fc-event-slot-available'],
-        iconClass: 'fa fa-solid fa-check'
-      };
-
-      events.push(event);
-    }
-  }
-
-  return events;
-}
-</script>
-<script>
-  setTimeout(function() {
-    close_loading();
-    document.querySelector('.fc-next-button').click();
-    setTimeout(function() {
-      document.querySelector('.fc-prev-button').click();
-      document.getElementById("dashboard_with_icon_button").click();
-      document.getElementById("biar").style.display = "none";
-    }, 800);
-  }, 1500); // 2000 milliseconds = 2 seconds
-</script>
-<script>
-  function appointment_others_function()
-  {
-    if(document.getElementById("others_checkbox").checked)
-    {
-      $('#others_label_and_textfield').slideToggle('2000');
-      document.getElementById("others_textfield").value = "";
-    }
-    else
-    {
-      $('#others_label_and_textfield').slideToggle('2000');
-      document.getElementById("others_textfield").value = "";
-    }
-  }
-
-  function appointment_certification_function()
-  {
-    if(document.getElementById("certification_checkbox").checked)
-    {
-      $('#certification_checkboxes').slideToggle('2000');
-      document.getElementById("honorable_dismissal_checkbox").checked = false;
-      document.getElementById("good_moral_character_checkbox").checked = false;
-    }
-    else
-    {
-      $('#certification_checkboxes').slideToggle('2000');
-      document.getElementById("honorable_dismissal_checkbox").checked = false;
-      document.getElementById("good_moral_character_checkbox").checked = false;
-    }
-  }
-</script>
-<script>
-  setInterval(function() {
-      if(pinindot_appointment_panel == true)
-      {
-        var calendarEl = document.getElementById('calendar');
-        calendarEl.innerHTML = '';
-
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-
-          eventClick: function(info) {
-          if(info.event.title == "50/50")
-          {
-            Swal.fire(
-              'Invalid!',
-              'No Slot Available!',
-              'error'
-            )
-          }
-          else
-          {
-            if(document.getElementById("certification_checkbox").checked)
-            {
-              $('#certification_checkboxes').toggle();
-              document.getElementById("honorable_dismissal_checkbox").checked = false;
-              document.getElementById("good_moral_character_checkbox").checked = false;
-            }
-            if(document.getElementById("others_checkbox").checked)
-            {
-              $('#others_label_and_textfield').toggle();
-              document.getElementById("others_textfield").value = "";
-            }
-
-            document.getElementById("transcript_checkbox").checked = false;
-            document.getElementById("diploma_checkbox").checked = false;
-            document.getElementById("form_137_checkbox").checked = false;
-            document.getElementById("certification_checkbox").checked = false;
-            document.getElementById("others_checkbox").checked = false;
-            document.getElementById("purpose_of_request_textfield").value = "";
-
-            $('#totalAppointment').html('Total Appointments: <b>'+info.event.title+'</b>');
-            $('#eventDate').html('Appointment Date: <b>' + moment(info.event.start).format('YYYY-MM-DD') + '</b>');
-            $('#eventModal').modal('show');
-          }
-        },
-
-        eventContent: function(info) {
-          var iconClass = info.event.extendedProps.iconClass;
-          if(iconClass == 'fa fa-solid fa-check')
-            var iconHtml = iconClass ? '<i class="' + iconClass + '"></i> <span id="title_label"><br>Slot Available<br></span>  <br> ' : '';
-          else if(iconClass == 'fa fa-solid fa-x')
-            var iconHtml = iconClass ? '<i class="' + iconClass + '"></i> <span id="title_label"><br>No Slot Available<br></span>  <br> ' : '';
-          return {
-            html: iconHtml + info.event.title
-          };
-        },
-
-        events: generateEvents(),
-        });
-        calendar.render();
-      }
-    }, 2000);
-  // function qweqwe()
-  // {
-    
-  // }
-</script>
+<?php
+  include 'student_js.php';
+?>

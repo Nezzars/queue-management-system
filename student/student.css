@@ -1,5 +1,5 @@
 /* Custom styling for the navigation bar */
-    body {
+    /* body {
         margin: 0;
         padding: 0;
     }
@@ -13,21 +13,8 @@
     }
     #content {
         margin-left: 250px;
-        padding: 20px;
-    }
-    /* Responsive adjustments */
-    /* @media (max-width: 768px) {
-        #sidebar {
-        width: 0;
-        overflow-x: hidden;
-        }
-        #sidebar.active {
-        width: 250px;
-        }
-        #content {
-        margin-left: 0;
-        }
-    } */
+        padding: 20px; 
+    }*/
 
     
 
