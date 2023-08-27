@@ -581,7 +581,7 @@
       </div>
   </div>
 
-<div class="navbar1" id="left_nav_bar" style="overflow-x:scroll;">
+<div class="navbar1" id="left_nav_bar" style="overflow-x:scroll; border-right:2px solid #90EE90">
     <center>
       <div class="navbar1-header">
           <div class="logo">
@@ -755,7 +755,7 @@
                       <hr>
                       <div class="mb-3">
                         <label for="purpose_of_request_textfield" class="form-label">Purpose of request</label>
-                        <input type="text" class="form-control" id="purpose_of_request_textfield" placeholder="Type purpose of request (optional)">
+                        <input type="text" class="form-control" id="purpose_of_request_textfield" placeholder="Type purpose of request" required>
                       </div>
                     </div>
                 </div>

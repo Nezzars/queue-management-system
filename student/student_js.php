@@ -34,6 +34,11 @@
             'error'
         )
     }
+    else if(document.getElementById("purpose_of_request_textfield").value.trim() == "")
+    {
+      document.getElementById("purpose_of_request_textfield").setCustomValidity("Please provide the purpose of your request.");
+      document.getElementById("purpose_of_request_textfield").reportValidity();
+    }
     else
     {
         Swal.fire({
