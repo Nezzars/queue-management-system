@@ -50,6 +50,34 @@
   <title>Administrator</title>
 
   <style>
+    .fc-event-slot-available 
+    {
+      text-align: center;
+      width:97%;
+      cursor:pointer;
+      background-color: #17a2b8;
+      font-size:14px;
+    }
+
+    .fc-event-no-slot-available 
+    {
+      text-align: center;
+      width:97%;
+      cursor:pointer;
+      background-color: #17a2b8;
+      font-size:14px;
+      /* color:white; */
+    }
+
+    .fc-event-holidayy 
+    {
+      text-align: center;
+      width:97%;
+      cursor:pointer;
+      background-color:#F72D93;
+      font-size:14px;
+      color:white;
+    }
       
     .fc-event-center-title 
     {
@@ -146,8 +174,26 @@
 </head>
 
 <body>
+  <?php
+    include "admin_css.php";
+  ?>
   
-  <!-- Loading SPINNER -->
+  <?php
+      if($_SESSION['kakalogin_lang'] == true)
+      {
+          echo "<script>
+              Swal.fire(
+              'Success!',
+              'Login Successfully!',
+              'success'
+            )
+          </script>";
+          $_SESSION['kakalogin_lang'] = false;
+      }
+  ?>
+
+
+<!-- Loading SPINNER -->
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal11" id="launch_modal_id" style="display:none;">
   open loading
 </button>
@@ -216,126 +262,10 @@
     }
 </script>  
 <!-- Loading SPINNER -->
-  <?php
-      if($_SESSION['kakalogin_lang'] == true)
-      {
-          echo "<script>
-              Swal.fire(
-              'Success!',
-              'Login Successfully!',
-              'success'
-            )
-          </script>";
-          $_SESSION['kakalogin_lang'] = false;
-      }
-  ?>
-
-<style>
-        /* Reset default margin and padding */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        /* Style the navigation bar */
-        .navbar {
-            background-color: #333;
-            color: #fff;
-            font-family: Arial, sans-serif;
-            box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);
-        }
-        
-        /* Container to center the content */
-        .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 15px;
-        }
-        
-        /* Style the logo */
-        .logo img {
-            height: 40px;
-            width: auto;
-            display: block;
-        }
-        
-        /* Style the navigation list */
-        .nav-list {
-            list-style: none;
-            display: flex;
-        }
-        
-        /* Style navigation list items */
-        .nav-list li {
-            margin: 0 15px;
-        }
-        
-        /* Style navigation links */
-        .nav-list li a {
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-        
-        /* Style navigation link on hover */
-        .nav-list li a:hover {
-            background-color: #555;
-        }
-        
-        /* Style logout link */
-        .logout {
-            margin-left: auto;
-        }
-        
-        /* Style logout link on hover */
-        .logout a {
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 15px;
-            background-color: #d9534f;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-        
-        .logout a:hover {
-            background-color: #c9302c;
-        }
-
-        /* Base styling for desktop */
-        .nav-list {
-            display: flex;
-            align-items: center;
-            margin-right: 30px;
-        }
-
-        /* Responsive styling for mobile */
-        @media (max-width: 767px) {
-            .nav-list {
-                margin-right: 0;
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-
-        .fc-event-center-title {
-            text-align: center;
-        }
-        
-
-        #main_panel
-        {
-            width: calc(100% - 250px); 
-            margin-left:250px;
-        }
 
 
-    </style>
+
+
     <?php
       $sql = "  SELECT * FROM ptc_admin WHERE username='".$_SESSION['admin_username']."';";
       $result = mysqli_query($con, $sql);
@@ -361,239 +291,7 @@
       </div>
   </div>
 
-  
-<style>
-    .dropdown1 {
-      position: relative;
-      display: inline-block;
-    }
-
-    .dropdown1-toggle {
-      background-color: #f1f1f1;
-      color: #333;
-      padding: 15px 20px; /* Increased padding */
-      border: none;
-      cursor: pointer;
-      font-size: 20px; /* Increased font size */
-    }
-
-    .dropdown1-toggle::after {
-      content: "\25BE"; /* Down arrow */
-      margin-left: 5px;
-    }
-
-    .dropdown1-menu {
-      display: none;
-      position: absolute;
-      background-color: #f9f9f9;
-      min-width: 250px; /* Increased width */
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-      z-index: 1;
-    }
-
-    .dropdown1-menu a {
-      color: #333;
-      padding: 15px 20px; /* Increased padding */
-      text-decoration: none;
-      display: block;
-      font-size: 20px; /* Increased font size */
-    }
-
-    .dropdown1-menu a:hover {
-      background-color: #ddd;
-    }
-
-    .dropdown1:hover .dropdown1-menu {
-      display: block;
-    }
-</style>
-
-
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-        }
-
-        .navbar1 {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 250px;
-        background-color: white;
-        color: black;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-top: 20px;
-        z-index: 1000; /* Make sure the navbar is on top of other elements */
-        }
-
-        .navbar1-header {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 20px;
-        margin-bottom: 20px;
-        }
-
-        .logo {
-        font-size: 24px;
-        margin-left:10px;
-        }
-
-        .toggle-button {
-        cursor: pointer;
-        display: none;
-        }
-
-        .bar {
-        width: 25px;
-        height: 3px;
-        background-color: #fff;
-        margin: 5px 0;
-        }
-
-        .navbar1-items {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-        width: 100%;
-        }
-
-        .navbar1-items li {
-        padding: 15px;
-        }
-
-        .navbar1-items li a {
-        text-decoration: none;
-        color: black;
-        font-size: 18px;
-        }
-
-        .department_lists-items li {
-          padding: 0px;
-          padding-left:15px;
-        }
-
-        .department_lists-items li a {
-        text-decoration: none;
-        color: black;
-        font-size: 18px;
-        }
-
-        /* Add hover effect for links */
-        .navbar1-items li a:hover {
-        /* background-color: #444; */
-        }
-
-        /* Media query for responsive design */
-        /* @media (max-width: 768px) {
-          .toggle-button {
-              display: block;
-          }
-          .navbar-items {
-              display: none;
-          }
-          .navbar.active .navbar-items {
-              display: block;
-          }
-        } */
-  </style>
-  <style>
-    /* Custom styling for the modal */
-    .modal-dialog {
-      max-width: 500px;
-    }
-
-    /* Additional margin for the modal body */
-    .modal-body {
-      margin: 20px;
-    }
-
-    /* Center the department name input */
-    .department-input {
-      width: 100%;
-    }
-
-    /* Style the footer buttons */
-    .modal-footer .btn-secondary {
-      background-color: #6c757d;
-      border-color: #6c757d;
-    }
-
-    .modal-footer .btn-secondary:hover {
-      background-color: #5a6268;
-      border-color: #545b62;
-    }
-
-    .modal-footer .btn-primary {
-      background-color: #007bff;
-      border-color: #007bff;
-    }
-
-    .modal-footer .btn-primary:hover {
-      background-color: #0056b3;
-      border-color: #0056b3;
-    }
-  </style>
-  <style>
-    .department-container {
-      width: 100%;
-      /* display: flex; */
-      /* justify-content: space-between; */
-      align-items: center;
-      padding: 20px;
-      border: 1px solid lightgray;
-      background-color: white;
-      font-size: 24px;
-    }
-
-    .department-actions {
-      display: flex;
-      align-items: center;
-    }
-
-    .btn {
-      margin-left: 10px;
-    }
-
-    @media screen and (max-width: 768px) {
-      .department-container {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .department-actions {
-        flex-direction: column;
-        margin-top: 10px;
-      }
-      
-      .btn {
-        margin-left: 0;
-        margin-top: 5px;
-      }
-    }
-
-    /* Media query for mobile devices */
-    @media (max-width: 767px) {
-        table {
-            width: 100%;
-        }
-        th, td {
-            padding: 8px;
-        }
-        .table-responsive {
-            overflow-x: auto;
-        }
-    }
-
-</style>
-
-  <div class="navbar1" id="left_nav_bar" style="overflow-x:scroll;">
+  <div class="navbar1" id="left_nav_bar" style="overflow-x:scroll; border-right:2px solid #90EE90">
     <center>
       <div class="navbar1-header">
           <div class="logo">
@@ -800,21 +498,62 @@
     </div>
 
     <!-- Modal -->
+    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eventModal">Open Modal</button> -->
     <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="eventModalLabel">Appointment</h5>
+                    <h5 class="modal-title" id="eventModalLabel">Appointments</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p id="eventTitle"></p>
-                    <p id="eventStart"></p>
+                  <!-- appointment modal -->
+                    <div class="checkbox-container">
+                      <div class="mb-3">
+                        <!-- <label for="" class="form-label"><b>Record Requested <span style="color:red;">*</span></b></label><br> -->
+                        <span id="eventDate"></span><br>
+                        <input type="hidden" value="qwe" id="date_hidden">
+                        <span id="totalAppointment"></span><br>
+                      </div>
+                      <!-- DEPARTMENT PANEL -->
+                      <table id="appointment_table" class="table table-striped table-responsive" style="overflow-x:auto; border-collapse: collapse;">
+                        <thead class="thead-dark">
+                          <tr>
+                              <th>ID</th>
+                              <th>Username</th>
+                              <th>Student Number</th>
+                              <th>Requested Documents</th>
+                              <th>Purpose of request</th>
+                              <th>Date</th>
+                          </tr>
+                        </thead>
+                        <tbody id="appointment_tbody">
+                          <tr>
+                            <td>Example</td>
+                            <td>Example</td>
+                            <td>Example</td>
+                            <td>Example</td>
+                            <td>Example</td>
+                            <td>Example</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <!-- DEPARTMENT PANEL -->
+
+                      <script>
+                        $(document).ready(function() {
+                          $('#appointment_table').DataTable({
+                            responsive: true
+                          }); 
+                        });
+                      </script>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <!-- <button type="button" class="btn btn-primary" onclick="appointment_submit_function();">Submit</button> -->
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="appointment_close_button">Close</button>
                 </div>
             </div>
         </div>
@@ -823,85 +562,6 @@
     
     </div>
 </div>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-  var calendarEl = document.getElementById('calendar');
-
-  var calendar = new FullCalendar.Calendar(calendarEl, {
-      // ... (other calendar options)
-
-      // Event click callback
-      eventClick: function(info) {
-          $('#eventTitle').text(info.event.title);
-          $('#eventStart').text('Start: ' + moment(info.event.start).format('YYYY-MM-DD'));
-          $('#eventModal').modal('show');
-      },
-
-      events: [
-          {
-              title: '50/50',
-              start: '2023-08-10',
-              classNames: ['fc-event-center-title']
-          },
-
-
-
-
-
-
-
-          {
-              title: '1/50',
-              start: '2023-08-11',
-              classNames: ['fc-event-center-title']
-          },
-          
-
-
-
-
-
-
-          {
-              title: '23/50',
-              start: '2023-08-12',
-              classNames: ['fc-event-center-title']
-          },
-
-
-
-
-
-
-          {
-              title: '43/50',
-              start: '2023-08-13',
-              classNames: ['fc-event-center-title']
-          },
-
-
-
-
-
-          {
-              title: '50/50',
-              start: '2023-08-14',
-              classNames: ['fc-event-center-title']
-          },
-
-
-
-          {
-              title: '10/50',
-              start: '2023-08-15',
-              classNames: ['fc-event-center-title']
-          }
-      ]
-  });
-
-  calendar.render();
-});
-</script>
 <!-- APPOINTMENT PANEL -->
 <!-- ADMIN USERS PANEL -->
 <div id="admin_users_panel" class="left_nav_bar_buttons">
@@ -1035,335 +695,59 @@
 <!-- DEPARTMENT PANEL -->
 </div><!-- END OF MAIN PANEL-->
 
-<script>
-$(document).ready(function() {
-  $('#department_table').DataTable({
-    responsive: true
-  });
-});
-</script>
-
-<script>
-  setTimeout(function() {
-    close_loading();
-    document.querySelector('.fc-next-button').click();
-    setTimeout(function() {
-      document.querySelector('.fc-prev-button').click();
-      document.getElementById("dashboard_with_icon_button").click();
-      document.getElementById("biar").style.display = "none";
-    }, 800);
-  }, 1500); // 2000 milliseconds = 2 seconds
-</script>
-
-<script>
-  //2am
-  var mobile_view = false;
-  function leftnavbar_toggle_button_function()
-  {
-    if(document.getElementById("checkbox_leftnavbar").checked)
-    {
-      $('#left_nav_bar').animate({ marginLeft: '0' });
-    }
-  }
-
-  function myFunction(x)
-  {
-    if (x.matches) 
-    { // mobile view
-      $('#left_nav_bar').animate({ marginLeft: '-250px' }); //display = "none"
-      document.getElementById('leftnavbar_toggle_button').style.display = "block";
-      document.getElementById('main_panel').style.width = "100%";
-      $('#main_panel').animate({ marginLeft: '0' });
-      document.getElementById("checkbox_leftnavbar").checked = false;
-      mobile_view = true;
-    } 
-    else 
-    {
-      $('#left_nav_bar').animate({ marginLeft: '0' }); //display = 'block';
-      document.getElementById('leftnavbar_toggle_button').style.display = "none";
-      document.getElementById('main_panel').style.width = "calc(100% - 250px)";
-      $('#main_panel').animate({ marginLeft: '250px' });
-      document.getElementById("checkbox_leftnavbar").checked = true;
-      mobile_view = false;
-    }
-  }
-  var x = window.matchMedia("(max-width: 914px)")
-  myFunction(x) // Call listener function at run time
-  x.addListener(myFunction)
-</script>
 </body>
-<script>
-  function logout_button()
-  {
-    Swal.fire({
-      title: 'Warning!',
-      text: "Are you sure you want to log out?",
-      icon: 'question',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes',
-      cancelButtonText: 'No'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        window.location.href = "../logout.php";
-      } else {
-        // User clicked "No" or closed the dialog
-        Swal.fire(
-          'Cancelled',
-          'Your action has been cancelled.',
-          'error'
-        );
-      }
-    });
-  }
 
-  // function department_toggle()
-  // {
-  //   $("#department_lists").slideToggle();
-  // }
-</script>
-<script>
-  
-  function show_dashboard_panel()
-  {
-    document.getElementById('dashboard_panel').style.display = "Inherit";
-    document.getElementById('appointments_panel').style.display = "none";
-    document.getElementById('admin_users_panel').style.display = "none";
-    document.getElementById('my_account_panel').style.display = "none";
 
-    document.getElementById("dashboard_button").style.backgroundColor = "lightgreen";
-    document.getElementById("appointments_button").style.backgroundColor = "white";
-    document.getElementById('admin_users_button').style.backgroundColor = "white";
-    document.getElementById("my_account_button").style.backgroundColor = "white";
-    
-    if(mobile_view == true)
-    {
-      $('#left_nav_bar').animate({ marginLeft: '-250px' }); //display = "none"
-      document.getElementById("checkbox_leftnavbar").checked = false;
-    }
-  }
-  function show_appointments_panel()
-  {
-    // alert("qwe");
-    document.getElementById('dashboard_panel').style.display = "none";
-    document.getElementById('appointments_panel').style.display = "Inherit";
-    document.getElementById('admin_users_panel').style.display = "none";
-    document.getElementById('my_account_panel').style.display = "none";
 
-    document.getElementById("dashboard_button").style.backgroundColor = "white";
-    document.getElementById("appointments_button").style.backgroundColor = "lightgreen";
-    document.getElementById('admin_users_button').style.backgroundColor = "white";
-    document.getElementById("my_account_button").style.backgroundColor = "white";
 
-    if(mobile_view == true)
-    {
-      $('#left_nav_bar').animate({ marginLeft: '-250px' }); //display = "none"
-      document.getElementById("checkbox_leftnavbar").checked = false;
-    }
-  }
-  function show_admin_users_panel()
-  {
-    // alert("qwe");
-    document.getElementById('dashboard_panel').style.display = "none";
-    document.getElementById('appointments_panel').style.display = "none";
-    document.getElementById('admin_users_panel').style.display = "Inherit";
-    document.getElementById('my_account_panel').style.display = "none";
 
-    document.getElementById("dashboard_button").style.backgroundColor = "white";
-    document.getElementById("appointments_button").style.backgroundColor = "white";
-    document.getElementById('admin_users_button').style.backgroundColor = "lightgreen";
-    document.getElementById("my_account_button").style.backgroundColor = "white";
 
-    if(mobile_view == true)
-    {
-      $('#left_nav_bar').animate({ marginLeft: '-250px' }); //display = "none"
-      document.getElementById("checkbox_leftnavbar").checked = false;
-    }
-  }
-  function show_my_account_panel()
-  {
-    // alert("qwe");
-    document.getElementById('dashboard_panel').style.display = "none";
-    document.getElementById('appointments_panel').style.display = "none";
-    document.getElementById('admin_users_panel').style.display = "none";
-    document.getElementById('my_account_panel').style.display = "Inherit";
 
-    document.getElementById("dashboard_button").style.backgroundColor = "white";
-    document.getElementById("appointments_button").style.backgroundColor = "white";
-    document.getElementById('admin_users_button').style.backgroundColor = "white";
-    document.getElementById("my_account_button").style.backgroundColor = "lightgreen";
 
-    if(mobile_view == true)
-    {
-      $('#left_nav_bar').animate({ marginLeft: '-250px' }); //display = "none"
-      document.getElementById("checkbox_leftnavbar").checked = false;
-    }
-  }
-  
-  // function show_department_panel()
-  // {
-  //   document.getElementById('dashboard_panel').style.display = "none";
-  //   document.getElementById('department_panel').style.display = "Inherit";
+<?php
+  include "admin_js.php";
+?>
 
-  //   document.getElementById("dashboard_button").style.backgroundColor = "white";
-  //   var elements = document.querySelectorAll('[id^="li_id_"]');
-  //   elements.forEach(function(element) {
-  //     element.style.backgroundColor = "white";
-  //   });
-  // }
 
-  function add_department_ajax()
-  {
-    if(document.getElementById('add_department_department_name_textfield').value == "")
-    {
-      document.getElementById('add_department_department_name_textfield').setCustomValidity("Please fill up this field.");
-      document.getElementById('add_department_department_name_textfield').reportValidity();
-    }
-    else if(document.getElementById('add_department_room_textfield').value == "")
-    {
-      document.getElementById('add_department_room_textfield').setCustomValidity("Please fill up this field.");
-      document.getElementById('add_department_room_textfield').reportValidity();
-    }
-    else
-    {
-      var data = 
-      {
-        action: 'add_department_ajax',
-        add_department_department_name_textfield: $("#add_department_department_name_textfield").val(),
-        add_department_room_textfield: $("#add_department_room_textfield").val(),
-      };
 
-      $.ajax({
-        url: 'admin_ajax.php',
-        type: 'post',
-        data: data,
 
-        success:function(response)
-        {
-          var parsedResponse = JSON.parse(response);
-          // document.getElementById("tbodies_pending").innerHTML = parsedResponse[0];
 
-          if(parsedResponse[0].trim() == "add_successfully")
-          {
-            document.getElementById("add_department_close_button").click();
-            document.getElementById("add_department_department_name_textfield").value = "";
-            document.getElementById("add_department_room_textfield").value = "";
 
-            //displaying all data from db
-            // alert(parsedResponse[1]);
-            document.getElementById("department_lists_from_db").innerHTML = parsedResponse[1];
-            document.getElementById("department_id_"+parsedResponse[2]).click();
 
-            Swal.fire(
-              'Success!',
-              'Adding Department Successfully!',
-              'success'
-            );
 
-          }
-          else
-          {
-            Swal.fire(
-              'Failed!',
-              'The Department already exists!',
-              'error'
-            );
-          }
-        }
 
-      });
-    }
-  }
-</script>
-<script>
-    // const department_lists_from_db = e => 
-    // {
-    //   var department_id = `${e.target.id}`;
-    //   // alert(department_id);  
 
-    //   if (department_id.startsWith("department_id_")) 
-    //   {
-    //     var data = 
-    //     {
-    //       action: 'ipasok_sa_department_panel_mga_details',
-    //       department_id: department_id,
-    //     };
 
-    //     $.ajax({
-    //       url: 'admin_ajax.php',
-    //       type: 'post',
-    //       data: data,
 
-    //       success:function(response)
-    //       {
-    //         var parsedResponse = JSON.parse(response);
-    //       // document.getElementById("tbodies_pending").innerHTML = parsedResponse[0];
 
-    //         //ilagay department name sa header
-    //         // document.getElementById("department_name_and_action").innerHTML = '<span style="font-size:26px;">Department Name: <b>'+parsedResponse[0]+'</b></span><input type="button" value="Delete" class="btn btn-danger" style="float:right;"><input type="button" value="Rename" class="btn btn-info" style="float:right; margin-right:10px;">';
-    //         document.getElementById("department_name_and_action").innerHTML = '<div class="department-container">'+
-    //         '<span>Department Name: <b>'+parsedResponse[0]+'</b></span>'+
-    //         '<div class="department-actions">'+
-    //         '  <input type="button" value="Rename" class="btn btn-info">'+
-    //         '  <input type="button" value="Delete" class="btn btn-danger">'+
-    //         '</div>'+
-    //         '</div>';
 
-    //         document.getElementById("department_table").innerHTML = "";
-    //         document.getElementById("department_table").innerHTML += '<thead class="thead-dark">'
-    //         + '<tr>'
-    //         + '<th>ID</th>'
-    //         + '<th>Full Name</th>'
-    //         + '<th>Username</th>'
-    //         + '<th>Admin Type</th>'
-    //         + '<th>Actions</th>'
-    //         + '</tr>'
-    //         + '</thead>';
 
-    //         document.getElementById("department_table").innerHTML += parsedResponse[1];
 
-    //         document.getElementById("li_id_"+parsedResponse[2]).style.backgroundColor = "lightgreen";
-            
-    //         // Destroy the existing DataTable instance
-    //         var dataTable = $("#department_table").DataTable();
-    //         dataTable.destroy();
 
-    //         // Now you can reinitialize the DataTable with new settings or data
-    //         $("#department_table").DataTable({});
-            
-    //         show_department_panel();
-    //         document.getElementById("li_id_"+parsedResponse[2]).style.backgroundColor = "lightgreen";
-    //       }
-    //     });
-    //   }
-    // }
-    // document.getElementById("department_lists_from_db").addEventListener("click", department_lists_from_db);
-    
-</script>
-<script>
-function getCurrentFormattedDate() {
-    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    
-    const currentDate = new Date();
-    const monthIndex = currentDate.getMonth();
-    const day = currentDate.getDate();
-    const year = currentDate.getFullYear();
 
-    const formattedDate = months[monthIndex] + " " + day + ", " + year;
-    return formattedDate;
-}
 
-document.getElementById('currentDate').textContent = getCurrentFormattedDate();
 
-document.getElementById("left_nav_bar").addEventListener('mousedown', function(event) {
-    event.preventDefault();
-});
 
-document.getElementById("left_nav_bar").addEventListener('mouseup', function(event) {
-    event.preventDefault();
-});
-</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </html>
 
 

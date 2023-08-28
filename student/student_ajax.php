@@ -236,4 +236,60 @@
     echo "delete_success";
     // echo $id . " and " . $datee;
   }
+
+  if($_POST["action"] == "show_qr_code_in_appointments")
+  {
+    global $con;
+    $id = $_POST["id"];
+    $datee = $_POST["datee"];
+
+    $sql = "  SELECT * FROM ptc_student_appointments WHERE id='$id' AND datee='$datee';  ";
+    $result = mysqli_query($con, $sql);
+
+    if($row = mysqli_fetch_assoc($result))
+    {
+        $requested_documents = $row['requested_documents'];
+        $requested_documents = str_replace('---', ', ', $requested_documents);
+        $requested_documents_array = explode(", ", $requested_documents);
+
+        $formattedDate = date("F j, Y", strtotime($datee));
+
+        // echo "Ilove you julia"
+
+        echo "Appointment Schedule: \n";
+        echo "   - ".$formattedDate;
+        echo "\n\n";
+
+        echo "Requested Documents: \n";
+        for ($i=0; $i < count($requested_documents_array); $i++) 
+        {
+            echo "   - ".$requested_documents_array[$i];
+            echo "\n";
+        }
+        echo "\n";
+
+        echo "Purpose of Request: \n";
+        echo "   - ".$row['purpose_of_request'];
+        echo "\n\n";
+
+        $usernamee = $row['username'];
+        $sql1 = "  SELECT * FROM ptc_student_users WHERE username='$usernamee';  ";
+        $result1 = mysqli_query($con, $sql1);
+        if($row1 = mysqli_fetch_assoc($result1))
+        {
+            echo "Student Details: \n";
+            echo "   - Full Name: ".$row1['full_name']."\n";
+            echo "   - Student Number: ".$row1['student_number']."\n";
+            echo "   - Course: ".$row1['course']."\n";
+            echo "   - Student Type: ".$row1['student_type']."\n";
+            echo "   - Institute Email: ".$row1['institute_email']."\n";
+            echo "\n\n";
+        }
+
+        
+    }
+
+    // $query = "INSERT INTO users VALUES('', '$nameqwe', '$emailqwe', '$genderqwe')";
+    // mysqli_query($con, $query);
+  }
 ?>

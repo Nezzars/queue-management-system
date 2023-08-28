@@ -71,59 +71,116 @@
     }
   }
 
-  if($_POST["action"] == "ipasok_sa_department_panel_mga_details")
+//   if($_POST["action"] == "ipasok_sa_department_panel_mga_details")
+//   {
+//     global $con;
+//     $department_id = $_POST["department_id"];
+//     $prefix = "department_id_";
+//     if (strpos($department_id, $prefix) === 0) 
+//     {
+//         $department_id = substr($department_id, strlen($prefix));
+//     }
+//     $department_array = array();
+
+//     $sql = "  SELECT * FROM ptc_departments WHERE id='$department_id';  ";
+//     $result = mysqli_query($con, $sql);
+
+//     if($row = mysqli_fetch_assoc($result))
+//     {
+//         $department_name = $row['department_name'];
+//         $words = explode("_", $department_name);
+//         foreach ($words as &$word) 
+//         {
+//             $word = ucfirst($word);
+//         }
+//         $transformed_department_name = implode(" ", $words);
+
+//         $department_array[0] = $transformed_department_name;
+//     }
+
+//     $department_array[1] = "";
+//     $sql = "  SELECT * FROM ptc_department_".$department_name.";  ";
+//     $result = mysqli_query($con, $sql);
+//     while($row = mysqli_fetch_assoc($result))
+//     {
+//         $department_array[1] .= '
+//             <tbody>
+//                 <tr>
+//                 <td>'.$row['id'].'</td>
+//                 <td>'.$row['full_name'].'</td>
+//                 <td>'.$row['username'].'</td>
+//                 <td>'.$row['type'].'</td>
+//                 <td>
+//                     <input type="button" value="Update" class="btn btn-success">
+//                     <input type="button" value="Delete" class="btn btn-danger">
+//                 </td>
+//                 </tr>
+//             </tbody>
+//         ';
+//     }
+//     $department_array[2] = $department_id;
+
+//     // $query = "INSERT INTO users VALUES('', '$nameqwe', '$emailqwe', '$genderqwe')";
+//     // mysqli_query($con, $query);
+    
+//     $response = json_encode($department_array);
+//     echo $response;
+//   }
+
+  if($_POST["action"] == "get_all_appointments_depends_on_date")
   {
     global $con;
-    $department_id = $_POST["department_id"];
-    $prefix = "department_id_";
-    if (strpos($department_id, $prefix) === 0) 
-    {
-        $department_id = substr($department_id, strlen($prefix));
-    }
-    $department_array = array();
+    $datee = $_POST["datee"];
+    $echo = array();
 
-    $sql = "  SELECT * FROM ptc_departments WHERE id='$department_id';  ";
+    $sql = "  SELECT * FROM ptc_student_appointments_history WHERE datee='$datee';  ";
     $result = mysqli_query($con, $sql);
 
     if($row = mysqli_fetch_assoc($result))
     {
-        $department_name = $row['department_name'];
-        $words = explode("_", $department_name);
-        foreach ($words as &$word) 
-        {
-            $word = ucfirst($word);
-        }
-        $transformed_department_name = implode(" ", $words);
-
-        $department_array[0] = $transformed_department_name;
+        $echo[0] = $row['total_students'];
     }
 
-    $department_array[1] = "";
-    $sql = "  SELECT * FROM ptc_department_".$department_name.";  ";
+    $sql = "
+        SELECT
+            a.*,
+            u.student_number
+        FROM
+            ptc_student_appointments a
+        INNER JOIN
+            ptc_student_users u ON a.username = u.username
+        WHERE
+            a.datee = '$datee';
+    ";
+
     $result = mysqli_query($con, $sql);
-    while($row = mysqli_fetch_assoc($result))
-    {
-        $department_array[1] .= '
-            <tbody>
-                <tr>
-                <td>'.$row['id'].'</td>
-                <td>'.$row['full_name'].'</td>
-                <td>'.$row['username'].'</td>
-                <td>'.$row['type'].'</td>
-                <td>
-                    <input type="button" value="Update" class="btn btn-success">
-                    <input type="button" value="Delete" class="btn btn-danger">
-                </td>
-                </tr>
-            </tbody>
-        ';
-    }
-    $department_array[2] = $department_id;
+    $counter = 1;
+    $echo[1] = "";
 
-    // $query = "INSERT INTO users VALUES('', '$nameqwe', '$emailqwe', '$genderqwe')";
-    // mysqli_query($con, $query);
-    
-    $response = json_encode($department_array);
+    while ($row = mysqli_fetch_assoc($result)) {
+        
+        $qweqwe = $row['requested_documents'];
+        $qweqwe = str_replace('---', ', ', $qweqwe);
+
+        $formattedDate = date("F j, Y", strtotime($datee));
+
+        $echo[1] .= "
+            <tr>
+                <td>".$counter."</td>
+                <td>".$row['username']."</td>
+                <td>".$row['student_number']."</td>
+                <td>".$qweqwe."</td>
+                <td>".$row['purpose_of_request']."</td>
+                <td>".$formattedDate."</td>
+            </tr>
+        ";
+
+        $counter++;
+    }
+
+    // $echo[1] = "QWE";
+
+    $response = json_encode($echo);
     echo $response;
   }
 ?>

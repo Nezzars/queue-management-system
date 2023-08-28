@@ -458,120 +458,99 @@ $(document).ready(function() {
 <script>
   document.addEventListener('DOMContentLoaded', function() 
   {
-    var calendarEl = document.getElementById('calendar');
+    var calendarEl1 = document.getElementById('calendar');
+            calendarEl1.innerHTML = '';
 
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-    // ... (other calendar options)
+            var calendar1 = new FullCalendar.Calendar(calendarEl1, {
 
-    // Event click callback
-    eventClick: function(info) { //function kapag kinlick ang mga button
-
-    var iconClass = info.event.extendedProps.iconClass;
-            
-    var data = 
-    {
-        action: 'select_total_students_if_50',
-        datee: moment(info.event.start).format('YYYY-MM-DD'),
-    };
-
-    $.ajax({
-        url: 'student_ajax.php',
-        type: 'post',
-        data: data,
-
-        success:function(response)
-        {
-            if(iconClass == 'fa fa-regular fa-calendar')
+            eventClick: function(info) { //function kapag kinlick ang mga button
+            var iconClass = info.event.extendedProps.iconClass;
+            var data = 
             {
-              Swal.fire(
-                  'Invalid!',
-                  '<b>'+info.event.title+'</b><br><br>This day is holiday!',
-                  'error'
-              )
-            }
-            else if(response.trim() >= "50")
-            {
-                Swal.fire(
-                    'Invalid!',
-                    'No Slot Available!',
-                    'error'
-                )
-            }
-            else
-            {
-                if(document.getElementById("certification_checkbox").checked)
+                action: 'select_total_students_if_50',
+                datee: moment(info.event.start).format('YYYY-MM-DD'),
+            };
+
+            $.ajax({
+                url: 'student_ajax.php',
+                type: 'post',
+                data: data,
+
+                success:function(response)
                 {
-                    $('#certification_checkboxes').toggle();
-                    document.getElementById("honorable_dismissal_checkbox").checked = false;
-                    document.getElementById("good_moral_character_checkbox").checked = false;
-                }
-                if(document.getElementById("others_checkbox").checked)
-                {
-                    $('#others_label_and_textfield').toggle();
-                    document.getElementById("others_textfield").value = "";
+                    if(iconClass == 'fa fa-regular fa-calendar')
+                    {
+                        Swal.fire(
+                            'Invalid!',
+                            '<b>'+info.event.title+'</b><br><br>This day is holiday!',
+                            'error'
+                        )
+                    }
+                    else if (parseInt(response.trim()) >= 50) 
+                    {
+                        Swal.fire(
+                            'Invalid!',
+                            'No Slot Available!',
+                            'error'
+                        );
+                    }
+                    else
+                    {
+                        if(document.getElementById("certification_checkbox").checked)
+                        {
+                            $('#certification_checkboxes').toggle();
+                            document.getElementById("honorable_dismissal_checkbox").checked = false;
+                            document.getElementById("good_moral_character_checkbox").checked = false;
+                        }
+                        if(document.getElementById("others_checkbox").checked)
+                        {
+                            $('#others_label_and_textfield').toggle();
+                            document.getElementById("others_textfield").value = "";
+                        }
+
+                        document.getElementById("transcript_checkbox").checked = false;
+                        document.getElementById("diploma_checkbox").checked = false;
+                        document.getElementById("form_137_checkbox").checked = false;
+                        document.getElementById("certification_checkbox").checked = false;
+                        document.getElementById("others_checkbox").checked = false;
+                        document.getElementById("purpose_of_request_textfield").value = "";
+                        document.getElementById("date_hidden").value = moment(info.event.start).format('YYYY-MM-DD');
+                        
+                        if(response.trim() == "")
+                            response = "0";
+                        $('#totalAppointment').html('Total Appointments: <b>'+response.trim()+'/50</b>');
+                        $('#eventDate').html('Appointment Date: <b><span id="appointment_date">' + moment(info.event.start).format('YYYY-MM-DD') + '</span></b>');
+                        $('#eventModal').modal('show');
+                    }
                 }
 
-                document.getElementById("transcript_checkbox").checked = false;
-                document.getElementById("diploma_checkbox").checked = false;
-                document.getElementById("form_137_checkbox").checked = false;
-                document.getElementById("certification_checkbox").checked = false;
-                document.getElementById("others_checkbox").checked = false;
-                document.getElementById("purpose_of_request_textfield").value = "";
-                document.getElementById("date_hidden").value = moment(info.event.start).format('YYYY-MM-DD');
+            });
+          },
 
-                if(response.trim() == "")
-                    response = "0";
-                $('#totalAppointment').html('Total Appointments: <b>'+response.trim()+'/50</b>');
-                $('#eventDate').html('Appointment Date: <b><span id="appointment_date">' + moment(info.event.start).format('YYYY-MM-DD') + '</span></b>');
-                $('#eventModal').modal('show');
+          eventContent: function(info) {
+            var iconClass = info.event.extendedProps.iconClass;
+
+            if (iconClass == 'fa fa-regular fa-calendar') {
+              var iconHtml = iconClass ? '<i class="' + iconClass + '"></i> <span id="title_label"><br> ' + info.event.title + '<br></span>  <br> ' : '';
+              return {
+                html: iconHtml + "Holiday"
+              };
+            } else if (iconClass == 'fa fa-solid fa-check') {
+              var iconHtml = iconClass ? '<i class="' + iconClass + '"></i> <span id="title_label"><br>Slot Available<br></span>  <br> ' : '';
+              return {
+                html: iconHtml + info.event.title
+              };
+            } else if (iconClass == 'fa fa-solid fa-x') {
+              var iconHtml = iconClass ? '<i class="' + iconClass + '"></i> <span id="title_label"><br>No Slot Available<br></span>  <br> ' : '';
+              return {
+                html: iconHtml + info.event.title
+              };
             }
-        }
+          },
 
-    });
-    },
-
-    eventContent: function(info) {
-    var iconClass = info.event.extendedProps.iconClass;
-
-    if (iconClass == 'fa fa-regular fa-calendar') {
-      var iconHtml = iconClass ? '<i class="' + iconClass + '"></i> <span id="title_label"><br> ' + info.event.title + '<br></span>  <br> ' : '';
-      return {
-        html: iconHtml + "Holiday"
-      };
-    } else if (iconClass == 'fa fa-solid fa-check') {
-      var iconHtml = iconClass ? '<i class="' + iconClass + '"></i> <span id="title_label"><br>Slot Available<br></span>  <br> ' : '';
-      return {
-        html: iconHtml + info.event.title
-      };
-    } else if (iconClass == 'fa fa-solid fa-x') {
-      var iconHtml = iconClass ? '<i class="' + iconClass + '"></i> <span id="title_label"><br>No Slot Available<br></span>  <br> ' : '';
-      return {
-        html: iconHtml + info.event.title
-      };
-    }
-  },
-
-
-    events: generateEvents(),
-
-    // events: [
-    //   {
-    //     title: '50/50',
-    //     start: '2023-08-21',
-    //     classNames: ['fc-event-slot-available'],
-    //     iconClass: 'fa fa-solid fa-check'
-    //   },
-      
-    //   {
-    //     title: '50/50',
-    //     start: '2023-08-22',
-    //     classNames: ['fc-event-no-slot-available'],
-    //     iconClass: 'fa fa-solid fa-x'
-    //   },
-      // ... (other events)
-    // ]
-    });
-    calendar.render();
+          events: generateEvents(),
+          });
+          calendar1.render();
   });
 </script>
 
@@ -773,4 +752,59 @@ $(document).ready(function() {
       }
     });
   }
+
+  function show_qr_appointment(id, datee)
+  {
+    
+    var data = 
+    {
+      action: 'show_qr_code_in_appointments',
+      id: id,
+      datee: datee,
+    };
+
+    $.ajax({
+      url: 'student_ajax.php',
+      type: 'post',
+      data: data,
+
+      success:function(response){
+
+        // Get the div element where you want to generate the QR code
+        var qrCodeDiv = document.getElementById("qrcode");
+
+        // Text you want to encode in the QR code
+        var qrText = response;
+
+        // Create a QR code instance
+        var qr = qrcode(0, "L");
+
+        // Set the QR code data
+        qr.addData(qrText);
+        qr.make();
+
+        // Generate an HTML <img> element with the QR code image
+        var qrImage = qr.createImgTag(4); // You can adjust the size using the scale factor
+
+        // Append the QR code image to the div
+        qrCodeDiv.innerHTML = qrImage;
+
+        var qrcodeElement = document.getElementById("qrcode");
+        var qrcodeChildren = qrcodeElement.children;
+
+        for (var i = 0; i < qrcodeChildren.length; i++) {
+          qrcodeChildren[i].style.width = "240px";
+          qrcodeChildren[i].style.height = "240px";
+          qrcodeChildren[i].style.border = "1px solid black";
+          // Apply your additional styles to qrcodeChildren[i] here
+        }
+      }
+
+    });
+
+    document.getElementById("launch_qr_modal_id").click();
+  }
+</script>
+<script>
+  
 </script>

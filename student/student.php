@@ -53,6 +53,8 @@
   <!-- datatables -->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+  <script src="../qrcode-generator-master/js/qrcode.js"></script>
+
   <style>
     .fc-event-slot-available 
     {
@@ -402,6 +404,22 @@
         transform: rotate(180deg);
         }
     /* MOBILE VIEW LEFT NAV BAR TOGGLE DESIGN */
+    </style>
+    <style>
+      <style>
+        #qr_modal_body {
+          font-family: Arial, sans-serif;
+          padding: 20px;
+          text-align: center;
+          background-color: #f9f9f9;
+        }
+
+        #qrcode {
+          margin-top: 20px;
+          width: 250px;
+          height: 250px;
+        }
+      </style>
     </style>
 </head>
 
@@ -809,6 +827,7 @@
                 <td>'.strtoupper($row['purpose_of_request']).'</td>
                 <td>'.strtoupper($formatted_date).'</td>
                 <td>
+                <input type="button" value="Show QR" class="btn btn-info" onclick="show_qr_appointment('.$row['id'].', \''.$row['datee'].'\')">
                   <input type="button" value="Cancel" class="btn btn-danger" onclick="cancel_appointment('.$row['id'].', \''.$row['datee'].'\')">
                 </td>
               </tr>
@@ -820,6 +839,29 @@
         
           </tbody>
       </table>
+
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#qr_modal" id="launch_qr_modal_id" style="display:none;">
+      </button>
+      <div class="modal fade" id="qr_modal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eventModalLabel">QR CODE</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="qr_modal_body">
+                  Show this QR code on the actual day of your appointment at the Registrar's Office. You will have priority over those in line.
+                  <center>
+                    <div id="qrcode">
+
+                    </div>
+                  </center>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
   </div>
 </div>
