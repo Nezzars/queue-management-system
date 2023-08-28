@@ -24,7 +24,7 @@
   <?php
     // include '../cdn/cdns.php';
   ?>
-  <link rel="stylesheet" href="student.css">
+  <!-- <link rel="stylesheet" href="student.css"> -->
   <!-- Include Font Awesome for icons -->
   <script src="https://kit.fontawesome.com/a076d05399.js"></script>
   <!-- font-awesome -->
@@ -53,341 +53,11 @@
   <!-- datatables -->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
-  <style>
-    .fc-event-slot-available 
-    {
-      text-align: center;
-      width:97%;
-      cursor:pointer;
-      background-color:green;
-      font-size:14px;
-    }
+  <script src="../qrcode-generator-master/js/qrcode.js"></script>
 
-    .fc-event-no-slot-available 
-    {
-      text-align: center;
-      width:97%;
-      cursor:pointer;
-      background-color:red;
-      font-size:14px;
-      color:white;
-    }
-    /* .fc-event-slot-available::before 
-    {
-      content: " ";
-      display: block;
-      height: 1em; /* Adjust this value to control the spacing
-    }  */
-    .fc-event-total {
-        background-color: lightgray;
-        border: 1px solid gray;
-        font-weight: bold;
-    }
-  </style>
-  <style>
-    body, html {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      background-color:lightgreen;
-      font-family: Arial, sans-serif;
-    }
-
-        .navbar1 {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 250px;
-        background-color: white;
-        color: black;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-top: 20px;
-        z-index: 1000; /* Make sure the navbar is on top of other elements */
-        }
-
-        .navbar1-header {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 20px;
-        margin-bottom: 20px;
-        }
-
-        .logo {
-        font-size: 24px;
-        margin-left:10px;
-        }
-
-        .toggle-button {
-        cursor: pointer;
-        display: none;
-        }
-
-        .bar {
-        width: 25px;
-        height: 3px;
-        background-color: #fff;
-        margin: 5px 0;
-        }
-
-        .navbar1-items {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-        width: 100%;
-        }
-
-        .navbar1-items li {
-        padding: 15px;
-        }
-
-        .navbar1-items li a {
-        text-decoration: none;
-        color: black;
-        font-size: 18px;
-        }
-
-        .department_lists-items li {
-          padding: 0px;
-          padding-left:15px;
-        }
-
-        .department_lists-items li a {
-        text-decoration: none;
-        color: black;
-        font-size: 18px;
-        }
-  </style>
-  <style>
-        /* Reset default margin and padding */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        /* Style the navigation bar */
-        .navbar {
-            background-color: #333;
-            color: #fff;
-            font-family: Arial, sans-serif;
-            box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);
-        }
-        
-        /* Container to center the content */
-        .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 15px;
-        }
-        
-        /* Style the logo */
-        .logo img {
-            height: 40px;
-            width: auto;
-            display: block;
-        }
-        
-        /* Style the navigation list */
-        .nav-list {
-            list-style: none;
-            display: flex;
-        }
-        
-        /* Style navigation list items */
-        .nav-list li {
-            margin: 0 15px;
-        }
-        
-        /* Style navigation links */
-        .nav-list li a {
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-        
-        /* Style navigation link on hover */
-        .nav-list li a:hover {
-            background-color: #555;
-        }
-        
-        /* Style logout link */
-        .logout {
-            margin-left: auto;
-        }
-        
-        /* Style logout link on hover */
-        .logout a {
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 15px;
-            background-color: #d9534f;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-        
-        .logout a:hover {
-            background-color: #c9302c;
-        }
-
-        /* Base styling for desktop */
-        .nav-list {
-            display: flex;
-            align-items: center;
-            margin-right: 30px;
-        }
-
-        /* Responsive styling for mobile */
-        @media (max-width: 767px) {
-            .nav-list {
-                margin-right: 0;
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .fc-event-slot-available 
-            {
-              font-size:10px;
-            }
-
-            .fc-event-no-slot-available 
-            {
-              font-size:10px;
-            }
-
-            #title_label
-            {
-              display:none;
-            }
-        }
-        
-
-        #main_panel
-        {
-            width: calc(100% - 250px); 
-            margin-left:250px;
-        }
-
-
-    </style>
-    <style>
-      /* .modal-body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        background-color: #f4f4f4;
-      } */
-      
-      .checkbox-container {
-        display: flex;
-        flex-direction: column;
-        align-items: left;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-      }
-      
-      .checkbox {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-      }
-      
-      .checkbox label {
-        margin-left: 10px;
-        font-size: 16px;
-      }
-      
-      .checkbox input[type="checkbox"] {
-        appearance: none;
-        width: 20px;
-        height: 20px;
-        border: 2px solid #007BFF;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: border-color 0.3s;
-        margin-top:-10px;
-      }
-      
-      .checkbox input[type="checkbox"]:checked {
-        border-color: #28A745;
-        background-color: #28A745;
-      }
-    </style>
-    <style>
-      /* MOBILE VIEW LEFT NAV BAR TOGGLE DESIGN */
-        #checkbox_leftnavbar {
-        display: none;
-        }
-
-        .toggle_leftnavbar {
-        position: relative;
-        width: 40px;
-        height: 40px;
-        cursor: pointer;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        transition-duration: .5s;
-        }
-
-        .bars_leftnavbar {
-        width: 100%;
-        height: 4px;
-        background-color: #1F5642;
-        border-radius: 4px;
-        }
-
-        #bar2_leftnavbar {
-        transition-duration: .8s;
-        }
-
-        #bar1_leftnavbar,#bar3_leftnavbar {
-        width: 70%;
-        }
-
-        #checkbox_leftnavbar:checked + .toggle_leftnavbar .bars_leftnavbar {
-        position: absolute;
-        transition-duration: .5s;
-        }
-
-        #checkbox_leftnavbar:checked + .toggle_leftnavbar #bar2_leftnavbar {
-        transform: scaleX(0);
-        transition-duration: .5s;
-        }
-
-        #checkbox_leftnavbar:checked + .toggle_leftnavbar #bar1_leftnavbar {
-        width: 100%;
-        transform: rotate(45deg);
-        transition-duration: .5s;
-        }
-
-        #checkbox_leftnavbar:checked + .toggle_leftnavbar #bar3_leftnavbar {
-        width: 100%;
-        transform: rotate(-45deg);
-        transition-duration: .5s;
-        }
-
-        #checkbox_leftnavbar:checked + .toggle_leftnavbar {
-        transition-duration: .5s;
-        transform: rotate(180deg);
-        }
-    /* MOBILE VIEW LEFT NAV BAR TOGGLE DESIGN */
-    </style>
+  <?php
+    include "student_css.php";
+  ?>
 </head>
 
 
@@ -438,6 +108,69 @@
 
 
 <body>
+<?php
+  if($_SESSION['kakasubmit_lang_ng_appointment'] == true)
+  {
+      echo "<script>
+        Swal.fire(
+          'Success!',
+          'Submiting an appointment Successfully!',
+          'success'
+          )
+      </script>";
+      $_SESSION['kakasubmit_lang_ng_appointment'] = false;
+  }
+
+  if($_SESSION['kakacancel_lang_ng_appointment'] == true)
+  {
+      echo "<script>
+        Swal.fire(
+          'Success!',
+          'Your appointment has been cancelled.',
+          'success'
+          )
+      </script>";
+      $_SESSION['kakacancel_lang_ng_appointment'] = false;
+  }
+
+  if($_SESSION['kakasubmit_lang_ng_feedback'] == true)
+  {
+      echo "<script>
+      Swal.fire(
+        'Thank you for your feedback!',
+        ' ',
+        'success'
+      )
+      </script>";
+      $_SESSION['kakasubmit_lang_ng_feedback'] = false;
+  }
+
+  if($_SESSION['kaka_delete_lang_ng_review'] == true)
+  {
+      echo "<script>
+      Swal.fire(
+        'Deleting your feedback successfully!',
+        ' ',
+        'success'
+      )
+      </script>";
+      $_SESSION['kaka_delete_lang_ng_review'] = false;
+  }
+
+  if($_SESSION['kakaupdate_lang_ng_feedback'] == true)
+  {
+      echo "<script>
+      Swal.fire(
+        'Updating your feedback successfully!',
+        ' ',
+        'success'
+      )
+      </script>";
+      $_SESSION['kakaupdate_lang_ng_feedback'] = false;
+  }
+
+  
+?>
   <!-- Loading SPINNER -->
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal11" id="launch_modal_id" style="display:none;">
   open loading
@@ -536,12 +269,12 @@
           <ul class="nav-list" style="margin: 0; padding: 0; list-style: none;">
               <li style="pointer-events: none;">Type: <b>STUDENT</b></li>
               <li style="pointer-events: none;">Name: <b><?php echo strtoupper($top_nav_bar['full_name']); ?></b></li>
-              <li style="pointer-events: none;">Username: <b><?php echo strtoupper($top_nav_bar['username']); ?></b></li>
+              <li style="pointer-events: none;">Username: <b><input type="hidden" value="<?php echo strtoupper($top_nav_bar['username']); ?>" id="username"><?php echo strtoupper($top_nav_bar['username']); ?></b></li>
           </ul>
       </div>
   </div>
 
-<div class="navbar1" id="left_nav_bar" style="overflow-x:scroll;">
+<div class="navbar1" id="left_nav_bar" style="overflow-x:scroll; border-right:2px solid #90EE90">
     <center>
       <div class="navbar1-header">
           <div class="logo">
@@ -584,8 +317,265 @@
         <h1><i class="fa-solid fa-calendar-days" style="color:green;"></i></h1>
         <h4><b id="currentDate"></b></h4>
         <h5>Date Today</h5> 
-        <br>
       </div>
+      <div id="review_panel" name="yes_review" style="display: table-cell; float:left; background-color:white; border-radius:10px; margin-top:20px; padding:20px; text-align:left;">
+        <h3><b>Ratings and Reviews</b></h3>
+        <h6>Ratings and reviews are verified and are from people who use the same type of device that you use.</h6>
+        <br>
+        <?php
+          $five_counter = 0;
+          $four_counter = 0;
+          $three_counter = 0;
+          $two_counter = 0;
+          $one_counter = 0;
+          $total_sum = 0;
+
+          $sql = "  SELECT * FROM ptc_feedbacks WHERE stars='5';  ";
+          $result = mysqli_query($con, $sql);
+          while($row = mysqli_fetch_assoc($result))
+          {
+            $five_counter++;
+          }
+
+          $sql = "  SELECT * FROM ptc_feedbacks WHERE stars='4';  ";
+          $result = mysqli_query($con, $sql);
+          while($row = mysqli_fetch_assoc($result))
+          {
+            $four_counter++;
+          }
+
+          $sql = "  SELECT * FROM ptc_feedbacks WHERE stars='3';  ";
+          $result = mysqli_query($con, $sql);
+          while($row = mysqli_fetch_assoc($result))
+          {
+            $three_counter++;
+          }
+
+          $sql = "  SELECT * FROM ptc_feedbacks WHERE stars='2';  ";
+          $result = mysqli_query($con, $sql);
+          while($row = mysqli_fetch_assoc($result))
+          {
+            $two_counter++;
+          }
+
+          $sql = "  SELECT * FROM ptc_feedbacks WHERE stars='1';  ";
+          $result = mysqli_query($con, $sql);
+          while($row = mysqli_fetch_assoc($result))
+          {
+            $one_counter++;
+          }
+
+          $total_sum = $one_counter+$two_counter+$three_counter+$four_counter+$five_counter;
+
+
+          
+          // $counts1 = [$five_counter, $four_counter, $three_counter, $two_counter, $one_counter];
+          // // $weightedSum1=1;
+          // $weightedSum1 = array_reduce($counts1, function($sum1, $count1, $index1) 
+          // {
+          //     return $sum1 + $count1 * ($index1 + 1);
+          // }, 0);
+
+          // $totalCount1 = array_sum($counts1);
+          // $averageRating = $weightedSum1 / $totalCount1;
+
+        ?>
+        <table style="width:100%;">
+          <tr style="width:100%;">
+            <td style="width:30% ">
+              <center><h1>5.0</h1></center>
+            </td>
+            <td style="width:70%">
+            <h5>5 <div style="width: 70%; background-color: #E3E3E3; height: 20px; margin-top:-22px; margin-left:27px; border-radius:5px;"><div style="width: <?php echo $five_counter*100/$total_sum; ?>%; background-color: blue; height: 20px; margin-top:-22px; border-radius:5px;"></div></div></h5>
+            <h5>4 <div style="width: 70%; background-color: #E3E3E3; height: 20px; margin-top:-22px; margin-left:27px; border-radius:5px;"><div style="width: <?php echo $four_counter*100/$total_sum; ?>%; background-color: blue; height: 20px; margin-top:-22px; border-radius:5px;"></div></div></h5>
+            <h5>3 <div style="width: 70%; background-color: #E3E3E3; height: 20px; margin-top:-22px; margin-left:27px; border-radius:5px;"><div style="width: <?php echo $three_counter*100/$total_sum; ?>%; background-color: blue; height: 20px; margin-top:-22px; border-radius:5px;"></div></div></h5>
+            <h5>2 <div style="width: 70%; background-color: #E3E3E3; height: 20px; margin-top:-22px; margin-left:27px; border-radius:5px;"><div style="width: <?php echo $two_counter*100/$total_sum; ?>%; background-color: blue; height: 20px; margin-top:-22px; border-radius:5px;"></div></div></h5>
+            <h5>1 <div style="width: 70%; background-color: #E3E3E3; height: 20px; margin-top:-22px; margin-left:27px; border-radius:5px;"><div style="width: <?php echo $one_counter*100/$total_sum; ?>%; background-color: blue; height: 20px; margin-top:-22px; border-radius:5px;"></div></div></h5>
+            </td>
+          </tr>
+        </table>
+        <br>
+        <center><input type="button" class="btn btn-primary" value="Show Comments"></center>
+      </div>
+      <div class="gitna1" style="">
+        &nbsp
+      </div>
+      <?php
+        $sql = "  SELECT * FROM ptc_feedbacks WHERE username='".$top_nav_bar['username']."';  ";
+        $result = mysqli_query($con, $sql);
+        if($row = mysqli_fetch_assoc($result))
+        {
+          $spanss = "";
+          if($row['stars'] == "1")
+          {
+            $spanss = 
+            '
+              <span class="stars" id="star1" style="color:gold;">&#9733;</span>
+              <span class="stars" id="star2">&#9733;</span>
+              <span class="stars" id="star3">&#9733;</span>
+              <span class="stars" id="star4">&#9733;</span>
+              <span class="stars" id="star5">&#9733;</span>
+            ';
+          }
+          else if($row['stars'] == "2")
+          {
+            $spanss = 
+            '
+              <span class="stars" id="star1" style="color:gold;">&#9733;</span>
+              <span class="stars" id="star2" style="color:gold;">&#9733;</span>
+              <span class="stars" id="star3">&#9733;</span>
+              <span class="stars" id="star4">&#9733;</span>
+              <span class="stars" id="star5">&#9733;</span>
+            ';
+          }
+          else if($row['stars'] == "3")
+          {
+            $spanss = 
+            '
+              <span class="stars" id="star1" style="color:gold;">&#9733;</span>
+              <span class="stars" id="star2" style="color:gold;">&#9733;</span>
+              <span class="stars" id="star3" style="color:gold;">&#9733;</span>
+              <span class="stars" id="star4">&#9733;</span>
+              <span class="stars" id="star5">&#9733;</span>
+            ';
+          }
+          else if($row['stars'] == "4")
+          {
+            $spanss = 
+            '
+              <span class="stars" id="star1" style="color:gold;">&#9733;</span>
+              <span class="stars" id="star2" style="color:gold;">&#9733;</span>
+              <span class="stars" id="star3" style="color:gold;">&#9733;</span>
+              <span class="stars" id="star4" style="color:gold;">&#9733;</span>
+              <span class="stars" id="star5">&#9733;</span>
+            ';
+          }
+          else if($row['stars'] == "5")
+          {
+            $spanss = 
+            '
+              <span class="stars" id="star1" style="color:gold;">&#9733;</span>
+              <span class="stars" id="star2" style="color:gold;">&#9733;</span>
+              <span class="stars" id="star3" style="color:gold;">&#9733;</span>
+              <span class="stars" id="star4" style="color:gold;">&#9733;</span>
+              <span class="stars" id="star5" style="color:gold;">&#9733;</span>
+            ';
+          }
+
+          echo 
+          '
+            <div id="review_panel" name="yes_review" style="display: table-cell; float:left; background-color:white; border-radius:10px; margin-top:20px; padding:20px; text-align:left;">
+              <h3><b>Your Review</b></h3>
+              <br>
+              <h5>'.strtoupper($top_nav_bar['full_name']).'</h5>
+              <div id="print_spans_here">
+                '.$spanss.'
+              </div>
+              <br><br>
+              <input type="button" value="Edit your review" class="btn btn-primary" data-target="#edit_review_modal" data-toggle="modal" id="edit_a_review_button" onclick="edit_a_review_onclick('.$row['id'].');">
+              <input type="button" value="Delete your review" class="btn btn-danger" id="delete_a_review_button" onclick="delete_a_review_onclick('.$row['id'].');">
+      
+              <div class="modal fade" id="edit_review_modal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="eventModalLabel">Edit Review</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                      <div style="border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); align-items: left;background-color: #fff;padding: 20px; margin-left:10px; margin-right:10px;">
+                        <input type="hidden" value="" id="stars">
+                        <span>Full Name: <b>BILLY BERNABE</b></span>
+                        <br>
+                        <span>Reviews are public.</span>
+                        <br>
+                        <span class="stars" id="star1_inside_modal" onmouseover="star1_inside_modal_mouse_over();" onmouseout="star1_inside_modal_mouse_out();" onclick="star1_inside_modal_onclick();">&#9733;</span>
+                        <span class="stars" id="star2_inside_modal" onmouseover="star2_inside_modal_mouse_over();" onmouseout="star2_inside_modal_mouse_out();" onclick="star2_inside_modal_onclick();">&#9733;</span>
+                        <span class="stars" id="star3_inside_modal" onmouseover="star3_inside_modal_mouse_over();" onmouseout="star3_inside_modal_mouse_out();" onclick="star3_inside_modal_onclick();">&#9733;</span>
+                        <span class="stars" id="star4_inside_modal" onmouseover="star4_inside_modal_mouse_over();" onmouseout="star4_inside_modal_mouse_out();" onclick="star4_inside_modal_onclick();">&#9733;</span>
+                        <span class="stars" id="star5_inside_modal" onmouseover="star5_inside_modal_mouse_over();" onmouseout="star5_inside_modal_mouse_out();" onclick="star5_inside_modal_onclick();">&#9733;</span>
+                        <br>
+                        <br>
+                        <label for="experience_textfield" class="form-label">Experience: </label>
+                        <textarea class="form-control" id="experience_textfield" placeholder="Describe your experience (optional)" required oninput="experience_textarea(this)"></textarea>
+      
+                      </div>
+                      
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="review_edit_button('.$row['id'].');">Edit</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="review_close_button">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ';
+        }
+        else 
+        {
+          echo 
+          '
+            <div id="review_panel" name="no_review" style="display: table-cell; float:left; background-color:white; border-radius:10px; margin-top:20px; padding:20px; text-align:left;">
+              <h3><b>Rate this web-based application</b></h3>
+              <h5>Tell others what you think</h5>
+              <span class="stars" id="star1" onmouseover="star1_mouse_over();" onmouseout="star1_mouse_out();" onclick="star1_onclick();">&#9733;</span>
+              <span class="stars" id="star2" onmouseover="star2_mouse_over();" onmouseout="star2_mouse_out();" onclick="star2_onclick();">&#9733;</span>
+              <span class="stars" id="star3" onmouseover="star3_mouse_over();" onmouseout="star3_mouse_out();" onclick="star3_onclick();">&#9733;</span>
+              <span class="stars" id="star4" onmouseover="star4_mouse_over();" onmouseout="star4_mouse_out();" onclick="star4_onclick();">&#9733;</span>
+              <span class="stars" id="star5" onmouseover="star5_mouse_over();" onmouseout="star5_mouse_out();" onclick="star5_onclick();">&#9733;</span><br><br>
+              <input type="button" value="Write a review" class="btn btn-info" data-target="#review_modal" data-toggle="modal" id="write_a_review_button" onclick="write_a_review_onclick();">
+      
+              <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#qr_modal" id="launch_qr_modal_id" style="display:none;">
+              </button> -->
+              <div class="modal fade" id="review_modal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="eventModalLabel">Review</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                      <div style="border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); align-items: left;background-color: #fff;padding: 20px; margin-left:10px; margin-right:10px;">
+                        <input type="hidden" value="" id="stars">
+                        <span>Full Name: <b>BILLY BERNABE</b></span>
+                        <br>
+                        <span>Reviews are public.</span>
+                        <br>
+                        <span class="stars" id="star1_inside_modal" onmouseover="star1_inside_modal_mouse_over();" onmouseout="star1_inside_modal_mouse_out();" onclick="star1_inside_modal_onclick();">&#9733;</span>
+                        <span class="stars" id="star2_inside_modal" onmouseover="star2_inside_modal_mouse_over();" onmouseout="star2_inside_modal_mouse_out();" onclick="star2_inside_modal_onclick();">&#9733;</span>
+                        <span class="stars" id="star3_inside_modal" onmouseover="star3_inside_modal_mouse_over();" onmouseout="star3_inside_modal_mouse_out();" onclick="star3_inside_modal_onclick();">&#9733;</span>
+                        <span class="stars" id="star4_inside_modal" onmouseover="star4_inside_modal_mouse_over();" onmouseout="star4_inside_modal_mouse_out();" onclick="star4_inside_modal_onclick();">&#9733;</span>
+                        <span class="stars" id="star5_inside_modal" onmouseover="star5_inside_modal_mouse_over();" onmouseout="star5_inside_modal_mouse_out();" onclick="star5_inside_modal_onclick();">&#9733;</span>
+                        <br>
+                        <br>
+                        <label for="experience_textfield" class="form-label">Experience: </label>
+                        <textarea class="form-control" id="experience_textfield" placeholder="Describe your experience (optional)" required oninput="experience_textarea(this)"></textarea>
+      
+                      </div>
+                      
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="review_submit_button();">Submit</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="review_close_button">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ';
+        }
+      ?>
+          
+
+
+      
+
+
     </div>
     <div id="biar">
         <br>
@@ -651,10 +641,11 @@
     <br>
     <div style="width:95%; margin:auto; padding:20px; background-color:white; border-top:3px solid green; border-radius:5px;">
     <div class="card">
-    <div class="card-body">
-        <div id="calendar"></div>
+      <div class="card-body">
+          <div id="calendar">
 
-        </div>
+          </div>
+      </div>
     </div>
 
     <!-- Modal -->
@@ -673,6 +664,7 @@
                       <div class="mb-3">
                         <label for="" class="form-label"><b>Record Requested <span style="color:red;">*</span></b></label><br>
                         <span id="eventDate"></span><br>
+                        <input type="hidden" value="qwe" id="date_hidden">
                         <span id="totalAppointment"></span><br>
                       </div>
                       <div class="checkbox">
@@ -708,18 +700,18 @@
                       </div>
                       <div class="mb-3" style="margin-left:20px; display:none;" id="others_label_and_textfield">
                         <label for="others_textfield" class="form-label">Please specify requested document if not in the list</label>
-                        <input type="text" class="form-control" id="others_textfield" placeholder="Please Specify your request">
+                        <input type="text" class="form-control" id="others_textfield" placeholder="Please Specify your request" oninput="limitChars(this)">
                       </div>
                       <hr>
                       <div class="mb-3">
                         <label for="purpose_of_request_textfield" class="form-label">Purpose of request</label>
-                        <input type="text" class="form-control" id="purpose_of_request_textfield" placeholder="Type purpose of request">
+                        <input type="text" class="form-control" id="purpose_of_request_textfield" placeholder="Type purpose of request" required oninput="limitChars(this)">
                       </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Submit</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="appointment_submit_function();">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="appointment_close_button">Close</button>
                 </div>
             </div>
         </div>
@@ -739,37 +731,72 @@
             <thead class="thead-dark">
                 <tr>
                     <th>ID</th>
-                    <th>Full Name</th>
-                    <th>Username</th>
-                    <th>Admin Type</th>
+                    <th>Requested Documents</th>
+                    <th>Purpose of request</th>
+                    <th>Date</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
         <?php
-          // $sql = "  SELECT * FROM ptc_admin;  ";
-          // $result = mysqli_query($con, $sql);
+          $sql = "  SELECT DISTINCT * FROM ptc_student_appointments WHERE username = '".$top_nav_bar['username']."';  ";
+          $result = mysqli_query($con, $sql);
+          $counter = 1;
       
-          // while($row = mysqli_fetch_assoc($result))
-          // {
-          //     echo '
-          //     <tr>
-          //       <td>'.strtoupper($row['id']).'</td>
-          //       <td>'.strtoupper($row['full_name']).'</td>
-          //       <td>'.strtoupper($row['username']).'</td>
-          //       <td>'.strtoupper($row['type']).'</td>
-          //       <td>
-          //         <input type="button" value="Update" class="btn btn-success">
-          //         <input type="button" value="Delete" class="btn btn-danger">
-          //       </td>
-          //     </tr>
-          //     ';
-          // }
+          while($row = mysqli_fetch_assoc($result))
+          {
+            $requested_documents = $row['requested_documents'];
+            $modified_requested_documents = str_replace(" --- ", ", ", $requested_documents); 
+
+            $datee = $row['datee'];
+            $datetime = new DateTime($datee);
+            $formatted_date = $datetime->format("F d, Y");
+
+              echo '
+              <tr>
+                <td>'.$counter.'</td>
+                <td>'.strtoupper($modified_requested_documents).'</td>
+                <td>'.strtoupper($row['purpose_of_request']).'</td>
+                <td>'.strtoupper($formatted_date).'</td>
+                <td>
+                <input type="button" value="Show QR" class="btn btn-info" onclick="show_qr_appointment('.$row['id'].', \''.$row['datee'].'\')">
+                  <input type="button" value="Cancel" class="btn btn-danger" onclick="cancel_appointment('.$row['id'].', \''.$row['datee'].'\')">
+                </td>
+              </tr>
+              ';
+              $counter++;
+          }
         ?>
         
         
-        </tbody>
+          </tbody>
       </table>
+
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#qr_modal" id="launch_qr_modal_id" style="display:none;">
+      </button>
+      <div class="modal fade" id="qr_modal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eventModalLabel">QR CODE</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="qr_modal_body">
+                  Show this QR code on the actual day of your appointment at the Registrar's Office. You will have priority over those in line.
+                  <center>
+                    <div id="qrcode">
+
+                    </div>
+                  </center>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="appointment_close_button">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
   </div>
 </div>
@@ -839,382 +866,6 @@
 
 
 
-<script>
-  //2am
-  var mobile_view = false;
-  function leftnavbar_toggle_button_function()
-  {
-    if(document.getElementById("checkbox_leftnavbar").checked)
-    {
-      $('#left_nav_bar').animate({ marginLeft: '0' });
-    }
-  }
-
-  function myFunction(x)
-  {
-    if (x.matches) 
-    { // mobile view
-      $('#left_nav_bar').animate({ marginLeft: '-250px' }); //display = "none"
-      document.getElementById('leftnavbar_toggle_button').style.display = "block";
-      document.getElementById('main_panel').style.width = "100%";
-      $('#main_panel').animate({ marginLeft: '0' });
-      document.getElementById("checkbox_leftnavbar").checked = false;
-      mobile_view = true;
-    } 
-    else 
-    {
-      $('#left_nav_bar').animate({ marginLeft: '0' }); //display = 'block';
-      document.getElementById('leftnavbar_toggle_button').style.display = "none";
-      document.getElementById('main_panel').style.width = "calc(100% - 250px)";
-      $('#main_panel').animate({ marginLeft: '250px' });
-      document.getElementById("checkbox_leftnavbar").checked = true;
-      mobile_view = false;
-    }
-  }
-  var x = window.matchMedia("(max-width: 914px)")
-  myFunction(x) // Call listener function at run time
-  x.addListener(myFunction)
-</script>
-<script>
-$(document).ready(function() {
-  $('#department_table').DataTable({
-    responsive: true
-  });
-});
-</script>
-  <script>
-    function logout_button()
-    {
-      Swal.fire({
-        title: 'Warning!',
-        text: "Are you sure you want to log out?",
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes',
-        cancelButtonText: 'No'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.href = "../logout.php";
-        } else {
-          // User clicked "No" or closed the dialog
-          Swal.fire(
-            'Cancelled',
-            'Your action has been cancelled.',
-            'error'
-          );
-        }
-      });
-    }
-</script>
-
-<script>
-    function getCurrentFormattedDate() {
-      const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-      
-      const currentDate = new Date();
-      const monthIndex = currentDate.getMonth();
-      const day = currentDate.getDate();
-      const year = currentDate.getFullYear();
-
-      const formattedDate = months[monthIndex] + " " + day + ", " + year;
-      return formattedDate;
-  }
-
-  document.getElementById('currentDate').textContent = getCurrentFormattedDate();
-
-  document.getElementById("left_nav_bar").addEventListener('mousedown', function(event) {
-      event.preventDefault();
-  });
-
-  document.getElementById("left_nav_bar").addEventListener('mouseup', function(event) {
-      event.preventDefault();
-  });
-
-  var pinindot_appointment_panel = false;
-  function show_dashboard_panel()
-  {
-    document.getElementById('dashboard_panel').style.display = "Inherit";
-    document.getElementById('schedule_an_appointment_panel').style.display = "none";
-    document.getElementById('my_appointments_panel').style.display = "none";
-    document.getElementById('my_profile_panel').style.display = "none";
-
-    document.getElementById("dashboard_button").style.backgroundColor = "lightgreen";
-    document.getElementById("schedule_an_appointment_button").style.backgroundColor = "white";
-    document.getElementById('my_appointments_button').style.backgroundColor = "white";
-    document.getElementById("my_profile_button").style.backgroundColor = "white";
-    
-    if(mobile_view == true)
-    {
-      $('#left_nav_bar').animate({ marginLeft: '-250px' }); //display = "none"
-      document.getElementById("checkbox_leftnavbar").checked = false;
-    }
-  }
-  function show_schedule_an_appointment_panel()
-  {
-    // alert("qwe");
-    document.getElementById('dashboard_panel').style.display = "none";
-    document.getElementById('schedule_an_appointment_panel').style.display = "Inherit";
-    document.getElementById('my_appointments_panel').style.display = "none";
-    document.getElementById('my_profile_panel').style.display = "none";
-
-    document.getElementById("dashboard_button").style.backgroundColor = "white";
-    document.getElementById("schedule_an_appointment_button").style.backgroundColor = "lightgreen";
-    document.getElementById('my_appointments_button').style.backgroundColor = "white";
-    document.getElementById("my_profile_button").style.backgroundColor = "white";
-
-    if(mobile_view == true)
-    {
-      $('#left_nav_bar').animate({ marginLeft: '-250px' }); //display = "none"
-      document.getElementById("checkbox_leftnavbar").checked = false;
-    }
-  }
-  function show_my_appointments_panel()
-  {
-    // alert("qwe");
-    document.getElementById('dashboard_panel').style.display = "none";
-    document.getElementById('schedule_an_appointment_panel').style.display = "none";
-    document.getElementById('my_appointments_panel').style.display = "Inherit";
-    document.getElementById('my_profile_panel').style.display = "none";
-
-    document.getElementById("dashboard_button").style.backgroundColor = "white";
-    document.getElementById("schedule_an_appointment_button").style.backgroundColor = "white";
-    document.getElementById('my_appointments_button').style.backgroundColor = "lightgreen";
-    document.getElementById("my_profile_button").style.backgroundColor = "white";
-
-    if(mobile_view == true)
-    {
-      $('#left_nav_bar').animate({ marginLeft: '-250px' }); //display = "none"
-      document.getElementById("checkbox_leftnavbar").checked = false;
-    }
-    pinindot_appointment_panel = true;
-  }
-  function show_my_profile_panel()
-  {
-    // alert("qwe");
-    document.getElementById('dashboard_panel').style.display = "none";
-    document.getElementById('schedule_an_appointment_panel').style.display = "none";
-    document.getElementById('my_appointments_panel').style.display = "none";
-    document.getElementById('my_profile_panel').style.display = "Inherit";
-
-    document.getElementById("dashboard_button").style.backgroundColor = "white";
-    document.getElementById("schedule_an_appointment_button").style.backgroundColor = "white";
-    document.getElementById('my_appointments_button').style.backgroundColor = "white";
-    document.getElementById("my_profile_button").style.backgroundColor = "lightgreen";
-
-    if(mobile_view == true)
-    {
-      $('#left_nav_bar').animate({ marginLeft: '-250px' }); //display = "none"
-      document.getElementById("checkbox_leftnavbar").checked = false;
-    }
-  }
-</script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() 
-  {
-    var calendarEl = document.getElementById('calendar');
-
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-    // ... (other calendar options)
-
-    // Event click callback
-    eventClick: function(info) {
-      if(info.event.title == "50/50")
-      {
-        Swal.fire(
-          'Invalid!',
-          'No Slot Available!',
-          'error'
-        )
-      }
-      else
-      {
-        if(document.getElementById("certification_checkbox").checked)
-        {
-          $('#certification_checkboxes').toggle();
-          document.getElementById("honorable_dismissal_checkbox").checked = false;
-          document.getElementById("good_moral_character_checkbox").checked = false;
-        }
-        if(document.getElementById("others_checkbox").checked)
-        {
-          $('#others_label_and_textfield').toggle();
-          document.getElementById("others_textfield").value = "";
-        }
-
-        document.getElementById("transcript_checkbox").checked = false;
-        document.getElementById("diploma_checkbox").checked = false;
-        document.getElementById("form_137_checkbox").checked = false;
-        document.getElementById("certification_checkbox").checked = false;
-        document.getElementById("others_checkbox").checked = false;
-        document.getElementById("purpose_of_request_textfield").value = "";
-
-        $('#totalAppointment').html('Total Appointments: <b>'+info.event.title+'</b>');
-        $('#eventDate').html('Appointment Date: <b>' + moment(info.event.start).format('YYYY-MM-DD') + '</b>');
-        $('#eventModal').modal('show');
-      }
-    },
-
-    eventContent: function(info) {
-      var iconClass = info.event.extendedProps.iconClass;
-      if(iconClass == 'fa fa-solid fa-check')
-        var iconHtml = iconClass ? '<i class="' + iconClass + '"></i> <span id="title_label"><br>Slot Available<br></span>  <br> ' : '';
-      else if(iconClass == 'fa fa-solid fa-x')
-        var iconHtml = iconClass ? '<i class="' + iconClass + '"></i> <span id="title_label"><br>No Slot Available<br></span>  <br> ' : '';
-      return {
-        html: iconHtml + info.event.title
-      };
-    },
-
-    events: generateEvents(),
-
-    // events: [
-    //   {
-    //     title: '50/50',
-    //     start: '2023-08-21',
-    //     classNames: ['fc-event-slot-available'],
-    //     iconClass: 'fa fa-solid fa-check'
-    //   },
-      
-    //   {
-    //     title: '50/50',
-    //     start: '2023-08-22',
-    //     classNames: ['fc-event-no-slot-available'],
-    //     iconClass: 'fa fa-solid fa-x'
-    //   },
-      // ... (other events)
-    // ]
-    });
-    calendar.render();
-  });
-function generateEvents() {
-  var startDate = moment();
-  var events = [];
-
-  for (var i = 0; i < 90; i++) {
-    var eventDate = startDate.clone().add(i, 'days');
-
-    // Skip Saturdays (6) and Sundays (0)
-    if (eventDate.day() !== 6 && eventDate.day() !== 0) {
-      var event = {
-        title: '0/50',
-        start: eventDate.format('YYYY-MM-DD'),
-        classNames: ['fc-event-slot-available'],
-        iconClass: 'fa fa-solid fa-check'
-      };
-
-      events.push(event);
-    }
-  }
-
-  return events;
-}
-</script>
-<script>
-  setTimeout(function() {
-    close_loading();
-    document.querySelector('.fc-next-button').click();
-    setTimeout(function() {
-      document.querySelector('.fc-prev-button').click();
-      document.getElementById("dashboard_with_icon_button").click();
-      document.getElementById("biar").style.display = "none";
-    }, 800);
-  }, 1500); // 2000 milliseconds = 2 seconds
-</script>
-<script>
-  function appointment_others_function()
-  {
-    if(document.getElementById("others_checkbox").checked)
-    {
-      $('#others_label_and_textfield').slideToggle('2000');
-      document.getElementById("others_textfield").value = "";
-    }
-    else
-    {
-      $('#others_label_and_textfield').slideToggle('2000');
-      document.getElementById("others_textfield").value = "";
-    }
-  }
-
-  function appointment_certification_function()
-  {
-    if(document.getElementById("certification_checkbox").checked)
-    {
-      $('#certification_checkboxes').slideToggle('2000');
-      document.getElementById("honorable_dismissal_checkbox").checked = false;
-      document.getElementById("good_moral_character_checkbox").checked = false;
-    }
-    else
-    {
-      $('#certification_checkboxes').slideToggle('2000');
-      document.getElementById("honorable_dismissal_checkbox").checked = false;
-      document.getElementById("good_moral_character_checkbox").checked = false;
-    }
-  }
-</script>
-<script>
-  setInterval(function() {
-      if(pinindot_appointment_panel == true)
-      {
-        var calendarEl = document.getElementById('calendar');
-        calendarEl.innerHTML = '';
-
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-
-          eventClick: function(info) {
-          if(info.event.title == "50/50")
-          {
-            Swal.fire(
-              'Invalid!',
-              'No Slot Available!',
-              'error'
-            )
-          }
-          else
-          {
-            if(document.getElementById("certification_checkbox").checked)
-            {
-              $('#certification_checkboxes').toggle();
-              document.getElementById("honorable_dismissal_checkbox").checked = false;
-              document.getElementById("good_moral_character_checkbox").checked = false;
-            }
-            if(document.getElementById("others_checkbox").checked)
-            {
-              $('#others_label_and_textfield').toggle();
-              document.getElementById("others_textfield").value = "";
-            }
-
-            document.getElementById("transcript_checkbox").checked = false;
-            document.getElementById("diploma_checkbox").checked = false;
-            document.getElementById("form_137_checkbox").checked = false;
-            document.getElementById("certification_checkbox").checked = false;
-            document.getElementById("others_checkbox").checked = false;
-            document.getElementById("purpose_of_request_textfield").value = "";
-
-            $('#totalAppointment').html('Total Appointments: <b>'+info.event.title+'</b>');
-            $('#eventDate').html('Appointment Date: <b>' + moment(info.event.start).format('YYYY-MM-DD') + '</b>');
-            $('#eventModal').modal('show');
-          }
-        },
-
-        eventContent: function(info) {
-          var iconClass = info.event.extendedProps.iconClass;
-          if(iconClass == 'fa fa-solid fa-check')
-            var iconHtml = iconClass ? '<i class="' + iconClass + '"></i> <span id="title_label"><br>Slot Available<br></span>  <br> ' : '';
-          else if(iconClass == 'fa fa-solid fa-x')
-            var iconHtml = iconClass ? '<i class="' + iconClass + '"></i> <span id="title_label"><br>No Slot Available<br></span>  <br> ' : '';
-          return {
-            html: iconHtml + info.event.title
-          };
-        },
-
-        events: generateEvents(),
-        });
-        calendar.render();
-      }
-    }, 2000);
-  // function qweqwe()
-  // {
-    
-  // }
-</script>
+<?php
+  include 'student_js.php';
+?>

@@ -38,7 +38,7 @@
       (
         '', 
         '$username_textfield', 
-        '$password_textfield', 
+        '" . password_hash($password_textfield, PASSWORD_DEFAULT) . "',
         '$student_number_textfield',
         '$institute_email_textfield',
         '$student_type_dropdownlist',
