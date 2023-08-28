@@ -367,7 +367,15 @@
 
           $total_sum = $one_counter+$two_counter+$three_counter+$four_counter+$five_counter;
 
+          $one_counter_total_kapag_tinimes = $one_counter*1;
+          $two_counter_total_kapag_tinimes = $two_counter*2;
+          $three_counter_total_kapag_tinimes = $three_counter*3;
+          $four_counter_total_kapag_tinimes = $four_counter*4;
+          $five_counter_total_kapag_tinimes = $five_counter*5;
 
+          $total_ng_counter_total_kapag_tinimes = $one_counter_total_kapag_tinimes+$two_counter_total_kapag_tinimes+$three_counter_total_kapag_tinimes+$four_counter_total_kapag_tinimes+$five_counter_total_kapag_tinimes;
+
+          $averageRatingg = $total_ng_counter_total_kapag_tinimes/$total_sum;
           
           // $counts1 = [$five_counter, $four_counter, $three_counter, $two_counter, $one_counter];
           // // $weightedSum1=1;
@@ -383,7 +391,7 @@
         <table style="width:100%;">
           <tr style="width:100%;">
             <td style="width:30% ">
-              <center><h1>5.0</h1></center>
+              <center><h1><?php echo number_format($averageRatingg, 1); ?></h1></center>
             </td>
             <td style="width:70%">
             <h5>5 <div style="width: 70%; background-color: #E3E3E3; height: 20px; margin-top:-22px; margin-left:27px; border-radius:5px;"><div style="width: <?php echo $five_counter*100/$total_sum; ?>%; background-color: blue; height: 20px; margin-top:-22px; border-radius:5px;"></div></div></h5>

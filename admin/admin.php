@@ -522,7 +522,7 @@
                         <thead class="thead-dark">
                           <tr>
                               <th>ID</th>
-                              <th>Username</th>
+                              <th>Full Name</th>
                               <th>Student Number</th>
                               <th>Requested Documents</th>
                               <th>Purpose of request</th>

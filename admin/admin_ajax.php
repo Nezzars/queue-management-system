@@ -20,7 +20,8 @@
     $sql = "
         SELECT
             a.*,
-            u.student_number
+            u.student_number,
+            u.full_name
         FROM
             ptc_student_appointments a
         INNER JOIN
@@ -43,7 +44,7 @@
         $echo[1] .= "
             <tr>
                 <td>".$counter."</td>
-                <td>".$row['username']."</td>
+                <td>".strtoupper($row['full_name'])."</td>
                 <td>".$row['student_number']."</td>
                 <td>".$qweqwe."</td>
                 <td>".$row['purpose_of_request']."</td>
