@@ -292,4 +292,110 @@
     // $query = "INSERT INTO users VALUES('', '$nameqwe', '$emailqwe', '$genderqwe')";
     // mysqli_query($con, $query);
   }
+
+  if($_POST["action"] == "submit_review")
+  {
+    global $con;
+    session_start();
+    $stars = $_POST["stars"];
+    $experience_textfield = $_POST["experience_textfield"];
+    $username = $_POST["username"];
+
+    $sql = "  SELECT * FROM ptc_feedbacks WHERE username='$username';  ";
+    $result = mysqli_query($con, $sql);
+    $merong_existing = false;
+
+    while($row = mysqli_fetch_assoc($result))
+    {
+        $merong_existing = true;
+    }
+
+    if($merong_existing == true)
+    {
+        echo "review_already_submitted";
+    }
+    else
+    {
+        $query = "INSERT INTO ptc_feedbacks (username, stars, comment, date_time) VALUES ('$username', '$stars', '$experience_textfield', NOW())";
+        mysqli_query($con, $query);
+
+        $_SESSION['kakasubmit_lang_ng_feedback'] = true;
+        echo "review_submitted_successfully";
+    }
+    
+    // echo $stars." - ".$experience_textfield." - ".$username;
+  }
+
+  if($_POST["action"] == "delete_review")
+  {
+    global $con;
+    session_start();
+    $id = $_POST["id"];
+
+    $query = "DELETE FROM `ptc_feedbacks` WHERE id = '$id'";
+    mysqli_query($con, $query);
+    $_SESSION['kaka_delete_lang_ng_review'] = true;
+
+    // echo $id;
+    // echo $stars." - ".$experience_textfield." - ".$username;
+  }
+
+  if($_POST["action"] == "get_edit_review")
+  {
+    global $con;
+    session_start();
+    $id = $_POST["id"];
+    $echos = array();
+
+    $sql = "  SELECT * FROM ptc_feedbacks WHERE id='$id';  ";
+    $result = mysqli_query($con, $sql);
+
+    if($row = mysqli_fetch_assoc($result))
+    {
+        $echos[0] = $row['stars'];
+        $echos[1] = $row['comment'];
+    }
+
+    $response = json_encode($echos);
+    echo $response;
+    // echo $id;
+    // echo $stars." - ".$experience_textfield." - ".$username;
+  }
+
+  if($_POST["action"] == "edit_review")
+  {
+    global $con;
+    session_start();
+    $username = $_POST["username"];
+    $stars = $_POST["stars"];
+    $experience_textfield = $_POST["experience_textfield"];
+
+    $sql = "UPDATE `ptc_feedbacks` SET 
+    
+    stars = '$stars' ,
+    comment = '$experience_textfield' ,
+    stars = '$stars' ,
+    date_time = NOW()
+    
+    WHERE 
+    
+    username='".$username."'";
+    mysqli_query($con, $sql);
+
+    $_SESSION['kakaupdate_lang_ng_feedback'] = true;
+
+    // $sql = "  SELECT * FROM ptc_feedbacks WHERE id='$id';  ";
+    // $result = mysqli_query($con, $sql);
+
+    // if($row = mysqli_fetch_assoc($result))
+    // {
+    //     $echos[0] = $row['stars'];
+    //     $echos[1] = $row['comment'];
+    // }
+
+    // $response = json_encode($echos);
+    // echo $response;
+    // echo $id;
+    // echo $stars." - ".$experience_textfield." - ".$username;
+  }
 ?>

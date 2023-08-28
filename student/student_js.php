@@ -1,4 +1,22 @@
 <script>
+  if(!window.matchMedia("(max-width: 914px)").matches)
+  {
+    document.getElementById("left_nav_bar").style.marginLeft = "0px";
+    document.getElementById('leftnavbar_toggle_button').style.display = "none";
+    document.getElementById('main_panel').style.width = "calc(100% - 250px)";
+    document.getElementById("main_panel").style.marginLeft = "250px";
+    document.getElementById("checkbox_leftnavbar").checked = true;
+  }
+  else
+  {
+    document.getElementById("left_nav_bar").style.marginLeft = "-250px";
+    document.getElementById('leftnavbar_toggle_button').style.display = "block";
+    document.getElementById('main_panel').style.width = "100%";
+    document.getElementById("main_panel").style.marginLeft = "0";
+    document.getElementById("checkbox_leftnavbar").checked = false;
+  }
+  
+  mobile_view = true;
   var resize_window = false;
 </script>
 <script>
@@ -806,5 +824,459 @@ $(document).ready(function() {
   }
 </script>
 <script>
+  function limitChars(inputField) 
+  {
+      var inputValue = inputField.value;
+      
+      if (inputValue.length > 100) {
+          inputField.value = inputValue.substring(0, 100);
+      }
+  }
+  function experience_textarea(inputField) 
+  {
+      var inputValue = inputField.value;
+      
+      if (inputValue.length > 255) {
+          inputField.value = inputValue.substring(0, 255);
+      }
+
+      inputField.style.height = 'auto'; // Reset height to auto
+      inputField.style.height = (inputField.scrollHeight) + 'px'; // Set height to content's scroll height
+  }
+
+
+  var star1_clicked = false;
+  var star2_clicked = false;
+  var star3_clicked = false;
+  var star4_clicked = false;
+  var star5_clicked = false;
   
+  function star1_mouse_over()
+  {
+    document.getElementById("star1").style.color = "gold";
+    // document.getElementById("star1").style.textShadow = "none";
+    // document.getElementById("star1").style.background = "linear-gradient(to right, gold 50%, transparent 50%)";
+    // document.getElementById("star1").style.backgroundClip = "text";
+    // document.getElementById("star1").style.webkitBackgroundClip = "text";
+    // document.getElementById("star1").style.color = "transparent";
+  }
+  function star1_mouse_out()
+  {
+    document.getElementById("star1").style.color = "white";
+  }
+
+  function star2_mouse_over()
+  {
+    document.getElementById("star1").style.color = "gold";
+    document.getElementById("star2").style.color = "gold";
+  }
+  function star2_mouse_out()
+  {
+    document.getElementById("star1").style.color = "white";
+    document.getElementById("star2").style.color = "white";
+  }
+
+  function star3_mouse_over()
+  {
+    document.getElementById("star1").style.color = "gold";
+    document.getElementById("star2").style.color = "gold";
+    document.getElementById("star3").style.color = "gold";
+  }
+  function star3_mouse_out()
+  {
+    document.getElementById("star1").style.color = "white";
+    document.getElementById("star2").style.color = "white";
+    document.getElementById("star3").style.color = "white";
+  }
+
+  function star4_mouse_over()
+  {
+    document.getElementById("star1").style.color = "gold";
+    document.getElementById("star2").style.color = "gold";
+    document.getElementById("star3").style.color = "gold";
+    document.getElementById("star4").style.color = "gold";
+  }
+  function star4_mouse_out()
+  {
+    document.getElementById("star1").style.color = "white";
+    document.getElementById("star2").style.color = "white";
+    document.getElementById("star3").style.color = "white";
+    document.getElementById("star4").style.color = "white";
+  }
+
+  function star5_mouse_over()
+  {
+    document.getElementById("star1").style.color = "gold";
+    document.getElementById("star2").style.color = "gold";
+    document.getElementById("star3").style.color = "gold";
+    document.getElementById("star4").style.color = "gold";
+    document.getElementById("star5").style.color = "gold";
+  }
+  function star5_mouse_out()
+  {
+    document.getElementById("star1").style.color = "white";
+    document.getElementById("star2").style.color = "white";
+    document.getElementById("star3").style.color = "white";
+    document.getElementById("star4").style.color = "white";
+    document.getElementById("star5").style.color = "white";
+  }
+
+
+
+
+
+  function star1_inside_modal_mouse_over()
+  {
+    if(star1_clicked == false)
+      document.getElementById("star1_inside_modal").style.color = "gold";
+    // document.getElementById("star1").style.textShadow = "none";
+    // document.getElementById("star1").style.background = "linear-gradient(to right, gold 50%, transparent 50%)";
+    // document.getElementById("star1").style.backgroundClip = "text";
+    // document.getElementById("star1").style.webkitBackgroundClip = "text";
+    // document.getElementById("star1").style.color = "transparent";
+  }
+  function star1_inside_modal_mouse_out()
+  {
+    if(star1_clicked == false)
+      document.getElementById("star1_inside_modal").style.color = "white";
+  }
+
+  function star2_inside_modal_mouse_over()
+  {
+    if(star1_clicked == false)
+      document.getElementById("star1_inside_modal").style.color = "gold";
+    if(star2_clicked == false) 
+      document.getElementById("star2_inside_modal").style.color = "gold";
+  }
+  function star2_inside_modal_mouse_out()
+  {
+    if(star1_clicked == false)
+      document.getElementById("star1_inside_modal").style.color = "white";
+    if(star2_clicked == false)   
+      document.getElementById("star2_inside_modal").style.color = "white";
+  }
+
+  function star3_inside_modal_mouse_over()
+  {
+    if(star1_clicked == false)document.getElementById("star1_inside_modal").style.color = "gold";
+    if(star2_clicked == false)document.getElementById("star2_inside_modal").style.color = "gold";
+    if(star3_clicked == false)document.getElementById("star3_inside_modal").style.color = "gold";
+  }
+  function star3_inside_modal_mouse_out()
+  {
+    if(star1_clicked == false)document.getElementById("star1_inside_modal").style.color = "white";
+    if(star2_clicked == false)document.getElementById("star2_inside_modal").style.color = "white";
+    if(star3_clicked == false)document.getElementById("star3_inside_modal").style.color = "white";
+  }
+
+  function star4_inside_modal_mouse_over()
+  {
+    if(star1_clicked == false)document.getElementById("star1_inside_modal").style.color = "gold";
+    if(star2_clicked == false)document.getElementById("star2_inside_modal").style.color = "gold";
+    if(star3_clicked == false)document.getElementById("star3_inside_modal").style.color = "gold";
+    if(star4_clicked == false)document.getElementById("star4_inside_modal").style.color = "gold";
+  }
+  function star4_inside_modal_mouse_out()
+  {
+    if(star1_clicked == false)document.getElementById("star1_inside_modal").style.color = "white";
+    if(star2_clicked == false)document.getElementById("star2_inside_modal").style.color = "white";
+    if(star3_clicked == false)document.getElementById("star3_inside_modal").style.color = "white";
+    if(star4_clicked == false)document.getElementById("star4_inside_modal").style.color = "white";
+  }
+
+  function star5_inside_modal_mouse_over()
+  {
+    if(star1_clicked == false)document.getElementById("star1_inside_modal").style.color = "gold";
+    if(star2_clicked == false)document.getElementById("star2_inside_modal").style.color = "gold";
+    if(star3_clicked == false)document.getElementById("star3_inside_modal").style.color = "gold";
+    if(star4_clicked == false)document.getElementById("star4_inside_modal").style.color = "gold";
+    if(star5_clicked == false)document.getElementById("star5_inside_modal").style.color = "gold";
+  }
+  function star5_inside_modal_mouse_out()
+  {
+    if(star1_clicked == false)document.getElementById("star1_inside_modal").style.color = "white";
+    if(star2_clicked == false)document.getElementById("star2_inside_modal").style.color = "white";
+    if(star3_clicked == false)document.getElementById("star3_inside_modal").style.color = "white";
+    if(star4_clicked == false)document.getElementById("star4_inside_modal").style.color = "white";
+    if(star5_clicked == false)document.getElementById("star5_inside_modal").style.color = "white";
+  }
+
+
+
+
+
+
+
+  function star1_inside_modal_onclick()
+  {
+    document.getElementById("stars").value = "1";
+
+    star2_clicked = false;
+    star3_clicked = false;
+    star4_clicked = false;
+    star5_clicked = false;
+    document.getElementById("star2_inside_modal").style.color = "white";
+    document.getElementById("star3_inside_modal").style.color = "white";
+    document.getElementById("star4_inside_modal").style.color = "white";
+    document.getElementById("star5_inside_modal").style.color = "white";
+
+    star1_clicked = true;
+    document.getElementById("star1_inside_modal").style.color = "gold";
+  }
+  function star2_inside_modal_onclick()
+  {
+    document.getElementById("stars").value = "2";
+
+    star3_clicked = false;
+    star4_clicked = false;
+    star5_clicked = false;
+    document.getElementById("star3_inside_modal").style.color = "white";
+    document.getElementById("star4_inside_modal").style.color = "white";
+    document.getElementById("star5_inside_modal").style.color = "white";
+
+    star1_clicked = true;
+    document.getElementById("star1_inside_modal").style.color = "gold";
+    star2_clicked = true;
+    document.getElementById("star2_inside_modal").style.color = "gold";
+  }
+  function star3_inside_modal_onclick()
+  {
+    document.getElementById("stars").value = "3";
+    
+    star4_clicked = false;
+    star5_clicked = false;
+    document.getElementById("star4_inside_modal").style.color = "white";
+    document.getElementById("star5_inside_modal").style.color = "white";
+
+    star1_clicked = true;
+    document.getElementById("star1_inside_modal").style.color = "gold";
+    star2_clicked = true;
+    document.getElementById("star2_inside_modal").style.color = "gold";
+    star3_clicked = true;
+    document.getElementById("star3_inside_modal").style.color = "gold";
+  }
+  function star4_inside_modal_onclick()
+  {
+    document.getElementById("stars").value = "4";
+    
+    star5_clicked = false;
+    document.getElementById("star5_inside_modal").style.color = "white";
+
+    star1_clicked = true;
+    document.getElementById("star1_inside_modal").style.color = "gold";
+    star2_clicked = true;
+    document.getElementById("star2_inside_modal").style.color = "gold";
+    star3_clicked = true;
+    document.getElementById("star3_inside_modal").style.color = "gold";
+    star4_clicked = true;
+    document.getElementById("star4_inside_modal").style.color = "gold";
+  }
+  function star5_inside_modal_onclick()
+  {
+    document.getElementById("stars").value = "5";
+    
+    star1_clicked = true;
+    document.getElementById("star1_inside_modal").style.color = "gold";
+    star2_clicked = true;
+    document.getElementById("star2_inside_modal").style.color = "gold";
+    star3_clicked = true;
+    document.getElementById("star3_inside_modal").style.color = "gold";
+    star4_clicked = true;
+    document.getElementById("star4_inside_modal").style.color = "gold";
+    star5_clicked = true;
+    document.getElementById("star5_inside_modal").style.color = "gold";
+  }
+
+
+
+  function star1_onclick()
+  {
+    document.getElementById("write_a_review_button").click();
+    document.getElementById("star1_inside_modal").click();
+  }
+  function star2_onclick()
+  {
+    document.getElementById("write_a_review_button").click();
+    document.getElementById("star2_inside_modal").click();
+  }
+  function star3_onclick()
+  {
+    document.getElementById("write_a_review_button").click();
+    document.getElementById("star3_inside_modal").click();
+  }
+  function star4_onclick()
+  {
+    document.getElementById("write_a_review_button").click();
+    document.getElementById("star4_inside_modal").click();
+  }
+  function star5_onclick()
+  {
+    document.getElementById("write_a_review_button").click();
+    document.getElementById("star5_inside_modal").click();
+  }
+
+  function write_a_review_onclick()
+  {
+    star1_clicked = false;
+    star2_clicked = false;
+    star3_clicked = false;
+    star4_clicked = false;
+    star5_clicked = false;
+    document.getElementById("star1_inside_modal").style.color = "white";
+    document.getElementById("star2_inside_modal").style.color = "white";
+    document.getElementById("star3_inside_modal").style.color = "white";
+    document.getElementById("star4_inside_modal").style.color = "white";
+    document.getElementById("star5_inside_modal").style.color = "white";
+    document.getElementById("experience_textfield").value = "";
+  }
+</script>
+<script>
+  function review_submit_button()
+  {
+    if(document.getElementById("stars").value.trim() == "")
+    {
+      Swal.fire(
+            'Invalid!',
+            'Please select your star rating!',
+            'error'
+          )
+    }
+    else
+    {
+      var data = 
+      {
+        action: 'submit_review',
+        stars: document.getElementById("stars").value,
+        experience_textfield: document.getElementById("experience_textfield").value.trim(),
+        username: document.getElementById("username").value,
+        // email: $("#email1").val(),
+        // gender: $("#gender1").val(),
+      };
+
+      $.ajax({
+        url: 'student_ajax.php',
+        type: 'post',
+        data: data,
+
+        success:function(response){
+          if(response.trim() == "review_already_submitted")
+          {
+            Swal.fire(
+              'You already submitted a feedback!',
+              ' ',
+              'error'
+            )
+          }
+          else if(response.trim() == "review_submitted_successfully")
+          {
+            // document.getElementsByName('yes_review')[0].style.display="inherit";
+            // document.getElementsByName('no_review')[0].style.display="none";
+            // document.getElementById("review_close_button").click();
+            window.location.href = "student.php";
+            // Swal.fire(
+            //   'Thank you for your feedback!',
+            //   ' ',
+            //   'success'
+            // )
+          }
+          
+        }
+
+      });
+    }
+  }
+
+  function delete_a_review_onclick(id)
+  {
+    var data = 
+    {
+      action: 'delete_review',
+      id: id,
+    };
+
+    $.ajax({
+      url: 'student_ajax.php',
+      type: 'post',
+      data: data,
+
+      success:function(response){
+        window.location.href = "student.php";
+      }
+
+    });
+  }
+
+  function edit_a_review_onclick(id)
+  {
+    var data = 
+    {
+      action: 'get_edit_review',
+      id: id,
+    };
+
+    $.ajax({
+      url: 'student_ajax.php',
+      type: 'post',
+      data: data,
+
+      success:function(response){
+        var parsedResponse = JSON.parse(response);
+        if(parsedResponse[0] == "1")
+          document.getElementById("star1_inside_modal").click();
+        if(parsedResponse[0] == "2")
+          document.getElementById("star2_inside_modal").click();
+        if(parsedResponse[0] == "3")
+          document.getElementById("star3_inside_modal").click();
+        if(parsedResponse[0] == "4")
+          document.getElementById("star4_inside_modal").click();
+        if(parsedResponse[0] == "5")
+          document.getElementById("star5_inside_modal").click();
+          
+        document.getElementById("experience_textfield").value = parsedResponse[1];
+      }
+
+    });
+  }
+
+  function review_edit_button(id)
+  {
+    if(document.getElementById("stars").value.trim() == "")
+    {
+      Swal.fire(
+            'Invalid!',
+            'Please select your star rating!',
+            'error'
+          )
+    }
+    else
+    {
+      var data = 
+      {
+        action: 'edit_review',
+        stars: document.getElementById("stars").value,
+        experience_textfield: document.getElementById("experience_textfield").value.trim(),
+        username: document.getElementById("username").value,
+      };
+
+      $.ajax({
+        url: 'student_ajax.php',
+        type: 'post',
+        data: data,
+
+        success:function(response){
+          // alert(response);
+          window.location.href = "student.php";
+          // document.getElementsByName('yes_review')[0].style.display="inherit";
+          // document.getElementsByName('no_review')[0].style.display="none";
+          // document.getElementById("review_close_button").click();
+          // Swal.fire(
+          //   'Thank you for your feedback!',
+          //   ' ',
+          //   'success'
+          // )
+        }
+
+      });
+    }
+  }
 </script>

@@ -1,4 +1,22 @@
 <script>
+  if(!window.matchMedia("(max-width: 914px)").matches)
+  {
+    document.getElementById("left_nav_bar").style.marginLeft = "0px";
+    document.getElementById('leftnavbar_toggle_button').style.display = "none";
+    document.getElementById('main_panel').style.width = "calc(100% - 250px)";
+    document.getElementById("main_panel").style.marginLeft = "250px";
+    document.getElementById("checkbox_leftnavbar").checked = true;
+  }
+  else
+  {
+    document.getElementById("left_nav_bar").style.marginLeft = "-250px";
+    document.getElementById('leftnavbar_toggle_button').style.display = "block";
+    document.getElementById('main_panel').style.width = "100%";
+    document.getElementById("main_panel").style.marginLeft = "0";
+    document.getElementById("checkbox_leftnavbar").checked = false;
+  }
+  
+  mobile_view = true;
   var resize_window = false;
 </script>
 <script>
