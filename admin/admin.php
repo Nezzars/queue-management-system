@@ -500,8 +500,8 @@
     <!-- Modal -->
     <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eventModal">Open Modal</button> -->
     <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:80%;">
                 <div class="modal-header">
                     <h5 class="modal-title" id="eventModalLabel">Appointments</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -568,7 +568,59 @@
   <h1 style="padding:10px; border:1px solid lightgray; text-align:center; background-color:#1F5642; color:white;"><b>Admin Users</b> </h1>
   <br>
   <div style="width: 95%; margin: auto; padding: 20px; background-color: white; border-top: 3px solid green; border-radius: 5px;">
-    <input type="button" value="Add User" class="btn btn-primary">
+    <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop" onclick="add_user_button();">
+          Add User
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Add User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Username</label>
+                  <input required type="text" class="form-control" id="username_admin_input">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="password_admin_input">
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="passwordToggle">
+                                <i class="fas fa-eye"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">First Name</label>
+                  <input type="text" class="form-control" id="firstname_admin_input">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Middle Name</label>
+                  <input type="text" class="form-control" id="middlename_admin_input">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Last Name</label>
+                  <input type="text" class="form-control" id="lastname_admin_input">
+                </div>
+            </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="add_admin_function();">Add</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
     <br>
     <br>
     <div class="table-responsive">
@@ -635,11 +687,11 @@
           <div class="mb-3">
             <div></div>
             <label class="form-label">Username</label>
-            <input name="username" type="text" class="form-control" value="<?php echo $row['username']; ?>">
+            <input disabled readonly name="username" type="text" class="form-control" value="<?php echo $row['username']; ?>">
           </div>
           <div class="mb-3">
             <label class="form-label">Password</label>
-            <input name="password" type="text" class="form-control" id="exampleInputPassword1" value="<?php echo $row['password']; ?>">
+            <input name="password" type="password" class="form-control" id="exampleInputPassword1" value="<?php echo $row['password']; ?>">
           </div>
           <div class="mb-3">
             <label class="form-label">First Name</label>

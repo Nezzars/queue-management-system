@@ -7,6 +7,14 @@
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
   }
+  
+  .input-group-text {
+    cursor: pointer;
+}
+
+.input-group-text i {
+    font-size: 18px;
+}
 
   /* Table header styles */
   #appointment_table th {

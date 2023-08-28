@@ -1,4 +1,86 @@
 <script>
+  function add_user_button(){
+
+   
+    // Clear input values
+    document.getElementById("username_admin_input").value = "";
+    document.getElementById("password_admin_input").value = "";
+    document.getElementById("firstname_admin_input").value = "";
+    document.getElementById("middlename_admin_input").value = "";
+    document.getElementById("lastname_admin_input").value = "";
+
+
+  }
+
+
+</script>
+
+<script>
+                  function add_admin_function(){
+                    
+
+                    var admin_username = document.getElementById("username_admin_input");
+                    var admin_password = document.getElementById("password_admin_input");
+                    var admin_firstname = document.getElementById("firstname_admin_input");
+                    var admin_middlename = document.getElementById("middlename_admin_input");
+                    var admin_lastname = document.getElementById("lastname_admin_input");
+                    if (admin_username.value == "")
+                    {
+                        admin_username.setCustomValidity("Please fill out this field.");
+                        admin_username.reportValidity();
+                    }
+                    else if (admin_password.value == "")
+                    {
+                      admin_password.setCustomValidity("Please fill out this field.");
+                      admin_password.reportValidity();
+                    }
+                    
+                    else if (admin_firstname.value == "")
+                    {
+                      admin_firstname.setCustomValidity("Please fill out this field.");
+                      admin_firstname.reportValidity();
+                    }
+                    else if (admin_middlename.value == "")
+                    {
+                      admin_middlename.setCustomValidity("Please fill out this field.");
+                      admin_middlename.reportValidity();
+                    }
+                    else if (admin_lastname.value == "")
+                    {
+                      admin_lastname.setCustomValidity("Please fill out this field.");
+                      admin_lastname.reportValidity();
+                    }
+                    else{
+                      var data = 
+                      {
+                          action: 'add_admin_ajax',
+                          admin_username:admin_username.value.trim(),
+                          admin_password:admin_password.value.trim(),
+                          admin_firstname:admin_firstname.value.trim(),
+                          admin_middlename:admin_middlename.value.trim(),
+                          admin_lastname:admin_lastname.value.trim(),
+                      };
+
+                      $.ajax({
+                      url: 'admin_ajax.php',
+                      type: 'post',
+                      data: data,
+
+                      success:function(response)
+                      {
+                          alert(response)    
+                              
+                      }
+
+                      });
+                    }
+
+                    
+
+                  }
+</script>
+
+<script>
   if(!window.matchMedia("(max-width: 914px)").matches)
   {
     document.getElementById("left_nav_bar").style.marginLeft = "0px";
@@ -75,7 +157,7 @@
 
     });
     },
-
+    
     eventContent: function(info) {
     var iconClass = info.event.extendedProps.iconClass;
 
@@ -101,6 +183,22 @@
     });
     calendar1.render();
 });
+</script>
+<script>
+    $(document).ready(function() {
+        $("#passwordToggle").on("click", function() {
+            const passwordInput = $("#password_admin_input");
+            const icon = $(this).find("i");
+
+            if (passwordInput.attr("type") === "password") {
+                passwordInput.attr("type", "text");
+                icon.removeClass("fa-eye").addClass("fa-eye-slash");
+            } else {
+                passwordInput.attr("type", "password");
+                icon.removeClass("fa-eye-slash").addClass("fa-eye");
+            }
+        });
+    });
 </script>
 <script>
 $(document).ready(function() {
