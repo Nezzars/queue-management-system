@@ -958,36 +958,44 @@
   <div style="width:95%; margin:auto; padding:20px; background-color:white; border-top:3px solid green; border-radius:5px;">
     <div class="container" style="width:100%;">
     
-    <div class="container-fluid">
-    <form class>
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Admin Type</label>
-        <input disabled readonly type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <?php
+    $sql = "  SELECT * FROM ptc_admin WHERE username='".$_SESSION['admin_username']."';";
+    $result = mysqli_query($con, $sql);
+    $row = mysqli_fetch_assoc($result);
+   
+    ?>
+
+
+      <div class="container-fluid">
+        <form method="post">
+          <div class="mb-3">
+            <label class="form-label">Admin Type</label>
+            <input disabled readonly type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php echo $row['type']; ?>">
+          </div>
+          <div class="mb-3">
+            <div></div>
+            <label class="form-label">Username</label>
+            <input name="username" type="text" class="form-control" value="<?php echo $row['username']; ?>">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input name="password" type="text" class="form-control" id="exampleInputPassword1" value="<?php echo $row['password']; ?>">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">First Name</label>
+            <input name="first_name" type="text" class="form-control" value="<?php echo $row['first_name']; ?>">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Middle Name</label>
+            <input name="middle_name" type="text" class="form-control" value="<?php echo $row['middle_name']; ?>">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Last Name</label>
+            <input name="last_name" type="text" class="form-control" value="<?php echo $row['last_name']; ?>">
+          </div>
+          <button name="update_account" class="btn btn-success">Update</button>
+        </form>
       </div>
-      <div class="mb-3">
-        <div></div>
-        <label for="exampleInputEmail1" class="form-label">Username</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-      </div>
-      <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1">
-      </div>
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">First Name</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-      </div>
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Middle Name</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-      </div>
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Last Name</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-      </div>
-      <button type="button" class="btn btn-success">Update</button>
-    </form>
-    </div>
     </div>
     <br>
     <br>
