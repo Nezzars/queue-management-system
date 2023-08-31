@@ -1242,41 +1242,149 @@
   <br>
   <div style="width:95%; margin:auto; padding:20px; background-color:white; border-top:3px solid green; border-radius:5px;">
     <div class="container-fluid">
-      <div class="mb-3">
       <center><h4>Account Information</h4></center>
-        <label class="form-label">Username</label>
-        <input disabled name="username" type="text" class="form-control" value="<?php echo $row['username']; ?>">
+      <div class="mb-3">
+        <label for="username_textfield">Username</label>
+        <input disabled type="text" required id="username_textfield" name="username_textfield" class="form-control form-control-sm mb-2">
       </div>
       <div class="mb-3">
-        <label class="form-label">Password</label>
-        <input disabled name="password" type="password" class="form-control" id="exampleInputPassword1" value="<?php echo $row['password']; ?>">
+        <label for="password_textfield">Password</label>
+        <div class="input-group">
+            <input disabled type="password" required id="password_textfield" name="password_textfield" class="form-control form-control-sm">
+            <div class="input-group-append">
+                <button disabled class="btn btn-outline-secondary toggle-password" type="button" id="togglePassword">
+                    <i class="fa fa-eye" id="eyeIcon"></i>
+                </button>
+            </div>
+        </div>
+        <div id="error-message" class="text-danger"></div>
       </div>
       <div class="mb-3">
-        <label class="form-label">Confirm Password</label>
-        <input disabled name="password" type="password" class="form-control" id="exampleInputPassword1" value="<?php echo $row['password']; ?>">
+        <label for="confirm_password_textfield">Confirm Password</label>
+        <div class="input-group">
+            <input disabled type="password" required id="confirm_password_textfield" name="confirm_password_textfield" class="form-control form-control-sm">
+            <div class="input-group-append">
+                <button disabled class="btn btn-outline-secondary toggle-password" type="button" id="toggleConfirmPassword">
+                    <i class="fa fa-eye" id="eyeIcon1"></i>
+                </button>
+            </div>
+        </div>
+        <div id="error-message" class="text-danger"></div>
       </div>
       <div class="mb-3">
-        <button class="btn btn-secondary">Edit</button>
+        <button class="btn btn-secondary">&nbsp Edit &nbsp</button>
       </div>
       <div class="styled-hr">
         <hr>
       </div>
       <center><h4>Institute Information</h4></center>
       <div class="mb-3">
-        <label class="form-label">First Name</label>
-        <input name="first_name" type="text" class="form-control" value="<?php echo $row['first_name']; ?>">
+        <label for="email">Student Number: </label>
+        <input disabled type="email" required name="student_number_textfield" class="form-control mb-2" id="student_number_textfield" placeholder="Ex. 2018-1132">
       </div>
       <div class="mb-3">
-        <label class="form-label">Middle Name</label>
-        <input name="middle_name" type="text" class="form-control" value="<?php echo $row['middle_name']; ?>">
+        <label for="email">Institute Email</label>
+        <input disabled type="email" required name="email" class="form-control mb-2" id="institute_email_textfield" placeholder="@paterostechnologicalcollege.edu.ph">
       </div>
       <div class="mb-3">
-        <label class="form-label">Last Name</label>
-        <input name="last_name" type="text" class="form-control" value="<?php echo $row['last_name']; ?>">
+        <label for="gender">Student Type</label>
+        <select disabled class="form-control form-control-sm mb-2" name="student_type_dropdownlist" id="student_type_dropdownlist">
+          <option value="" disabled selected>Choose...</option>
+          <option value="Regular">Regular</option>
+          <option value="Irregular">Irregular</option>
+        </select>
       </div>
-      <button name="update_account" class="btn btn-success">Update</button>
+      <div class="mb-3">
+        <label for="email">Course</label>
+        <input disabled type="text" required name="email" class="form-control mb-2" id="course_textfield" placeholder="Ex. Bachelor of Science in Information Technology (BSIT)">
+      </div>
+      <div class="mb-3">
+        <button class="btn btn-secondary">&nbsp Edit &nbsp</button>
+      </div>
+      <div class="styled-hr">
+        <hr>
+      </div>
+      <center><h4>Personal Information</h4></center>
+      <div class="mb-3">
+        <label for="firstname">First Name</label>
+        <input disabled type="text" required id="first_name_textfield" name="firstname" class="form-control form-control-sm mb-2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="150">
+      </div>
+      <div class="mb-3">
+        <label for="middlename">Middle Name</label>
+        <input disabled type="text" placeholder="Leave if none" id="middle_name_textfield" name="middlename" class="form-control form-control-sm mb-2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="150">
+      </div>
+      <div class="mb-3">
+        <label for="lastname">Last Name</label>
+        <input disabled type="text" required="" id="last_name_textfield" name="lastname" class="form-control form-control-sm mb-2" id="inputls" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="150">
+      </div>
+      <div class="mb-3">
+        <label for="suffix">Suffix</label>
+        <input disabled type="text" placeholder="Leave if none" id="suffix_textfield" name="suffix" class="form-control form-control-sm mb-2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="150">
+      </div>
+      <div class="mb-3">
+        <label for="gender">Gender</label>
+        <select disabled class="form-control form-control-sm mb-2" name="gender_dropdownlist" id="gender_dropdownlist">
+          <option value="" disabled selected>Choose...</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="bday">Birthday</label>
+        <input disabled type="date" required id="birthday_textfield" value="" name="bday" class="form-control form-control-sm mb-2">
+      </div>
+      <div class="mb-3">
+        <label for="contactnumber">Contact No.</label>
+        <input disabled type="text" required name="contactnumber" class="form-control form-control-sm mb-2" id="contact_no_textfield" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11">
+      </div>
+      <div class="mb-3">
+        <label for="address">Street Address</label>
+        <input disabled type="text" required id="street_address_textfield" class="form-control form-control-sm mb-2" name="street_address" placeholder="House No. and Street Name">
+      </div>
+      <div class="mb-3">
+        <label for="address">Province</label>
+        <select disabled class="form-control form-control-sm mb-2" name="province_dropdownlist" id="province_dropdownlist" onchange="select_province_ajax();">
+          <option value="" disabled selected>Choose...</option>
+          <option value="Metro Manila">Metro Manila</option>
+          <?php
+            $sql = "SELECT DISTINCT Province FROM ptc_setupaddress;";
+            $result = mysqli_query($con, $sql);
+            
+            if ($result) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $province = $row['Province'];
+                    echo '<option value="' . $province . '">' . $province . '</option>';
+                }
+            } else {
+                echo "Error: " . mysqli_error($con);
+            }
+            
+            mysqli_close($con);
+          ?>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="address">Town / City</label>
+        <select disabled class="form-control form-control-sm mb-2" name="town_city_dropdownlist" id="town_city_dropdownlist" onchange="select_town_city_ajax();">
+          <!-- may laman na -->
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="address">Barangay</label>
+        <select disabled class="form-control form-control-sm mb-2" name="barangay_dropdownlist" id="barangay_dropdownlist">
+          
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="address">Postcode / ZIP</label>
+        <input disabled type="text" required id="postcode_textfield" class="form-control form-control-sm mb-2" name="postcode" placeholder="Optional">
+      </div>
+      <div class="mb-3">
+        <button class="btn btn-secondary">&nbsp Edit &nbsp</button>
+      </div>
     </div>
   </div>
+  <br>
 </div>
 <!-- MY ACCOUNT PANEL -->
 </div> <!-- end of main_panel -->

@@ -1,4 +1,37 @@
 <script>
+  document.getElementById("togglePassword").addEventListener("click", function() {
+  const passwordInput = document.getElementById("password_textfield");
+  const eyeIcon = document.getElementById("eyeIcon");
+
+  if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      eyeIcon.classList.remove("fa-eye");
+      eyeIcon.classList.add("fa-eye-slash");
+  } else {
+      passwordInput.type = "password";
+      eyeIcon.classList.remove("fa-eye-slash");
+      eyeIcon.classList.add("fa-eye");
+  }
+  });
+</script>
+
+<script>
+  document.getElementById("toggleConfirmPassword").addEventListener("click", function() {
+  const passwordInput = document.getElementById("confirm_password_textfield");
+  const eyeIcon = document.getElementById("eyeIcon1");
+
+  if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      eyeIcon.classList.remove("fa-eye");
+      eyeIcon.classList.add("fa-eye-slash");
+  } else {
+      passwordInput.type = "password";
+      eyeIcon.classList.remove("fa-eye-slash");
+      eyeIcon.classList.add("fa-eye");
+  }
+  });
+</script>
+<script>
   function r_and_r_all_radiobutton()
   {
     document.getElementById("r_and_r_all_panel").style.display = "block";

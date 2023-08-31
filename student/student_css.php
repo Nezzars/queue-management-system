@@ -538,7 +538,7 @@
   .styled-hr hr {
   border: none; /* Remove default border */
   height: 2px; /* Set the height of the line */
-  background-color: green; /* Change the background color */
+  background-color: lightgreen; /* Change the background color */
   margin: 20px 0; /* Add some margin above and below */
   position: relative;
 }
@@ -550,7 +550,25 @@
   left: 0;
   width: 20px; /* Width of the decorative line */
   height: 2px;
-  background-color: lightgreen; /* Color of the decorative line */
+  background-color: #1F5642; /* Color of the decorative line */
   transform: translateY(-50%); /* Adjust for vertical alignment */
 }
+</style>
+<style>
+  /* Add this CSS to adjust the height of the toggle button */
+  .input-group .toggle-password {
+  height: 34px; /* You can adjust the height to match the input field */
+  padding: 0 10px;
+  border: 1px solid #ced4da;
+  border-left: none;
+  }
+
+  .input-group .toggle-password i {
+  font-size: 14px;
+  }
+
+  .input-group .toggle-password:hover {
+  background-color: #f7f7f7;
+  }
+
 </style>

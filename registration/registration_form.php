@@ -337,7 +337,7 @@ $today = date("Y-m-d");
         <h5 style="text-align:center;">Institute Information</h5>
         <div class="form-row">
             <label for="email">Student Number: </label>
-            <input type="email" required name="student_number_textfield" class="form-control mb-2" id="student_number_textfield" placeholder="Ex. 2018-1132">
+            <input type="text" required name="student_number_textfield" class="form-control mb-2" id="student_number_textfield" placeholder="Ex. 2018-1132">
         </div>
         <div class="form-row">
             <label for="email">Institute Email</label>
@@ -353,20 +353,20 @@ $today = date("Y-m-d");
         </div>
         <div class="form-row">
             <label for="email">Course</label>
-            <input type="email" required name="email" class="form-control mb-2" id="course_textfield" placeholder="Ex. BSIT">
+            <input type="text" required name="email" class="form-control mb-2" id="course_textfield" placeholder="Ex. Bachelor of Science in Information Technology (BSIT)">
         </div>
 
         <hr>
         <h5 style="text-align:center;">Personal Information</h5>
                 <div class="form-row">
                     <label for="firstname">First Name</label>
-                    <input type="text" required id="first_name_textfield" name="firstname" class="form-control form-control-sm mb-2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="20">
+                    <input type="text" required id="first_name_textfield" name="firstname" class="form-control form-control-sm mb-2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="150">
                 </div>
 
                 <!-- MIDDLE NAME -->
                  <div class="form-row">
                                     <label for="middlename">Middle Name</label>
-                                    <input type="text" placeholder="Leave if none" id="middle_name_textfield" name="middlename" class="form-control form-control-sm mb-2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="20">
+                                    <input type="text" placeholder="Leave if none" id="middle_name_textfield" name="middlename" class="form-control form-control-sm mb-2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="150">
                  </div>
 
 
@@ -374,12 +374,12 @@ $today = date("Y-m-d");
                 <!-- LAST NAME -->
                 <div class="form-row">
                     <label for="lastname">Last Name</label>
-                    <input type="text" required="" id="last_name_textfield" name="lastname" class="form-control form-control-sm mb-2" id="inputls" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="20">
+                    <input type="text" required="" id="last_name_textfield" name="lastname" class="form-control form-control-sm mb-2" id="inputls" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="150">
                 </div>
 
                 <div class="form-row">
                                 <label for="suffix">Suffix</label>
-                                <input type="text" placeholder="Leave if none" id="suffix_textfield" name="suffix" class="form-control form-control-sm mb-2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="15">
+                                <input type="text" placeholder="Leave if none" id="suffix_textfield" name="suffix" class="form-control form-control-sm mb-2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="150">
                             </div>
 
                 <!-- <div class="form-row">
@@ -406,7 +406,7 @@ $today = date("Y-m-d");
 
                 <div class="form-row">
                     <label for="contactnumber">Contact No.</label>
-                    <input type="text" required name="contactnumber" class="form-control form-control-sm mb-2" id="contact_no_textfield" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11" placeholder="Leave if none">
+                    <input type="text" required name="contactnumber" class="form-control form-control-sm mb-2" id="contact_no_textfield" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11">
                 </div>
 
                 <div class="form-row">
@@ -1579,6 +1579,17 @@ if (str.length == 0) {
             Swal.fire(
               'Invalid!',
               'Please put your Birthday!',
+              'error'
+            )
+        }
+        else if (document.getElementById("contact_no_textfield").value.trim() == "")
+        {
+            document.getElementById("contact_no_textfield").setCustomValidity("Please fill out this field.");
+            document.getElementById("contact_no_textfield").reportValidity();
+
+            Swal.fire(
+              'Invalid!',
+              'Please put your Contact No.!',
               'error'
             )
         }
