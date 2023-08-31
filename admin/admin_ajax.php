@@ -37,7 +37,7 @@
     while ($row = mysqli_fetch_assoc($result)) {
         
         $qweqwe = $row['requested_documents'];
-        $qweqwe = str_replace('---', ', ', $qweqwe);
+        $qweqwe = str_replace(' --- ', ', ', $qweqwe);
 
         $formattedDate = date("F j, Y", strtotime($datee));
 

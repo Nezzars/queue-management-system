@@ -16,44 +16,23 @@
     font-size: 18px;
 }
 
-  /* Table header styles */
-  #appointment_table th {
-    background-color: #333;
-    color: white;
-    padding: 15px 10px;
-    text-align: left;
-    font-weight: bold;
-    border: 1px solid #ccc;
-  }
-
-  /* Table body row styles */
-  #appointment_table td {
-    padding: 15px 10px;
-    border: 1px solid #ccc;
-  }
-
-  /* Alternating row colors */
-  #appointment_table tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-
-  /* Hover effect for rows */
-  #appointment_table tbody tr:hover {
-    background-color: #ddd;
-  }
-
-  /* Responsive design for small screens */
-  @media (max-width: 768px) {
-    #appointment_table {
-      font-size: 14px;
-    }
-    #appointment_table th,
-    #appointment_table td {
-      padding: 10px 5px;
-    }
-  }
+  
 </style>
 <style>
+          /* .modal_content_appointment
+          {
+            width:200%;
+            margin-left:-50%;
+          } */
+          /* @media (max-width: 1021px) {
+            .modal_content_appointment
+            {
+              width:100%;
+              margin-left:0;
+            }
+          } */
+
+
         @media (max-width: 767px) {
             .nav-list {
                 margin-right: 0;
@@ -319,22 +298,23 @@
   </style>
   <style>
     /* Custom styling for the modal */
-    .modal-dialog {
+
+    /* .modal-dialog {
       max-width: 500px;
-    }
+    } */
 
     /* Additional margin for the modal body */
-    .modal-body {
+    /* .modal-body {
       margin: 20px;
-    }
+    } */
 
     /* Center the department name input */
-    .department-input {
+    /* .department-input {
       width: 100%;
-    }
+    } */
 
     /* Style the footer buttons */
-    .modal-footer .btn-secondary {
+    /* .modal-footer .btn-secondary {
       background-color: #6c757d;
       border-color: #6c757d;
     }
@@ -352,7 +332,7 @@
     .modal-footer .btn-primary:hover {
       background-color: #0056b3;
       border-color: #0056b3;
-    }
+    } */
   </style>
   <style>
     .department-container {
@@ -375,6 +355,11 @@
       margin-left: 10px;
     }
 
+    #review_panel
+    {
+      width:49%;
+    }
+
     @media screen and (max-width: 768px) {
       .department-container {
         flex-direction: column;
@@ -389,6 +374,11 @@
       .btn {
         margin-left: 0;
         margin-top: 5px;
+      }
+
+      #review_panel
+      {
+        width:100%;
       }
     }
 
@@ -406,3 +396,153 @@
     }
 
 </style>
+<style>
+      textarea {
+        resize: vertical; /* Allow vertical resizing */
+        overflow: auto; /* Add scroll bar if needed */
+      }
+
+      .stars 
+      {
+        display: inline-block;
+        font-size: 40px;
+        
+        /* background: linear-gradient(to right, gold 50%, transparent 50%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent; */
+
+        color: white;
+        text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+
+        cursor:pointer;
+        margin-left:-2px;
+        margin-right:-2px; 
+      }
+    </style>
+    <style>
+        .radio-input input {
+          display: none;
+        }
+
+        .radio-input {
+          --container_width: 328px; /* Adjust as needed */
+          position: relative;
+          display: flex;
+          align-items: center;
+          border-radius: 9999px;
+          background-color: #fff;
+          color: #000000;
+          width: var(--container_width);
+          overflow: hidden;
+          border: 1px solid rgba(53, 52, 52, 0.226);
+        }
+
+        .radio-input label {
+          width: calc(100% / 5); /* Divide equally for 5 buttons */
+          padding: 10px;
+          cursor: pointer;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 1;
+          font-weight: 600;
+          letter-spacing: -1px;
+          font-size: 14px;
+        }
+
+        .selection {
+          display: none;
+          position: absolute;
+          height: 100%;
+          width: calc(var(--container_width) / 5);
+          z-index: 0;
+          left: 0;
+          top: 0;
+          transition: .15s ease;
+        }
+
+        .radio-input label:has(input:checked) {
+          color: #fff;
+        }
+
+        .radio-input label:has(input:checked) ~ .selection {
+          background-color: rgb(11, 117, 223);
+          display: inline-block;
+        }
+
+        /* Adjust the transforms for 5 buttons */
+        .radio-input label:nth-child(1):has(input:checked) ~ .selection {
+          transform: translateX(calc(var(--container_width) * 0 / 6));
+        }
+
+        .radio-input label:nth-child(2):has(input:checked) ~ .selection {
+          transform: translateX(calc(var(--container_width) * 1 / 6));
+        }
+
+        .radio-input label:nth-child(3):has(input:checked) ~ .selection {
+          transform: translateX(calc(var(--container_width) * 2 / 6));
+        }
+
+        .radio-input label:nth-child(4):has(input:checked) ~ .selection {
+          transform: translateX(calc(var(--container_width) * 3 / 6));
+        }
+
+        .radio-input label:nth-child(5):has(input:checked) ~ .selection {
+          transform: translateX(calc(var(--container_width) * 4 / 6));
+        }
+
+        .radio-input label:nth-child(6):has(input:checked) ~ .selection {
+          transform: translateX(calc(var(--container_width) * 5 / 6));
+        }
+
+      </style>
+      <style>
+        .comments-container {
+          border: 1px solid #ccc;
+          padding: 20px;
+          border-radius: 10px;
+          background-color: #f9f9f9;
+          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+          max-height: 500px;
+          overflow-y: scroll;
+        }
+
+        .comment {
+          margin-bottom: 15px;
+          padding: 15px;
+          border: 1px solid #ddd;
+          border-radius: 8px;
+          background-color: #fff;
+          box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .comment-author {
+          font-weight: bold;
+          margin-bottom: 5px;
+        }
+
+        .comment-date {
+          font-size: 12px;
+          color: #888;
+        }
+
+        .comment-time {
+          font-size: 12px;
+          color: #888;
+        }
+
+        .comment-content {
+          font-size: 14px;
+          margin: 10px 0;
+        }
+
+        .star-rating {
+          color: #FFD700;
+        }
+        
+        .total-reviews {
+          font-size: 14px;
+          margin-top: 10px;
+        }
+      </style>

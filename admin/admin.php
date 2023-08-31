@@ -23,16 +23,8 @@
   <script src="https://kit.fontawesome.com/a076d05399.js"></script>
   <!-- font-awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- swal -->
+  <!-- swal --> 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <!-- <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' rel='stylesheet' />
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'></script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
- Add Bootstrap CSS and JS for the modal -->
-  <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 
   <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' rel='stylesheet' />
   <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'></script>
@@ -406,6 +398,512 @@
         <h4><b id="currentDate"></b></h4>
         <h5>Date Today</h5> 
         <br>
+      </div><div id="review_panel" name="yes_review" style="display: table-cell; float:left; background-color:white; border-radius:10px; margin-top:20px; padding:20px; text-align:left;">
+        <h3><b>Ratings and Reviews</b></h3>
+        <h6>Ratings and reviews are verified and are from people who use the same type of device that you use.</h6>
+        <br>
+        <?php
+          $five_counter = 0;
+          $four_counter = 0;
+          $three_counter = 0;
+          $two_counter = 0;
+          $one_counter = 0;
+          $total_sum = 0;
+          $one_counter_total_kapag_tinimes = 0;
+          $two_counter_total_kapag_tinimes = 0;
+          $three_counter_total_kapag_tinimes = 0;
+          $four_counter_total_kapag_tinimes = 0;
+          $one_counter_total_kapag_tinimes = 0;
+          $total_ng_counter_total_kapag_tinimes = 0;
+          $averageRatingg = 0;
+
+          $sql = "  SELECT * FROM ptc_feedbacks WHERE stars='5';  ";
+          $result = mysqli_query($con, $sql);
+          while($row = mysqli_fetch_assoc($result))
+          {
+            $five_counter++;
+          }
+
+          $sql = "  SELECT * FROM ptc_feedbacks WHERE stars='4';  ";
+          $result = mysqli_query($con, $sql);
+          while($row = mysqli_fetch_assoc($result))
+          {
+            $four_counter++;
+          }
+
+          $sql = "  SELECT * FROM ptc_feedbacks WHERE stars='3';  ";
+          $result = mysqli_query($con, $sql);
+          while($row = mysqli_fetch_assoc($result))
+          {
+            $three_counter++;
+          }
+
+          $sql = "  SELECT * FROM ptc_feedbacks WHERE stars='2';  ";
+          $result = mysqli_query($con, $sql);
+          while($row = mysqli_fetch_assoc($result))
+          {
+            $two_counter++;
+          }
+
+          $sql = "  SELECT * FROM ptc_feedbacks WHERE stars='1';  ";
+          $result = mysqli_query($con, $sql);
+          while($row = mysqli_fetch_assoc($result))
+          {
+            $one_counter++;
+          }
+
+          $total_sum = $one_counter+$two_counter+$three_counter+$four_counter+$five_counter;
+
+          $one_counter_total_kapag_tinimes = $one_counter*1;
+          $two_counter_total_kapag_tinimes = $two_counter*2;
+          $three_counter_total_kapag_tinimes = $three_counter*3;
+          $four_counter_total_kapag_tinimes = $four_counter*4;
+          $five_counter_total_kapag_tinimes = $five_counter*5;
+
+
+          $total_ng_counter_total_kapag_tinimes = $one_counter_total_kapag_tinimes+$two_counter_total_kapag_tinimes+$three_counter_total_kapag_tinimes+$four_counter_total_kapag_tinimes+$five_counter_total_kapag_tinimes;
+          
+          $averageRatingg = $total_ng_counter_total_kapag_tinimes/$total_sum;
+
+
+          // if($total_sum == null)
+          // {
+          //   $total_sum = 1;
+          // }
+          if (is_nan($averageRatingg)) 
+          {
+            $averageRatingg = 0;
+              // echo "<script>alert('".$five_counter*100/$total_sum." is NaN')</script>";
+          }
+          // echo "<script>alert('".$five_counter*100/$total_sum." is NaN')</script>";
+          $five_counter_percent = $five_counter*100/$total_sum;
+          $four_counter_percent = $four_counter*100/$total_sum;
+          $three_counter_percent = $three_counter*100/$total_sum;
+          $two_counter_percent = $two_counter*100/$total_sum;
+          $one_counter_percent = $one_counter*100/$total_sum;
+
+          if (is_nan($five_counter_percent)) 
+            $five_counter_percent = 0;
+          if (is_nan($four_counter_percent)) 
+            $four_counter_percent = 0;
+          if (is_nan($three_counter_percent)) 
+            $three_counter_percent = 0;
+          if (is_nan($two_counter_percent)) 
+            $two_counter_percent = 0;
+          if (is_nan($one_counter_percent)) 
+            $one_counter_percent = 0;
+          
+        ?>
+        <table style="width:100%;">
+          <tr style="width:100%;">
+            <td style="width:30%; ">
+              <center>
+                <h1><?php echo number_format($averageRatingg, 1); ?></h1>
+                <?php echo number_format($total_sum); ?> <br>
+                Reviews
+              </center>
+            </td>
+            <td style="width:50%; ">
+              <h5>5 <div style="width: 80%; background-color: #E3E3E3; height: 21px; margin-top:-22px; margin-left:27px; border-radius:5px;"><div style="width: <?php echo $five_counter_percent; ?>%; background-color: blue; height: 21px; margin-top:-22px; border-radius:5px;"></div></div></h5>
+              <h5>4 <div style="width: 80%; background-color: #E3E3E3; height: 21px; margin-top:-22px; margin-left:27px; border-radius:5px;"><div style="width: <?php echo $four_counter_percent; ?>%; background-color: blue; height: 21px; margin-top:-22px; border-radius:5px;"></div></div></h5>
+              <h5>3 <div style="width: 80%; background-color: #E3E3E3; height: 21px; margin-top:-22px; margin-left:27px; border-radius:5px;"><div style="width: <?php echo $three_counter_percent; ?>%; background-color: blue; height: 21px; margin-top:-22px; border-radius:5px;"></div></div></h5>
+              <h5>2 <div style="width: 80%; background-color: #E3E3E3; height: 21px; margin-top:-22px; margin-left:27px; border-radius:5px;"><div style="width: <?php echo $two_counter_percent; ?>%; background-color: blue; height: 21px; margin-top:-22px; border-radius:5px;"></div></div></h5>
+              <h5>1 <div style="width: 80%; background-color: #E3E3E3; height: 21px; margin-top:-22px; margin-left:27px; border-radius:5px;"><div style="width: <?php echo $one_counter_percent; ?>%; background-color: blue; height: 21px; margin-top:-22px; border-radius:5px;"></div></div></h5>
+            </td>
+            <td style="width:20%; text-align:left; ">
+              <h5><?php echo number_format($five_counter_percent, 0); ?>%</h5>
+              <h5><?php echo number_format($four_counter_percent, 0); ?>%</h5>
+              <h5><?php echo number_format($three_counter_percent, 0); ?>%</h5>
+              <h5><?php echo number_format($two_counter_percent, 0); ?>%</h5>
+              <h5><?php echo number_format($one_counter_percent, 0); ?>%</h5>
+            </td>
+          </tr>
+        </table>
+        <br>
+        <!-- Button trigger modal -->
+        <!-- Button trigger modal -->
+        <center><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop1">
+          Show Comments
+        </button></center>
+
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop1" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel1" aria-hidden="true">
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel1">Ratings and Reviews</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="radio-input">
+                  <label>
+                    <input value="value-1" name="value-radio" id="value-1" type="radio" checked="" onclick="r_and_r_all_radiobutton();">
+                    <span>All</span>
+                  </label>
+                  <label>
+                    <input value="value-2" name="value-radio" id="value-2" type="radio" onclick="r_and_r_5_radiobutton();">
+                    <span>5 &nbsp<span style="color:gold;">&#9733;</span></span>
+                  </label>
+                  <label>
+                    <input value="value-3" name="value-radio" id="value-3" type="radio" onclick="r_and_r_4_radiobutton();">
+                    <span>4 &nbsp<span style="color:gold;">&#9733;</span></span>
+                  </label>
+                  <label>
+                    <input value="value-4" name="value-radio" id="value-4" type="radio" onclick="r_and_r_3_radiobutton();">
+                    <span>3 &nbsp<span style="color:gold;">&#9733;</span></span>
+                  </label>
+                  <label>
+                    <input value="value-5" name="value-radio" id="value-5" type="radio" onclick="r_and_r_2_radiobutton();">
+                    <span>2 &nbsp<span style="color:gold;">&#9733;</span></span>
+                  </label>
+                  <label>
+                    <input value="value-6" name="value-radio" id="value-6" type="radio" onclick="r_and_r_1_radiobutton();">
+                    <span>1 &nbsp<span style="color:gold;">&#9733;</span></span>
+                  </label>
+                  <span class="selection"></span>
+                </div>
+
+                <?php 
+                  $sql = "SELECT f.*, u.first_name, u.last_name 
+                  FROM ptc_feedbacks AS f
+                  INNER JOIN ptc_student_users AS u ON f.username = u.username ORDER BY f.id DESC;";
+
+                  $result = mysqli_query($con, $sql);
+                  $total_reviews = 0;
+                  $total_reviews_for_5 = 0;
+                  $total_reviews_for_4 = 0;
+                  $total_reviews_for_3 = 0;
+                  $total_reviews_for_2 = 0;
+                  $total_reviews_for_1 = 0;
+
+                  $for_all_index = 0;
+                  $for_5_index = 0;
+                  $for_4_index = 0;
+                  $for_3_index = 0;
+                  $for_2_index = 0;
+                  $for_1_index = 0;
+                  $names_for_all = array();
+                  $names_for_5 = array();
+                  $names_for_4 = array();
+                  $names_for_3 = array();
+                  $names_for_2 = array();
+                  $names_for_1 = array();
+                  $stars_for_all = array();
+                  $stars_for_5 = array();
+                  $stars_for_4 = array();
+                  $stars_for_3 = array();
+                  $stars_for_2 = array();
+                  $stars_for_1 = array();
+                  $date_for_all = array();
+                  $date_for_5 = array();
+                  $date_for_4 = array();
+                  $date_for_3 = array();
+                  $date_for_2 = array();
+                  $date_for_1 = array();
+                  $time_for_all = array();
+                  $time_for_5 = array();
+                  $time_for_4 = array();
+                  $time_for_3 = array();
+                  $time_for_2 = array();
+                  $time_for_1 = array();
+                  $comments_for_all = array();
+                  $comments_for_5 = array();
+                  $comments_for_4 = array();
+                  $comments_for_3 = array();
+                  $comments_for_2 = array();
+                  $comments_for_1 = array();
+
+                  while($row = mysqli_fetch_assoc($result))
+                  {
+                    if($row['stars'] == "5")
+                    {
+                      $total_reviews_for_5 = $total_reviews_for_5+1;
+
+                      $names_for_5[$for_5_index] = $row['first_name']." ".$row['last_name'];
+                      $stars_for_5[$for_5_index] = "⭐⭐⭐⭐⭐";
+                      $qwe = $row['date_time'];
+                      $date = new DateTime($qwe);
+                      $date_for_5[$for_5_index] = $date->format("F d, Y");
+                      $time_for_5[$for_5_index] = $date->format("g:i A");
+                      $comments_for_5[$for_5_index] = $row['comment'];
+                      
+                      $for_5_index++;
+                    }
+                    if($row['stars'] == "4")
+                    {
+                      $total_reviews_for_4 = $total_reviews_for_4+1;
+
+                      $names_for_4[$for_4_index] = $row['first_name']." ".$row['last_name'];
+                      $stars_for_4[$for_4_index] = "⭐⭐⭐⭐";
+                      $qwe = $row['date_time'];
+                      $date = new DateTime($qwe);
+                      $date_for_4[$for_4_index] = $date->format("F d, Y");
+                      $time_for_4[$for_4_index] = $date->format("g:i A");
+                      $comments_for_4[$for_4_index] = $row['comment'];
+
+                      $for_4_index++;
+                    }
+                    if($row['stars'] == "3")
+                    {
+                      $total_reviews_for_3 = $total_reviews_for_3+1;
+                      
+                      $names_for_3[$for_3_index] = $row['first_name']." ".$row['last_name'];
+                      $stars_for_3[$for_3_index] = "⭐⭐⭐";
+                      $qwe = $row['date_time'];
+                      $date = new DateTime($qwe);
+                      $date_for_3[$for_3_index] = $date->format("F d, Y");
+                      $time_for_3[$for_3_index] = $date->format("g:i A");
+                      $comments_for_3[$for_3_index] = $row['comment'];
+
+                      $for_3_index++;
+                    }
+                    if($row['stars'] == "2")
+                    {
+                      $total_reviews_for_2 = $total_reviews_for_2+1;
+                      
+                      $names_for_2[$for_2_index] = $row['first_name']." ".$row['last_name'];
+                      $stars_for_2[$for_2_index] = "⭐⭐";
+                      $qwe = $row['date_time'];
+                      $date = new DateTime($qwe);
+                      $date_for_2[$for_2_index] = $date->format("F d, Y");
+                      $time_for_2[$for_2_index] = $date->format("g:i A");
+                      $comments_for_2[$for_2_index] = $row['comment'];
+                      
+                      $for_2_index++;
+                    }
+                    if($row['stars'] == "1")
+                    {
+                      $total_reviews_for_1 = $total_reviews_for_1+1;
+                      
+                      $names_for_1[$for_1_index] = $row['first_name']." ".$row['last_name'];
+                      $stars_for_1[$for_1_index] = "⭐";
+                      $qwe = $row['date_time'];
+                      $date = new DateTime($qwe);
+                      $date_for_1[$for_1_index] = $date->format("F d, Y");
+                      $time_for_1[$for_1_index] = $date->format("g:i A");
+                      $comments_for_1[$for_1_index] = $row['comment'];
+                      
+                      $for_1_index++;
+                    }
+
+                    $total_reviews = $total_reviews+1;
+
+                    $names_for_all[$for_all_index] = $row['first_name']." ".$row['last_name'];
+                    if($row['stars'] == "5")
+                      $stars_for_all[$for_all_index] = "⭐⭐⭐⭐⭐";
+                    else if($row['stars'] == "4")
+                      $stars_for_all[$for_all_index] = "⭐⭐⭐⭐";
+                    else if($row['stars'] == "3")
+                      $stars_for_all[$for_all_index] = "⭐⭐⭐";
+                    else if($row['stars'] == "2")
+                      $stars_for_all[$for_all_index] = "⭐⭐";
+                    else if($row['stars'] == "1")
+                      $stars_for_all[$for_all_index] = "⭐";
+                    $qwe = $row['date_time'];
+                    $date = new DateTime($qwe);
+                    $date_for_all[$for_all_index] = $date->format("F d, Y");
+                    $time_for_all[$for_all_index] = $date->format("g:i A");
+                    $comments_for_all[$for_all_index] = $row['comment'];
+                    
+                    $for_all_index++;
+                  }
+                ?>
+                <div id="r_and_r_all_panel">
+                  <div class="total-reviews">
+                    Total Reviews: 
+                    <?php 
+                      echo $total_reviews;
+                    ?>
+                  </div>
+                  <div class="comments-container mt-2" style="height:340px; overflow-y:scroll;">
+                    <h5>User Comments</h5>
+                    <?php
+                      for ($i=0; $i < $for_all_index; $i++) 
+                      { 
+                        echo 
+                        "
+                          <div id='all_comments'>
+                            <div class='comment'>
+                              <div class='comment-author'>".$names_for_all[$i]."</div>
+                              <div class='star-rating'>".$stars_for_all[$i]."</div>
+                              <div class='comment-date'>".$date_for_all[$i]."</div>
+                              <div class='comment-time'>".$time_for_all[$i]."</div>
+                              <div class='comment-content'>
+                                ".$comments_for_all[$i]."
+                              </div>
+                            </div>
+                          </div>
+                        ";
+                      }
+                    ?>
+                  </div>
+                </div>
+                
+                <div id="r_and_r_5_panel" style="display:none;">
+                  <div class="total-reviews">
+                    Total Reviews: 
+                    <?php 
+                      echo $total_reviews_for_5;
+                    ?>
+                  </div>
+                  <div class="comments-container mt-2" style="height:340px; overflow-y:scroll;">
+                    <h5>User Comments</h5>
+                    <?php
+                    for ($i=0; $i < $for_5_index; $i++) 
+                    { 
+                      echo 
+                      "
+                        <div id='all_comments'>
+                          <div class='comment'>
+                            <div class='comment-author'>".$names_for_5[$i]."</div>
+                            <div class='star-rating'>".$stars_for_5[$i]."</div>
+                            <div class='comment-date'>".$date_for_5[$i]."</div>
+                            <div class='comment-time'>".$time_for_5[$i]."</div>
+                            <div class='comment-content'>
+                              ".$comments_for_5[$i]."
+                            </div>
+                          </div>
+                        </div>
+                      ";
+                    }
+                  ?>
+                  </div>
+                </div>
+                
+                <div id="r_and_r_4_panel" style="display:none;">
+                  <div class="total-reviews">
+                    Total Reviews: 
+                    <?php 
+                      echo $total_reviews_for_4;
+                    ?>
+                  </div>
+                  <div class="comments-container mt-2" style="height:340px; overflow-y:scroll;">
+                    <h5>User Comments</h5>
+                    <?php
+                      for ($i=0; $i < $for_4_index; $i++) 
+                      { 
+                        echo 
+                        "
+                          <div id='all_comments'>
+                            <div class='comment'>
+                              <div class='comment-author'>".$names_for_4[$i]."</div>
+                              <div class='star-rating'>".$stars_for_4[$i]."</div>
+                              <div class='comment-date'>".$date_for_4[$i]."</div>
+                              <div class='comment-time'>".$time_for_4[$i]."</div>
+                              <div class='comment-content'>
+                                ".$comments_for_4[$i]."
+                              </div>
+                            </div>
+                          </div>
+                        ";
+                      }
+                    ?>
+                  </div>
+                </div>
+                
+                <div id="r_and_r_3_panel" style="display:none;">
+                  <div class="total-reviews">
+                    Total Reviews: 
+                    <?php 
+                      echo $total_reviews_for_3;
+                    ?>
+                  </div>
+                  <div class="comments-container mt-2" style="height:340px; overflow-y:scroll;">
+                    <h5>User Comments</h5>
+                    <?php
+                      for ($i=0; $i < $for_3_index; $i++) 
+                      { 
+                        echo 
+                        "
+                          <div id='all_comments'>
+                            <div class='comment'>
+                              <div class='comment-author'>".$names_for_3[$i]."</div>
+                              <div class='star-rating'>".$stars_for_3[$i]."</div>
+                              <div class='comment-date'>".$date_for_3[$i]."</div>
+                              <div class='comment-time'>".$time_for_3[$i]."</div>
+                              <div class='comment-content'>
+                                ".$comments_for_3[$i]."
+                              </div>
+                            </div>
+                          </div>
+                        ";
+                      }
+                    ?>
+                  </div>
+                </div>
+                
+                <div id="r_and_r_2_panel" style="display:none;">
+                  <div class="total-reviews">
+                    Total Reviews: 
+                    <?php 
+                      echo $total_reviews_for_2;
+                    ?>
+                  </div>
+                  <div class="comments-container mt-2" style="height:340px; overflow-y:scroll;">
+                    <h5>User Comments</h5>
+                    <?php
+                      for ($i=0; $i < $for_2_index; $i++) 
+                      { 
+                        echo 
+                        "
+                          <div id='all_comments'>
+                            <div class='comment'>
+                              <div class='comment-author'>".$names_for_2[$i]."</div>
+                              <div class='star-rating'>".$stars_for_2[$i]."</div>
+                              <div class='comment-date'>".$date_for_2[$i]."</div>
+                              <div class='comment-time'>".$time_for_2[$i]."</div>
+                              <div class='comment-content'>
+                                ".$comments_for_2[$i]."
+                              </div>
+                            </div>
+                          </div>
+                        ";
+                      }
+                    ?>
+                  </div>
+                </div>
+                
+                <div id="r_and_r_1_panel" style="display:none;">
+                  <div class="total-reviews">
+                    Total Reviews: 
+                    <?php 
+                      echo $total_reviews_for_1;
+                    ?>
+                  </div>
+                  <div class="comments-container mt-2" style="height:340px; overflow-y:scroll;">
+                    <h5>User Comments</h5>
+                    <?php
+                      for ($i=0; $i < $for_1_index; $i++) 
+                      { 
+                        echo 
+                        "
+                          <div id='all_comments'>
+                            <div class='comment'>
+                              <div class='comment-author'>".$names_for_1[$i]."</div>
+                              <div class='star-rating'>".$stars_for_1[$i]."</div>
+                              <div class='comment-date'>".$date_for_1[$i]."</div>
+                              <div class='comment-time'>".$time_for_1[$i]."</div>
+                              <div class='comment-content'>
+                                ".$comments_for_1[$i]."
+                              </div>
+                            </div>
+                          </div>
+                        ";
+                      }
+                    ?>
+                  </div>
+                </div>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
       </div>
       <!-- <div style="display: table-cell; float:left; width:5%;">
         <br>
@@ -500,67 +998,68 @@
     <!-- Modal -->
     <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eventModal">Open Modal</button> -->
     <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="width:80%;">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="eventModalLabel">Appointments</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                  <!-- appointment modal -->
-                    <div class="checkbox-container">
-                      <div class="mb-3">
-                        <!-- <label for="" class="form-label"><b>Record Requested <span style="color:red;">*</span></b></label><br> -->
-                        <span id="eventDate"></span><br>
-                        <input type="hidden" value="qwe" id="date_hidden">
-                        <span id="totalAppointment"></span><br>
-                      </div>
-                      <!-- DEPARTMENT PANEL -->
-                      <table id="appointment_table" class="table table-striped table-responsive" style="overflow-x:auto; border-collapse: collapse;">
-                        <thead class="thead-dark">
-                          <tr>
-                              <th>ID</th>
-                              <th>Full Name</th>
-                              <th>Student Number</th>
-                              <th>Requested Documents</th>
-                              <th>Purpose of request</th>
-                              <th>Date</th>
-                          </tr>
-                        </thead>
-                        <tbody id="appointment_tbody">
-                          <tr>
-                            <td>Example</td>
-                            <td>Example</td>
-                            <td>Example</td>
-                            <td>Example</td>
-                            <td>Example</td>
-                            <td>Example</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <!-- DEPARTMENT PANEL -->
+    
+                    <div class="modal-dialog modal-xl" role="document">
+                      <div class="modal-content modal_content_appointment" >
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="eventModalLabel">Appointments</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="checkbox-container">
+                            <div class="mb-3">
+                              <!-- <label for="" class="form-label"><b>Record Requested <span style="color:red;">*</span></b></label><br> -->
+                              <span id="eventDate"></span><br>
+                              <input type="hidden" value="qwe" id="date_hidden">
+                              <span id="totalAppointment"></span><br>
+                            </div>
+                            <!-- DEPARTMENT PANEL -->
+                            <table id="appointment_table" class="table table-striped" style="overflow-x:auto; border-collapse: collapse;">
+                              <thead class="thead-dark">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Full Name</th>
+                                    <th>Student Number</th>
+                                    <th>Requested Documents</th>
+                                    <th>Purpose of request</th>
+                                    <th>Date</th>
+                                </tr>
+                              </thead>
+                              <tbody id="appointment_tbody">
+                                <tr>
+                                  <td>Example</td>
+                                  <td>Example</td>
+                                  <td>Example</td>
+                                  <td>Example</td>
+                                  <td>Example</td>
+                                  <td>Example</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                            <!-- DEPARTMENT PANEL -->
 
-                      <script>
-                        $(document).ready(function() {
-                          $('#appointment_table').DataTable({
-                            responsive: true
-                          }); 
-                        });
-                      </script>
+                            <script>
+                              $(document).ready(function() {
+                                $('#appointment_table').DataTable({
+                                  responsive: true
+                                }); 
+                              });
+                            </script>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                            <!-- <button type="button" class="btn btn-primary" onclick="appointment_submit_function();">Submit</button> -->
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="appointment_close_button">Close</button>
+                        </div>
+                      </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <!-- <button type="button" class="btn btn-primary" onclick="appointment_submit_function();">Submit</button> -->
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="appointment_close_button">Close</button>
-                </div>
-            </div>
-        </div>
+        
     </div>
 
     
-    </div>
+  </div>
 </div>
 <!-- APPOINTMENT PANEL -->
 <!-- ADMIN USERS PANEL -->
@@ -575,7 +1074,7 @@
 
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-          <div class="modal-dialog modal-xl">
+          <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">Add User</h5>

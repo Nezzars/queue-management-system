@@ -1,4 +1,60 @@
 <script>
+  function r_and_r_all_radiobutton()
+  {
+    document.getElementById("r_and_r_all_panel").style.display = "block";
+    document.getElementById("r_and_r_1_panel").style.display = "none";
+    document.getElementById("r_and_r_2_panel").style.display = "none";
+    document.getElementById("r_and_r_3_panel").style.display = "none";
+    document.getElementById("r_and_r_4_panel").style.display = "none";
+    document.getElementById("r_and_r_5_panel").style.display = "none";
+  }
+  function r_and_r_1_radiobutton()
+  {
+    document.getElementById("r_and_r_all_panel").style.display = "none";
+    document.getElementById("r_and_r_1_panel").style.display = "block";
+    document.getElementById("r_and_r_2_panel").style.display = "none";
+    document.getElementById("r_and_r_3_panel").style.display = "none";
+    document.getElementById("r_and_r_4_panel").style.display = "none";
+    document.getElementById("r_and_r_5_panel").style.display = "none";
+  }
+  function r_and_r_2_radiobutton()
+  {
+    document.getElementById("r_and_r_all_panel").style.display = "none";
+    document.getElementById("r_and_r_1_panel").style.display = "none";
+    document.getElementById("r_and_r_2_panel").style.display = "block";
+    document.getElementById("r_and_r_3_panel").style.display = "none";
+    document.getElementById("r_and_r_4_panel").style.display = "none";
+    document.getElementById("r_and_r_5_panel").style.display = "none";
+  }
+  function r_and_r_3_radiobutton()
+  {
+    document.getElementById("r_and_r_all_panel").style.display = "none";
+    document.getElementById("r_and_r_1_panel").style.display = "none";
+    document.getElementById("r_and_r_2_panel").style.display = "none";
+    document.getElementById("r_and_r_3_panel").style.display = "block";
+    document.getElementById("r_and_r_4_panel").style.display = "none";
+    document.getElementById("r_and_r_5_panel").style.display = "none";
+  }
+  function r_and_r_4_radiobutton()
+  {
+    document.getElementById("r_and_r_all_panel").style.display = "none";
+    document.getElementById("r_and_r_1_panel").style.display = "none";
+    document.getElementById("r_and_r_2_panel").style.display = "none";
+    document.getElementById("r_and_r_3_panel").style.display = "none";
+    document.getElementById("r_and_r_4_panel").style.display = "block";
+    document.getElementById("r_and_r_5_panel").style.display = "none";
+  }
+  function r_and_r_5_radiobutton()
+  {
+    document.getElementById("r_and_r_all_panel").style.display = "none";
+    document.getElementById("r_and_r_1_panel").style.display = "none";
+    document.getElementById("r_and_r_2_panel").style.display = "none";
+    document.getElementById("r_and_r_3_panel").style.display = "none";
+    document.getElementById("r_and_r_4_panel").style.display = "none";
+    document.getElementById("r_and_r_5_panel").style.display = "block";
+  }
+</script>
+<script>
   if(!window.matchMedia("(max-width: 914px)").matches)
   {
     document.getElementById("left_nav_bar").style.marginLeft = "0px";

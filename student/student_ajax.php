@@ -278,7 +278,7 @@
         if($row1 = mysqli_fetch_assoc($result1))
         {
             echo "Student Details: \n";
-            echo "   - Full Name: ".$row1['full_name']."\n";
+            echo "   - Full Name: ".$row1['first_name']." ".$row1['last_name']."\n";
             echo "   - Student Number: ".$row1['student_number']."\n";
             echo "   - Course: ".$row1['course']."\n";
             echo "   - Student Type: ".$row1['student_type']."\n";

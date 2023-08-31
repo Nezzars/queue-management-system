@@ -54,7 +54,14 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
   <script src="../qrcode-generator-master/js/qrcode.js"></script>
+  <?php
+    $student_username = $_SESSION['student_username'];
 
+    $query = "DELETE FROM `ptc_student_appointments` WHERE username = '$student_username' AND datee < CURDATE()";
+    mysqli_query($con, $query);
+    $query = "DELETE FROM `ptc_student_appointments_history` WHERE datee < CURDATE()";
+    mysqli_query($con, $query);
+  ?>
   <?php
     include "student_css.php";
   ?>
@@ -268,7 +275,7 @@
       <div id="i want this on right" style="color: black;">
           <ul class="nav-list" style="margin: 0; padding: 0; list-style: none;">
               <li style="pointer-events: none;">Type: <b>STUDENT</b></li>
-              <li style="pointer-events: none;">Name: <b><?php echo strtoupper($top_nav_bar['full_name']); ?></b></li>
+              <li style="pointer-events: none;">Name: <b><?php echo strtoupper($top_nav_bar['first_name'])." ".strtoupper($top_nav_bar['last_name']); ?></b></li>
               <li style="pointer-events: none;">Username: <b><input type="hidden" value="<?php echo strtoupper($top_nav_bar['username']); ?>" id="username"><?php echo strtoupper($top_nav_bar['username']); ?></b></li>
           </ul>
       </div>
@@ -329,6 +336,13 @@
           $two_counter = 0;
           $one_counter = 0;
           $total_sum = 0;
+          $one_counter_total_kapag_tinimes = 0;
+          $two_counter_total_kapag_tinimes = 0;
+          $three_counter_total_kapag_tinimes = 0;
+          $four_counter_total_kapag_tinimes = 0;
+          $one_counter_total_kapag_tinimes = 0;
+          $total_ng_counter_total_kapag_tinimes = 0;
+          $averageRatingg = 0;
 
           $sql = "  SELECT * FROM ptc_feedbacks WHERE stars='5';  ";
           $result = mysqli_query($con, $sql);
@@ -373,37 +387,450 @@
           $four_counter_total_kapag_tinimes = $four_counter*4;
           $five_counter_total_kapag_tinimes = $five_counter*5;
 
+
           $total_ng_counter_total_kapag_tinimes = $one_counter_total_kapag_tinimes+$two_counter_total_kapag_tinimes+$three_counter_total_kapag_tinimes+$four_counter_total_kapag_tinimes+$five_counter_total_kapag_tinimes;
-
-          $averageRatingg = $total_ng_counter_total_kapag_tinimes/$total_sum;
           
-          // $counts1 = [$five_counter, $four_counter, $three_counter, $two_counter, $one_counter];
-          // // $weightedSum1=1;
-          // $weightedSum1 = array_reduce($counts1, function($sum1, $count1, $index1) 
+          $averageRatingg = $total_ng_counter_total_kapag_tinimes/$total_sum;
+
+
+          // if($total_sum == null)
           // {
-          //     return $sum1 + $count1 * ($index1 + 1);
-          // }, 0);
+          //   $total_sum = 1;
+          // }
+          if (is_nan($averageRatingg)) 
+          {
+            $averageRatingg = 0;
+              // echo "<script>alert('".$five_counter*100/$total_sum." is NaN')</script>";
+          }
+          // echo "<script>alert('".$five_counter*100/$total_sum." is NaN')</script>";
+          $five_counter_percent = $five_counter*100/$total_sum;
+          $four_counter_percent = $four_counter*100/$total_sum;
+          $three_counter_percent = $three_counter*100/$total_sum;
+          $two_counter_percent = $two_counter*100/$total_sum;
+          $one_counter_percent = $one_counter*100/$total_sum;
 
-          // $totalCount1 = array_sum($counts1);
-          // $averageRating = $weightedSum1 / $totalCount1;
-
+          if (is_nan($five_counter_percent)) 
+            $five_counter_percent = 0;
+          if (is_nan($four_counter_percent)) 
+            $four_counter_percent = 0;
+          if (is_nan($three_counter_percent)) 
+            $three_counter_percent = 0;
+          if (is_nan($two_counter_percent)) 
+            $two_counter_percent = 0;
+          if (is_nan($one_counter_percent)) 
+            $one_counter_percent = 0;
+          
         ?>
         <table style="width:100%;">
           <tr style="width:100%;">
-            <td style="width:30% ">
-              <center><h1><?php echo number_format($averageRatingg, 1); ?></h1></center>
+            <td style="width:30%; ">
+              <center>
+                <h1><?php echo number_format($averageRatingg, 1); ?></h1>
+                <?php echo number_format($total_sum); ?> <br>
+                Reviews
+              </center>
             </td>
-            <td style="width:70%">
-            <h5>5 <div style="width: 70%; background-color: #E3E3E3; height: 20px; margin-top:-22px; margin-left:27px; border-radius:5px;"><div style="width: <?php echo $five_counter*100/$total_sum; ?>%; background-color: blue; height: 20px; margin-top:-22px; border-radius:5px;"></div></div></h5>
-            <h5>4 <div style="width: 70%; background-color: #E3E3E3; height: 20px; margin-top:-22px; margin-left:27px; border-radius:5px;"><div style="width: <?php echo $four_counter*100/$total_sum; ?>%; background-color: blue; height: 20px; margin-top:-22px; border-radius:5px;"></div></div></h5>
-            <h5>3 <div style="width: 70%; background-color: #E3E3E3; height: 20px; margin-top:-22px; margin-left:27px; border-radius:5px;"><div style="width: <?php echo $three_counter*100/$total_sum; ?>%; background-color: blue; height: 20px; margin-top:-22px; border-radius:5px;"></div></div></h5>
-            <h5>2 <div style="width: 70%; background-color: #E3E3E3; height: 20px; margin-top:-22px; margin-left:27px; border-radius:5px;"><div style="width: <?php echo $two_counter*100/$total_sum; ?>%; background-color: blue; height: 20px; margin-top:-22px; border-radius:5px;"></div></div></h5>
-            <h5>1 <div style="width: 70%; background-color: #E3E3E3; height: 20px; margin-top:-22px; margin-left:27px; border-radius:5px;"><div style="width: <?php echo $one_counter*100/$total_sum; ?>%; background-color: blue; height: 20px; margin-top:-22px; border-radius:5px;"></div></div></h5>
+            <td style="width:50%; ">
+              <h5>5 <div style="width: 80%; background-color: #E3E3E3; height: 21px; margin-top:-22px; margin-left:27px; border-radius:5px;"><div style="width: <?php echo $five_counter_percent; ?>%; background-color: blue; height: 21px; margin-top:-22px; border-radius:5px;"></div></div></h5>
+              <h5>4 <div style="width: 80%; background-color: #E3E3E3; height: 21px; margin-top:-22px; margin-left:27px; border-radius:5px;"><div style="width: <?php echo $four_counter_percent; ?>%; background-color: blue; height: 21px; margin-top:-22px; border-radius:5px;"></div></div></h5>
+              <h5>3 <div style="width: 80%; background-color: #E3E3E3; height: 21px; margin-top:-22px; margin-left:27px; border-radius:5px;"><div style="width: <?php echo $three_counter_percent; ?>%; background-color: blue; height: 21px; margin-top:-22px; border-radius:5px;"></div></div></h5>
+              <h5>2 <div style="width: 80%; background-color: #E3E3E3; height: 21px; margin-top:-22px; margin-left:27px; border-radius:5px;"><div style="width: <?php echo $two_counter_percent; ?>%; background-color: blue; height: 21px; margin-top:-22px; border-radius:5px;"></div></div></h5>
+              <h5>1 <div style="width: 80%; background-color: #E3E3E3; height: 21px; margin-top:-22px; margin-left:27px; border-radius:5px;"><div style="width: <?php echo $one_counter_percent; ?>%; background-color: blue; height: 21px; margin-top:-22px; border-radius:5px;"></div></div></h5>
+            </td>
+            <td style="width:20%; text-align:left; ">
+              <h5><?php echo number_format($five_counter_percent, 0); ?>%</h5>
+              <h5><?php echo number_format($four_counter_percent, 0); ?>%</h5>
+              <h5><?php echo number_format($three_counter_percent, 0); ?>%</h5>
+              <h5><?php echo number_format($two_counter_percent, 0); ?>%</h5>
+              <h5><?php echo number_format($one_counter_percent, 0); ?>%</h5>
             </td>
           </tr>
         </table>
         <br>
-        <center><input type="button" class="btn btn-primary" value="Show Comments"></center>
+        <!-- Button trigger modal -->
+        <!-- Button trigger modal -->
+        <center><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
+          Show Comments
+        </button></center>
+
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Ratings and Reviews</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="radio-input">
+                  <label>
+                    <input value="value-1" name="value-radio" id="value-1" type="radio" checked="" onclick="r_and_r_all_radiobutton();">
+                    <span>All</span>
+                  </label>
+                  <label>
+                    <input value="value-2" name="value-radio" id="value-2" type="radio" onclick="r_and_r_5_radiobutton();">
+                    <span>5 &nbsp<span style="color:gold;">&#9733;</span></span>
+                  </label>
+                  <label>
+                    <input value="value-3" name="value-radio" id="value-3" type="radio" onclick="r_and_r_4_radiobutton();">
+                    <span>4 &nbsp<span style="color:gold;">&#9733;</span></span>
+                  </label>
+                  <label>
+                    <input value="value-4" name="value-radio" id="value-4" type="radio" onclick="r_and_r_3_radiobutton();">
+                    <span>3 &nbsp<span style="color:gold;">&#9733;</span></span>
+                  </label>
+                  <label>
+                    <input value="value-5" name="value-radio" id="value-5" type="radio" onclick="r_and_r_2_radiobutton();">
+                    <span>2 &nbsp<span style="color:gold;">&#9733;</span></span>
+                  </label>
+                  <label>
+                    <input value="value-6" name="value-radio" id="value-6" type="radio" onclick="r_and_r_1_radiobutton();">
+                    <span>1 &nbsp<span style="color:gold;">&#9733;</span></span>
+                  </label>
+                  <span class="selection"></span>
+                </div>
+
+                <?php 
+                  $sql = "SELECT f.*, u.first_name, u.last_name 
+                  FROM ptc_feedbacks AS f
+                  INNER JOIN ptc_student_users AS u ON f.username = u.username ORDER BY f.id DESC;";
+
+                  $result = mysqli_query($con, $sql);
+                  $total_reviews = 0;
+                  $total_reviews_for_5 = 0;
+                  $total_reviews_for_4 = 0;
+                  $total_reviews_for_3 = 0;
+                  $total_reviews_for_2 = 0;
+                  $total_reviews_for_1 = 0;
+
+                  $for_all_index = 0;
+                  $for_5_index = 0;
+                  $for_4_index = 0;
+                  $for_3_index = 0;
+                  $for_2_index = 0;
+                  $for_1_index = 0;
+                  $names_for_all = array();
+                  $names_for_5 = array();
+                  $names_for_4 = array();
+                  $names_for_3 = array();
+                  $names_for_2 = array();
+                  $names_for_1 = array();
+                  $stars_for_all = array();
+                  $stars_for_5 = array();
+                  $stars_for_4 = array();
+                  $stars_for_3 = array();
+                  $stars_for_2 = array();
+                  $stars_for_1 = array();
+                  $date_for_all = array();
+                  $date_for_5 = array();
+                  $date_for_4 = array();
+                  $date_for_3 = array();
+                  $date_for_2 = array();
+                  $date_for_1 = array();
+                  $time_for_all = array();
+                  $time_for_5 = array();
+                  $time_for_4 = array();
+                  $time_for_3 = array();
+                  $time_for_2 = array();
+                  $time_for_1 = array();
+                  $comments_for_all = array();
+                  $comments_for_5 = array();
+                  $comments_for_4 = array();
+                  $comments_for_3 = array();
+                  $comments_for_2 = array();
+                  $comments_for_1 = array();
+
+                  while($row = mysqli_fetch_assoc($result))
+                  {
+                    if($row['stars'] == "5")
+                    {
+                      $total_reviews_for_5 = $total_reviews_for_5+1;
+
+                      $names_for_5[$for_5_index] = $row['first_name']." ".$row['last_name'];
+                      $stars_for_5[$for_5_index] = "⭐⭐⭐⭐⭐";
+                      $qwe = $row['date_time'];
+                      $date = new DateTime($qwe);
+                      $date_for_5[$for_5_index] = $date->format("F d, Y");
+                      $time_for_5[$for_5_index] = $date->format("g:i A");
+                      $comments_for_5[$for_5_index] = $row['comment'];
+                      
+                      $for_5_index++;
+                    }
+                    if($row['stars'] == "4")
+                    {
+                      $total_reviews_for_4 = $total_reviews_for_4+1;
+
+                      $names_for_4[$for_4_index] = $row['first_name']." ".$row['last_name'];
+                      $stars_for_4[$for_4_index] = "⭐⭐⭐⭐";
+                      $qwe = $row['date_time'];
+                      $date = new DateTime($qwe);
+                      $date_for_4[$for_4_index] = $date->format("F d, Y");
+                      $time_for_4[$for_4_index] = $date->format("g:i A");
+                      $comments_for_4[$for_4_index] = $row['comment'];
+
+                      $for_4_index++;
+                    }
+                    if($row['stars'] == "3")
+                    {
+                      $total_reviews_for_3 = $total_reviews_for_3+1;
+                      
+                      $names_for_3[$for_3_index] = $row['first_name']." ".$row['last_name'];
+                      $stars_for_3[$for_3_index] = "⭐⭐⭐";
+                      $qwe = $row['date_time'];
+                      $date = new DateTime($qwe);
+                      $date_for_3[$for_3_index] = $date->format("F d, Y");
+                      $time_for_3[$for_3_index] = $date->format("g:i A");
+                      $comments_for_3[$for_3_index] = $row['comment'];
+
+                      $for_3_index++;
+                    }
+                    if($row['stars'] == "2")
+                    {
+                      $total_reviews_for_2 = $total_reviews_for_2+1;
+                      
+                      $names_for_2[$for_2_index] = $row['first_name']." ".$row['last_name'];
+                      $stars_for_2[$for_2_index] = "⭐⭐";
+                      $qwe = $row['date_time'];
+                      $date = new DateTime($qwe);
+                      $date_for_2[$for_2_index] = $date->format("F d, Y");
+                      $time_for_2[$for_2_index] = $date->format("g:i A");
+                      $comments_for_2[$for_2_index] = $row['comment'];
+                      
+                      $for_2_index++;
+                    }
+                    if($row['stars'] == "1")
+                    {
+                      $total_reviews_for_1 = $total_reviews_for_1+1;
+                      
+                      $names_for_1[$for_1_index] = $row['first_name']." ".$row['last_name'];
+                      $stars_for_1[$for_1_index] = "⭐";
+                      $qwe = $row['date_time'];
+                      $date = new DateTime($qwe);
+                      $date_for_1[$for_1_index] = $date->format("F d, Y");
+                      $time_for_1[$for_1_index] = $date->format("g:i A");
+                      $comments_for_1[$for_1_index] = $row['comment'];
+                      
+                      $for_1_index++;
+                    }
+
+                    $total_reviews = $total_reviews+1;
+
+                    $names_for_all[$for_all_index] = $row['first_name']." ".$row['last_name'];
+                    if($row['stars'] == "5")
+                      $stars_for_all[$for_all_index] = "⭐⭐⭐⭐⭐";
+                    else if($row['stars'] == "4")
+                      $stars_for_all[$for_all_index] = "⭐⭐⭐⭐";
+                    else if($row['stars'] == "3")
+                      $stars_for_all[$for_all_index] = "⭐⭐⭐";
+                    else if($row['stars'] == "2")
+                      $stars_for_all[$for_all_index] = "⭐⭐";
+                    else if($row['stars'] == "1")
+                      $stars_for_all[$for_all_index] = "⭐";
+                    $qwe = $row['date_time'];
+                    $date = new DateTime($qwe);
+                    $date_for_all[$for_all_index] = $date->format("F d, Y");
+                    $time_for_all[$for_all_index] = $date->format("g:i A");
+                    $comments_for_all[$for_all_index] = $row['comment'];
+                    
+                    $for_all_index++;
+                  }
+                ?>
+                <div id="r_and_r_all_panel">
+                  <div class="total-reviews">
+                    Total Reviews: 
+                    <?php 
+                      echo $total_reviews;
+                    ?>
+                  </div>
+                  <div class="comments-container mt-2" style="height:340px; overflow-y:scroll;">
+                    <h5>User Comments</h5>
+                    <?php
+                      for ($i=0; $i < $for_all_index; $i++) 
+                      { 
+                        echo 
+                        "
+                          <div id='all_comments'>
+                            <div class='comment'>
+                              <div class='comment-author'>".$names_for_all[$i]."</div>
+                              <div class='star-rating'>".$stars_for_all[$i]."</div>
+                              <div class='comment-date'>".$date_for_all[$i]."</div>
+                              <div class='comment-time'>".$time_for_all[$i]."</div>
+                              <div class='comment-content'>
+                                ".$comments_for_all[$i]."
+                              </div>
+                            </div>
+                          </div>
+                        ";
+                      }
+                    ?>
+                  </div>
+                </div>
+                
+                <div id="r_and_r_5_panel" style="display:none;">
+                  <div class="total-reviews">
+                    Total Reviews: 
+                    <?php 
+                      echo $total_reviews_for_5;
+                    ?>
+                  </div>
+                  <div class="comments-container mt-2" style="height:340px; overflow-y:scroll;">
+                    <h5>User Comments</h5>
+                    <?php
+                    for ($i=0; $i < $for_5_index; $i++) 
+                    { 
+                      echo 
+                      "
+                        <div id='all_comments'>
+                          <div class='comment'>
+                            <div class='comment-author'>".$names_for_5[$i]."</div>
+                            <div class='star-rating'>".$stars_for_5[$i]."</div>
+                            <div class='comment-date'>".$date_for_5[$i]."</div>
+                            <div class='comment-time'>".$time_for_5[$i]."</div>
+                            <div class='comment-content'>
+                              ".$comments_for_5[$i]."
+                            </div>
+                          </div>
+                        </div>
+                      ";
+                    }
+                  ?>
+                  </div>
+                </div>
+                
+                <div id="r_and_r_4_panel" style="display:none;">
+                  <div class="total-reviews">
+                    Total Reviews: 
+                    <?php 
+                      echo $total_reviews_for_4;
+                    ?>
+                  </div>
+                  <div class="comments-container mt-2" style="height:340px; overflow-y:scroll;">
+                    <h5>User Comments</h5>
+                    <?php
+                      for ($i=0; $i < $for_4_index; $i++) 
+                      { 
+                        echo 
+                        "
+                          <div id='all_comments'>
+                            <div class='comment'>
+                              <div class='comment-author'>".$names_for_4[$i]."</div>
+                              <div class='star-rating'>".$stars_for_4[$i]."</div>
+                              <div class='comment-date'>".$date_for_4[$i]."</div>
+                              <div class='comment-time'>".$time_for_4[$i]."</div>
+                              <div class='comment-content'>
+                                ".$comments_for_4[$i]."
+                              </div>
+                            </div>
+                          </div>
+                        ";
+                      }
+                    ?>
+                  </div>
+                </div>
+                
+                <div id="r_and_r_3_panel" style="display:none;">
+                  <div class="total-reviews">
+                    Total Reviews: 
+                    <?php 
+                      echo $total_reviews_for_3;
+                    ?>
+                  </div>
+                  <div class="comments-container mt-2" style="height:340px; overflow-y:scroll;">
+                    <h5>User Comments</h5>
+                    <?php
+                      for ($i=0; $i < $for_3_index; $i++) 
+                      { 
+                        echo 
+                        "
+                          <div id='all_comments'>
+                            <div class='comment'>
+                              <div class='comment-author'>".$names_for_3[$i]."</div>
+                              <div class='star-rating'>".$stars_for_3[$i]."</div>
+                              <div class='comment-date'>".$date_for_3[$i]."</div>
+                              <div class='comment-time'>".$time_for_3[$i]."</div>
+                              <div class='comment-content'>
+                                ".$comments_for_3[$i]."
+                              </div>
+                            </div>
+                          </div>
+                        ";
+                      }
+                    ?>
+                  </div>
+                </div>
+                
+                <div id="r_and_r_2_panel" style="display:none;">
+                  <div class="total-reviews">
+                    Total Reviews: 
+                    <?php 
+                      echo $total_reviews_for_2;
+                    ?>
+                  </div>
+                  <div class="comments-container mt-2" style="height:340px; overflow-y:scroll;">
+                    <h5>User Comments</h5>
+                    <?php
+                      for ($i=0; $i < $for_2_index; $i++) 
+                      { 
+                        echo 
+                        "
+                          <div id='all_comments'>
+                            <div class='comment'>
+                              <div class='comment-author'>".$names_for_2[$i]."</div>
+                              <div class='star-rating'>".$stars_for_2[$i]."</div>
+                              <div class='comment-date'>".$date_for_2[$i]."</div>
+                              <div class='comment-time'>".$time_for_2[$i]."</div>
+                              <div class='comment-content'>
+                                ".$comments_for_2[$i]."
+                              </div>
+                            </div>
+                          </div>
+                        ";
+                      }
+                    ?>
+                  </div>
+                </div>
+                
+                <div id="r_and_r_1_panel" style="display:none;">
+                  <div class="total-reviews">
+                    Total Reviews: 
+                    <?php 
+                      echo $total_reviews_for_1;
+                    ?>
+                  </div>
+                  <div class="comments-container mt-2" style="height:340px; overflow-y:scroll;">
+                    <h5>User Comments</h5>
+                    <?php
+                      for ($i=0; $i < $for_1_index; $i++) 
+                      { 
+                        echo 
+                        "
+                          <div id='all_comments'>
+                            <div class='comment'>
+                              <div class='comment-author'>".$names_for_1[$i]."</div>
+                              <div class='star-rating'>".$stars_for_1[$i]."</div>
+                              <div class='comment-date'>".$date_for_1[$i]."</div>
+                              <div class='comment-time'>".$time_for_1[$i]."</div>
+                              <div class='comment-content'>
+                                ".$comments_for_1[$i]."
+                              </div>
+                            </div>
+                          </div>
+                        ";
+                      }
+                    ?>
+                  </div>
+                </div>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
       </div>
       <div class="gitna1" style="">
         &nbsp
@@ -475,7 +902,7 @@
             <div id="review_panel" name="yes_review" style="display: table-cell; float:left; background-color:white; border-radius:10px; margin-top:20px; padding:20px; text-align:left;">
               <h3><b>Your Review</b></h3>
               <br>
-              <h5>'.strtoupper($top_nav_bar['full_name']).'</h5>
+              <h5>'.strtoupper($top_nav_bar['first_name'])." ".strtoupper($top_nav_bar['last_name']).'</h5>
               <div id="print_spans_here">
                 '.$spanss.'
               </div>
@@ -495,7 +922,7 @@
                     <div class="modal-body">
                       <div style="border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); align-items: left;background-color: #fff;padding: 20px; margin-left:10px; margin-right:10px;">
                         <input type="hidden" value="" id="stars">
-                        <span>Full Name: <b>BILLY BERNABE</b></span>
+                        <span>Full Name: <b>'.strtoupper($top_nav_bar['first_name'])." ".strtoupper($top_nav_bar['last_name']).'</b></span>
                         <br>
                         <span>Reviews are public.</span>
                         <br>
@@ -550,7 +977,7 @@
                     <div class="modal-body">
                       <div style="border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); align-items: left;background-color: #fff;padding: 20px; margin-left:10px; margin-right:10px;">
                         <input type="hidden" value="" id="stars">
-                        <span>Full Name: <b>BILLY BERNABE</b></span>
+                        <span>Full Name: <b>'.strtoupper($top_nav_bar['first_name'])." ".strtoupper($top_nav_bar['last_name']).'</b></span>
                         <br>
                         <span>Reviews are public.</span>
                         <br>
@@ -814,8 +1241,41 @@
   <h1 style="padding:10px; border:1px solid lightgray; text-align:center; background-color:#1F5642; color:white;"><b>My Profile</b> </h1>
   <br>
   <div style="width:95%; margin:auto; padding:20px; background-color:white; border-top:3px solid green; border-radius:5px;">
-    <br>
-    <br>
+    <div class="container-fluid">
+      <div class="mb-3">
+      <center><h4>Account Information</h4></center>
+        <label class="form-label">Username</label>
+        <input disabled name="username" type="text" class="form-control" value="<?php echo $row['username']; ?>">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input disabled name="password" type="password" class="form-control" id="exampleInputPassword1" value="<?php echo $row['password']; ?>">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Confirm Password</label>
+        <input disabled name="password" type="password" class="form-control" id="exampleInputPassword1" value="<?php echo $row['password']; ?>">
+      </div>
+      <div class="mb-3">
+        <button class="btn btn-secondary">Edit</button>
+      </div>
+      <div class="styled-hr">
+        <hr>
+      </div>
+      <center><h4>Institute Information</h4></center>
+      <div class="mb-3">
+        <label class="form-label">First Name</label>
+        <input name="first_name" type="text" class="form-control" value="<?php echo $row['first_name']; ?>">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Middle Name</label>
+        <input name="middle_name" type="text" class="form-control" value="<?php echo $row['middle_name']; ?>">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Last Name</label>
+        <input name="last_name" type="text" class="form-control" value="<?php echo $row['last_name']; ?>">
+      </div>
+      <button name="update_account" class="btn btn-success">Update</button>
+    </div>
   </div>
 </div>
 <!-- MY ACCOUNT PANEL -->

@@ -408,3 +408,149 @@
         margin-right:-2px; 
       }
     </style>
+    <style>
+        .radio-input input {
+          display: none;
+        }
+
+        .radio-input {
+          --container_width: 328px; /* Adjust as needed */
+          position: relative;
+          display: flex;
+          align-items: center;
+          border-radius: 9999px;
+          background-color: #fff;
+          color: #000000;
+          width: var(--container_width);
+          overflow: hidden;
+          border: 1px solid rgba(53, 52, 52, 0.226);
+        }
+
+        .radio-input label {
+          width: calc(100% / 5); /* Divide equally for 5 buttons */
+          padding: 10px;
+          cursor: pointer;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 1;
+          font-weight: 600;
+          letter-spacing: -1px;
+          font-size: 14px;
+        }
+
+        .selection {
+          display: none;
+          position: absolute;
+          height: 100%;
+          width: calc(var(--container_width) / 5);
+          z-index: 0;
+          left: 0;
+          top: 0;
+          transition: .15s ease;
+        }
+
+        .radio-input label:has(input:checked) {
+          color: #fff;
+        }
+
+        .radio-input label:has(input:checked) ~ .selection {
+          background-color: rgb(11, 117, 223);
+          display: inline-block;
+        }
+
+        /* Adjust the transforms for 5 buttons */
+        .radio-input label:nth-child(1):has(input:checked) ~ .selection {
+          transform: translateX(calc(var(--container_width) * 0 / 6));
+        }
+
+        .radio-input label:nth-child(2):has(input:checked) ~ .selection {
+          transform: translateX(calc(var(--container_width) * 1 / 6));
+        }
+
+        .radio-input label:nth-child(3):has(input:checked) ~ .selection {
+          transform: translateX(calc(var(--container_width) * 2 / 6));
+        }
+
+        .radio-input label:nth-child(4):has(input:checked) ~ .selection {
+          transform: translateX(calc(var(--container_width) * 3 / 6));
+        }
+
+        .radio-input label:nth-child(5):has(input:checked) ~ .selection {
+          transform: translateX(calc(var(--container_width) * 4 / 6));
+        }
+
+        .radio-input label:nth-child(6):has(input:checked) ~ .selection {
+          transform: translateX(calc(var(--container_width) * 5 / 6));
+        }
+
+      </style>
+      <style>
+        .comments-container {
+          border: 1px solid #ccc;
+          padding: 20px;
+          border-radius: 10px;
+          background-color: #f9f9f9;
+          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+          max-height: 500px;
+          overflow-y: scroll;
+        }
+
+        .comment {
+          margin-bottom: 15px;
+          padding: 15px;
+          border: 1px solid #ddd;
+          border-radius: 8px;
+          background-color: #fff;
+          box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .comment-author {
+          font-weight: bold;
+          margin-bottom: 5px;
+        }
+
+        .comment-date {
+          font-size: 12px;
+          color: #888;
+        }
+
+        .comment-time {
+          font-size: 12px;
+          color: #888;
+        }
+
+        .comment-content {
+          font-size: 14px;
+          margin: 10px 0;
+        }
+
+        .star-rating {
+          color: #FFD700;
+        }
+        
+        .total-reviews {
+          font-size: 14px;
+          margin-top: 10px;
+        }
+      </style>
+<style>
+  .styled-hr hr {
+  border: none; /* Remove default border */
+  height: 2px; /* Set the height of the line */
+  background-color: green; /* Change the background color */
+  margin: 20px 0; /* Add some margin above and below */
+  position: relative;
+}
+
+.styled-hr hr::before {
+  content: ""; /* Create a pseudo-element for the decorative line */
+  position: absolute;
+  top: 50%; /* Position at the center of the line */
+  left: 0;
+  width: 20px; /* Width of the decorative line */
+  height: 2px;
+  background-color: lightgreen; /* Color of the decorative line */
+  transform: translateY(-50%); /* Adjust for vertical alignment */
+}
+</style>

@@ -238,40 +238,7 @@ $today = date("Y-m-d");
     <div id="personal-details" class="form-group" style="padding:40px;">
         
         <br>
-    <!--</div>
-     CLOSING DIV -->
-
-     
-
-     
-
-    <!-- OPENING DIV OF USER PASS-->
        <div id="user-pass" class="form-group">
-
-         <!-- OPENING DIV OF ROW-->
-        <!-- <div class="row">
-            <div class="col">
-
-                <label for="username_textfield"><b>ORDER ID</b></label>
-                
-                <input type="text" required id="order_id" name="order_id" class="form-control form-control-sm mb-2">
-                <script>
-                    const inputField = document.getElementById("order_id");
-                    let timeoutId;
-
-                    inputField.addEventListener("keypress", function() {
-                    clearTimeout(timeoutId);
-                    
-                    timeoutId = setTimeout(function() {
-                        open_loading();
-
-                        select_data_using_order_id('select_data_using_order_id');
-                    }, 1000);
-                    });
-                </script>
-            </div>
-        </div>
-        <br> -->
 
         <span id="availability2"></span>
 
@@ -300,15 +267,6 @@ $today = date("Y-m-d");
                     <label for="username_textfield">Username</label>
                     <input type="text" required id="username_textfield" name="username_textfield" class="form-control form-control-sm mb-2">
                 </div>
-            <!-- CLOSING DIV -->
-
-            <!-- OPENING DIV 
-                <div class="col">
-                    <label for="memberpassword">Password</label>
-                    <div class="input-group">
-                        <input type="password" required id="memberpassword" name="memberpassword" class="form-control form-control-sm">
-                    <div id="error-message" class="text-danger"></div>
-                </div>-->
 
                 <div class="col">
                     <label for="password_textfield">Password</label>

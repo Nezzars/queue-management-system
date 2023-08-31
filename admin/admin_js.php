@@ -1,4 +1,60 @@
 <script>
+  function r_and_r_all_radiobutton()
+  {
+    document.getElementById("r_and_r_all_panel").style.display = "block";
+    document.getElementById("r_and_r_1_panel").style.display = "none";
+    document.getElementById("r_and_r_2_panel").style.display = "none";
+    document.getElementById("r_and_r_3_panel").style.display = "none";
+    document.getElementById("r_and_r_4_panel").style.display = "none";
+    document.getElementById("r_and_r_5_panel").style.display = "none";
+  }
+  function r_and_r_1_radiobutton()
+  {
+    document.getElementById("r_and_r_all_panel").style.display = "none";
+    document.getElementById("r_and_r_1_panel").style.display = "block";
+    document.getElementById("r_and_r_2_panel").style.display = "none";
+    document.getElementById("r_and_r_3_panel").style.display = "none";
+    document.getElementById("r_and_r_4_panel").style.display = "none";
+    document.getElementById("r_and_r_5_panel").style.display = "none";
+  }
+  function r_and_r_2_radiobutton()
+  {
+    document.getElementById("r_and_r_all_panel").style.display = "none";
+    document.getElementById("r_and_r_1_panel").style.display = "none";
+    document.getElementById("r_and_r_2_panel").style.display = "block";
+    document.getElementById("r_and_r_3_panel").style.display = "none";
+    document.getElementById("r_and_r_4_panel").style.display = "none";
+    document.getElementById("r_and_r_5_panel").style.display = "none";
+  }
+  function r_and_r_3_radiobutton()
+  {
+    document.getElementById("r_and_r_all_panel").style.display = "none";
+    document.getElementById("r_and_r_1_panel").style.display = "none";
+    document.getElementById("r_and_r_2_panel").style.display = "none";
+    document.getElementById("r_and_r_3_panel").style.display = "block";
+    document.getElementById("r_and_r_4_panel").style.display = "none";
+    document.getElementById("r_and_r_5_panel").style.display = "none";
+  }
+  function r_and_r_4_radiobutton()
+  {
+    document.getElementById("r_and_r_all_panel").style.display = "none";
+    document.getElementById("r_and_r_1_panel").style.display = "none";
+    document.getElementById("r_and_r_2_panel").style.display = "none";
+    document.getElementById("r_and_r_3_panel").style.display = "none";
+    document.getElementById("r_and_r_4_panel").style.display = "block";
+    document.getElementById("r_and_r_5_panel").style.display = "none";
+  }
+  function r_and_r_5_radiobutton()
+  {
+    document.getElementById("r_and_r_all_panel").style.display = "none";
+    document.getElementById("r_and_r_1_panel").style.display = "none";
+    document.getElementById("r_and_r_2_panel").style.display = "none";
+    document.getElementById("r_and_r_3_panel").style.display = "none";
+    document.getElementById("r_and_r_4_panel").style.display = "none";
+    document.getElementById("r_and_r_5_panel").style.display = "block";
+  }
+</script>
+<script>
   function add_user_button(){
 
    
@@ -79,7 +135,28 @@
 
                   }
 </script>
-
+<script>
+  function myFunction22(x22)
+  {
+    if (x22.matches) 
+    { // If media query matches
+      // alert("qwe");
+      document.getElementById("appointment_table").classList.add("table-responsive");
+      // document.getElementById("modal_content_appointment").style.width = "100%;";
+      // document.getElementById("modal_content_appointment").style.marginLeft = "0;";
+    } 
+    else 
+    {
+      // alert("qwe1");
+      document.getElementById("appointment_table").classList.remove("table-responsive");
+      // document.getElementById("modal_content_appointment").style.width = "200%;";
+      // document.getElementById("modal_content_appointment").style.marginLeft = "-50%;";
+    }
+  }
+  var x22 = window.matchMedia("(max-width: 999px)")
+  myFunction22(x22) // Call listener function at run time
+  x22.addListener(myFunction22)
+</script>
 <script>
   if(!window.matchMedia("(max-width: 914px)").matches)
   {
