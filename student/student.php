@@ -115,6 +115,12 @@
 
 
 <body>
+<div class="white-div" id="white-div">
+  <!-- Iyong nilalaman dito -->
+</div>
+<script>
+  document.getElementById("white-div").style.display = "block";
+</script>
 <?php
   if($_SESSION['kakasubmit_lang_ng_appointment'] == true)
   {
@@ -124,7 +130,7 @@
           'Submiting an appointment Successfully!',
           'success'
           )
-      </script>";
+        </script>";
       $_SESSION['kakasubmit_lang_ng_appointment'] = false;
   }
 
@@ -137,7 +143,7 @@
           'success'
           )
       </script>";
-      $_SESSION['kakacancel_lang_ng_appointment'] = false;
+      // $_SESSION['kakacancel_lang_ng_appointment'] = false;
   }
 
   if($_SESSION['kakasubmit_lang_ng_feedback'] == true)
@@ -149,7 +155,6 @@
         'success'
       )
       </script>";
-      $_SESSION['kakasubmit_lang_ng_feedback'] = false;
   }
 
   if($_SESSION['kaka_delete_lang_ng_review'] == true)
@@ -161,7 +166,6 @@
         'success'
       )
       </script>";
-      $_SESSION['kaka_delete_lang_ng_review'] = false;
   }
 
   if($_SESSION['kakaupdate_lang_ng_feedback'] == true)
@@ -173,10 +177,21 @@
         'success'
       )
       </script>";
-      $_SESSION['kakaupdate_lang_ng_feedback'] = false;
+      // $_SESSION['kakaupdate_lang_ng_feedback'] = false;
   }
-
-  
+?>
+<?php
+  if($_SESSION['kakalogin_lang'] == true)
+  {
+    echo "<script>
+          Swal.fire(
+          'Success!',
+          'Login Successfully!',
+          'success'
+        )
+      </script>";
+      $_SESSION['kakalogin_lang'] = false;
+  }
 ?>
   <!-- Loading SPINNER -->
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal11" id="launch_modal_id" style="display:none;">
@@ -247,19 +262,6 @@
     }
 </script>  
 <!-- Loading SPINNER -->
-  <?php
-    if($_SESSION['kakalogin_lang'] == true)
-    {
-      echo "<script>
-            Swal.fire(
-            'Success!',
-            'Login Successfully!',
-            'success'
-          )
-        </script>";
-        $_SESSION['kakalogin_lang'] = false;
-    }
-  ?>
 
   <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background-color: white; border: 1px solid lightgray;">
       <div id="i want this on left">
@@ -276,7 +278,7 @@
           <ul class="nav-list" style="margin: 0; padding: 0; list-style: none;">
               <li style="pointer-events: none;">Type: <b>STUDENT</b></li>
               <li style="pointer-events: none;">Name: <b><?php echo strtoupper($top_nav_bar['first_name'])." ".strtoupper($top_nav_bar['last_name']); ?></b></li>
-              <li style="pointer-events: none;">Username: <b><input type="hidden" value="<?php echo strtoupper($top_nav_bar['username']); ?>" id="username"><?php echo strtoupper($top_nav_bar['username']); ?></b></li>
+              <li style="pointer-events: none;">Username: <b><input type="hidden" value="<?php echo $top_nav_bar['username']; ?>" id="username"><?php echo strtoupper($top_nav_bar['username']); ?></b></li>
           </ul>
       </div>
   </div>
@@ -313,8 +315,94 @@
   </div>
 <div id="main_panel" style=""><!-- Start of main_panel -->
 <script>
-  open_loading();
+  // open_loading();
 </script>
+<!-- APPOINTMENT PANEL -->
+<div id="schedule_an_appointment_panel" class="left_nav_bar_buttons">
+  <h1 style="padding:10px; border:1px solid lightgray; text-align:center; background-color:#1F5642; color:white;"><b>Appointment Scheduling</b> </h1>
+    <br>
+    <div style="width:95%; margin:auto; padding:20px; background-color:white; border-top:3px solid green; border-radius:5px;">
+    <div class="card">
+      <div class="card-body">
+          <div id="calendar">
+
+          </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eventModalLabel">Appointment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                  <!-- appointment modal -->
+                    <div class="checkbox-container">
+                      <div class="mb-3">
+                        <label for="" class="form-label"><b>Record Requested <span style="color:red;">*</span></b></label><br>
+                        <span id="eventDate"></span><br>
+                        <input type="hidden" value="qwe" id="date_hidden">
+                        <span id="totalAppointment"></span><br>
+                      </div>
+                      <div class="checkbox">
+                        <input type="checkbox" id="transcript_checkbox">
+                        <label for="transcript_checkbox">Transcript</label>
+                      </div>
+                      <div class="checkbox">
+                        <input type="checkbox" id="diploma_checkbox">
+                        <label for="diploma_checkbox">Diploma</label>
+                      </div>
+                      <div class="checkbox">
+                        <input type="checkbox" id="form_137_checkbox">
+                        <label for="form_137_checkbox">Form 137</label>
+                      </div>
+                      <div class="checkbox">
+                        <input type="checkbox" id="certification_checkbox" onchange="appointment_certification_function();">
+                        <label for="certification_checkbox">Certification</label>
+                      </div>
+                      <div class="mb-3" style="margin-left:20px; display:none;" id="certification_checkboxes">
+                        <label for="others_textfield" class="form-label">Certifications</label>
+                        <div class="checkbox">
+                          <input type="checkbox" id="honorable_dismissal_checkbox">
+                          <label for="honorable_dismissal_checkbox">Honorable Dismissal</label>
+                        </div>
+                        <div class="checkbox">
+                          <input type="checkbox" id="good_moral_character_checkbox">
+                          <label for="good_moral_character_checkbox">Good Moral Character</label>
+                        </div>
+                      </div>
+                      <div class="checkbox">
+                        <input type="checkbox" id="others_checkbox" onchange="appointment_others_function();">
+                        <label for="others_checkbox">Others</label>
+                      </div>
+                      <div class="mb-3" style="margin-left:20px; display:none;" id="others_label_and_textfield">
+                        <label for="others_textfield" class="form-label">Please specify requested document if not in the list</label>
+                        <input type="text" class="form-control" id="others_textfield" placeholder="Please Specify your request" oninput="limitChars(this)">
+                      </div>
+                      <hr>
+                      <div class="mb-3">
+                        <label for="purpose_of_request_textfield" class="form-label">Purpose of request</label>
+                        <input type="text" class="form-control" id="purpose_of_request_textfield" placeholder="Type purpose of request" required oninput="limitChars(this)">
+                      </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="appointment_submit_function();">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="appointment_close_button">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    </div>
+</div>
+<!-- APPOINTMENT PANEL -->
 <!-- DASHBOARD PANEL -->
 <div id="dashboard_panel" class="left_nav_bar_buttons" >
     <h1 style="padding:10px; border:1px solid lightgray; text-align:center; background-color:#1F5642; color:white;"><b>Dashboard</b> </h1>
@@ -1012,7 +1100,7 @@
 
 
     </div>
-    <div id="biar">
+    <!-- <div id="biar">
         <br>
         <br>
         <br>
@@ -1067,95 +1155,9 @@
         <br>
         <br>
         <br>
-    </div>
+    </div> -->
   </div>
 <!-- DASHBOARD PANEL -->
-<!-- APPOINTMENT PANEL -->
-<div id="schedule_an_appointment_panel" class="left_nav_bar_buttons">
-  <h1 style="padding:10px; border:1px solid lightgray; text-align:center; background-color:#1F5642; color:white;"><b>Appointment Scheduling</b> </h1>
-    <br>
-    <div style="width:95%; margin:auto; padding:20px; background-color:white; border-top:3px solid green; border-radius:5px;">
-    <div class="card">
-      <div class="card-body">
-          <div id="calendar">
-
-          </div>
-      </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="eventModalLabel">Appointment</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                  <!-- appointment modal -->
-                    <div class="checkbox-container">
-                      <div class="mb-3">
-                        <label for="" class="form-label"><b>Record Requested <span style="color:red;">*</span></b></label><br>
-                        <span id="eventDate"></span><br>
-                        <input type="hidden" value="qwe" id="date_hidden">
-                        <span id="totalAppointment"></span><br>
-                      </div>
-                      <div class="checkbox">
-                        <input type="checkbox" id="transcript_checkbox">
-                        <label for="transcript_checkbox">Transcript</label>
-                      </div>
-                      <div class="checkbox">
-                        <input type="checkbox" id="diploma_checkbox">
-                        <label for="diploma_checkbox">Diploma</label>
-                      </div>
-                      <div class="checkbox">
-                        <input type="checkbox" id="form_137_checkbox">
-                        <label for="form_137_checkbox">Form 137</label>
-                      </div>
-                      <div class="checkbox">
-                        <input type="checkbox" id="certification_checkbox" onchange="appointment_certification_function();">
-                        <label for="certification_checkbox">Certification</label>
-                      </div>
-                      <div class="mb-3" style="margin-left:20px; display:none;" id="certification_checkboxes">
-                        <label for="others_textfield" class="form-label">Certifications</label>
-                        <div class="checkbox">
-                          <input type="checkbox" id="honorable_dismissal_checkbox">
-                          <label for="honorable_dismissal_checkbox">Honorable Dismissal</label>
-                        </div>
-                        <div class="checkbox">
-                          <input type="checkbox" id="good_moral_character_checkbox">
-                          <label for="good_moral_character_checkbox">Good Moral Character</label>
-                        </div>
-                      </div>
-                      <div class="checkbox">
-                        <input type="checkbox" id="others_checkbox" onchange="appointment_others_function();">
-                        <label for="others_checkbox">Others</label>
-                      </div>
-                      <div class="mb-3" style="margin-left:20px; display:none;" id="others_label_and_textfield">
-                        <label for="others_textfield" class="form-label">Please specify requested document if not in the list</label>
-                        <input type="text" class="form-control" id="others_textfield" placeholder="Please Specify your request" oninput="limitChars(this)">
-                      </div>
-                      <hr>
-                      <div class="mb-3">
-                        <label for="purpose_of_request_textfield" class="form-label">Purpose of request</label>
-                        <input type="text" class="form-control" id="purpose_of_request_textfield" placeholder="Type purpose of request" required oninput="limitChars(this)">
-                      </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="appointment_submit_function();">Submit</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="appointment_close_button">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    
-    </div>
-</div>
-<!-- APPOINTMENT PANEL -->
 <!-- ADMIN USERS PANEL -->
 <div id="my_appointments_panel" class="left_nav_bar_buttons">
   <h1 style="padding:10px; border:1px solid lightgray; text-align:center; background-color:#1F5642; color:white;"><b>My Appointments</b> </h1>
@@ -1237,6 +1239,11 @@
 </div>
 <!-- ADMIN USERS PANEL -->
 <!-- MY ACCOUNT PANEL -->
+<?php
+  $sql = "  SELECT * FROM ptc_student_users WHERE username='".$_SESSION['student_username']."';";
+  $result = mysqli_query($con, $sql);
+  $my_profile = mysqli_fetch_assoc($result);
+?>
 <div id="my_profile_panel" class="left_nav_bar_buttons" >
   <h1 style="padding:10px; border:1px solid lightgray; text-align:center; background-color:#1F5642; color:white;"><b>My Profile</b> </h1>
   <br>
@@ -1245,12 +1252,12 @@
       <center><h4>Account Information</h4></center>
       <div class="mb-3">
         <label for="username_textfield">Username</label>
-        <input disabled type="text" required id="username_textfield" name="username_textfield" class="form-control form-control-sm mb-2">
+        <input value="<?php echo $my_profile['username']; ?>" disabled type="text" required id="username_textfield" name="username_textfield" class="form-control form-control-sm mb-2">
       </div>
       <div class="mb-3">
         <label for="password_textfield">Password</label>
         <div class="input-group">
-            <input disabled type="password" required id="password_textfield" name="password_textfield" class="form-control form-control-sm">
+            <input value="<?php echo $my_profile['password']; ?>" disabled type="password" required id="password_textfield" name="password_textfield" class="form-control form-control-sm">
             <div class="input-group-append">
                 <button disabled class="btn btn-outline-secondary toggle-password" type="button" id="togglePassword">
                     <i class="fa fa-eye" id="eyeIcon"></i>
@@ -1262,7 +1269,7 @@
       <div class="mb-3">
         <label for="confirm_password_textfield">Confirm Password</label>
         <div class="input-group">
-            <input disabled type="password" required id="confirm_password_textfield" name="confirm_password_textfield" class="form-control form-control-sm">
+            <input value="<?php echo $my_profile['password']; ?>" disabled type="password" required id="confirm_password_textfield" name="confirm_password_textfield" class="form-control form-control-sm">
             <div class="input-group-append">
                 <button disabled class="btn btn-outline-secondary toggle-password" type="button" id="toggleConfirmPassword">
                     <i class="fa fa-eye" id="eyeIcon1"></i>
@@ -1280,11 +1287,11 @@
       <center><h4>Institute Information</h4></center>
       <div class="mb-3">
         <label for="email">Student Number: </label>
-        <input disabled type="email" required name="student_number_textfield" class="form-control mb-2" id="student_number_textfield" placeholder="Ex. 2018-1132">
+        <input value="<?php echo $my_profile['student_number']; ?>" disabled type="email" required name="student_number_textfield" class="form-control mb-2" id="student_number_textfield" placeholder="Ex. 2018-1132">
       </div>
       <div class="mb-3">
         <label for="email">Institute Email</label>
-        <input disabled type="email" required name="email" class="form-control mb-2" id="institute_email_textfield" placeholder="@paterostechnologicalcollege.edu.ph">
+        <input value="<?php echo $my_profile['institute_email']; ?>" disabled type="email" required name="email" class="form-control mb-2" id="institute_email_textfield" placeholder="@paterostechnologicalcollege.edu.ph">
       </div>
       <div class="mb-3">
         <label for="gender">Student Type</label>
@@ -1293,10 +1300,11 @@
           <option value="Regular">Regular</option>
           <option value="Irregular">Irregular</option>
         </select>
+        <?php echo "<script>document.getElementById('student_type_dropdownlist').value = '".$my_profile['student_type']."'</script>"; ?>
       </div>
       <div class="mb-3">
         <label for="email">Course</label>
-        <input disabled type="text" required name="email" class="form-control mb-2" id="course_textfield" placeholder="Ex. Bachelor of Science in Information Technology (BSIT)">
+        <input value="<?php echo $my_profile['course']; ?>" disabled type="text" required name="email" class="form-control mb-2" id="course_textfield" placeholder="Ex. Bachelor of Science in Information Technology (BSIT)">
       </div>
       <div class="mb-3">
         <button class="btn btn-secondary">&nbsp Edit &nbsp</button>
@@ -1307,19 +1315,19 @@
       <center><h4>Personal Information</h4></center>
       <div class="mb-3">
         <label for="firstname">First Name</label>
-        <input disabled type="text" required id="first_name_textfield" name="firstname" class="form-control form-control-sm mb-2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="150">
+        <input value="<?php echo $my_profile['first_name']; ?>" disabled type="text" required id="first_name_textfield" name="firstname" class="form-control form-control-sm mb-2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="150">
       </div>
       <div class="mb-3">
         <label for="middlename">Middle Name</label>
-        <input disabled type="text" placeholder="Leave if none" id="middle_name_textfield" name="middlename" class="form-control form-control-sm mb-2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="150">
+        <input value="<?php echo $my_profile['middle_name']; ?>" disabled type="text" placeholder="Leave if none" id="middle_name_textfield" name="middlename" class="form-control form-control-sm mb-2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="150">
       </div>
       <div class="mb-3">
         <label for="lastname">Last Name</label>
-        <input disabled type="text" required="" id="last_name_textfield" name="lastname" class="form-control form-control-sm mb-2" id="inputls" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="150">
+        <input value="<?php echo $my_profile['last_name']; ?>" disabled type="text" required="" id="last_name_textfield" name="lastname" class="form-control form-control-sm mb-2" id="inputls" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="150">
       </div>
       <div class="mb-3">
         <label for="suffix">Suffix</label>
-        <input disabled type="text" placeholder="Leave if none" id="suffix_textfield" name="suffix" class="form-control form-control-sm mb-2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="150">
+        <input value="<?php echo $my_profile['suffix']; ?>" disabled type="text" placeholder="Leave if none" id="suffix_textfield" name="suffix" class="form-control form-control-sm mb-2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="150">
       </div>
       <div class="mb-3">
         <label for="gender">Gender</label>
@@ -1328,18 +1336,19 @@
           <option value="Male">Male</option>
           <option value="Female">Female</option>
         </select>
+        <?php echo "<script>document.getElementById('gender_dropdownlist').value = '".$my_profile['gender']."'</script>"; ?>
       </div>
       <div class="mb-3">
         <label for="bday">Birthday</label>
-        <input disabled type="date" required id="birthday_textfield" value="" name="bday" class="form-control form-control-sm mb-2">
+        <input value="<?php echo $my_profile['birthday']; ?>" disabled type="date" required id="birthday_textfield" value="" name="bday" class="form-control form-control-sm mb-2">
       </div>
       <div class="mb-3">
         <label for="contactnumber">Contact No.</label>
-        <input disabled type="text" required name="contactnumber" class="form-control form-control-sm mb-2" id="contact_no_textfield" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11">
+        <input value="<?php echo $my_profile['contact_no']; ?>" disabled type="text" required name="contactnumber" class="form-control form-control-sm mb-2" id="contact_no_textfield" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11">
       </div>
       <div class="mb-3">
         <label for="address">Street Address</label>
-        <input disabled type="text" required id="street_address_textfield" class="form-control form-control-sm mb-2" name="street_address" placeholder="House No. and Street Name">
+        <input value="<?php echo $my_profile['street_address']; ?>" disabled type="text" required id="street_address_textfield" class="form-control form-control-sm mb-2" name="street_address" placeholder="House No. and Street Name">
       </div>
       <div class="mb-3">
         <label for="address">Province</label>
@@ -1372,12 +1381,12 @@
       <div class="mb-3">
         <label for="address">Barangay</label>
         <select disabled class="form-control form-control-sm mb-2" name="barangay_dropdownlist" id="barangay_dropdownlist">
-          
+
         </select>
       </div>
       <div class="mb-3">
         <label for="address">Postcode / ZIP</label>
-        <input disabled type="text" required id="postcode_textfield" class="form-control form-control-sm mb-2" name="postcode" placeholder="Optional">
+        <input value="<?php echo $my_profile['postcode']; ?>" disabled type="text" required id="postcode_textfield" class="form-control form-control-sm mb-2" name="postcode" placeholder="Optional">
       </div>
       <div class="mb-3">
         <button class="btn btn-secondary">&nbsp Edit &nbsp</button>

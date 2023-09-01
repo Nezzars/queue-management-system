@@ -1,3 +1,6 @@
+<?php
+  require '../connections/my_cnx.php';
+?>
 <script>
   function r_and_r_all_radiobutton()
   {
@@ -124,8 +127,17 @@
 
                       success:function(response)
                       {
-                          alert(response)    
-                              
+                        Swal.fire(
+                          'New Admin!',
+                          'Successfully Added!',
+                          'success'
+                        );
+                        document.getElementById("username_admin_input").value = "";
+                        document.getElementById("password_admin_input").value = "";
+                        document.getElementById("firstname_admin_input").value = "";
+                        document.getElementById("middlename_admin_input").value = "";
+                        document.getElementById("lastname_admin_input").value = "";    
+                        $('#staticBackdrop').modal('hide'); 
                       }
 
                       });

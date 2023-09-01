@@ -20,7 +20,10 @@ session_start();
     <!-- <link rel="icon" href="images/ffpi.png"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="login.css" />
+    <!-- <link rel="stylesheet" href="login.css" /> -->
+    <?php
+        include 'login_css.php';
+    ?>
     <?php
         include '../cdn/cdns.php';
     ?>
@@ -39,63 +42,94 @@ session_start();
     <?php
         include "../navbars/homepage_navbar.php";
       ?>
-    <div class="wrapper">
-        <div class="title-text">
-            <div class="title login">Student Login</div>
-
-            <div class="title signup">Admin Login</div>
-        </div>
-        <?php
-        if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
-            echo '<br><h5 class="bg-danger text-white"> ' . $_SESSION['status'] . ' </h5>';
-            unset($_SESSION['status']);
-        }
-        ?>
-        <div class="form-container">
-
-            <div class="slide-controls">
-                <input type="radio" name="slide" id="login" checked />
-                <input type="radio" name="slide" id="signup" />
-                <label for="login" class="slide login">Student</label>
-                <label for="signup" class="slide signup">Admin</label>
-                <div class="slider-tab" style="background-color:rgb(29,87,63);"></div>
+    <div class="container">
+        <div class="row justify-content-evenly">
+            <div class="col-2">
+                <br><br>
             </div>
-
-            <div class="form-inner">
-
-                <!-- <form action="login_function.php" class="login" method="POST"> -->
-                <form action="" class="login" method="POST">
-                    <div class="field">
-                        <input type="text" name="student_username" id="student_username" placeholder="Username" required />
-                    </div>
-                    <div class="field">
-                        <input type="password" name="student_password" id="student_password" placeholder="Password" required />
-                    </div>
-                    <br>
-                    <a href="#">Forgot password?</a>
-                    <div class="field btn">
-                        <div class="btn-layer" style="background-color:rgb(29,87,63);">
+            <div class="col-md-4 col-12 mb-3">
+                <div class="card text-bg-success">
+                    <div class="card-header">Important Note:</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Appointment Requirements</h5>
+                        <p class="card-text">
+                            You can register and log in to our system. Here are the possible documents you can request upon logging in:
+                            <ul>
+                                <li>Transcript of Record</li>
+                                <li>Diploma</li>
+                                <li>Form 137</li>
+                                <li>Certifications</li>
+                                <ol>
+                                    <li>Honorable Dismissal</li>
+                                    <li>Goodmoral Character</li>
+                                </ol>
+                            </ul>
+                            if your document is not mentioned above, you can enter it in the "others" text field.
+                        </p>
                         </div>
-                        <input type="button" name="student_login_button" id="student_login_button" value="Login" onclick="student_login_button_function();" style="background-color:rgb(29,87,63);"/>
                     </div>
-                    <br>
-                    <span>Not a member? </span><a href="../registration/registration_form.php">Signup now</a>
-                </form>
+                </div>
+                <div class="col-md-6 col-12 mb-3">
+                    <div class="wrapper">
+                        <div class="title-text">
+                            <div class="title login">Student Login</div>
 
-                <form action="" class="signup" method="POST">
-                    <div class="field">
-                        <input type="text" name="admin_username" id="admin_username" placeholder="Username" required />
+                            <div class="title signup">Admin Login</div>
+                        </div>
+                    <?php
+                    if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
+                        echo '<br><h5 class="bg-danger text-white"> ' . $_SESSION['status'] . ' </h5>';
+                        unset($_SESSION['status']);
+                    }
+                    ?>
+                    <div class="form-container">
+
+                        <div class="slide-controls">
+                            <input type="radio" name="slide" id="login" checked />
+                            <input type="radio" name="slide" id="signup" />
+                            <label for="login" class="slide login">Student</label>
+                            <label for="signup" class="slide signup">Admin</label>
+                            <div class="slider-tab" style="background-color:rgb(29,87,63);"></div>
+                        </div>
+
+                        <div class="form-inner">
+
+                            <!-- <form action="login_function.php" class="login" method="POST"> -->
+                            <form action="" class="login" method="POST">
+                                <div class="field">
+                                    <input type="text" name="student_username" id="student_username" placeholder="Username" required />
+                                </div>
+                                <div class="field">
+                                    <input type="password" name="student_password" id="student_password" placeholder="Password" required />
+                                </div>
+                                <!-- <a href="#">Forgot password?</a> -->
+                                <div class="field btn">
+                                    <div class="btn-layer" style="background-color:rgb(29,87,63);">
+                                    </div>
+                                    <input type="button" name="student_login_button" id="student_login_button" value="Login" onclick="student_login_button_function();" style="background-color:rgb(29,87,63);"/>
+                                </div>
+                                <br><br>
+                                <span>Not a member? </span><a href="../registration/registration_form.php">Signup now</a>
+                            </form>
+
+                            <form action="" class="signup" method="POST">
+                                <div class="field">
+                                    <input type="text" name="admin_username" id="admin_username" placeholder="Username" required />
+                                </div>
+                                <div class="field">
+                                    <input type="password" name="admin_password" id="admin_password" placeholder="Password" required />
+                                </div>
+                                <!-- <a href="#">Forgot password?</a> -->
+                                <div class="field btn">
+                                    <div class="btn-layer" style="background-color:rgb(29,87,63);">
+                                    </div>
+                                    <!-- <div class="btn-layer" style="background-image: url('../images/green_background.jpg');"></div> -->
+                                    <input type="button" name="admin_login_button" id="admin_login_button" value="Login" onclick="admin_login_button_function();" style="background-color:rgb(29,87,63);"/>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <div class="field">
-                        <input type="password" name="admin_password" id="admin_password" placeholder="Password" required />
-                    </div>
-                    <br>
-                    <a href="#">Forgot password?</a>
-                    <div class="field btn">
-                        <!-- <div class="btn-layer" style="background-image: url('../images/green_background.jpg');"></div> -->
-                        <input type="button" name="admin_login_button" id="admin_login_button" value="Login" onclick="admin_login_button_function();" style="background-color:rgb(29,87,63);"/>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>

@@ -38,7 +38,7 @@
       (
         '', 
         '$username_textfield', 
-        '" . password_hash($password_textfield, PASSWORD_DEFAULT) . "',
+        '" . $password_textfield . "',
         '$student_number_textfield',
         '$institute_email_textfield',
         '$student_type_dropdownlist',
@@ -85,7 +85,8 @@
 
     while($row = mysqli_fetch_assoc($result))
     {
-        $cities .= "<option value='".$row['City']."'>".$row['City']."</option>";
+      $cittty = trim($row['City']);
+        $cities .= "<option value='$cittty'>$cittty</option>";
     }
     
     echo $cities; //metro manila
@@ -103,9 +104,84 @@
 
     while($row = mysqli_fetch_assoc($result))
     {
-        $brgy .= "<option value='".$row['Barangay']."'>".$row['Barangay']."</option>";
+        $baranggayy = trim($row['Barangay']);
+        $brgy .= "<option value='$baranggayy'>$baranggayy</option>";
     }
     
     echo $brgy; //metro manila
+  }
+
+  if($_POST['action1'] == "check_username_if_exists")
+  {
+    global $con;
+    $username_textfield = $_POST['username_textfield'];
+
+    $sql = "  SELECT * FROM ptc_student_users WHERE username='$username_textfield';  ";
+		$result = mysqli_query($con, $sql);
+    if($row = mysqli_fetch_assoc($result)) //if meron
+    {
+      echo "existing_username";
+    }
+    else
+    {
+      echo "not_existing_username";
+    }
+  }
+
+  //send OTP
+  require  '../vendor/autoload.php';
+  use Twilio\Rest\Client;
+
+  //first account
+  $twilioPhone = "18507530133";
+  $sid = "AC1a55ce90b6df52a87de2cff98bb098c1";
+  $token = "ec413c60e195e794d705882956748e27";
+  
+  // second account
+  // $twilioPhone = "13347217768";
+  // $sid = "ACa42d8c0e508f7bc1f2ab65f738646534";
+  // $token = "c868921907a59d80187d78a78a7246e0";
+
+  if($_POST['action1'] == "send_otp_to_contact_no")
+  {
+    global $sid, $token, $twilioPhone;
+    $localNumber = $_POST['contact_no_textfield'];
+    $otp = $_POST['otp'];
+    $phoneNumber = "+63" . substr($localNumber, 1);
+
+    $message = "Your OTP is: ".$otp.". Please use this OTP to verify your account.";
+    $to = $phoneNumber;
+    $from = "";
+
+    $response = [];
+
+    if ($from == "") {
+      $from = $twilioPhone;
+    }
+
+
+    $client = new Client($sid, $token);
+
+    try {
+      $client->messages->create(
+        $to,
+        array(
+          'from' => $from,
+          'body' => $message,
+        )
+      );
+      $response['success'] = true;
+      $status = "Success";
+      $response['message'] = $status;
+    } catch (\Exception $e) {
+      $status = "Failed:" . $e->getMessage();
+      $response['success'] = false;
+      $response['message'] = $status;
+    }
+    
+    $response1 = json_encode($response);
+    echo $response1;
+
+    // echo $response;
   }
 ?>

@@ -1,3 +1,6 @@
+<?php
+  require '../connections/my_cnx.php';
+?>
 <script>
   document.getElementById("togglePassword").addEventListener("click", function() {
   const passwordInput = document.getElementById("password_textfield");
@@ -439,7 +442,6 @@ $(document).ready(function() {
 </script>
 <?php
 
-
     $sql = "SELECT * FROM ptc_holidays";
     $result = mysqli_query($con, $sql);
 
@@ -663,14 +665,40 @@ $(document).ready(function() {
 
 <script>
   setTimeout(function() {
-    close_loading();
+    // close_loading();
     document.querySelector('.fc-next-button').click();
-    setTimeout(function() {
-      document.querySelector('.fc-prev-button').click();
-      document.getElementById("dashboard_with_icon_button").click();
-      document.getElementById("biar").style.display = "none";
-    }, 800);
-  }, 1500); // 2000 milliseconds = 2 seconds
+    document.querySelector('.fc-prev-button').click();
+  //   setTimeout(function() {
+    <?php
+      if($_SESSION['kakacancel_lang_ng_appointment'] == true)
+      {
+        echo 'document.getElementById("my_appointments_with_icon_button").click();';
+        $_SESSION['kakacancel_lang_ng_appointment'] = false;
+      }
+      else if($_SESSION['kakasubmit_lang_ng_feedback'] == true)
+      {
+        echo 'document.getElementById("dashboard_with_icon_button").click();';
+        $_SESSION['kakasubmit_lang_ng_feedback'] = false;
+      }
+      else if($_SESSION['kaka_delete_lang_ng_review'] == true)
+      {
+        echo 'document.getElementById("dashboard_with_icon_button").click();';
+        $_SESSION['kaka_delete_lang_ng_review'] = false;
+      }
+      else if($_SESSION['kakaupdate_lang_ng_feedback'] == true)
+      {
+        echo 'document.getElementById("dashboard_with_icon_button").click();';
+        $_SESSION['kakaupdate_lang_ng_feedback'] = false;
+      }
+      else 
+      {
+        echo 'document.getElementById("schedule_an_appointment_with_icon_button").click();';
+      }
+    ?>
+    
+    // document.getElementById("biar").style.display = "none";
+  //   }, 800);
+  }, 1000); // 2000 milliseconds = 2 seconds
 </script>
 <script>
   function appointment_others_function()
@@ -1368,4 +1396,79 @@ $(document).ready(function() {
       });
     }
   }
+</script>
+<script>
+  function select_province_ajax()
+  {
+    // alert(document.getElementById("province_dropdownlist").value);
+
+    var data = 
+    {
+      action1: 'select_province_ajax',
+      province_dropdownlist: document.getElementById("province_dropdownlist").value,
+    };
+
+    $.ajax({
+      url: '../registration/registration_form_ajax.php',
+      type: 'post',
+      data: data,
+
+      success:function(response)
+      {
+        // alert(response); //alert metro manila
+        document.getElementById("town_city_dropdownlist").innerHTML = response;
+        document.getElementById("barangay_dropdownlist").innerHTML = "";
+      }
+
+    });
+  }
+
+  function select_town_city_ajax()
+  {
+    // alert(document.getElementById("town_city_dropdownlist").value);
+    
+    var data = 
+    {
+      action1: 'select_town_city_ajax',
+      town_city_dropdownlist: document.getElementById("town_city_dropdownlist").value,
+    };
+
+    $.ajax({
+      url: '../registration/registration_form_ajax.php',
+      type: 'post',
+      data: data,
+
+      success:function(response)
+      {
+        // alert(response); //alert metro manila
+        document.getElementById("barangay_dropdownlist").innerHTML = response;
+      }
+
+    });
+  }
+</script>
+<?php echo "
+  <script>
+    setTimeout(function() 
+    {
+
+      document.getElementById('province_dropdownlist').value = '".$my_profile['province']."';
+      select_province_ajax();
+      setTimeout(function() 
+      {
+
+        document.getElementById('town_city_dropdownlist').value = '".$my_profile['town_city']."'; 
+        select_town_city_ajax();
+        setTimeout(function() {
+            document.getElementById('barangay_dropdownlist').value = '".$my_profile['barangay']."'; 
+        }, 500); 
+      }, 500);
+    }, 500);
+  </script>"; ?>
+<?php //echo "<script></script>"; ?>
+<?php //echo "<script></script>"; ?>
+<script>
+  setTimeout(function() {
+    document.getElementById("white-div").style.display = "none";
+  }, 1000); // 2000 milliseconds = 2 seconds
 </script>

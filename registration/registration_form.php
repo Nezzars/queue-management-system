@@ -265,13 +265,13 @@ $today = date("Y-m-d");
             <!-- OPENING DIV COL-->
                 <div class="col">
                     <label for="username_textfield">Username</label>
-                    <input type="text" required id="username_textfield" name="username_textfield" class="form-control form-control-sm mb-2">
+                    <input type="text" required id="username_textfield" name="username_textfield" class="form-control form-control-sm mb-2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
                 </div>
 
                 <div class="col">
                     <label for="password_textfield">Password</label>
                     <div class="input-group">
-                        <input type="password" required id="password_textfield" name="password_textfield" class="form-control form-control-sm">
+                        <input type="password" required id="password_textfield" name="password_textfield" class="form-control form-control-sm" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary toggle-password" type="button" id="togglePassword">
                                 <i class="fa fa-eye" id="eyeIcon"></i>
@@ -284,7 +284,7 @@ $today = date("Y-m-d");
                 <div class="col">
                     <label for="confirm_password_textfield">Confirm Password</label>
                     <div class="input-group">
-                        <input type="password" required id="confirm_password_textfield" name="confirm_password_textfield" class="form-control form-control-sm">
+                        <input type="password" required id="confirm_password_textfield" name="confirm_password_textfield" class="form-control form-control-sm" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary toggle-password" type="button" id="toggleConfirmPassword">
                                 <i class="fa fa-eye" id="eyeIcon1"></i>
@@ -337,11 +337,11 @@ $today = date("Y-m-d");
         <h5 style="text-align:center;">Institute Information</h5>
         <div class="form-row">
             <label for="email">Student Number: </label>
-            <input type="text" required name="student_number_textfield" class="form-control mb-2" id="student_number_textfield" placeholder="Ex. 2018-1132">
+            <input type="text" required name="student_number_textfield" class="form-control mb-2" id="student_number_textfield" placeholder="Ex. 2018-1132" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
         </div>
         <div class="form-row">
             <label for="email">Institute Email</label>
-            <input type="email" required name="email" class="form-control mb-2" id="institute_email_textfield" placeholder="@paterostechnologicalcollege.edu.ph">
+            <input type="email" required name="email" class="form-control mb-2" id="institute_email_textfield" placeholder="@paterostechnologicalcollege.edu.ph" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
         </div>
         <div class="form-row">
             <label for="gender">Student Type</label>
@@ -353,20 +353,20 @@ $today = date("Y-m-d");
         </div>
         <div class="form-row">
             <label for="email">Course</label>
-            <input type="text" required name="email" class="form-control mb-2" id="course_textfield" placeholder="Ex. Bachelor of Science in Information Technology (BSIT)">
+            <input type="text" required name="email" class="form-control mb-2" id="course_textfield" placeholder="Ex. Bachelor of Science in Information Technology (BSIT)" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
         </div>
 
         <hr>
         <h5 style="text-align:center;">Personal Information</h5>
                 <div class="form-row">
                     <label for="firstname">First Name</label>
-                    <input type="text" required id="first_name_textfield" name="firstname" class="form-control form-control-sm mb-2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="150">
+                    <input type="text" required id="first_name_textfield" name="firstname" class="form-control form-control-sm mb-2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
                 </div>
 
                 <!-- MIDDLE NAME -->
                  <div class="form-row">
                                     <label for="middlename">Middle Name</label>
-                                    <input type="text" placeholder="Leave if none" id="middle_name_textfield" name="middlename" class="form-control form-control-sm mb-2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="150">
+                                    <input type="text" placeholder="Leave if none" id="middle_name_textfield" name="middlename" class="form-control form-control-sm mb-2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
                  </div>
 
 
@@ -374,12 +374,12 @@ $today = date("Y-m-d");
                 <!-- LAST NAME -->
                 <div class="form-row">
                     <label for="lastname">Last Name</label>
-                    <input type="text" required="" id="last_name_textfield" name="lastname" class="form-control form-control-sm mb-2" id="inputls" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="150">
+                    <input type="text" required="" id="last_name_textfield" name="lastname" class="form-control form-control-sm mb-2" id="inputls" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
                 </div>
 
                 <div class="form-row">
                                 <label for="suffix">Suffix</label>
-                                <input type="text" placeholder="Leave if none" id="suffix_textfield" name="suffix" class="form-control form-control-sm mb-2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="150">
+                                <input type="text" placeholder="Leave if none" id="suffix_textfield" name="suffix" class="form-control form-control-sm mb-2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
                             </div>
 
                 <!-- <div class="form-row">
@@ -406,12 +406,12 @@ $today = date("Y-m-d");
 
                 <div class="form-row">
                     <label for="contactnumber">Contact No.</label>
-                    <input type="text" required name="contactnumber" class="form-control form-control-sm mb-2" id="contact_no_textfield" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11">
+                    <input type="text" required name="contactnumber" class="form-control form-control-sm mb-2" placeholder="Ex. 09123123123" id="contact_no_textfield" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11">
                 </div>
 
                 <div class="form-row">
                     <label for="address">Street Address</label>
-                    <input type="text" required id="street_address_textfield" class="form-control form-control-sm mb-2" name="street_address" placeholder="House No. and Street Name">
+                    <input type="text" required id="street_address_textfield" class="form-control form-control-sm mb-2" name="street_address" placeholder="House No. and Street Name" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
                 </div>
                 <div class="form-row">
                     <label for="address">Province</label>
@@ -449,7 +449,7 @@ $today = date("Y-m-d");
                 </div>
                 <div class="form-row">
                     <label for="address">Postcode / ZIP</label>
-                    <input type="text" required id="postcode_textfield" class="form-control form-control-sm mb-2" name="postcode" placeholder="Optional">
+                    <input type="text" required id="postcode_textfield" class="form-control form-control-sm mb-2" name="postcode" placeholder="Optional" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
                 </div>
 
                 <!-- PREVIOUS POSITION OF AFFILIATE COUPON -->
@@ -1195,7 +1195,11 @@ if (str.length == 0) {
     <div class="container-fluid p-0">
         <div class="row">
             <div class="col-12 mt-3">
-                <h6 class="text-center p-1 text-dark">2023 @ Pateros Technological College</h6>
+              <h6 class="text-center p-1 text-dark"><span id="year"></span> @ Pateros Technological College</h6>
+              <script>
+                const currentYear = new Date().getFullYear();
+                document.getElementById("year").textContent = currentYear;
+              </script>
             </div>
         </div>
     </div>
@@ -1208,550 +1212,79 @@ if (str.length == 0) {
 <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+<!-- Button trigger modal -->
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="otp_modal" tabindex="-1" aria-labelledby="otp_modalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="otp_modalLabel">Enter OTP</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Please enter the One-Time Password (OTP) sent to your mobile number (<span id="otp_modal_contact_number"></span>)</p>
+        
+        <!-- OTP input fields -->
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Enter OTP" aria-label="Enter OTP" aria-describedby="otp-addon" id="otp_modal_otp_textfield">
+          <span class="input-group-text" id="otp-addon">OTP</span>
+        </div>
+        
+        <!-- Resend OTP with timer -->
+        <p class="text-muted">Didn't receive the OTP? <a href="#" id="resend-link" onclick="resend_otp();">Resend OTP</a></p>
+        <p class="timer-text text-muted d-none">Resend OTP in <span id="timer">30</span> seconds</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="verify_otp_button();">Verify OTP</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var pede_na_magsend = true;
+document.addEventListener("DOMContentLoaded", function() {
+  const resendLink = document.getElementById("resend-link");
+  const timerText = document.querySelector(".timer-text");
+  const timerSpan = document.getElementById("timer");
+  
+  let countdown = 30;
+  let countdownInterval;
+  
+  function startCountdown() {
+    pede_na_magsend = false;
+    resendLink.classList.add("d-none");
+    timerText.classList.remove("d-none");
+    
+    countdownInterval = setInterval(() => {
+      countdown -= 1;
+      timerSpan.textContent = countdown;
+      
+      if (countdown === 0) {
+        pede_na_magsend = true;
+        clearInterval(countdownInterval);
+        timerText.classList.add("d-none");
+        resendLink.classList.remove("d-none");
+        countdown = 30;
+      }
+    }, 1000);
+  }
+  
+  resendLink.addEventListener("click", function(event) {
+    event.preventDefault();
+    startCountdown();
+  });
+});
+</script>
 
 </body>
 
 </html>
 
 
- <script>
-  $(document).ready(function(){
-   $('#username_textfield').blur(function(){
-
-   var member_username = $(this).val();
-    $.ajax({
-     url:'checkmember.php',
-     method:"POST",
-     data:{user_name:member_username},
-      success:function(data)
-   {
-    //    alert(data);
-        if(data != '000')
-        {
-         $('#availability2').html('<span class="text-danger" id="username_validity">User Existing</span>');
-         $('#Submit').attr("disabled", true);
-
-        }
-        else
-        {
-         $('#availability2').html('<span class="text-success" id="username_validity">Username Available</span>');
-         $('#Submit').attr("disabled", false);
-
-        }
-       }
-     })
-
-   });
-  });
- </script>
-
-<script>
- $(document).ready(function(){
-   $('#agent_id').blur(function(){
-
-     var agent_id = $(this).val();
-
-     $.ajax({
-      url:'checkagent.php',
-      method:"POST",
-      data:{agent:agent_id},
-      success:function(data)
-      {
-       if(data != '0')
-       {
-        $('#availability1').html('<span class="text-success">Valid');
-        $('#Submit').attr("disabled", false);
-
-       }
-       else
-       {
-        $('#availability1').html('<span class="text-danger">Agent ID Not Found');
-        $('#Submit').attr("disabled", true);
-
-       }
-      }
-     })
-
-  });
- });
-</script>
-
-<script>
- $(document).ready(function(){
-   $('#agent_username').blur(function(){
-
-     var agent_username = $(this).val();
-
-     $.ajax({
-      url:'checkusename.php',
-      method:"POST",
-      data:{username:agent_username},
-      success:function(data)
-      {
-       if(data != '0')
-       {
-        $('#availability').html('<span class="text-success" id="affiliate_code_validity">Valid');
-        $('#Submit').attr("disabled", false);
-
-       }
-       else
-       {
-        $('#availability').html('<span class="text-danger" id="affiliate_code_validity">Coupon Not Found');
-        $('#Submit').attr("disabled", true);
-
-       }
-      }
-     })
-
-  });
- });
-</script>
-
-
-
-<script>
-// Example starter JavaScript for disabling form submissions if there are invalid fields
-(function() {
-  'use strict';
-  window.addEventListener('load', function() {
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.getElementsByClassName('needs-validation');
-    // Loop over them and prevent submission
-    var validation = Array.prototype.filter.call(forms, function(form) {
-      form.addEventListener('submit', function(event) {
-        if (form.checkValidity() === false) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-        form.classList.add('was-validated');
-      }, false);
-    });
-  }, false);
-})();
-</script>
-
-<!-- If using a CDN -->
-
-<!-- <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-</script> -->
-<script type="text/javascript">
-        function select_data_using_order_id(action){
-        $(document).ready(function(){
-            var data = {
-            action: action,
-            order_id: $("#order_id").val(),
-            };
-
-            $.ajax({
-            url: 'index_ajax.php',
-            type: 'post',
-            data: data,
-            success:function(response){
-
-                var parsedResponse = JSON.parse(response);
-
-                
-                if(parsedResponse[7] == "Order_ID_not_found")
-                {
-                    Swal.fire({
-                        title: "Invalid!",
-                        text: "Order ID is not found",
-                        icon: 'error',
-                        confirmButtonText: 'Okay'
-                    });
-                    document.getElementById("firstname").value = parsedResponse[0];
-                    document.getElementById("firstname").style.backgroundColor = "white";
-                        
-                    document.getElementById("lastname").value = parsedResponse[1];
-                    document.getElementById("lastname").style.backgroundColor = "white";
-
-                    document.getElementById("street_address").value = parsedResponse[2];
-                    document.getElementById("street_address").style.backgroundColor = "white";
-
-                    document.getElementById("town_city").value = parsedResponse[3];
-                    document.getElementById("town_city").style.backgroundColor = "white";
-
-                    document.getElementById("postcode").value = parsedResponse[4];
-                    document.getElementById("postcode").style.backgroundColor = "white";
-
-                    document.getElementById("email").value = parsedResponse[5];
-                    document.getElementById("email").style.backgroundColor = "white";
-
-                    document.getElementById("number").value = parsedResponse[6];
-                    document.getElementById("number").style.backgroundColor = "white";
-                }
-                else
-                {
-                    document.getElementById("firstname").value = parsedResponse[0];
-                    document.getElementById("firstname").style.backgroundColor = "#E8F0FE";
-                        
-                    document.getElementById("lastname").value = parsedResponse[1];
-                    document.getElementById("lastname").style.backgroundColor = "#E8F0FE";
-
-                    document.getElementById("street_address").value = parsedResponse[2];
-                    document.getElementById("street_address").style.backgroundColor = "#E8F0FE";
-
-                    document.getElementById("town_city").value = parsedResponse[3];
-                    document.getElementById("town_city").style.backgroundColor = "#E8F0FE";
-
-                    document.getElementById("postcode").value = parsedResponse[4];
-                    document.getElementById("postcode").style.backgroundColor = "#E8F0FE";
-
-                    document.getElementById("email").value = parsedResponse[5];
-                    document.getElementById("email").style.backgroundColor = "#E8F0FE";
-
-                    document.getElementById("number").value = parsedResponse[6];
-                    document.getElementById("number").style.backgroundColor = "#E8F0FE";
-                }
-                
-                // Swal.fire({
-                //     title: parsedResponse[0],
-                //     text: parsedResponse[1],
-                //     icon: 'success',
-                //     confirmButtonText: 'Okay'
-                // });
-
-                close_loading();
-            }
-            });
-        });
-        }
-</script>
-<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script>
-    function submitMember_function()
-    {
-        if (document.getElementById("username_textfield").value.trim() == "")
-        {
-            document.getElementById("username_textfield").setCustomValidity("Please fill out this field.");
-            document.getElementById("username_textfield").reportValidity();
-            Swal.fire(
-              'Invalid!',
-              'Please put your username!',
-              'error'
-            )
-        }
-        else if (document.getElementById("username_textfield").value.trim().length < 5)
-        {
-            document.getElementById("username_textfield").setCustomValidity("Username must be at least 5 characters long.");
-            document.getElementById("username_textfield").reportValidity();
-            Swal.fire(
-              'Invalid!',
-              'Username must be at least 5 characters long!',
-              'error'
-            )
-        }
-        else if (document.getElementById("username_textfield").value.trim().length > 18)
-        {
-            document.getElementById("username_textfield").setCustomValidity("Username must be 18 characters or less.");
-            document.getElementById("username_textfield").reportValidity();
-            Swal.fire(
-              'Invalid!',
-              'Username must be 18 characters or less!',
-              'error'
-            )
-        }
-        else if (document.getElementById("password_textfield").value == "")
-        {
-            document.getElementById("password_textfield").setCustomValidity("Please fill out this field.");
-            document.getElementById("password_textfield").reportValidity();
-
-            Swal.fire(
-              'Invalid!',
-              'Please put your password!',
-              'error'
-            )
-        }
-        else if (document.getElementById("confirm_password_textfield").value == "")
-        {
-            document.getElementById("confirm_password_textfield").setCustomValidity("Please fill out this field.");
-            document.getElementById("confirm_password_textfield").reportValidity();
-
-            Swal.fire(
-              'Invalid!',
-              'Please put your confirm password!',
-              'error'
-            )
-        }
-        else if (document.getElementById("confirm_password_textfield").value !== document.getElementById("password_textfield").value) {
-            document.getElementById("confirm_password_textfield").setCustomValidity("Passwords do not match");
-            document.getElementById("confirm_password_textfield").reportValidity();
-
-            Swal.fire(
-                'Invalid!',
-                'Passwords are not the same!',
-                'error'
-            );
-        }
-        else if (document.getElementById("student_number_textfield").value.trim() == "")
-        {
-            document.getElementById("student_number_textfield").setCustomValidity("Please fill out this field.");
-            document.getElementById("student_number_textfield").reportValidity();
-
-            Swal.fire(
-              'Invalid!',
-              'Please put your Student Number!',
-              'error'
-            )
-        }
-        else if (document.getElementById("institute_email_textfield").value.trim() == "")
-        {
-            document.getElementById("institute_email_textfield").setCustomValidity("Please fill out this field.");
-            document.getElementById("institute_email_textfield").reportValidity();
-
-            Swal.fire(
-              'Invalid!',
-              'Please put your Institute Email!',
-              'error'
-            )
-        }
-        else if (!document.getElementById("institute_email_textfield").value.endsWith("@paterostechnologicalcollege.edu.ph"))
-        {
-            document.getElementById("institute_email_textfield").setCustomValidity("Email must end with @paterostechnologicalcollege.edu.ph.");
-            document.getElementById("institute_email_textfield").reportValidity();
-
-            Swal.fire(
-              'Invalid!',
-              'Email is invalid! You must put your Institute Email!',
-              'error'
-            )
-        }
-        else if (document.getElementById("student_type_dropdownlist").value.trim() == "")
-        {
-            document.getElementById("student_type_dropdownlist").setCustomValidity("Please fill out this field.");
-            document.getElementById("student_type_dropdownlist").reportValidity();
-
-            Swal.fire(
-              'Invalid!',
-              'Please select your Student Type!',
-              'error'
-            )
-        }
-        else if (document.getElementById("course_textfield").value.trim() == "")
-        {
-            document.getElementById("course_textfield").setCustomValidity("Please fill out this field.");
-            document.getElementById("course_textfield").reportValidity();
-
-            Swal.fire(
-              'Invalid!',
-              'Please put your Course!',
-              'error'
-            )
-        }
-        else if (document.getElementById("first_name_textfield").value.trim() == "")
-        {
-            document.getElementById("first_name_textfield").setCustomValidity("Please fill out this field.");
-            document.getElementById("first_name_textfield").reportValidity();
-
-            Swal.fire(
-              'Invalid!',
-              'Please put your First Name!',
-              'error'
-            )
-        }
-        else if (document.getElementById("last_name_textfield").value.trim() == "")
-        {
-            document.getElementById("last_name_textfield").setCustomValidity("Please fill out this field.");
-            document.getElementById("last_name_textfield").reportValidity();
-
-            Swal.fire(
-              'Invalid!',
-              'Please put your Last Name!',
-              'error'
-            )
-        }
-        else if (document.getElementById("gender_dropdownlist").value.trim() == "")
-        {
-            document.getElementById("gender_dropdownlist").setCustomValidity("Please fill out this field.");
-            document.getElementById("gender_dropdownlist").reportValidity();
-
-            Swal.fire(
-              'Invalid!',
-              'Please select your Gender!',
-              'error'
-            )
-        }
-        else if (document.getElementById("birthday_textfield").value.trim() == "")
-        {
-            document.getElementById("birthday_textfield").setCustomValidity("Please fill out this field.");
-            document.getElementById("birthday_textfield").reportValidity();
-
-            Swal.fire(
-              'Invalid!',
-              'Please put your Birthday!',
-              'error'
-            )
-        }
-        else if (document.getElementById("contact_no_textfield").value.trim() == "")
-        {
-            document.getElementById("contact_no_textfield").setCustomValidity("Please fill out this field.");
-            document.getElementById("contact_no_textfield").reportValidity();
-
-            Swal.fire(
-              'Invalid!',
-              'Please put your Contact No.!',
-              'error'
-            )
-        }
-        else if (document.getElementById("street_address_textfield").value.trim() == "")
-        {
-            document.getElementById("street_address_textfield").setCustomValidity("Please fill out this field.");
-            document.getElementById("street_address_textfield").reportValidity();
-
-            Swal.fire(
-              'Invalid!',
-              'Please put your Street Address!',
-              'error'
-            )
-        }
-        else if (document.getElementById("province_dropdownlist").value.trim() == "")
-        {
-            document.getElementById("province_dropdownlist").setCustomValidity("Please fill out this field.");
-            document.getElementById("province_dropdownlist").reportValidity();
-
-            Swal.fire(
-              'Invalid!',
-              'Please select your Province!',
-              'error'
-            )
-        }
-        else if (document.getElementById("town_city_dropdownlist").value.trim() == "")
-        {
-            document.getElementById("town_city_dropdownlist").setCustomValidity("Please fill out this field.");
-            document.getElementById("town_city_dropdownlist").reportValidity();
-
-            Swal.fire(
-              'Invalid!',
-              'Please select your Town / City!',
-              'error'
-            )
-        }
-        else if (document.getElementById("barangay_dropdownlist").value.trim() == "")
-        {
-            document.getElementById("barangay_dropdownlist").setCustomValidity("Please fill out this field.");
-            document.getElementById("barangay_dropdownlist").reportValidity();
-
-            Swal.fire(
-              'Invalid!',
-              'Please select your Barangay!',
-              'error'
-            )
-        }
-        else if (!document.getElementById("agree_checkbox").checked)
-        {
-            // document.getElementById("barangay_dropdownlist").setCustomValidity("Please fill out this field.");
-            // document.getElementById("barangay_dropdownlist").reportValidity();
-
-            Swal.fire(
-              'Invalid!',
-              'Please Agree to terms and conditions!',
-              'error'
-            )
-        }
-        else 
-        {
-          open_loading();
-          var data = 
-          {
-            action1: 'student_registration_ajax',
-            username_textfield: document.getElementById("username_textfield").value.trim(),
-            password_textfield: document.getElementById("password_textfield").value,
-            student_number_textfield: document.getElementById("student_number_textfield").value.trim(),
-            institute_email_textfield: document.getElementById("institute_email_textfield").value.trim(),
-            student_type_dropdownlist: document.getElementById("student_type_dropdownlist").value.trim(),
-            course_textfield: document.getElementById("course_textfield").value.trim(),
-            first_name_textfield: document.getElementById("first_name_textfield").value.trim(),
-            middle_name_textfield: document.getElementById("middle_name_textfield").value.trim(),
-            last_name_textfield: document.getElementById("last_name_textfield").value.trim(),
-            suffix_textfield: document.getElementById("suffix_textfield").value.trim(),
-            gender_dropdownlist: document.getElementById("gender_dropdownlist").value.trim(),
-            birthday_textfield: document.getElementById("birthday_textfield").value.trim(),
-            contact_no_textfield: document.getElementById("contact_no_textfield").value.trim(),
-            street_address_textfield: document.getElementById("street_address_textfield").value.trim(),
-            province_dropdownlist: document.getElementById("province_dropdownlist").value.trim(),
-            town_city_dropdownlist: document.getElementById("town_city_dropdownlist").value.trim(),
-            barangay_dropdownlist: document.getElementById("barangay_dropdownlist").value.trim(),
-            postcode_textfield: document.getElementById("postcode_textfield").value.trim(),
-          };
-
-          $.ajax({
-            url: 'registration_form_ajax.php',
-            type: 'post',
-            data: data,
-
-            success:function(response){
-              // alert(response);
-              
-              if(response.trim() == "username_existing")
-              {
-                setTimeout(function() {
-                    Swal.fire(
-                        'Invalid!',
-                        'Username already exists! Please try a different one!',
-                        'error'
-                    );
-                    close_loading();
-                    document.getElementById("username_textfield").scrollIntoView();
-                    document.getElementById("username_textfield").focus();
-                }, 1000);
-              }
-              else
-              {
-                var loginPageURL = '../login/login.php';
-                window.location.href = loginPageURL;
-              }
-            }
-              
-          });
-        }
-    }
-
-    function select_province_ajax()
-    {
-      // alert(document.getElementById("province_dropdownlist").value);
-
-      var data = 
-      {
-        action1: 'select_province_ajax',
-        province_dropdownlist: document.getElementById("province_dropdownlist").value,
-      };
-
-      $.ajax({
-        url: 'registration_form_ajax.php',
-        type: 'post',
-        data: data,
-
-        success:function(response)
-        {
-          // alert(response); //alert metro manila
-          document.getElementById("town_city_dropdownlist").innerHTML = response;
-          document.getElementById("barangay_dropdownlist").innerHTML = "";
-        }
-
-      });
-    }
-
-    function select_town_city_ajax()
-    {
-      // alert(document.getElementById("town_city_dropdownlist").value);
-      
-      var data = 
-      {
-        action1: 'select_town_city_ajax',
-        town_city_dropdownlist: document.getElementById("town_city_dropdownlist").value,
-      };
-
-      $.ajax({
-        url: 'registration_form_ajax.php',
-        type: 'post',
-        data: data,
-
-        success:function(response)
-        {
-          // alert(response); //alert metro manila
-          document.getElementById("barangay_dropdownlist").innerHTML = response;
-        }
-
-      });
-    }
-</script>
+ <?php
+  include "registration_form_js.php";
+ ?>

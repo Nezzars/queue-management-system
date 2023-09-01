@@ -572,3 +572,14 @@
   }
 
 </style>
+<style>
+  .white-div {
+    position:fixed;
+    z-index:1000;
+    background-color: white;
+    width: 200%; /* Lapad ng div */
+    height:10000px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  }
+</style>
