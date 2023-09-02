@@ -166,6 +166,7 @@
 </head>
 
 <body>
+  <input type="hidden" id="admin_id" value="<?php echo $_SESSION['admin_id']; ?>">
   <?php
     include "admin_css.php";
   ?>
@@ -1229,37 +1230,38 @@
 
       <div class="container-fluid">
         <form method="post">
-          <div class="mb-3">
+          <div class="mb-3 form-group">
             <input type="hidden" id="my_account_id">
             <label class="form-label">Admin Type</label>
-            <input disabled readonly type="text" class="form-control" id="my_account_admin_type" aria-describedby="emailHelp" value="<?php echo $row['type']; ?>">
+            <input disabled readonly type="text" class="form-control" id="my_account_admin_type" aria-describedby="emailHelp" value="<?php echo $row['type']; ?>" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
           </div>
-          <div class="mb-3">
+          <div class="mb-3 form-group">
             <div></div>
             <label class="form-label">Username</label>
-            <input name="username" type="text" id="my_account_username" class="form-control" value="<?php echo $row['username']; ?>">
+            <input name="username" type="text" id="my_account_username" class="form-control" value="<?php echo $row['username']; ?>" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
           </div>
-          <div class="mb-3">
+          <div class="mb-3 form-group">
               <label class="form-label">Password</label>
               <div class="input-group">
-                  <input name="password" type="password" id="my_account_password" class="form-control" value="<?php echo $row['password']; ?>">
-                  <span class="input-group-text">
-                      <span id="my_account_toggle_password" class="password-toggle-icon"><i class="fas fa-eye"></i></span>
-                  </span>
+                  <input type="password" class="form-control" id="my_account_password" value="<?php echo $row['password']; ?>" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
+                  <div class="input-group-append">
+                      <span class="input-group-text" id="my_account_toggle_password">
+                          <i class="fas fa-eye"></i>
+                      </span>
+                  </div>
               </div>
           </div>
-
-          <div class="mb-3">
+          <div class="mb-3 form-group">
             <label class="form-label">First Name</label>
-            <input name="first_name" type="text" id="my_account_first_name" class="form-control" value="<?php echo $row['first_name']; ?>">
+            <input name="first_name" type="text" id="my_account_first_name" class="form-control" value="<?php echo $row['first_name']; ?>" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
           </div>
-          <div class="mb-3">
+          <div class="mb-3 form-group">
             <label class="form-label">Middle Name</label>
-            <input name="middle_name" type="text" id="my_account_middle_name" class="form-control" value="<?php echo $row['middle_name']; ?>">
+            <input name="middle_name" type="text" id="my_account_middle_name" class="form-control" value="<?php echo $row['middle_name']; ?>" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
           </div>
-          <div class="mb-3">
+          <div class="mb-3 form-group">
             <label class="form-label">Last Name</label>
-            <input name="last_name" type="text" class="form-control" id="my_account_last_name" value="<?php echo $row['last_name']; ?>">
+            <input name="last_name" type="text" class="form-control" id="my_account_last_name" value="<?php echo $row['last_name']; ?>" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
           </div>
           <button name="update_account" class="btn btn-success" disabled>Update</button>
         </form>

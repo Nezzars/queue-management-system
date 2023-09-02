@@ -139,13 +139,18 @@
             'Updating data successfully!',
             'success'
           );
-          document.getElementById("my_account_id").value = parsedResponse[8];  
-          document.getElementById("my_account_admin_type").value = parsedResponse[7];
-          document.getElementById("my_account_username").value = parsedResponse[2];
-          document.getElementById("my_account_password").value = parsedResponse[3];
-          document.getElementById("my_account_first_name").value = parsedResponse[4];
-          document.getElementById("my_account_middle_name").value = parsedResponse[5];
-          document.getElementById("my_account_last_name").value = parsedResponse[6];
+
+          if(document.getElementById("admin_id").value == parsedResponse[8])
+          {
+            document.getElementById("my_account_id").value = parsedResponse[8];  
+            document.getElementById("my_account_admin_type").value = parsedResponse[7];
+            document.getElementById("my_account_username").value = parsedResponse[2];
+            document.getElementById("my_account_password").value = parsedResponse[3];
+            document.getElementById("my_account_first_name").value = parsedResponse[4];
+            document.getElementById("my_account_middle_name").value = parsedResponse[5];
+            document.getElementById("my_account_last_name").value = parsedResponse[6];
+          }
+
           $('#update_user_modall').modal('hide'); 
 
           $('#department_table').DataTable().destroy();
@@ -279,7 +284,6 @@
         }
     });
 });
-
 </script>
 <script>
   function open_update_modal(id)
