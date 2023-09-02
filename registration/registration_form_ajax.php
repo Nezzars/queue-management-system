@@ -43,7 +43,7 @@
         '$institute_email_textfield',
         '$student_type_dropdownlist',
         '$course_textfield',
-        '$last_name_textfield, $first_name_textfield $middle_name_textfield $suffix_textfield',
+        '$first_name_textfield $last_name_textfield',
         '$first_name_textfield',
         '$middle_name_textfield',
         '$last_name_textfield',
@@ -133,14 +133,14 @@
   use Twilio\Rest\Client;
 
   //first account
-  $twilioPhone = "18507530133";
-  $sid = "AC1a55ce90b6df52a87de2cff98bb098c1";
-  $token = "ec413c60e195e794d705882956748e27";
+  // $twilioPhone = "18507530133";
+  // $sid = "AC1a55ce90b6df52a87de2cff98bb098c1";
+  // $token = "ec413c60e195e794d705882956748e27";
   
   // second account
-  // $twilioPhone = "13347217768";
-  // $sid = "ACa42d8c0e508f7bc1f2ab65f738646534";
-  // $token = "c868921907a59d80187d78a78a7246e0";
+  $twilioPhone = "12513337861";
+  $sid = "ACe9f1ca273d7335b107e86d0c152342f2";
+  $token = "c49f2db818ca55daf119504d30c5a181";
 
   if($_POST['action1'] == "send_otp_to_contact_no")
   {

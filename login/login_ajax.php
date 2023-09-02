@@ -40,6 +40,13 @@
         $success = 1;
         $_SESSION['kakalogin_lang'] = true;
         $_SESSION['admin_username'] = $admin_username;
+
+        $sql3 = "  SELECT * FROM ptc_admin WHERE username='$admin_username';  ";
+        $result3 = mysqli_query($con, $sql3);
+        if($row3 = mysqli_fetch_assoc($result3))
+        {
+          $_SESSION['admin_id'] = $row3['id'];
+        }
       }
       else
       {

@@ -33,38 +33,39 @@
                     Because of these linkages, Pateros Technological College gained its institutional footing to stand on its own. This paved the way to offer ladderized scheme programs that lead to Baccalaureate Degrees. The Bachelor of Science in Education, Major in Information System and Minor in Mathematics was offered in SY 2006 – 2007. Then, the Certificate in Hotel and Restaurant Management leading to Bachelor of Science in Hospitality Management and Bachelor of Science in Office Administration were offered the following school year.</p>
                 </div>
            </div>
-           <div class="row justify-content-evenly mt-5">
-            <div class="col-8">
-              <div class="card border-success" style="max-width: 90rem;">
-                <div class="card-header display-5 text-center">Mission</div>
-                <div class="card-body text-success">
-                  <h5 class="card-title">Pateros Technological College commits itself to:</h5>
-                  <p class="card-text">
+           <div class="container mt-5">
+            <div class="row justify-content-evenly">
+              <div class="col-lg-8 col-md-12">
+                <div class="card border-success">
+                  <div class="card-header display-5 text-center">Mission</div>
+                  <div class="card-body text-success">
+                    <h5 class="card-title">Pateros Technological College commits itself to:</h5>
+                    <p class="card-text">
+                      <ul>
+                        <li>provide quality higher education thru specialized professional instruction;</li>
+                        <li>provide training in scientific, technological, industrial and vocational fields;</li>
+                        <li>enhance moral and spiritual values;</li>
+                        <li>instill the love of country and appreciation of the Filipino cultural heritage;</li>
+                        <li>promote environmental awareness and unconditional love for mother earth;</li>
+                        <li>after educational opportunities especially to marginalized individuals;</li>
+                        <li>heighten students' creativity and leadership through extra and co-curricular activities; and</li>
+                        <li>produce quality graduates adept with technological skills and professional education.</li>
+                      </ul>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-12 mt-4">
+                <div class="card border-success">
+                  <div class="card-header display-5 text-center">Vision</div>
+                  <div class="card-body text-success">
+                    <p class="card-text">Pateros Technological College envisions itself as an institution of higher learning which is strongly committed to the holistic development of the students to improve their lives in particular and the society in general</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-                    <ul>
-                      <li>provide quality higher education thru specialized professional instruction;</li>
-                      <li>provide training in scientific, technological, industrial and vocational fields;</li>
-                      <li>enhance moral and spiritual values;</li>
-                      <li>instill the love of country and appreciation of the Filipino cultural heritage;</li>
-                      <li>promote environmental awareness and unconditional love for mother earth;</li>
-                      <li>after educational oppurtunities especially to marginalized individuals;</li>
-                      <li>heighten students creativity and leadership through extra and co-curricular activities; and</li>
-                      <li>produce quality graduation adept with technological skills and professional education.</li>
-                    </ul>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-4">
-              <div class="card border-success" style="max-width: 50rem;">
-                <div class="card-header display-5 text-center">Vision</div>
-                <div class="card-body text-success">
-                  
-                  <p class="card-text">Pateros Technological College envisions itself as an institution of higher learning which is strongly committed to the holistic development of the students to improve their lives in particular and the society in general</p>
-                </div>
-              </div>
-            </div>
-           </div>
         </div>
       </section>
 

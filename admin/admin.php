@@ -259,7 +259,7 @@
 
 
     <?php
-      $sql = "  SELECT * FROM ptc_admin WHERE username='".$_SESSION['admin_username']."';";
+      $sql = "  SELECT * FROM ptc_admin WHERE id='".$_SESSION['admin_id']."';";
       $result = mysqli_query($con, $sql);
       $top_nav_bar = mysqli_fetch_assoc($result);
     ?>
@@ -1068,16 +1068,16 @@
   <br>
   <div style="width: 95%; margin: auto; padding: 20px; background-color: white; border-top: 3px solid green; border-radius: 5px;">
     <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop" onclick="add_user_button();">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_user_modall" onclick="add_user_button();">
           Add User
         </button>
 
-        <!-- Modal -->
-        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <!-- Modal Add User -->
+        <div class="modal fade" id="add_user_modall" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="add_user_modallLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Add User</h5>
+                <h5 class="modal-title" id="add_user_modallLabel">Add User</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -1086,12 +1086,12 @@
               <form>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Username</label>
-                  <input required type="text" class="form-control" id="username_admin_input">
+                  <input required type="text" class="form-control" id="username_admin_input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Password</label>
                     <div class="input-group">
-                        <input type="password" class="form-control" id="password_admin_input">
+                        <input type="password" class="form-control" id="password_admin_input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
                         <div class="input-group-append">
                             <span class="input-group-text" id="passwordToggle">
                                 <i class="fas fa-eye"></i>
@@ -1101,20 +1101,70 @@
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">First Name</label>
-                  <input type="text" class="form-control" id="firstname_admin_input">
+                  <input type="text" class="form-control" id="firstname_admin_input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Middle Name</label>
-                  <input type="text" class="form-control" id="middlename_admin_input">
+                  <input type="text" class="form-control" id="middlename_admin_input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Last Name</label>
-                  <input type="text" class="form-control" id="lastname_admin_input">
+                  <input type="text" class="form-control" id="lastname_admin_input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
                 </div>
             </form>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-primary" onclick="add_admin_function();">Add</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal Update User -->
+        <div class="modal fade" id="update_user_modall" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="update_user_modallLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="update_user_modallLabel">Update User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <input type="hidden" id="update_id_admin_input">
+                  <label for="exampleInputEmail1">Username</label>
+                  <input required type="text" class="form-control" id="update_username_admin_input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="update_password_admin_input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="update_passwordToggle">
+                                <i class="fas fa-eye"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">First Name</label>
+                  <input type="text" class="form-control" id="update_firstname_admin_input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Middle Name</label>
+                  <input type="text" class="form-control" id="update_middlename_admin_input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Last Name</label>
+                  <input type="text" class="form-control" id="update_lastname_admin_input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
+                </div>
+            </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="update_admin_function();">Update</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>
             </div>
@@ -1133,7 +1183,7 @@
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="admin_users_tbody">
         <?php
           $sql = "  SELECT * FROM ptc_admin;  ";
           $result = mysqli_query($con, $sql);
@@ -1147,7 +1197,7 @@
                 <td>'.strtoupper($row['username']).'</td>
                 <td>'.strtoupper($row['type']).'</td>
                 <td>
-                  <input type="button" value="Update" class="btn btn-success">
+                  <input type="button" value="Update" class="btn btn-success" onclick="open_update_modal(\''.trim($row['id']).'\');">
                   <input type="button" value="Delete" class="btn btn-danger">
                 </td>
               </tr>
@@ -1170,7 +1220,7 @@
     <div class="container" style="width:100%;">
     
     <?php
-    $sql = "  SELECT * FROM ptc_admin WHERE username='".$_SESSION['admin_username']."';";
+    $sql = "  SELECT * FROM ptc_admin WHERE id='".$_SESSION['admin_id']."';";
     $result = mysqli_query($con, $sql);
     $row = mysqli_fetch_assoc($result);
    
@@ -1180,31 +1230,38 @@
       <div class="container-fluid">
         <form method="post">
           <div class="mb-3">
+            <input type="hidden" id="my_account_id">
             <label class="form-label">Admin Type</label>
-            <input disabled readonly type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php echo $row['type']; ?>">
+            <input disabled readonly type="text" class="form-control" id="my_account_admin_type" aria-describedby="emailHelp" value="<?php echo $row['type']; ?>">
           </div>
           <div class="mb-3">
             <div></div>
             <label class="form-label">Username</label>
-            <input disabled readonly name="username" type="text" class="form-control" value="<?php echo $row['username']; ?>">
+            <input name="username" type="text" id="my_account_username" class="form-control" value="<?php echo $row['username']; ?>">
           </div>
           <div class="mb-3">
-            <label class="form-label">Password</label>
-            <input name="password" type="password" class="form-control" id="exampleInputPassword1" value="<?php echo $row['password']; ?>">
+              <label class="form-label">Password</label>
+              <div class="input-group">
+                  <input name="password" type="password" id="my_account_password" class="form-control" value="<?php echo $row['password']; ?>">
+                  <span class="input-group-text">
+                      <span id="my_account_toggle_password" class="password-toggle-icon"><i class="fas fa-eye"></i></span>
+                  </span>
+              </div>
           </div>
+
           <div class="mb-3">
             <label class="form-label">First Name</label>
-            <input name="first_name" type="text" class="form-control" value="<?php echo $row['first_name']; ?>">
+            <input name="first_name" type="text" id="my_account_first_name" class="form-control" value="<?php echo $row['first_name']; ?>">
           </div>
           <div class="mb-3">
             <label class="form-label">Middle Name</label>
-            <input name="middle_name" type="text" class="form-control" value="<?php echo $row['middle_name']; ?>">
+            <input name="middle_name" type="text" id="my_account_middle_name" class="form-control" value="<?php echo $row['middle_name']; ?>">
           </div>
           <div class="mb-3">
             <label class="form-label">Last Name</label>
-            <input name="last_name" type="text" class="form-control" value="<?php echo $row['last_name']; ?>">
+            <input name="last_name" type="text" class="form-control" id="my_account_last_name" value="<?php echo $row['last_name']; ?>">
           </div>
-          <button name="update_account" class="btn btn-success">Update</button>
+          <button name="update_account" class="btn btn-success" disabled>Update</button>
         </form>
       </div>
     </div>

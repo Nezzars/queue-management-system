@@ -75,77 +75,243 @@
 </script>
 
 <script>
-                  function add_admin_function(){
-                    
+  function update_admin_function()
+  {
+    var update_id_admin_input = document.getElementById("update_id_admin_input");
+    var update_username_admin_input = document.getElementById("update_username_admin_input");
+    var update_password_admin_input = document.getElementById("update_password_admin_input");
+    var update_firstname_admin_input = document.getElementById("update_firstname_admin_input");
+    var update_middlename_admin_input = document.getElementById("update_middlename_admin_input");
+    var update_lastname_admin_input = document.getElementById("update_lastname_admin_input");
 
-                    var admin_username = document.getElementById("username_admin_input");
-                    var admin_password = document.getElementById("password_admin_input");
-                    var admin_firstname = document.getElementById("firstname_admin_input");
-                    var admin_middlename = document.getElementById("middlename_admin_input");
-                    var admin_lastname = document.getElementById("lastname_admin_input");
-                    if (admin_username.value == "")
-                    {
-                        admin_username.setCustomValidity("Please fill out this field.");
-                        admin_username.reportValidity();
-                    }
-                    else if (admin_password.value == "")
-                    {
-                      admin_password.setCustomValidity("Please fill out this field.");
-                      admin_password.reportValidity();
-                    }
-                    
-                    else if (admin_firstname.value == "")
-                    {
-                      admin_firstname.setCustomValidity("Please fill out this field.");
-                      admin_firstname.reportValidity();
-                    }
-                    else if (admin_middlename.value == "")
-                    {
-                      admin_middlename.setCustomValidity("Please fill out this field.");
-                      admin_middlename.reportValidity();
-                    }
-                    else if (admin_lastname.value == "")
-                    {
-                      admin_lastname.setCustomValidity("Please fill out this field.");
-                      admin_lastname.reportValidity();
-                    }
-                    else{
-                      var data = 
-                      {
-                          action: 'add_admin_ajax',
-                          admin_username:admin_username.value.trim(),
-                          admin_password:admin_password.value.trim(),
-                          admin_firstname:admin_firstname.value.trim(),
-                          admin_middlename:admin_middlename.value.trim(),
-                          admin_lastname:admin_lastname.value.trim(),
-                      };
+    if (update_username_admin_input.value == "")
+    {
+      update_username_admin_input.setCustomValidity("Please fill out this field.");
+      update_username_admin_input.reportValidity();
+    }
+    else if (update_password_admin_input.value == "")
+    {
+      update_password_admin_input.setCustomValidity("Please fill out this field.");
+      update_password_admin_input.reportValidity();
+    }
+    
+    else if (update_firstname_admin_input.value == "")
+    {
+      update_firstname_admin_input.setCustomValidity("Please fill out this field.");
+      update_firstname_admin_input.reportValidity();
+    }
+    else if (update_middlename_admin_input.value == "")
+    {
+      update_middlename_admin_input.setCustomValidity("Please fill out this field.");
+      update_middlename_admin_input.reportValidity();
+    }
+    else if (update_lastname_admin_input.value == "")
+    {
+      update_lastname_admin_input.setCustomValidity("Please fill out this field.");
+      update_lastname_admin_input.reportValidity();
+    }
+    else
+    {
+      var data = 
+      {
+          action: 'update_admin_ajax',
+          update_id_admin_input:update_id_admin_input.value.trim(),
+          update_username_admin_input:update_username_admin_input.value.trim(),
+          update_password_admin_input:update_password_admin_input.value.trim(),
+          update_firstname_admin_input:update_firstname_admin_input.value.trim(),
+          update_middlename_admin_input:update_middlename_admin_input.value.trim(),
+          update_lastname_admin_input:update_lastname_admin_input.value.trim(),
+      };
 
-                      $.ajax({
-                      url: 'admin_ajax.php',
-                      type: 'post',
-                      data: data,
+      $.ajax({
+      url: 'admin_ajax.php',
+      type: 'post',
+      data: data,
 
-                      success:function(response)
-                      {
-                        Swal.fire(
-                          'New Admin!',
-                          'Successfully Added!',
-                          'success'
-                        );
-                        document.getElementById("username_admin_input").value = "";
-                        document.getElementById("password_admin_input").value = "";
-                        document.getElementById("firstname_admin_input").value = "";
-                        document.getElementById("middlename_admin_input").value = "";
-                        document.getElementById("lastname_admin_input").value = "";    
-                        $('#staticBackdrop').modal('hide'); 
-                      }
+      success:function(response)
+      {
+        var parsedResponse = JSON.parse(response);
+        
+        if(parsedResponse[0].trim() == "update_success")
+        {
+          Swal.fire(
+            'Updated!',
+            'Updating data successfully!',
+            'success'
+          );
+          document.getElementById("my_account_id").value = parsedResponse[8];  
+          document.getElementById("my_account_admin_type").value = parsedResponse[7];
+          document.getElementById("my_account_username").value = parsedResponse[2];
+          document.getElementById("my_account_password").value = parsedResponse[3];
+          document.getElementById("my_account_first_name").value = parsedResponse[4];
+          document.getElementById("my_account_middle_name").value = parsedResponse[5];
+          document.getElementById("my_account_last_name").value = parsedResponse[6];
+          $('#update_user_modall').modal('hide'); 
 
-                      });
-                    }
+          $('#department_table').DataTable().destroy();
+          setTimeout(function() {
+            document.getElementById("admin_users_tbody").innerHTML = parsedResponse[1];
+            $('#department_table').DataTable();
+          }, 500);
+        }
+        else if(parsedResponse[0].trim() == "update_failed_dahil_may_existing_username")
+        {
+          document.getElementById("update_username_admin_input").focus();
 
-                    
+          Swal.fire(
+            'Failed!',
+            'Username already existing!',
+            'error'
+          );
+        }
+        
+      }
 
-                  }
+      });
+    }
+  }
+
+  function add_admin_function(){
+    var admin_username = document.getElementById("username_admin_input");
+    var admin_password = document.getElementById("password_admin_input");
+    var admin_firstname = document.getElementById("firstname_admin_input");
+    var admin_middlename = document.getElementById("middlename_admin_input");
+    var admin_lastname = document.getElementById("lastname_admin_input");
+    if (admin_username.value == "")
+    {
+        admin_username.setCustomValidity("Please fill out this field.");
+        admin_username.reportValidity();
+    }
+    else if (admin_password.value == "")
+    {
+      admin_password.setCustomValidity("Please fill out this field.");
+      admin_password.reportValidity();
+    }
+    
+    else if (admin_firstname.value == "")
+    {
+      admin_firstname.setCustomValidity("Please fill out this field.");
+      admin_firstname.reportValidity();
+    }
+    else if (admin_middlename.value == "")
+    {
+      admin_middlename.setCustomValidity("Please fill out this field.");
+      admin_middlename.reportValidity();
+    }
+    else if (admin_lastname.value == "")
+    {
+      admin_lastname.setCustomValidity("Please fill out this field.");
+      admin_lastname.reportValidity();
+    }
+    else
+    {
+      var data = 
+      {
+          action: 'add_admin_ajax',
+          admin_username:admin_username.value.trim(),
+          admin_password:admin_password.value.trim(),
+          admin_firstname:admin_firstname.value.trim(),
+          admin_middlename:admin_middlename.value.trim(),
+          admin_lastname:admin_lastname.value.trim(),
+      };
+
+      $.ajax({
+      url: 'admin_ajax.php',
+      type: 'post',
+      data: data,
+
+      success:function(response)
+      {
+        var parsedResponse = JSON.parse(response);
+        
+        if(parsedResponse[0].trim() == "add_success")
+        {
+          Swal.fire(
+            'New Admin!',
+            'Successfully Added!',
+            'success'
+          );
+          document.getElementById("username_admin_input").value = "";
+          document.getElementById("password_admin_input").value = "";
+          document.getElementById("firstname_admin_input").value = "";
+          document.getElementById("middlename_admin_input").value = "";
+          document.getElementById("lastname_admin_input").value = "";    
+          $('#add_user_modall').modal('hide'); 
+
+          $('#department_table').DataTable().destroy();
+          setTimeout(function() {
+            document.getElementById("admin_users_tbody").innerHTML = parsedResponse[1];
+            $('#department_table').DataTable();
+          }, 500);
+        }
+        else if(parsedResponse[0].trim() == "add_failed_dahil_may_existing_username")
+        {
+          document.getElementById("username_admin_input").focus();
+
+          Swal.fire(
+            'Failed!',
+            'Username already existing!',
+            'error'
+          );
+        }
+        
+      }
+
+      });
+    }
+
+    
+
+  }
+</script>
+<script>
+  $(document).ready(function() {
+    $('#my_account_toggle_password').click(function() {
+        var passwordInput = $('#my_account_password');
+        var toggleIcon = $('#my_account_toggle_password i');
+        
+        if (passwordInput.attr('type') === 'password') {
+            passwordInput.attr('type', 'text');
+            toggleIcon.removeClass('fa-eye').addClass('fa-eye-slash');
+        } else {
+            passwordInput.attr('type', 'password');
+            toggleIcon.removeClass('fa-eye-slash').addClass('fa-eye');
+        }
+    });
+});
+
+</script>
+<script>
+  function open_update_modal(id)
+  {
+    var data = 
+    {
+        action: 'get_admin_data_display_to_update_modal',
+        id: id,
+    };
+
+    $.ajax({
+        url: 'admin_ajax.php',
+        type: 'post',
+        data: data,
+
+        success:function(response)
+        {
+          // alert(response);
+          var parsedResponse = JSON.parse(response);
+
+          document.getElementById("update_username_admin_input").value = parsedResponse[0];
+          document.getElementById("update_password_admin_input").value = parsedResponse[1];
+          document.getElementById("update_firstname_admin_input").value = parsedResponse[2];
+          document.getElementById("update_middlename_admin_input").value = parsedResponse[3];
+          document.getElementById("update_lastname_admin_input").value = parsedResponse[4];
+          document.getElementById("update_id_admin_input").value = parsedResponse[5];
+
+          $('#update_user_modall').modal('show');
+        }
+
+    });
+  }
 </script>
 <script>
   function myFunction22(x22)
@@ -277,6 +443,21 @@
     $(document).ready(function() {
         $("#passwordToggle").on("click", function() {
             const passwordInput = $("#password_admin_input");
+            const icon = $(this).find("i");
+
+            if (passwordInput.attr("type") === "password") {
+                passwordInput.attr("type", "text");
+                icon.removeClass("fa-eye").addClass("fa-eye-slash");
+            } else {
+                passwordInput.attr("type", "password");
+                icon.removeClass("fa-eye-slash").addClass("fa-eye");
+            }
+        });
+    });
+
+    $(document).ready(function() {
+        $("#update_passwordToggle").on("click", function() {
+            const passwordInput = $("#update_password_admin_input");
             const icon = $(this).find("i");
 
             if (passwordInput.attr("type") === "password") {
