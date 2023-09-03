@@ -11,7 +11,7 @@
     include '../connections/my_cnx.php';
 ?>
 <?php
-  $sql = "  SELECT * FROM ptc_student_users WHERE username='".$_SESSION['student_username']."';";
+  $sql = "  SELECT * FROM ptc_student_users WHERE id='".$_SESSION['student_id']."';";
   $result = mysqli_query($con, $sql);
   $top_nav_bar = mysqli_fetch_assoc($result);
 ?>
@@ -55,9 +55,9 @@
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
   <script src="../qrcode-generator-master/js/qrcode.js"></script>
   <?php
-    $student_username = $_SESSION['student_username'];
+    $student_id = $_SESSION['student_id'];
 
-    $query = "DELETE FROM `ptc_student_appointments` WHERE username = '$student_username' AND datee < CURDATE()";
+    $query = "DELETE FROM `ptc_student_appointments` WHERE id = '$student_id' AND datee < CURDATE()";
     mysqli_query($con, $query);
     $query = "DELETE FROM `ptc_student_appointments_history` WHERE datee < CURDATE()";
     mysqli_query($con, $query);
@@ -277,8 +277,9 @@
       <div id="i want this on right" style="color: black;">
           <ul class="nav-list" style="margin: 0; padding: 0; list-style: none;">
               <li style="pointer-events: none;">Type: <b>STUDENT</b></li>
-              <li style="pointer-events: none;">Name: <b><?php echo strtoupper($top_nav_bar['first_name'])." ".strtoupper($top_nav_bar['last_name']); ?></b></li>
-              <li style="pointer-events: none;">Username: <b><input type="hidden" value="<?php echo $top_nav_bar['username']; ?>" id="username"><?php echo strtoupper($top_nav_bar['username']); ?></b></li>
+              <li style="pointer-events: none;">Name: <b id="name_top_nav_bar"><?php echo strtoupper($top_nav_bar['first_name'])." ".strtoupper($top_nav_bar['last_name']); ?></b></li>
+              <li style="pointer-events: none;">Username: <b><span id="username_top_nav_bar"><?php echo strtoupper($top_nav_bar['username']); ?></span></b></li>
+              <input type="hidden" value="<?php echo $top_nav_bar['username']; ?>" id="username">
           </ul>
       </div>
   </div>
@@ -1240,7 +1241,7 @@
 <!-- ADMIN USERS PANEL -->
 <!-- MY ACCOUNT PANEL -->
 <?php
-  $sql = "  SELECT * FROM ptc_student_users WHERE username='".$_SESSION['student_username']."';";
+  $sql = "  SELECT * FROM ptc_student_users WHERE id='".$_SESSION['student_id']."';";
   $result = mysqli_query($con, $sql);
   $my_profile = mysqli_fetch_assoc($result);
 ?>
@@ -1279,7 +1280,9 @@
         <div id="error-message" class="text-danger"></div>
       </div>
       <div class="mb-3">
-        <button class="btn btn-secondary">&nbsp Edit &nbsp</button>
+        <button class="btn btn-secondary" id="my_account_account_information_edit_button_id" onclick="my_account_account_information_edit_button();">&nbsp Edit &nbsp</button>
+        <button class="btn btn-success" style="display:none;" id="my_account_account_information_update_button_id" onclick="my_account_account_information_update_button();">&nbsp Update &nbsp</button>
+        <button class="btn btn-danger" style="display:none;" id="my_account_account_information_cancel_button_id" onclick="my_account_account_information_cancel_button();">&nbsp Cancel &nbsp</button>
       </div>
       <div class="styled-hr">
         <hr>
@@ -1307,7 +1310,9 @@
         <input value="<?php echo $my_profile['course']; ?>" disabled type="text" required name="email" class="form-control mb-2" id="course_textfield" placeholder="Ex. Bachelor of Science in Information Technology (BSIT)">
       </div>
       <div class="mb-3">
-        <button class="btn btn-secondary">&nbsp Edit &nbsp</button>
+        <button class="btn btn-secondary" id="my_account_institute_information_edit_button_id" onclick="my_account_institute_information_edit_button();">&nbsp Edit &nbsp</button>
+        <button class="btn btn-success" style="display:none;" id="my_account_institute_information_update_button_id" onclick="my_account_institute_information_update_button();">&nbsp Update &nbsp</button>
+        <button class="btn btn-danger" style="display:none;" id="my_account_institute_information_cancel_button_id" onclick="my_account_institute_information_cancel_button();">&nbsp Cancel &nbsp</button>
       </div>
       <div class="styled-hr">
         <hr>
@@ -1389,7 +1394,9 @@
         <input value="<?php echo $my_profile['postcode']; ?>" disabled type="text" required id="postcode_textfield" class="form-control form-control-sm mb-2" name="postcode" placeholder="Optional">
       </div>
       <div class="mb-3">
-        <button class="btn btn-secondary">&nbsp Edit &nbsp</button>
+        <button class="btn btn-secondary" id="my_account_personal_information_edit_button_id" onclick="my_account_personal_information_edit_button();">&nbsp Edit &nbsp</button>
+        <button class="btn btn-success" style="display:none;" id="my_account_personal_information_update_button_id" onclick="my_account_personal_information_update_button();">&nbsp Update &nbsp</button>
+        <button class="btn btn-danger" style="display:none;" id="my_account_personal_information_cancel_button_id" onclick="my_account_personal_information_cancel_button();">&nbsp Cancel &nbsp</button>
       </div>
     </div>
   </div>

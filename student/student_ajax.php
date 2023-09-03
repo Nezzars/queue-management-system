@@ -398,4 +398,41 @@
     // echo $id;
     // echo $stars." - ".$experience_textfield." - ".$username;
   }
+
+//update account information
+  if($_POST['action'] == "update_account_information")
+  {
+    global $con;
+    session_start();
+
+    $username_textfield = $_POST["username_textfield"];
+    $password_textfield = $_POST["password_textfield"];
+    $id = $_SESSION['student_id'];
+    $old_username = $_SESSION['student_username'];
+
+    $query = "UPDATE `ptc_feedbacks` SET 
+    username = '$username_textfield'
+    WHERE 
+    username = '$old_username'";
+    mysqli_query($con, $query);
+
+    $query = "UPDATE `ptc_student_users` SET 
+    username = '$username_textfield',
+    password = '$password_textfield'
+    WHERE 
+    id = '$id'";
+    mysqli_query($con, $query);
+
+    $query = "UPDATE `ptc_student_appointments` SET 
+    username = '$username_textfield'
+    WHERE 
+    username = '$old_username'";
+    mysqli_query($con, $query);
+    
+    $_SESSION['student_username'] = $username_textfield;
+
+    echo $_SESSION['student_username'];
+    
+    // echo "Updated_Successfully";
+  }
 ?>

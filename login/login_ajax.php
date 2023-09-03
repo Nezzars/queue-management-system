@@ -16,6 +16,13 @@
         $success = 1;
         $_SESSION['kakalogin_lang'] = true;
         $_SESSION['student_username'] = $student_username;
+
+        $sql3 = "  SELECT * FROM ptc_student_users WHERE username='$student_username';  ";
+        $result3 = mysqli_query($con, $sql3);
+        if($row3 = mysqli_fetch_assoc($result3))
+        {
+          $_SESSION['student_id'] = $row3['id'];
+        }
       }
       else
       {

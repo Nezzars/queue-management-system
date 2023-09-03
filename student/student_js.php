@@ -1472,3 +1472,141 @@ $(document).ready(function() {
     document.getElementById("white-div").style.display = "none";
   }, 1000); // 2000 milliseconds = 2 seconds
 </script>
+<script>
+//MYACCOUNT_ACCOUNTINFORMATION UPDATE
+  let my_account_account_information_temp_array = [];
+    function my_account_account_information_edit_button()
+    {
+        document.getElementById("my_account_account_information_update_button_id").style.display = "inline";
+        document.getElementById("my_account_account_information_cancel_button_id").style.display = "inline";
+        document.getElementById("my_account_account_information_edit_button_id").style.display = "none";
+        document.getElementById("username_textfield").disabled = false;
+        document.getElementById("password_textfield").disabled = false;
+        document.getElementById("confirm_password_textfield").disabled = false;
+        document.getElementById("togglePassword").disabled = false;
+        document.getElementById("toggleConfirmPassword").disabled = false;
+        my_account_account_information_temp_array[0] = document.getElementById("username_textfield").value;
+        my_account_account_information_temp_array[1] = document.getElementById("password_textfield").value;
+        my_account_account_information_temp_array[2] = document.getElementById("confirm_password_textfield").value;
+    }
+    function my_account_account_information_cancel_button()
+    {
+        document.getElementById("my_account_account_information_update_button_id").style.display = "none";
+        document.getElementById("my_account_account_information_cancel_button_id").style.display = "none";
+        document.getElementById("my_account_account_information_edit_button_id").style.display = "inline";
+        document.getElementById("username_textfield").disabled = true;
+        document.getElementById("password_textfield").disabled = true;
+        document.getElementById("confirm_password_textfield").disabled = true;
+        document.getElementById("togglePassword").disabled = true;
+        document.getElementById("toggleConfirmPassword").disabled = true;
+        document.getElementById("username_textfield").value = my_account_account_information_temp_array[0];
+        document.getElementById("password_textfield").value = my_account_account_information_temp_array[1];
+        document.getElementById("confirm_password_textfield").value = my_account_account_information_temp_array[2];
+    }
+    //ajax
+    function my_account_account_information_update_button()
+    {
+        if(document.getElementById("username_textfield").value === '')
+            document.getElementById("username_textfield").reportValidity();
+        else if(document.getElementById("password_textfield").value === '')
+            document.getElementById("password_textfield").reportValidity();
+        else if(document.getElementById("confirm_password_textfield").value === '')
+            document.getElementById("confirm_password_textfield").reportValidity();
+        else if (
+            !/\d/.test(document.getElementById("password_textfield").value) ||  // Check for at least 1 number
+            !/[a-z]/.test(document.getElementById("password_textfield").value) ||  // Check for at least 1 lowercase letter
+            !/[A-Z]/.test(document.getElementById("password_textfield").value) ||  // Check for at least 1 uppercase letter
+            !/[!@#$%^&*()_+{}\[\]:;<>,.?~\-]/.test(document.getElementById("password_textfield").value) ||  // Check for at least 1 special character
+            document.getElementById("password_textfield").value.length < 8  // Check for at least 8 characters
+        ) 
+        {
+          // var ekis = '<i class="fas fa-times-circle" style="color: red;"></i>';
+          // var checkk = '<i class="fas fa-check-circle" style="color: green;"></i>';
+          var ekis = '❌'; // Placeholder for error
+          var checkk = '✅'; // Placeholder for success
+          var one_number_icon = "";
+          var one_lowercase_icon = "";
+          var one_uppercase_icon = "";
+          var one_special_char_icon = "";
+          var eight_chars_icon = "";
+
+          if(!/\d/.test(document.getElementById("password_textfield").value))
+            one_number_icon = ekis;
+          else
+            one_number_icon = checkk;
+
+          if(!/[a-z]/.test(document.getElementById("password_textfield").value))
+            one_lowercase_icon = ekis;
+          else
+            one_lowercase_icon = checkk;
+
+          if(!/[A-Z]/.test(document.getElementById("password_textfield").value))
+            one_uppercase_icon = ekis;
+          else
+            one_uppercase_icon = checkk;
+
+          if(!/[!@#$%^&*()_+{}\[\]:;<>,.?~\-]/.test(document.getElementById("password_textfield").value))
+            one_special_char_icon = ekis;
+          else
+            one_special_char_icon = checkk;
+
+          if(document.getElementById("password_textfield").value.length < 8)
+            eight_chars_icon = ekis;
+          else
+            eight_chars_icon = checkk;
+
+          
+          document.getElementById("password_textfield").setCustomValidity(`
+              INVALID PASSWORD! \n
+              ${one_number_icon} Must Contain at least one number!
+              ${one_lowercase_icon} Must Contain at least one lowercase letter!
+              ${one_uppercase_icon} Must Contain at least one uppercase letter!
+              ${one_special_char_icon} Must Contain at least one special character (!@#$%^&*()_+{}[]:;<>,.?~\-)
+              ${eight_chars_icon} Length must be at least 8 characters!
+          `);
+          document.getElementById("password_textfield").reportValidity();
+        }
+        else if (document.getElementById("confirm_password_textfield").value !== document.getElementById("password_textfield").value) 
+        {
+          document.getElementById("password_textfield").setCustomValidity("Passwords do not match");
+          document.getElementById("password_textfield").reportValidity();
+        }
+        else
+        {
+            $(document).ready(function()
+            {
+                var data = {
+                  action: 'update_account_information',
+                  username_textfield: $("#username_textfield").val(),
+                  password_textfield: $("#password_textfield").val(),
+                };
+
+                $.ajax({
+                url: 'student_ajax.php',
+                type: 'post',
+                data: data,
+                success:function(response){
+                    Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'Updating Data Successfully',
+                    showConfirmButton: true
+                    });
+                    document.getElementById("my_account_account_information_update_button_id").style.display = "none";
+                    document.getElementById("my_account_account_information_cancel_button_id").style.display = "none";
+                    document.getElementById("my_account_account_information_edit_button_id").style.display = "inline";
+                    document.getElementById("username_textfield").disabled = true;
+                    document.getElementById("password_textfield").disabled = true;
+                    document.getElementById("confirm_password_textfield").disabled = true;
+                    document.getElementById("togglePassword").disabled = true;
+                    document.getElementById("toggleConfirmPassword").disabled = true;
+
+                    document.getElementById("username").value = response.trim();
+                    document.getElementById("username_top_nav_bar").innerHTML = response.trim();
+                }
+                });
+            });
+        }
+    }
+//END OF MYACCOUNT_ACCOUNTINFORMATION UPDATE
+</script>

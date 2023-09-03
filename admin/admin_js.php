@@ -149,6 +149,10 @@
             document.getElementById("my_account_first_name").value = parsedResponse[4];
             document.getElementById("my_account_middle_name").value = parsedResponse[5];
             document.getElementById("my_account_last_name").value = parsedResponse[6];
+            
+            document.getElementById("topnavbar_username").innerHTML = parsedResponse[2].toUpperCase();
+            document.getElementById("topnavbar_name").innerHTML = parsedResponse[4].toUpperCase() + " " + parsedResponse[6].toUpperCase();
+
           }
 
           $('#update_user_modall').modal('hide'); 

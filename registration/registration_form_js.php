@@ -325,16 +325,6 @@
           });
 
         }
-        // else if (!(/[!@#$%^&*()_+{}\[\]:;<>,.?~\-]/.test(document.getElementById("password_textfield").value))) 
-        // {
-        //     document.getElementById("password_textfield").setCustomValidity("Passwords do not match");
-        //     document.getElementById("password_textfield").reportValidity();
-        //     Swal.fire({
-        //         title: 'Invalid!',
-        //         html: '<i class="fas fa-times-circle" style="color: red;"></i> Please include special characters in your password!',
-        //         icon: 'error'
-        //     });
-        // }
         else if (document.getElementById("student_number_textfield").value.trim() == "")
         {
             document.getElementById("student_number_textfield").setCustomValidity("Please fill out this field.");

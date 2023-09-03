@@ -278,8 +278,8 @@
       <div id="i want this on right" style="color: black;">
           <ul class="nav-list" style="margin: 0; padding: 0; list-style: none;">
               <li style="pointer-events: none;">Type: <b><?php echo strtoupper($top_nav_bar['type']); ?></b></li>
-              <li style="pointer-events: none;">Name: <b><?php echo strtoupper($top_nav_bar['full_name']); ?></b></li>
-              <li style="pointer-events: none;">Username: <b><?php echo strtoupper($top_nav_bar['username']); ?></b></li>
+              <li style="pointer-events: none;">Name: <b id="topnavbar_name"><?php echo strtoupper($top_nav_bar['full_name']); ?></b></li>
+              <li style="pointer-events: none;">Username: <b id="topnavbar_username"><?php echo strtoupper($top_nav_bar['username']); ?></b></li>
           </ul>
       </div>
   </div>
