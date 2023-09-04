@@ -1497,6 +1497,10 @@ $(document).ready(function() {
         document.getElementById("username_textfield").disabled = true;
         document.getElementById("password_textfield").disabled = true;
         document.getElementById("confirm_password_textfield").disabled = true;
+        if(document.getElementById("password_textfield").type == "text")
+          document.getElementById("togglePassword").click();
+        if(document.getElementById("confirm_password_textfield").type == "text")
+          document.getElementById("toggleConfirmPassword").click();
         document.getElementById("togglePassword").disabled = true;
         document.getElementById("toggleConfirmPassword").disabled = true;
         document.getElementById("username_textfield").value = my_account_account_information_temp_array[0];
@@ -1586,6 +1590,8 @@ $(document).ready(function() {
                 type: 'post',
                 data: data,
                 success:function(response){
+                  if(response.trim() != "username_is_existing123**")
+                  {
                     Swal.fire({
                     icon: 'success',
                     title: 'Success!',
@@ -1598,15 +1604,128 @@ $(document).ready(function() {
                     document.getElementById("username_textfield").disabled = true;
                     document.getElementById("password_textfield").disabled = true;
                     document.getElementById("confirm_password_textfield").disabled = true;
+                    if(document.getElementById("password_textfield").type == "text")
+                      document.getElementById("togglePassword").click();
+                    if(document.getElementById("confirm_password_textfield").type == "text")
+                      document.getElementById("toggleConfirmPassword").click();
                     document.getElementById("togglePassword").disabled = true;
                     document.getElementById("toggleConfirmPassword").disabled = true;
 
                     document.getElementById("username").value = response.trim();
                     document.getElementById("username_top_nav_bar").innerHTML = response.trim();
+                  }
+                  else
+                  {
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Failed!',
+                    text: 'Username already exists!'
+                    });
+                  }
                 }
                 });
             });
         }
     }
 //END OF MYACCOUNT_ACCOUNTINFORMATION UPDATE
+
+//MYACCOUNT_INSTITUTEINFORMATION UPDATE
+let my_account_institute_information_temp_array = [];
+    function my_account_institute_information_edit_button()
+    {
+        document.getElementById("my_account_institute_information_update_button_id").style.display = "inline";
+        document.getElementById("my_account_institute_information_cancel_button_id").style.display = "inline";
+        document.getElementById("my_account_institute_information_edit_button_id").style.display = "none";
+        document.getElementById("student_number_textfield").disabled = false;
+        document.getElementById("institute_email_textfield").disabled = false;
+        document.getElementById("student_type_dropdownlist").disabled = false;
+        document.getElementById("course_textfield").disabled = false;
+        my_account_institute_information_temp_array[0] = document.getElementById("student_number_textfield").value;
+        my_account_institute_information_temp_array[1] = document.getElementById("institute_email_textfield").value;
+        my_account_institute_information_temp_array[2] = document.getElementById("student_type_dropdownlist").value;
+        my_account_institute_information_temp_array[3] = document.getElementById("course_textfield").value;
+    }
+    function my_account_institute_information_cancel_button()
+    {
+        document.getElementById("my_account_institute_information_update_button_id").style.display = "none";
+        document.getElementById("my_account_institute_information_cancel_button_id").style.display = "none";
+        document.getElementById("my_account_institute_information_edit_button_id").style.display = "inline";
+        document.getElementById("student_number_textfield").disabled = true;
+        document.getElementById("institute_email_textfield").disabled = true;
+        document.getElementById("student_type_dropdownlist").disabled = true;
+        document.getElementById("course_textfield").disabled = true;
+        document.getElementById("student_number_textfield").value = my_account_institute_information_temp_array[0];
+        document.getElementById("institute_email_textfield").value = my_account_institute_information_temp_array[1];
+        document.getElementById("student_type_dropdownlist").value = my_account_institute_information_temp_array[2];
+        document.getElementById("course_textfield").value = my_account_institute_information_temp_array[3];
+    }
+    //ajax
+    function my_account_institute_information_update_button()
+    {
+        if (document.getElementById("student_number_textfield").value.trim() == "")
+        {
+            document.getElementById("student_number_textfield").setCustomValidity("Please fill out this field.");
+            document.getElementById("student_number_textfield").reportValidity();
+        }
+        else if (document.getElementById("institute_email_textfield").value.trim() == "")
+        {
+            document.getElementById("institute_email_textfield").setCustomValidity("Please fill out this field.");
+            document.getElementById("institute_email_textfield").reportValidity();
+        }
+        else if (!document.getElementById("institute_email_textfield").value.endsWith("@paterostechnologicalcollege.edu.ph"))
+        {
+            document.getElementById("institute_email_textfield").setCustomValidity("Email is invalid! You must input your Institute Email!");
+            document.getElementById("institute_email_textfield").reportValidity();
+        }
+        else if (document.getElementById("student_type_dropdownlist").value.trim() == "")
+        {
+            document.getElementById("student_type_dropdownlist").setCustomValidity("Please fill out this field.");
+            document.getElementById("student_type_dropdownlist").reportValidity();
+        }
+        else if (document.getElementById("course_textfield").value.trim() == "")
+        {
+            document.getElementById("course_textfield").setCustomValidity("Please fill out this field.");
+            document.getElementById("course_textfield").reportValidity();
+        }
+        else
+        {
+        document.getElementById("student_number_textfield").disabled = true;
+        document.getElementById("institute_email_textfield").disabled = true;
+        document.getElementById("student_type_dropdownlist").disabled = true;
+        document.getElementById("course_textfield").disabled = true;
+            $(document).ready(function()
+            {
+                var data = {
+                  action: 'update_institute_information',
+                  student_number_textfield: $("#student_number_textfield").val(),
+                  institute_email_textfield: $("#institute_email_textfield").val(),
+                  student_type_dropdownlist: $("#student_type_dropdownlist").val(),
+                  course_textfield: $("#course_textfield").val(),
+                };
+
+                $.ajax({
+                url: 'student_ajax.php',
+                type: 'post',
+                data: data,
+                success:function(response){
+                    Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'Updating Data Successfully',
+                    showConfirmButton: true
+                    });
+                    document.getElementById("my_account_institute_information_update_button_id").style.display = "none";
+                    document.getElementById("my_account_institute_information_cancel_button_id").style.display = "none";
+                    document.getElementById("my_account_institute_information_edit_button_id").style.display = "inline";
+                    
+                    document.getElementById("student_number_textfield").disabled = true;
+                    document.getElementById("institute_email_textfield").disabled = true;
+                    document.getElementById("student_type_dropdownlist").disabled = true;
+                    document.getElementById("course_textfield").disabled = true;
+                }
+                });
+            });
+        }
+    }
+//END OF MYACCOUNT_INSTITUTEINFORMATION UPDATE
 </script>

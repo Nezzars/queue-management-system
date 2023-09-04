@@ -409,30 +409,72 @@
     $password_textfield = $_POST["password_textfield"];
     $id = $_SESSION['student_id'];
     $old_username = $_SESSION['student_username'];
+    $existing_username = false;
 
-    $query = "UPDATE `ptc_feedbacks` SET 
-    username = '$username_textfield'
-    WHERE 
-    username = '$old_username'";
-    mysqli_query($con, $query);
-
-    $query = "UPDATE `ptc_student_users` SET 
-    username = '$username_textfield',
-    password = '$password_textfield'
-    WHERE 
-    id = '$id'";
-    mysqli_query($con, $query);
-
-    $query = "UPDATE `ptc_student_appointments` SET 
-    username = '$username_textfield'
-    WHERE 
-    username = '$old_username'";
-    mysqli_query($con, $query);
+    $sql = "  SELECT * FROM ptc_student_users WHERE username='$username_textfield';  ";
+		$result = mysqli_query($con, $sql);
+    if($row = mysqli_fetch_assoc($result)) //if meron
+    {
+      $existing_username = true;
+    }
+    if($username_textfield == $_SESSION['student_username'])
+        $existing_username = false;
     
-    $_SESSION['student_username'] = $username_textfield;
 
-    echo $_SESSION['student_username'];
+    if($existing_username == false)
+    {
+        $query = "UPDATE `ptc_feedbacks` SET 
+        username = '$username_textfield'
+        WHERE 
+        username = '$old_username'";
+        mysqli_query($con, $query);
+
+        $query = "UPDATE `ptc_student_users` SET 
+        username = '$username_textfield',
+        password = '$password_textfield'
+        WHERE 
+        id = '$id'";
+        mysqli_query($con, $query);
+
+        $query = "UPDATE `ptc_student_appointments` SET 
+        username = '$username_textfield'
+        WHERE 
+        username = '$old_username'";
+        mysqli_query($con, $query);
+        
+        $_SESSION['student_username'] = $username_textfield;
+
+        echo $_SESSION['student_username'];
+    }
+    else
+    {
+        echo "username_is_existing123**";
+    }
     
     // echo "Updated_Successfully";
   }
+//end of update course information
+
+//update institute information
+    if($_POST['action'] == "update_institute_information")
+    {
+        global $con;
+        session_start();
+        $student_number_textfield = $_POST["student_number_textfield"];
+        $institute_email_textfield = $_POST["institute_email_textfield"];
+        $student_type_dropdownlist = $_POST["student_type_dropdownlist"];
+        $course_textfield = $_POST["course_textfield"];
+        $id = $_SESSION['student_id'];
+
+        $query = "UPDATE `ptc_student_users` SET 
+        student_number = '$student_number_textfield',
+        institute_email = '$institute_email_textfield',
+        student_type = '$student_type_dropdownlist',
+        course = '$course_textfield'
+        WHERE 
+        id = '$id'";
+        mysqli_query($con, $query);
+        // echo "qwe";
+    }
+//end of update institute information
 ?>

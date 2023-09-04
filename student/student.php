@@ -55,9 +55,9 @@
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
   <script src="../qrcode-generator-master/js/qrcode.js"></script>
   <?php
-    $student_id = $_SESSION['student_id'];
+    $student_username = $_SESSION['student_username'];
 
-    $query = "DELETE FROM `ptc_student_appointments` WHERE id = '$student_id' AND datee < CURDATE()";
+    $query = "DELETE FROM `ptc_student_appointments` WHERE username = '$student_username' AND datee < CURDATE()";
     mysqli_query($con, $query);
     $query = "DELETE FROM `ptc_student_appointments_history` WHERE datee < CURDATE()";
     mysqli_query($con, $query);
