@@ -1461,9 +1461,9 @@ $(document).ready(function() {
         select_town_city_ajax();
         setTimeout(function() {
             document.getElementById('barangay_dropdownlist').value = '".$my_profile['barangay']."'; 
-        }, 500); 
-      }, 500);
-    }, 500);
+        }, 1000); 
+      }, 1000);
+    }, 1000);
   </script>"; ?>
 <?php //echo "<script></script>"; ?>
 <?php //echo "<script></script>"; ?>
@@ -1473,7 +1473,7 @@ $(document).ready(function() {
   }, 1000); // 2000 milliseconds = 2 seconds
 </script>
 <script>
-//MYACCOUNT_ACCOUNTINFORMATION UPDATE
+//MYPROFILE_ACCOUNTINFORMATION UPDATE
   let my_account_account_information_temp_array = [];
     function my_account_account_information_edit_button()
     {
@@ -1627,9 +1627,9 @@ $(document).ready(function() {
             });
         }
     }
-//END OF MYACCOUNT_ACCOUNTINFORMATION UPDATE
+//END OF MYPROFILE_ACCOUNTINFORMATION UPDATE
 
-//MYACCOUNT_INSTITUTEINFORMATION UPDATE
+//MYPROFILE_INSTITUTEINFORMATION UPDATE
 let my_account_institute_information_temp_array = [];
     function my_account_institute_information_edit_button()
     {
@@ -1689,10 +1689,6 @@ let my_account_institute_information_temp_array = [];
         }
         else
         {
-        document.getElementById("student_number_textfield").disabled = true;
-        document.getElementById("institute_email_textfield").disabled = true;
-        document.getElementById("student_type_dropdownlist").disabled = true;
-        document.getElementById("course_textfield").disabled = true;
             $(document).ready(function()
             {
                 var data = {
@@ -1727,5 +1723,187 @@ let my_account_institute_information_temp_array = [];
             });
         }
     }
-//END OF MYACCOUNT_INSTITUTEINFORMATION UPDATE
+//END OF MYPROFILE_INSTITUTEINFORMATION UPDATE
+
+//MYPROFILE_PERSONALINFORMATION UPDATE
+    let my_account_personal_information_temp_array = [];
+    function my_account_personal_information_edit_button()
+    {
+        document.getElementById("my_account_personal_information_update_button_id").style.display = "inline";
+        document.getElementById("my_account_personal_information_cancel_button_id").style.display = "inline";
+        document.getElementById("my_account_personal_information_edit_button_id").style.display = "none";
+        document.getElementById("first_name_textfield").disabled = false;
+        document.getElementById("middle_name_textfield").disabled = false;
+        document.getElementById("last_name_textfield").disabled = false;
+        document.getElementById("suffix_textfield").disabled = false;
+        document.getElementById("gender_dropdownlist").disabled = false;
+        document.getElementById("birthday_textfield").disabled = false;
+        document.getElementById("contact_no_textfield").disabled = false;
+        document.getElementById("street_address_textfield").disabled = false;
+        document.getElementById("province_dropdownlist").disabled = false;
+        document.getElementById("town_city_dropdownlist").disabled = false;
+        document.getElementById("barangay_dropdownlist").disabled = false;
+        document.getElementById("postcode_textfield").disabled = false;
+        my_account_personal_information_temp_array[0] = document.getElementById("first_name_textfield").value;
+        my_account_personal_information_temp_array[1] = document.getElementById("middle_name_textfield").value;
+        my_account_personal_information_temp_array[2] = document.getElementById("last_name_textfield").value;
+        my_account_personal_information_temp_array[3] = document.getElementById("suffix_textfield").value;
+        my_account_personal_information_temp_array[4] = document.getElementById("gender_dropdownlist").value;
+        my_account_personal_information_temp_array[5] = document.getElementById("birthday_textfield").value;
+        my_account_personal_information_temp_array[6] = document.getElementById("contact_no_textfield").value;
+        my_account_personal_information_temp_array[7] = document.getElementById("street_address_textfield").value;
+        my_account_personal_information_temp_array[8] = document.getElementById("province_dropdownlist").value;
+        my_account_personal_information_temp_array[9] = document.getElementById("town_city_dropdownlist").value;
+        my_account_personal_information_temp_array[10] = document.getElementById("barangay_dropdownlist").value;
+        my_account_personal_information_temp_array[11] = document.getElementById("postcode_textfield").value;
+    }
+    function my_account_personal_information_cancel_button()
+    {
+        document.getElementById("my_account_personal_information_update_button_id").style.display = "none";
+        document.getElementById("my_account_personal_information_cancel_button_id").style.display = "none";
+        document.getElementById("first_name_textfield").disabled = true;
+        document.getElementById("middle_name_textfield").disabled = true;
+        document.getElementById("last_name_textfield").disabled = true;
+        document.getElementById("suffix_textfield").disabled = true;
+        document.getElementById("gender_dropdownlist").disabled = true;
+        document.getElementById("birthday_textfield").disabled = true;
+        document.getElementById("contact_no_textfield").disabled = true;
+        document.getElementById("street_address_textfield").disabled = true;
+        document.getElementById("province_dropdownlist").disabled = true;
+        document.getElementById("town_city_dropdownlist").disabled = true;
+        document.getElementById("barangay_dropdownlist").disabled = true;
+        document.getElementById("postcode_textfield").disabled = true;
+        document.getElementById("first_name_textfield").value = my_account_personal_information_temp_array[0];
+        document.getElementById("middle_name_textfield").value = my_account_personal_information_temp_array[1];
+        document.getElementById("last_name_textfield").value = my_account_personal_information_temp_array[2];
+        document.getElementById("suffix_textfield").value = my_account_personal_information_temp_array[3];
+        document.getElementById("gender_dropdownlist").value = my_account_personal_information_temp_array[4];
+        document.getElementById("birthday_textfield").value = my_account_personal_information_temp_array[5];
+        document.getElementById("contact_no_textfield").value = my_account_personal_information_temp_array[6];
+        document.getElementById("street_address_textfield").value = my_account_personal_information_temp_array[7];
+        document.getElementById("province_dropdownlist").value = my_account_personal_information_temp_array[8];
+        select_province_ajax();
+        setTimeout(function() {
+          document.getElementById("town_city_dropdownlist").value = my_account_personal_information_temp_array[9];
+          select_town_city_ajax();
+          setTimeout(function() {
+            document.getElementById("barangay_dropdownlist").value = my_account_personal_information_temp_array[10];
+            document.getElementById("postcode_textfield").value = my_account_personal_information_temp_array[11];
+            document.getElementById("my_account_personal_information_edit_button_id").style.display = "inline";
+          }, 1000); 
+        }, 1000); 
+    }
+    //ajax
+    function my_account_personal_information_update_button()
+    {
+        if (document.getElementById("first_name_textfield").value.trim() == "")
+        {
+            document.getElementById("first_name_textfield").setCustomValidity("Please fill out this field.");
+            document.getElementById("first_name_textfield").reportValidity();
+        }
+        else if (document.getElementById("last_name_textfield").value.trim() == "")
+        {
+            document.getElementById("last_name_textfield").setCustomValidity("Please fill out this field.");
+            document.getElementById("last_name_textfield").reportValidity();
+        }
+        else if (document.getElementById("gender_dropdownlist").value.trim() == "")
+        {
+            document.getElementById("gender_dropdownlist").setCustomValidity("Please select your Gender.");
+            document.getElementById("gender_dropdownlist").reportValidity();
+        }
+        else if (document.getElementById("birthday_textfield").value.trim() == "")
+        {
+            document.getElementById("birthday_textfield").setCustomValidity("Please select your Birthday!");
+            document.getElementById("birthday_textfield").reportValidity();
+        }
+        else if (document.getElementById("contact_no_textfield").value.trim() == "")
+        {
+            document.getElementById("contact_no_textfield").setCustomValidity("Please fill out this field.");
+            document.getElementById("contact_no_textfield").reportValidity();
+        }
+        // else if (!document.getElementById("contact_no_textfield").value.startsWith("09"))
+        // {
+        //     document.getElementById("contact_no_textfield").setCustomValidity("Invalid contact number");
+        //     document.getElementById("contact_no_textfield").reportValidity();
+        // }
+        // else if (document.getElementById("contact_no_textfield").value.length < 11)
+        // {
+        //     document.getElementById("contact_no_textfield").setCustomValidity("0");
+        //     document.getElementById("contact_no_textfield").reportValidity();
+        // }
+        else if (document.getElementById("street_address_textfield").value.trim() == "")
+        {
+            document.getElementById("street_address_textfield").setCustomValidity("Please fill out this field.");
+            document.getElementById("street_address_textfield").reportValidity();
+        }
+        else if (document.getElementById("province_dropdownlist").value.trim() == "")
+        {
+            document.getElementById("province_dropdownlist").setCustomValidity("Please select your province!");
+            document.getElementById("province_dropdownlist").reportValidity();
+        }
+        else if (document.getElementById("town_city_dropdownlist").value.trim() == "")
+        {
+            document.getElementById("town_city_dropdownlist").setCustomValidity("Please select your town or city!");
+            document.getElementById("town_city_dropdownlist").reportValidity();
+        }
+        else if (document.getElementById("barangay_dropdownlist").value.trim() == "")
+        {
+            document.getElementById("barangay_dropdownlist").setCustomValidity("Please select your barangay!");
+            document.getElementById("barangay_dropdownlist").reportValidity();
+        }
+        else
+        {
+            $(document).ready(function()
+            {
+                var data = {
+                  action: 'update_personal_information',
+                  first_name_textfield: $("#first_name_textfield").val(),
+                  middle_name_textfield: $("#middle_name_textfield").val(),
+                  last_name_textfield: $("#last_name_textfield").val(),
+                  suffix_textfield: $("#suffix_textfield").val(),
+                  gender_dropdownlist: $("#gender_dropdownlist").val(),
+                  birthday_textfield: $("#birthday_textfield").val(),
+                  contact_no_textfield: $("#contact_no_textfield").val(),
+                  street_address_textfield: $("#street_address_textfield").val(),
+                  province_dropdownlist: $("#province_dropdownlist").val(),
+                  town_city_dropdownlist: $("#town_city_dropdownlist").val(),
+                  barangay_dropdownlist: $("#barangay_dropdownlist").val(),
+                  postcode_textfield: $("#postcode_textfield").val(),
+                };
+
+                $.ajax({
+                url: 'student_ajax.php',
+                type: 'post',
+                data: data,
+                success:function(response){
+                    Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'Updating Data Successfully',
+                    showConfirmButton: true
+                    });
+                    document.getElementById("my_account_personal_information_update_button_id").style.display = "none";
+                    document.getElementById("my_account_personal_information_cancel_button_id").style.display = "none";
+                    document.getElementById("my_account_personal_information_edit_button_id").style.display = "inline";
+                    
+                    document.getElementById("first_name_textfield").disabled = true;
+                    document.getElementById("middle_name_textfield").disabled = true;
+                    document.getElementById("last_name_textfield").disabled = true;
+                    document.getElementById("suffix_textfield").disabled = true;
+                    document.getElementById("gender_dropdownlist").disabled = true;
+                    document.getElementById("birthday_textfield").disabled = true;
+                    document.getElementById("contact_no_textfield").disabled = true;
+                    document.getElementById("street_address_textfield").disabled = true;
+                    document.getElementById("province_dropdownlist").disabled = true;
+                    document.getElementById("town_city_dropdownlist").disabled = true;
+                    document.getElementById("barangay_dropdownlist").disabled = true;
+                    document.getElementById("postcode_textfield").disabled = true;
+
+                    document.getElementById("name_top_nav_bar").innerHTML = response.trim().toUpperCase();
+                }
+                });
+            });
+        }
+    }
+//END OF MYPROFILE_PERSONALINFORMATION UPDATE
 </script>

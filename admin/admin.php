@@ -304,46 +304,16 @@
       <li style="cursor:pointer;" onclick="document.getElementById('appointments_with_icon_button').click();"><a onclick="show_appointments_panel();" style="cursor:pointer;" id="appointments_with_icon_button"><i class="fa fa-solid fa-calendar-days" style="color:green;"></i> &nbsp&nbsp Appointments</a></li>
     </ul>
     <ul class="navbar1-items" id="admin_users_button">
-      <li style="cursor:pointer;" onclick="document.getElementById('admin_users_with_icon_button').click();"><a onclick="show_admin_users_panel();" style="cursor:pointer;" id="admin_users_with_icon_button"><i class="fa fa-solid fa-users" style="color:green;"></i> &nbsp&nbsp Admin Users</a></li>
+    <?php
+      if($_SESSION['admin_type'] == "Super Admin")
+      {
+        echo '
+            <li style="cursor:pointer;" onclick="document.getElementById(\'admin_users_with_icon_button\').click();"><a onclick="show_admin_users_panel();" style="cursor:pointer;" id="admin_users_with_icon_button"><i class="fa fa-solid fa-users" style="color:green;"></i> &nbsp&nbsp Admin Users</a></li>
+        ';
+      }
+    ?>
     </ul>
-    <!-- <ul class="navbar1-items" id="navbar1-items">
-      <li><a onclick="department_toggle();" style="cursor:pointer;" id="department_with_icon_button"><i class="fa fa-solid fa-building" style="color:green;"></i> &nbsp&nbsp Departments &nbsp&nbsp&nbsp<i class="fa fa-solid fa-caret-down"></i></a></li>
-    </ul>
-    <div id="department_lists" style="width:100%; display:none;">
-      <ul class="department_lists-items" id="department_lists-items">
-        <hr style="width:100%;">
-
-        <div id="department_lists_from_db">
-          <?php
-            // $count = 1;
-            // $sql = "  SELECT * FROM ptc_departments;  ";
-            // $result = mysqli_query($con, $sql);
-            // while($row = mysqli_fetch_assoc($result))
-            // {
-            //     $department_name = $row['department_name'];
-            //     $words = explode("_", $department_name);
-            //     foreach ($words as &$word) 
-            //     {
-            //         $word = ucfirst($word);
-            //     }
-            //     $transformed_department_name = implode(" ", $words);
-
-            //     echo '
-            //       <li style="padding-top:10px; padding-bottom:10px; cursor:pointer;" id="li_id_'.$row['id'].'" onclick="document.getElementById(\'department_id_'.$row['id'].'\').click();"><a style="cursor:pointer;" id="department_id_'.$row['id'].'">'.$count.'. '.$transformed_department_name.'</a></li>
-            //       <hr style="width:100%;">
-            //     ';
-            //     $count++;
-            // }
-          ?>
-        </div>
-        
-        <li style="padding-top:10px; padding-bottom:10px; cursor:pointer;" onclick="document.getElementById('plus_add_department_button').click();"><a onclick="document.getElementById('add_department_button').click();" style="cursor:pointer;" id="plus_add_department_button"><b>+ ADD DEPARTMENT</b></a></li>
-        <hr style="width:100%;">
-      </ul>
-    </div> -->
-    <!-- <ul class="navbar1-items" id="dashboard_button">
-      <li style="cursor:pointer;"><a onclick="" style="cursor:pointer;" id="dashboard_with_icon_button"><i class="fa fa-solid fa-book-open" style="color:green;"></i> &nbsp&nbsp Guide</a></li>
-    </ul> -->
+    
     <hr style="width:100%; margin-top:10px;">
     <ul class="navbar1-items" id="my_account_button">
       <li style="cursor:pointer;" onclick="document.getElementById('my_account_with_icon_button').click();"><a onclick="show_my_account_panel();" style="cursor:pointer;" id="my_account_with_icon_button"><i class="fa fa-solid fa-user" style="color:green;"></i> &nbsp&nbsp My Account</a></li>
@@ -1174,7 +1144,7 @@
     <br>
     <br>
     <div class="table-responsive">
-        <table id="department_table" class="table table-striped" style="overflow-x: auto; border-collapse: collapse; text-align: center;">
+        <table id="admin_users_table" class="table table-striped" style="overflow-x: auto; border-collapse: collapse; text-align: center;">
             <thead class="thead-dark">
                 <tr>
                     <th>ID</th>
@@ -1199,7 +1169,7 @@
                 <td>'.strtoupper($row['type']).'</td>
                 <td>
                   <input type="button" value="Update" class="btn btn-success" onclick="open_update_modal(\''.trim($row['id']).'\');">
-                  <input type="button" value="Delete" class="btn btn-danger">
+                  <input type="button" value="Delete" class="btn btn-danger" onclick="delete_admin_user(\''.trim($row['id']).'\');">
                 </td>
               </tr>
               ';
@@ -1272,45 +1242,6 @@
   </div>
 </div>
 <!-- MY ACCOUNT PANEL -->
-
-<!-- DEPARTMENT PANEL -->
-<!-- <div id="department_panel" class="left_nav_bar_buttons" style="width: calc(100% - 250px); margin-left: 250px; display:none;">
-    <div id="department_name_and_action" style="padding:0; background-color: white;">
-    </div>
-    <br>
-    <div style="width:80%; margin:auto; padding:20px; background-color:white;">
-      <div class="form-shadow" style="overflow: auto;">
-        <center><h2>USERS TABLE</h2></center>
-        <input type="button" value="Add User" class="btn btn-primary">
-        <br>
-        <br>
-        <table id="department_table" class="table table-striped" style="overflow-x:auto; border-collapse: collapse; text-align:center;">
-          <thead class="thead-dark">
-            <tr>
-              <th>ID</th>
-              <th>Full Name</th>
-              <th>Username</th>
-              <th>Admin Type</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Billy Bernabe</td>
-              <td>billybebsxz</td>
-              <td>Deans Office</td>
-              <td>
-                <input type="button" value="Update" class="btn btn-success">
-                <input type="button" value="Delete" class="btn btn-danger">
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-</div>  -->
-<!-- DEPARTMENT PANEL -->
 </div><!-- END OF MAIN PANEL-->
 
 </body>

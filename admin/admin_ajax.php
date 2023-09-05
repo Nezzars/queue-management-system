@@ -126,7 +126,7 @@
                     <td>'.strtoupper($row['type']).'</td>
                     <td>
                     <input type="button" value="Update" class="btn btn-success" onclick="open_update_modal(\''.trim($row['id']).'\');">
-                    <input type="button" value="Delete" class="btn btn-danger">
+                    <input type="button" value="Delete" class="btn btn-danger" onclick="delete_admin_user(\''.trim($row['id']).'\');">
                     </td>
                 </tr>
                 ';
@@ -204,7 +204,7 @@
                     <td>'.strtoupper($row['type']).'</td>
                     <td>
                     <input type="button" value="Update" class="btn btn-success" onclick="open_update_modal(\''.trim($row['id']).'\');">
-                    <input type="button" value="Delete" class="btn btn-danger">
+                    <input type="button" value="Delete" class="btn btn-danger" onclick="delete_admin_user(\''.trim($row['id']).'\');">
                     </td>
                 </tr>
                 ';
@@ -253,6 +253,53 @@
             $echos[5] = $row['id'];
         }
 
+        $response = json_encode($echos);
+        echo $response;
+    }
+
+    if($_POST['action'] == "delete_admin_user_ajax")
+    {
+        global $con;
+        session_start();
+        $id = $_POST['id'];
+        $echos = array();
+
+        $sql = "  SELECT * FROM ptc_admin WHERE id='$id';  ";
+		$result = mysqli_query($con, $sql);
+        if($row = mysqli_fetch_assoc($result))
+        {
+            if($row['type'] == "Super Admin")
+            {
+                $echos[0] = "failed_to_delete_because_super_admin";
+            }
+            else
+            {
+                $echos[0] = "delete_success";
+
+                $query = "DELETE FROM `ptc_admin` WHERE id = '$id'";
+                mysqli_query($con, $query);
+
+                $echos[1] = "";
+                $sql = "SELECT * FROM ptc_admin;";
+                $result = mysqli_query($con, $sql);
+                while($row = mysqli_fetch_assoc($result))
+                {
+                    $echos[1] .= '
+                    <tr>
+                        <td>'.strtoupper($row['id']).'</td>
+                        <td>'.strtoupper($row['full_name']).'</td>
+                        <td>'.strtoupper($row['username']).'</td>
+                        <td>'.strtoupper($row['type']).'</td>
+                        <td>
+                        <input type="button" value="Update" class="btn btn-success" onclick="open_update_modal(\''.trim($row['id']).'\');">
+                        <input type="button" value="Delete" class="btn btn-danger" onclick="delete_admin_user(\''.trim($row['id']).'\');">
+                        </td>
+                    </tr>
+                    ';
+                }
+            }
+        }
+        
         $response = json_encode($echos);
         echo $response;
     }

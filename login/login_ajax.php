@@ -53,6 +53,7 @@
         if($row3 = mysqli_fetch_assoc($result3))
         {
           $_SESSION['admin_id'] = $row3['id'];
+          $_SESSION['admin_type'] = $row3['type'];
         }
       }
       else

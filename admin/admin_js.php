@@ -157,10 +157,10 @@
 
           $('#update_user_modall').modal('hide'); 
 
-          $('#department_table').DataTable().destroy();
+          $('#admin_users_table').DataTable().destroy();
           setTimeout(function() {
             document.getElementById("admin_users_tbody").innerHTML = parsedResponse[1];
-            $('#department_table').DataTable();
+            $('#admin_users_table').DataTable();
           }, 500);
         }
         else if(parsedResponse[0].trim() == "update_failed_dahil_may_existing_username")
@@ -247,10 +247,10 @@
           document.getElementById("lastname_admin_input").value = "";    
           $('#add_user_modall').modal('hide'); 
 
-          $('#department_table').DataTable().destroy();
+          $('#admin_users_table').DataTable().destroy();
           setTimeout(function() {
             document.getElementById("admin_users_tbody").innerHTML = parsedResponse[1];
-            $('#department_table').DataTable();
+            $('#admin_users_table').DataTable();
           }, 500);
         }
         else if(parsedResponse[0].trim() == "add_failed_dahil_may_existing_username")
@@ -290,6 +290,69 @@
 });
 </script>
 <script>
+  function delete_admin_user(id)
+  {
+    Swal.fire({
+      title: 'Warning!',
+      text: "Are you sure you want to Delete this admin user?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        var data = 
+        {
+            action: 'delete_admin_user_ajax',
+            id: id,
+        };
+
+        $.ajax({
+        url: 'admin_ajax.php',
+        type: 'post',
+        data: data,
+
+        success:function(response)
+        {
+          var parsedResponse = JSON.parse(response);
+
+          if(parsedResponse[0] == "delete_success")
+          {
+            Swal.fire(
+              'Deleted!',
+              'Deleting data successfully!',
+              'success'
+            );
+
+            $('#admin_users_table').DataTable().destroy();
+            setTimeout(function() {
+              document.getElementById("admin_users_tbody").innerHTML = parsedResponse[1];
+              $('#admin_users_table').DataTable();
+            }, 500);
+          }
+          else if(parsedResponse[0] == "failed_to_delete_because_super_admin")
+          {
+            Swal.fire(
+              'Failed!',
+              'You can\'t delete Super Admin!',
+              'error'
+            );
+          }
+        }
+
+        });
+      } else {
+        // User clicked "No" or closed the dialog
+        Swal.fire(
+          'Cancelled',
+          'Your action has been cancelled.',
+          'error'
+        );
+      }
+    });
+  }
   function open_update_modal(id)
   {
     var data = 
@@ -480,7 +543,7 @@
 </script>
 <script>
 $(document).ready(function() {
-  $('#department_table').DataTable({
+  $('#admin_users_table').DataTable({
     responsive: true
   });
 });

@@ -477,4 +477,48 @@
         // echo "qwe";
     }
 //end of update institute information
+
+//update personal information
+    if($_POST['action'] == "update_personal_information")
+    {
+        global $con;
+        session_start();
+        $first_name_textfield = $_POST["first_name_textfield"];
+        $middle_name_textfield = $_POST["middle_name_textfield"];
+        $last_name_textfield = $_POST["last_name_textfield"];
+        $suffix_textfield = $_POST["suffix_textfield"];
+        $gender_dropdownlist = $_POST["gender_dropdownlist"];
+        $birthday_textfield = $_POST["birthday_textfield"];
+        $contact_no_textfield = $_POST["contact_no_textfield"];
+        $street_address_textfield = $_POST["street_address_textfield"];
+        $province_dropdownlist = $_POST["province_dropdownlist"];
+        $town_city_dropdownlist = $_POST["town_city_dropdownlist"];
+        $barangay_dropdownlist = $_POST["barangay_dropdownlist"];
+        $postcode_textfield = $_POST["postcode_textfield"];
+        $id = $_SESSION['student_id'];
+
+        $query = "UPDATE `ptc_student_users` SET 
+
+        full_name = '$first_name_textfield $last_name_textfield',
+        first_name = '$first_name_textfield',
+        middle_name = '$middle_name_textfield',
+        last_name = '$last_name_textfield',
+        suffix = '$suffix_textfield',
+        gender = '$gender_dropdownlist',
+        birthday = '$birthday_textfield',
+        contact_no = '$contact_no_textfield',
+        street_address = '$street_address_textfield',
+        province = '$province_dropdownlist',
+        town_city = '$town_city_dropdownlist',
+        barangay = '$barangay_dropdownlist',
+        postcode = '$postcode_textfield'
+
+        WHERE 
+        
+        id = '$id'";
+        mysqli_query($con, $query);
+
+        echo $first_name_textfield." ".$last_name_textfield;
+    }
+//end of update personal information
 ?>
