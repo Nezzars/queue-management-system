@@ -143,6 +143,97 @@
             echo $response;
         }
     }
+    
+    if($_POST["action"] == "my_account_update_ajax")
+    {
+        global $con;
+        session_start();
+        $my_account_username = $_POST['my_account_username'];
+        $my_account_password = $_POST['my_account_password'];
+        $my_account_first_name = $_POST['my_account_first_name'];
+        $my_account_middle_name = $_POST['my_account_middle_name'];
+        $my_account_last_name = $_POST['my_account_last_name'];
+        $echos = array();
+        
+        $my_account_full_name = $my_account_first_name." ".$my_account_last_name;
+        if($_SESSION['admin_id'] == "1")
+            $admin_type= "Super Admin";
+        else 
+            $admin_type= "Admin";
+        $username_existing = false;
+
+        $my_account_username = strtolower($my_account_username); // Convert to lowercase and trim whitespace
+        $sql = "SELECT * FROM ptc_admin WHERE TRIM(LOWER(username)) = '$my_account_username'";
+        $result = mysqli_query($con, $sql);
+        if($row = mysqli_fetch_assoc($result))
+        {
+            if($_SESSION['admin_id'] == $row['id'])
+                $username_existing = false;
+            else
+                $username_existing = true;
+        }
+
+        if($username_existing == false)
+        {
+            $sql = "UPDATE ptc_admin SET
+                        username = '$my_account_username',
+                        password = '$my_account_password',
+                        full_name = '$my_account_full_name',
+                        first_name = '$my_account_first_name',
+                        middle_name = '$my_account_middle_name',
+                        last_name = '$my_account_last_name'
+                    WHERE 
+                        id = '".$_SESSION['admin_id']."'
+                    ";
+            $result = mysqli_query($con, $sql);
+
+            $echos[0] = "update_success";
+            $echos[1] = "";
+
+            $sql = "SELECT * FROM ptc_admin;";
+            $result = mysqli_query($con, $sql);
+            while($row = mysqli_fetch_assoc($result))
+            {
+                $echos[1] .= '
+                <tr>
+                    <td>'.strtoupper($row['id']).'</td>
+                    <td>'.strtoupper($row['full_name']).'</td>
+                    <td>'.strtoupper($row['username']).'</td>
+                    <td>'.strtoupper($row['type']).'</td>
+                    <td>
+                    <input type="button" value="Update" class="btn btn-success" onclick="open_update_modal(\''.trim($row['id']).'\');">
+                    <input type="button" value="Delete" class="btn btn-danger" onclick="delete_admin_user(\''.trim($row['id']).'\');">
+                    </td>
+                </tr>
+                ';
+            }
+
+            $echos[2] = $my_account_username;
+            $echos[3] = $my_account_password;
+            $echos[4] = $my_account_first_name;
+            $echos[5] = $my_account_middle_name;
+            $echos[6] = $my_account_last_name;
+            $echos[7] = $admin_type;
+            $echos[8] = $_SESSION['admin_id'];
+
+            // if($admin_type == "Super Admin")
+            // {
+            //     $_SESSION['admin_username'] = $update_username_admin_input;
+            // }
+
+            $response = json_encode($echos);
+            echo $response;
+        }
+        else
+        {
+            $echos[0] = "update_failed_dahil_may_existing_username";
+
+            $response = json_encode($echos);
+            echo $response;
+        }
+
+        // echo $_SESSION['student_id'];
+    }
 
     if($_POST["action"] == "update_admin_ajax")
     {

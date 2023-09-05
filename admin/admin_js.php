@@ -180,6 +180,105 @@
     }
   }
 
+  function my_account_update_button()
+  {
+    if (document.getElementById("my_account_username").value === "")
+    {
+      document.getElementById("my_account_username").setCustomValidity("Please fill out this field.");
+      document.getElementById("my_account_username").reportValidity();
+    }
+    else if (document.getElementById("my_account_password").value === "")
+    {
+      document.getElementById("my_account_password").setCustomValidity("Please fill out this field.");
+      document.getElementById("my_account_password").reportValidity();
+    }
+    
+    else if (document.getElementById("my_account_first_name").value == "")
+    {
+      document.getElementById("my_account_first_name").setCustomValidity("Please fill out this field.");
+      document.getElementById("my_account_first_name").reportValidity();
+    }
+    else if (document.getElementById("my_account_middle_name").value == "")
+    {
+      document.getElementById("my_account_middle_name").setCustomValidity("Please fill out this field.");
+      document.getElementById("my_account_middle_name").reportValidity();
+    }
+    else if (document.getElementById("my_account_last_name").value == "")
+    {
+      document.getElementById("my_account_last_name").setCustomValidity("Please fill out this field.");
+      document.getElementById("my_account_last_name").reportValidity();
+    }
+    else
+    {
+      var data = 
+      {
+          action: 'my_account_update_ajax',
+          my_account_username: document.getElementById("my_account_username").value.trim(),
+          my_account_password:document.getElementById("my_account_password").value.trim(),
+          my_account_first_name:document.getElementById("my_account_first_name").value.trim(),
+          my_account_middle_name:document.getElementById("my_account_middle_name").value.trim(),
+          my_account_last_name:document.getElementById("my_account_last_name").value.trim(),
+      };
+
+      $.ajax({
+      url: 'admin_ajax.php',
+      type: 'post',
+      data: data,
+
+      success:function(response)
+      {
+        var parsedResponse = JSON.parse(response);
+
+        // alert(parsedResponse[0]);
+        
+        if(parsedResponse[0].trim() == "update_success")
+        {
+          Swal.fire(
+            'Updated!',
+            'Updating data successfully!',
+            'success'
+          );
+
+          if(document.getElementById("admin_id").value == parsedResponse[8])
+          {
+            document.getElementById("my_account_id").value = parsedResponse[8];  
+            document.getElementById("my_account_admin_type").value = parsedResponse[7];
+            document.getElementById("my_account_username").value = parsedResponse[2];
+            document.getElementById("my_account_password").value = parsedResponse[3];
+            document.getElementById("my_account_first_name").value = parsedResponse[4];
+            document.getElementById("my_account_middle_name").value = parsedResponse[5];
+            document.getElementById("my_account_last_name").value = parsedResponse[6];
+            
+            document.getElementById("topnavbar_username").innerHTML = parsedResponse[2].toUpperCase();
+            document.getElementById("topnavbar_name").innerHTML = parsedResponse[4].toUpperCase() + " " + parsedResponse[6].toUpperCase();
+
+          }
+
+          // $('#update_user_modall').modal('hide'); 
+
+          $('#admin_users_table').DataTable().destroy();
+          setTimeout(function() {
+            document.getElementById("admin_users_tbody").innerHTML = parsedResponse[1];
+            $('#admin_users_table').DataTable();
+          }, 500);
+        }
+        else if(parsedResponse[0].trim() == "update_failed_dahil_may_existing_username")
+        {
+          document.getElementById("my_account_username").focus();
+
+          Swal.fire(
+            'Failed!',
+            'Username already existing!',
+            'error'
+          );
+        }
+        
+      }
+
+      });
+    }
+  }
+
   function add_admin_function(){
     var admin_username = document.getElementById("username_admin_input");
     var admin_password = document.getElementById("password_admin_input");
