@@ -166,6 +166,24 @@
 </head>
 
 <body>
+<?php
+  if(!isset($_SESSION['admin_id']) && isset($_SESSION['student_id']))
+  {
+    echo '
+      <script>
+        window.location.href = "../student/student.php";
+      </script>
+    ';
+  }
+  else if(!isset($_SESSION['admin_id']) && !isset($_SESSION['student_id']))
+  {
+    echo '
+      <script>
+        window.location.href = "../logout.php";
+      </script>
+    ';
+  }
+?>
   <input type="hidden" id="admin_id" value="<?php echo $_SESSION['admin_id']; ?>">
   <?php
     include "admin_css.php";

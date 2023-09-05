@@ -138,9 +138,9 @@
   // $token = "ec413c60e195e794d705882956748e27";
   
   // second account
-  $twilioPhone = "12513337861";
+  $twilioPhone = "+12513337861";
   $sid = "ACe9f1ca273d7335b107e86d0c152342f2";
-  $token = "c49f2db818ca55daf119504d30c5a181";
+  $token = "6f915ca33fae37e272320b83e768a6e8";
 
   if($_POST['action1'] == "send_otp_to_contact_no")
   {

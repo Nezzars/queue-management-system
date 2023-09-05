@@ -115,6 +115,24 @@
 
 
 <body>
+<?php
+  if(isset($_SESSION['admin_id']) && !isset($_SESSION['student_id']))
+  {
+    echo '
+      <script>
+        window.location.href = "../admin/admin.php";
+      </script>
+    ';
+  }
+  else if(!isset($_SESSION['admin_id']) && !isset($_SESSION['student_id']))
+  {
+    echo '
+      <script>
+        window.location.href = "../logout.php";
+      </script>
+    ';
+  }
+?>
 <div class="white-div" id="white-div">
   <!-- Iyong nilalaman dito -->
 </div>

@@ -38,6 +38,24 @@ session_start();
 </head>
 
 <body>
+<?php
+  if(isset($_SESSION['admin_id']) && !isset($_SESSION['student_id']))
+  {
+    echo '
+      <script>
+        window.location.href = "../admin/admin.php";
+      </script>
+    ';
+  }
+  else if(!isset($_SESSION['admin_id']) && isset($_SESSION['student_id']))
+  {
+    echo '
+      <script>
+      window.location.href = "../student/student.php";
+      </script>
+    ';
+  }
+?>
     <br>
     <?php
         include "../navbars/homepage_navbar.php";

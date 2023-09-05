@@ -84,6 +84,24 @@ $today = date("Y-m-d");
   </head>
 
   <body>
+<?php
+  if(isset($_SESSION['admin_id']) && !isset($_SESSION['student_id']))
+  {
+    echo '
+      <script>
+        window.location.href = "../admin/admin.php";
+      </script>
+    ';
+  }
+  else if(!isset($_SESSION['admin_id']) && isset($_SESSION['student_id']))
+  {
+    echo '
+      <script>
+      window.location.href = "../student/student.php";
+      </script>
+    ';
+  }
+?>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Loading SPINNER -->
