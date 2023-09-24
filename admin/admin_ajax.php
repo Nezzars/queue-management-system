@@ -37,7 +37,17 @@
     while ($row = mysqli_fetch_assoc($result)) {
         
         $qweqwe = $row['requested_documents'];
-        $qweqwe = str_replace(' --- ', ', ', $qweqwe);
+        $qweqwe_list = explode(' --- ', $qweqwe);
+        // $qweqwe = str_replace(' --- ', ', ', $qweqwe);
+
+        $requested_documentss = "<ul>";
+
+        foreach ($qweqwe_list as $item)
+        {
+            $requested_documentss .= "<li>$item</li>";
+        }
+
+        $requested_documentss .= "</ul>";
 
         $formattedDate = date("F j, Y", strtotime($datee));
 
@@ -55,16 +65,14 @@
                 <td style='vertical-align: middle; text-align: center;'>".$counter."</td>
                 <td style='vertical-align: middle; text-align: center;'>".strtoupper($row['full_name'])."</td>
                 <td style='vertical-align: middle; text-align: center;'>".$row['student_number']."</td>
-                <td style='vertical-align: middle; text-align: center;'>".$qweqwe."</td>
+                <td style='vertical-align: middle; text-align: center;'>".$requested_documentss."</td>
                 <td style='vertical-align: middle; text-align: center;'>".$row['purpose_of_request']."</td>
                 <td style='vertical-align: middle; text-align: center;' id='status_id_".$row['id']."'>".$status_row."</td>
                 <td style='vertical-align: middle; text-align: center;'>".$formattedDate."</td>
                 <td style='vertical-align: middle; text-align: center;'>
                     <div class='dropdown123'>
-                        <button class='btn btn-secondary dropdown-toggle' type='button' data-bs-toggle='dropdown' aria-expanded='false'>
-                            Update Status
-                        </button>
-                        <ul class='dropdown-menu'>
+                        <button class=\"btn btn-secondary dropdown-toggle\" type=\"button\" onclick=\"toggleDropdown(".$row['id'].")\">Update Status</button>
+                        <ul class='dropdown-menu' id='myDropdown".$row['id']."'>
                             <li><a class='dropdown-item' style='cursor:pointer;' onclick='update_status_func(\"".$row['id']."\", \"PENDING\")'>PENDING</a></li>
                             <li><a class='dropdown-item' style='cursor:pointer;' onclick='update_status_func(\"".$row['id']."\", \"ONGOING\")'>ONGOING</a></li>
                             <li><a class='dropdown-item' style='cursor:pointer;' onclick='update_status_func(\"".$row['id']."\", \"DONE\")'>DONE</a></li>

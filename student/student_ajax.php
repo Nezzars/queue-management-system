@@ -6,11 +6,15 @@
     global $con;
     session_start();
     $username = $_POST["username"];
-    $transcript_checkbox = $_POST["transcript_checkbox"];
-    $diploma_checkbox = $_POST["diploma_checkbox"];
+    $transcript_of_record_checkbox = $_POST["transcript_of_record_checkbox"];
+    $certificate_of_grades_checkbox = $_POST["certificate_of_grades_checkbox"];
+    $certified_true_copy_checkbox = $_POST["certified_true_copy_checkbox"];
     $form_137_checkbox = $_POST["form_137_checkbox"];
+    $certificate_as_students_checkbox = $_POST["certificate_as_students_checkbox"];
     $honorable_dismissal_checkbox = $_POST["honorable_dismissal_checkbox"];
-    $good_moral_character_checkbox = $_POST["good_moral_character_checkbox"];
+    $cav_checkbox = $_POST["cav_checkbox"];
+    $certificate_of_subject_or_course_description_checkbox = $_POST["certificate_of_subject_or_course_description_checkbox"];
+    $certificate_of_units_earned_checkbox = $_POST["certificate_of_units_earned_checkbox"];
     $others_textfield = $_POST["others_textfield"];
     $purpose_of_request_textfield = $_POST["purpose_of_request_textfield"];
     $date_hidden = $_POST["date_hidden"];
@@ -41,20 +45,23 @@
         if($total_students_is_50 == false)
         {
             $requested_documentss = "";
-            if($transcript_checkbox == "true")
+            if($transcript_of_record_checkbox == "true")
             {
-                $requested_documentss .= "Transcript";
-                // $query = "INSERT INTO ptc_student_appointments VALUES('', '$username', 'Transcript', '$purpose_of_request_textfield', '$date_hidden')";
-                // mysqli_query($con, $query);
+                $requested_documentss .= "Transcript of Record(TOR)";
             }
-            if($diploma_checkbox == "true")
+            if($certificate_of_grades_checkbox == "true")
             {
                 if($requested_documentss == "")
-                    $requested_documentss .= "Diploma";
+                    $requested_documentss .= "Certificate of grades(COG)";
                 else
-                    $requested_documentss .= " --- Diploma";
-                // $query = "INSERT INTO ptc_student_appointments VALUES('', '$username', 'Diploma', '$purpose_of_request_textfield', '$date_hidden')";
-                // mysqli_query($con, $query);
+                    $requested_documentss .= " --- Certificate of grades(COG)";
+            }
+            if($certified_true_copy_checkbox == "true")
+            {
+                if($requested_documentss == "")
+                    $requested_documentss .= "Certified True Copy(CTC)";
+                else
+                    $requested_documentss .= " --- Certified True Copy(CTC)";
             }
             if($form_137_checkbox == "true")
             {
@@ -62,8 +69,13 @@
                     $requested_documentss .= "Form 137";
                 else
                     $requested_documentss .= " --- Form 137";
-                // $query = "INSERT INTO ptc_student_appointments VALUES('', '$username', 'Form 137', '$purpose_of_request_textfield', '$date_hidden')";
-                // mysqli_query($con, $query);
+            }
+            if($certificate_as_students_checkbox == "true")
+            {
+                if($requested_documentss == "")
+                    $requested_documentss .= "Certificate as Students";
+                else
+                    $requested_documentss .= " --- Certificate as Students";
             }
             if($honorable_dismissal_checkbox == "true")
             {
@@ -71,17 +83,27 @@
                     $requested_documentss .= "Honorable Dismissal";
                 else
                     $requested_documentss .= " --- Honorable Dismissal";
-                // $query = "INSERT INTO ptc_student_appointments VALUES('', '$username', 'Honorable Dismissal', '$purpose_of_request_textfield', '$date_hidden')";
-                // mysqli_query($con, $query);
             }
-            if($good_moral_character_checkbox == "true")
+            if($cav_checkbox == "true")
             {
                 if($requested_documentss == "")
-                    $requested_documentss .= "Good Moral Character";
+                    $requested_documentss .= "CAV";
                 else
-                    $requested_documentss .= " --- Good Moral Character";
-                // $query = "INSERT INTO ptc_student_appointments VALUES('', '$username', 'Good Moral Character', '$purpose_of_request_textfield', '$date_hidden')";
-                // mysqli_query($con, $query);
+                    $requested_documentss .= " --- CAV";
+            }
+            if($certificate_of_subject_or_course_description_checkbox == "true")
+            {
+                if($requested_documentss == "")
+                    $requested_documentss .= "Certificate of Subject/Course Description";
+                else
+                    $requested_documentss .= " --- Certificate of Subject/Course Description";
+            }
+            if($certificate_of_units_earned_checkbox == "true")
+            {
+                if($requested_documentss == "")
+                    $requested_documentss .= "Certificate of Units Earned";
+                else
+                    $requested_documentss .= " --- Certificate of Units Earned";
             }
             if($others_textfield != "")
             {
@@ -89,10 +111,9 @@
                     $requested_documentss .= "Others: $others_textfield";
                 else
                     $requested_documentss .= " --- Others: $others_textfield";
-                // $query = "INSERT INTO ptc_student_appointments VALUES('', '$username', '$others_textfield', '$purpose_of_request_textfield', '$date_hidden')";
-                // mysqli_query($con, $query);
             }
-            $query = "INSERT INTO ptc_student_appointments VALUES('', '$username', '$requested_documentss', '$purpose_of_request_textfield', '$date_hidden')";
+
+            $query = "INSERT INTO ptc_student_appointments VALUES('', '$username', '$requested_documentss', '$purpose_of_request_textfield', 'PENDING', '$date_hidden')";
             mysqli_query($con, $query);
     
             $sql = "  SELECT * FROM ptc_student_appointments_history WHERE datee='$date_hidden';  ";

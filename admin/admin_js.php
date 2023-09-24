@@ -903,7 +903,7 @@ $(document).ready(function() {
             var startDate = moment();
             var events = [];
 
-            for (var i = 0; i < 90; i++) 
+            for (var i = 0; i < 9999; i++) 
             {
                 var eventDate = startDate.clone().add(i, 'days'); // eventDate 0 = date today
 
@@ -918,6 +918,29 @@ $(document).ready(function() {
                             start: eventDate.format('YYYY-MM-DD'),
                             classNames: ['fc-event-slot-available'],
                             iconClass: 'fa fa-solid fa-check'
+                        };
+                    }
+
+                    events.push(event);
+
+                }
+            }
+
+            for (var i = 9999; i < 15000; i++) 
+            {
+                var eventDate = startDate.clone().add(i, 'days'); // eventDate 0 = date today
+
+                // Skip Saturdays (6) and Sundays (0)
+                if (eventDate.day() !== 6 && eventDate.day() !== 0) 
+                {
+                    ".$ifs."
+                    else
+                    {
+                        var event = {
+                            title: 'Open Soon',
+                            start: eventDate.format('YYYY-MM-DD'),
+                            classNames: ['fc-event-no-slot-available'],
+                            iconClass: 'fa fa-solid fa-x'
                         };
                     }
 
@@ -1081,4 +1104,28 @@ document.getElementById("left_nav_bar").addEventListener('mouseup', function(eve
         }
     });
   }
+  
+  document.addEventListener('click', function(event) {
+      var dropdowns = document.querySelectorAll('.dropdown-menu');
+      for (var i = 0; i < dropdowns.length; i++) {
+          var dropdown = dropdowns[i];
+          if (dropdown.style.display === 'block' && !dropdown.contains(event.target)) {
+              dropdown.style.display = 'none';
+          }
+      }
+  });
+
+  function toggleDropdown(id) {
+        var dropdown = document.getElementById("myDropdown" + id);
+        if (dropdown) {
+            var computedStyle = window.getComputedStyle(dropdown);
+            if (computedStyle.display === "none") {
+              setTimeout(function() {
+                dropdown.style.display = "block";
+              }, 5);
+            } else {
+                dropdown.style.display = "none";
+            }
+        }
+    }
 </script>

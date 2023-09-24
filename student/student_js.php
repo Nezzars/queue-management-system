@@ -115,10 +115,15 @@
   function appointment_submit_function()
   {
     if(
-        !document.getElementById("transcript_checkbox").checked &&
-        !document.getElementById("diploma_checkbox").checked &&
+        !document.getElementById("transcript_of_record_checkbox").checked &&
+        !document.getElementById("certificate_of_grades_checkbox").checked &&
+        !document.getElementById("certified_true_copy_checkbox").checked &&
         !document.getElementById("form_137_checkbox").checked &&
-        !document.getElementById("certification_checkbox").checked &&
+        !document.getElementById("certificate_as_students_checkbox").checked &&
+        !document.getElementById("honorable_dismissal_checkbox").checked &&
+        !document.getElementById("cav_checkbox").checked &&
+        !document.getElementById("certificate_of_subject_or_course_description_checkbox").checked &&
+        !document.getElementById("certificate_of_units_earned_checkbox").checked &&
         !document.getElementById("others_checkbox").checked
     )
     {
@@ -128,21 +133,23 @@
             'error'
           )
     }
-    else if(document.getElementById("certification_checkbox").checked && (!document.getElementById("honorable_dismissal_checkbox").checked && !document.getElementById("good_moral_character_checkbox").checked))
-    {
-        Swal.fire(
-            'Invalid! ',
-            'Please select Certification you want to request!',
-            'error'
-        )
-    }
+    // else if(document.getElementById("certification_checkbox").checked && (!document.getElementById("honorable_dismissal_checkbox").checked && !document.getElementById("good_moral_character_checkbox").checked))
+    // {
+    //     Swal.fire(
+    //         'Invalid! ',
+    //         'Please select Certification you want to request!',
+    //         'error'
+    //     )
+    // }
     else if(document.getElementById("others_checkbox").checked && document.getElementById("others_textfield").value.trim() == "")
     {
-        Swal.fire(
-            'Invalid! ',
-            'Please Specify your request!',
-            'error'
-        )
+        // Swal.fire(
+        //     'Invalid! ',
+        //     'Please Specify your request!',
+        //     'error'
+        // )
+        document.getElementById("others_textfield").setCustomValidity("Please Specify your request!");
+        document.getElementById("others_textfield").reportValidity();
     }
     else if(document.getElementById("purpose_of_request_textfield").value.trim() == "")
     {
@@ -166,11 +173,15 @@
                 {
                 action: 'insert_appointment',
                 username: document.getElementById("username").value,
-                transcript_checkbox: document.getElementById("transcript_checkbox").checked,
-                diploma_checkbox: document.getElementById("diploma_checkbox").checked,
+                transcript_of_record_checkbox: document.getElementById("transcript_of_record_checkbox").checked,
+                certificate_of_grades_checkbox: document.getElementById("certificate_of_grades_checkbox").checked,
+                certified_true_copy_checkbox: document.getElementById("certified_true_copy_checkbox").checked,
                 form_137_checkbox: document.getElementById("form_137_checkbox").checked,
+                certificate_as_students_checkbox: document.getElementById("certificate_as_students_checkbox").checked,
                 honorable_dismissal_checkbox: document.getElementById("honorable_dismissal_checkbox").checked,
-                good_moral_character_checkbox: document.getElementById("good_moral_character_checkbox").checked,
+                cav_checkbox: document.getElementById("cav_checkbox").checked,
+                certificate_of_subject_or_course_description_checkbox: document.getElementById("certificate_of_subject_or_course_description_checkbox").checked,
+                certificate_of_units_earned_checkbox: document.getElementById("certificate_of_units_earned_checkbox").checked,
                 others_textfield: document.getElementById("others_textfield").value.trim(),
                 purpose_of_request_textfield: document.getElementById("purpose_of_request_textfield").value.trim(),
                 date_hidden: document.getElementById("date_hidden").value.trim(),
@@ -189,54 +200,13 @@
                     if(parsedResponse[1].trim() == "submit_success")
                     {
                         window.location.href = "student.php";
-                        // Swal.fire(
-                        // 'Success!',
-                        // 'Submiting an appointment Successfully!',
-                        // 'success'
-                        // )
-
-                        // document.getElementById("appointment_close_button").click();
-                        
-                        // qweqwe = function() {
-                        //     eval(parsedResponse[2]);
-                        // };
-                        // generateEvents = function() 
-                        // {
-                        //     var startDate = moment();
-                        //     var events = [];
-
-                        //     for (var i = 0; i < 90; i++) 
-                        //     {
-                        //         var eventDate = startDate.clone().add(i, 'days'); // eventDate 0 = date today
-
-                        //         // Skip Saturdays (6) and Sundays (0)
-                        //         if (eventDate.day() !== 6 && eventDate.day() !== 0) 
-                        //         {
-                        //             // if (eventDate.format('YYYY-MM-DD') == '0000-00-00') {var event = {title: '2/50',start: eventDate.format('YYYY-MM-DD'),classNames: ['fc-event-slot-available'],iconClass: 'fa fa-solid fa-check'};}
-                        //             // eval(parsedResponse[0]);
-                        //             // else
-                        //             // {
-                        //             //     var event = {
-                        //             //         title: '0/50',
-                        //             //         start: eventDate.format('YYYY-MM-DD'),
-                        //             //         classNames: ['fc-event-slot-available'],
-                        //             //         iconClass: 'fa fa-solid fa-check'
-                        //             //     };  
-                        //             // }
-                                    
-                        //             events.push(event);
-                        //         }
-                        //     }
-                        //     return events;
-                        // };
-                        // resize_window = true;
                     }
                     else if(parsedResponse[1].trim() == "submit_failed")
                     {
                         Swal.fire(
                         'Invalid!',
                         'You already set an appointment to this Date !',
-                        'error'
+                        'info'
                         )
                     }
                     else if(parsedResponse[1].trim() == "submit_failed_because_of_total_students_is_50")
@@ -538,7 +508,7 @@ $(document).ready(function() {
             var startDate = moment();
             var events = [];
 
-            for (var i = 0; i < 90; i++) 
+            for (var i = 0; i < 9999; i++) 
             {
                 var eventDate = startDate.clone().add(i, 'days'); // eventDate 0 = date today
 
@@ -553,6 +523,29 @@ $(document).ready(function() {
                             start: eventDate.format('YYYY-MM-DD'),
                             classNames: ['fc-event-slot-available'],
                             iconClass: 'fa fa-solid fa-check'
+                        };
+                    }
+
+                    events.push(event);
+
+                }
+            }
+
+            for (var i = 9999; i < 15000; i++) 
+            {
+                var eventDate = startDate.clone().add(i, 'days'); // eventDate 0 = date today
+
+                // Skip Saturdays (6) and Sundays (0)
+                if (eventDate.day() !== 6 && eventDate.day() !== 0) 
+                {
+                    ".$ifs."
+                    else
+                    {
+                        var event = {
+                            title: 'Open Soon',
+                            start: eventDate.format('YYYY-MM-DD'),
+                            classNames: ['fc-event-no-slot-available'],
+                            iconClass: 'fa fa-solid fa-x'
                         };
                     }
 
@@ -592,7 +585,7 @@ $(document).ready(function() {
                         Swal.fire(
                             'Invalid!',
                             '<b>'+info.event.title+'</b><br><br>This day is holiday!',
-                            'error'
+                            'info'
                         )
                     }
                     else if (parseInt(response.trim()) >= 50) 
@@ -605,22 +598,27 @@ $(document).ready(function() {
                     }
                     else
                     {
-                        if(document.getElementById("certification_checkbox").checked)
-                        {
-                            $('#certification_checkboxes').toggle();
-                            document.getElementById("honorable_dismissal_checkbox").checked = false;
-                            document.getElementById("good_moral_character_checkbox").checked = false;
-                        }
+                        // if(document.getElementById("certification_checkbox").checked)
+                        // {
+                        //     $('#certification_checkboxes').toggle();
+                        //     // document.getElementById("honorable_dismissal_checkbox").checked = false;
+                        //     document.getElementById("good_moral_character_checkbox").checked = false;
+                        // }
                         if(document.getElementById("others_checkbox").checked)
                         {
                             $('#others_label_and_textfield').toggle();
                             document.getElementById("others_textfield").value = "";
                         }
 
-                        document.getElementById("transcript_checkbox").checked = false;
-                        document.getElementById("diploma_checkbox").checked = false;
+                        document.getElementById("transcript_of_record_checkbox").checked = false;
+                        document.getElementById("certificate_of_grades_checkbox").checked = false;
+                        document.getElementById("certified_true_copy_checkbox").checked = false;
                         document.getElementById("form_137_checkbox").checked = false;
-                        document.getElementById("certification_checkbox").checked = false;
+                        document.getElementById("certificate_as_students_checkbox").checked = false;
+                        document.getElementById("honorable_dismissal_checkbox").checked = false;
+                        document.getElementById("cav_checkbox").checked = false;
+                        document.getElementById("certificate_of_subject_or_course_description_checkbox").checked = false;
+                        document.getElementById("certificate_of_units_earned_checkbox").checked = false;
                         document.getElementById("others_checkbox").checked = false;
                         document.getElementById("purpose_of_request_textfield").value = "";
                         document.getElementById("date_hidden").value = moment(info.event.start).format('YYYY-MM-DD');
@@ -715,21 +713,21 @@ $(document).ready(function() {
     }
   }
 
-  function appointment_certification_function()
-  {
-    if(document.getElementById("certification_checkbox").checked)
-    {
-      $('#certification_checkboxes').slideToggle('2000');
-      document.getElementById("honorable_dismissal_checkbox").checked = false;
-      document.getElementById("good_moral_character_checkbox").checked = false;
-    }
-    else
-    {
-      $('#certification_checkboxes').slideToggle('2000');
-      document.getElementById("honorable_dismissal_checkbox").checked = false;
-      document.getElementById("good_moral_character_checkbox").checked = false;
-    }
-  }
+  // function appointment_certification_function()
+  // {
+  //   if(document.getElementById("certification_checkbox").checked)
+  //   {
+  //     $('#certification_checkboxes').slideToggle('2000');
+  //     // document.getElementById("honorable_dismissal_checkbox").checked = false;
+  //     document.getElementById("good_moral_character_checkbox").checked = false;
+  //   }
+  //   else
+  //   {
+  //     $('#certification_checkboxes').slideToggle('2000');
+  //     // document.getElementById("honorable_dismissal_checkbox").checked = false;
+  //     document.getElementById("good_moral_character_checkbox").checked = false;
+  //   }
+  // }
 </script>
 <script>
   window.addEventListener('resize', function() {  
@@ -768,7 +766,7 @@ $(document).ready(function() {
                         Swal.fire(
                             'Invalid!',
                             '<b>'+info.event.title+'</b><br><br>This day is holiday!',
-                            'error'
+                            'info'
                         )
                     }
                     else if (parseInt(response.trim()) >= 50) 
@@ -781,22 +779,27 @@ $(document).ready(function() {
                     }
                     else
                     {
-                        if(document.getElementById("certification_checkbox").checked)
-                        {
-                            $('#certification_checkboxes').toggle();
-                            document.getElementById("honorable_dismissal_checkbox").checked = false;
-                            document.getElementById("good_moral_character_checkbox").checked = false;
-                        }
+                        // if(document.getElementById("certification_checkbox").checked)
+                        // {
+                        //     $('#certification_checkboxes').toggle();
+                        //     // document.getElementById("honorable_dismissal_checkbox").checked = false;
+                        //     document.getElementById("good_moral_character_checkbox").checked = false;
+                        // }
                         if(document.getElementById("others_checkbox").checked)
                         {
                             $('#others_label_and_textfield').toggle();
                             document.getElementById("others_textfield").value = "";
                         }
 
-                        document.getElementById("transcript_checkbox").checked = false;
-                        document.getElementById("diploma_checkbox").checked = false;
+                        document.getElementById("transcript_of_record_checkbox").checked = false;
+                        document.getElementById("certificate_of_grades_checkbox").checked = false;
+                        document.getElementById("certified_true_copy_checkbox").checked = false;
                         document.getElementById("form_137_checkbox").checked = false;
-                        document.getElementById("certification_checkbox").checked = false;
+                        document.getElementById("certificate_as_students_checkbox").checked = false;
+                        document.getElementById("honorable_dismissal_checkbox").checked = false;
+                        document.getElementById("cav_checkbox").checked = false;
+                        document.getElementById("certificate_of_subject_or_course_description_checkbox").checked = false;
+                        document.getElementById("certificate_of_units_earned_checkbox").checked = false;
                         document.getElementById("others_checkbox").checked = false;
                         document.getElementById("purpose_of_request_textfield").value = "";
                         document.getElementById("date_hidden").value = moment(info.event.start).format('YYYY-MM-DD');

@@ -32,6 +32,26 @@ session_start();
             background-image: url('../homepage/homepageimg.jpg');
             background-size: cover;
         }
+        .remove_margin_top_left
+        {
+            margin-top:60px;
+        }
+        .remove_margin_top_right
+        {
+            margin-top:160px;
+        }
+
+        @media (max-width: 767px) {
+            .remove_margin_top_left
+            {
+                margin-top:0px;
+            }
+            .remove_margin_top_right
+            {
+                margin-top:0px;
+            }
+        }
+        
     </style>
     
     
@@ -66,28 +86,29 @@ session_start();
                 <br><br>
             </div>
             <div class="col-md-4 col-12 mb-3">
-                <div class="card text-bg-success">
+                <div class="card text-bg-success remove_margin_top_left">
                     <div class="card-header">Important Note:</div>
                     <div class="card-body">
                         <h5 class="card-title">Appointment Requirements</h5>
                         <p class="card-text">
                             You can register and log in to our system. Here are the possible documents you can request upon logging in:
                             <ul>
-                                <li>Transcript of Record</li>
-                                <li>Diploma</li>
-                                <li>Form 137</li>
-                                <li>Certifications</li>
-                                <ol>
-                                    <li>Honorable Dismissal</li>
-                                    <li>Goodmoral Character</li>
-                                </ol>
+                                <li>Transcript of Record(TOR) - (10 working days)</li>
+                                <li>Certificate of Grades(COG) - (5 working days)</li>
+                                <li>Cerified true Copy(CTC) - (Same day process)</li>
+                                <li>FORM 137 - (5 working days)</li>
+                                <li>Certificate as Students - (same day process)</li>
+                                <li>Honorable Dismissal - (will issue upon giving the F137 Copy for PTC)</li>
+                                <li>CAV - (5 working days)</li>
+                                <li>Certificate of Subject/Course Description - (3 working days)</li>
+                                <li>Certificate of Units Earned - (3 working days)</li>
                             </ul>
                             if your document is not mentioned above, you can enter it in the "others" text field.
                         </p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-12 mb-3">
+                <div class="col-md-6 col-12 mb-3 remove_margin_top_right">
                     <div class="wrapper">
                         <div class="title-text">
                             <div class="title login">Student Login</div>

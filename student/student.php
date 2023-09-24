@@ -369,39 +369,63 @@
                         <span id="totalAppointment"></span><br>
                       </div>
                       <div class="checkbox">
-                        <input type="checkbox" id="transcript_checkbox">
-                        <label for="transcript_checkbox">Transcript</label>
+                        <input type="checkbox" id="transcript_of_record_checkbox">
+                        <label for="transcript_of_record_checkbox">Transcript of Record(TOR) - (10 working days)</label>
                       </div>
                       <div class="checkbox">
-                        <input type="checkbox" id="diploma_checkbox">
-                        <label for="diploma_checkbox">Diploma</label>
+                        <input type="checkbox" id="certificate_of_grades_checkbox">
+                        <label for="certificate_of_grades_checkbox">Certificate of Grades(COG) - (5 working days)</label>
+                      </div>
+                      <div class="checkbox">
+                        <input type="checkbox" id="certified_true_copy_checkbox">
+                        <label for="certified_true_copy_checkbox">Cerified true Copy(CTC) - (same day process)</label>
                       </div>
                       <div class="checkbox">
                         <input type="checkbox" id="form_137_checkbox">
-                        <label for="form_137_checkbox">Form 137</label>
+                        <label for="form_137_checkbox">FORM 137 - (5 working days)</label>
                       </div>
                       <div class="checkbox">
+                        <input type="checkbox" id="certificate_as_students_checkbox">
+                        <label for="certificate_as_students_checkbox">Certificate as Students - (same day process)</label>
+                      </div>
+                      <div class="checkbox">
+                        <input type="checkbox" id="honorable_dismissal_checkbox">
+                        <label for="honorable_dismissal_checkbox">Honorable Dismissal - (will issue upon giving the F137 Copy for PTC)</label>
+                      </div>
+                      <div class="checkbox">
+                        <input type="checkbox" id="cav_checkbox">
+                        <label for="cav_checkbox">CAV - (5 working days)</label>
+                      </div>
+                      <div class="checkbox">
+                        <input type="checkbox" id="certificate_of_subject_or_course_description_checkbox">
+                        <label for="certificate_of_subject_or_course_description_checkbox">Certificate of Subject/Course Description - (3 working days)</label>
+                      </div>
+                      <div class="checkbox">
+                        <input type="checkbox" id="certificate_of_units_earned_checkbox">
+                        <label for="certificate_of_units_earned_checkbox">Certificate of Units Earned - (3 working days)</label>
+                      </div>
+                      <!-- <div class="checkbox">
                         <input type="checkbox" id="certification_checkbox" onchange="appointment_certification_function();">
                         <label for="certification_checkbox">Certification</label>
-                      </div>
-                      <div class="mb-3" style="margin-left:20px; display:none;" id="certification_checkboxes">
-                        <label for="others_textfield" class="form-label">Certifications</label>
-                        <div class="checkbox">
+                      </div> -->
+                      <!-- <div class="mb-3" style="margin-left:20px; display:none;" id="certification_checkboxes">
+                        <label for="others_textfield" class="form-label">Certifications</label> -->
+                        <!-- <div class="checkbox">
                           <input type="checkbox" id="honorable_dismissal_checkbox">
                           <label for="honorable_dismissal_checkbox">Honorable Dismissal</label>
                         </div>
                         <div class="checkbox">
                           <input type="checkbox" id="good_moral_character_checkbox">
                           <label for="good_moral_character_checkbox">Good Moral Character</label>
-                        </div>
-                      </div>
+                        </div> -->
+                      <!-- </div> -->
                       <div class="checkbox">
                         <input type="checkbox" id="others_checkbox" onchange="appointment_others_function();">
                         <label for="others_checkbox">Others</label>
                       </div>
                       <div class="mb-3" style="margin-left:20px; display:none;" id="others_label_and_textfield">
                         <label for="others_textfield" class="form-label">Please specify requested document if not in the list</label>
-                        <input type="text" class="form-control" id="others_textfield" placeholder="Please Specify your request" oninput="limitChars(this)">
+                        <input type="text" required class="form-control" id="others_textfield" placeholder="Please Specify your request" oninput="limitChars(this)">
                       </div>
                       <hr>
                       <div class="mb-3">
