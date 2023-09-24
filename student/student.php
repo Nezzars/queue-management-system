@@ -57,7 +57,7 @@
   <?php
     $student_username = $_SESSION['student_username'];
 
-    $query = "DELETE FROM `ptc_student_appointments` WHERE username = '$student_username' AND datee < CURDATE()";
+    $query = "DELETE FROM `ptc_student_appointments` WHERE datee < CURDATE()";
     mysqli_query($con, $query);
     $query = "DELETE FROM `ptc_student_appointments_history` WHERE datee < CURDATE()";
     mysqli_query($con, $query);

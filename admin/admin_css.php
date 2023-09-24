@@ -546,3 +546,46 @@
           margin-top: 10px;
         }
       </style>
+      <style>
+    .dropdown123 {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown123 button {
+        background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+        color: white;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .dropdown123 button:hover {
+        background-color: #e0e0e0;
+    }
+
+    .dropdown123 ul {
+        display: none;
+        position: absolute;
+        background-color: #f0f0f0;
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+        border: 1px solid #ccc;
+    }
+
+    .dropdown123 ul li a {
+        display: block;
+        padding: 10px;
+        text-decoration: none;
+        color: #333;
+    }
+
+    .dropdown123 ul li a:hover {
+        background-color: #e0e0e0;
+    }
+
+    .dropdown123:hover ul {
+        display: block;
+    }
+</style>

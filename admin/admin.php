@@ -9,7 +9,13 @@
     include '../connections/my_cnx.php';
 
     session_start();
+    
+    $query = "DELETE FROM `ptc_student_appointments` WHERE datee < CURDATE()";
+    mysqli_query($con, $query);
+    $query = "DELETE FROM `ptc_student_appointments_history` WHERE datee < CURDATE()";
+    mysqli_query($con, $query);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1008,16 +1014,20 @@
                             <table id="appointment_table" class="table table-striped" style="overflow-x:auto; border-collapse: collapse;">
                               <thead class="thead-dark">
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Full Name</th>
-                                    <th>Student Number</th>
-                                    <th>Requested Documents</th>
-                                    <th>Purpose of request</th>
-                                    <th>Date</th>
+                                    <th style="text-align:center;vertical-align: middle; ">ID</th>
+                                    <th style="text-align:center;vertical-align: middle; ">Full Name</th>
+                                    <th style="text-align:center;vertical-align: middle; ">Student Number</th>
+                                    <th style="text-align:center;vertical-align: middle; ">Requested Documents</th>
+                                    <th style="text-align:center;vertical-align: middle; ">Purpose of request</th>
+                                    <th style="text-align:center;vertical-align: middle; ">Status</th>
+                                    <th style="text-align:center;vertical-align: middle; ">Date</th>
+                                    <th style="text-align:center;vertical-align: middle; ">Action</th>
                                 </tr>
                               </thead>
                               <tbody id="appointment_tbody">
                                 <tr>
+                                  <td>Example</td>
+                                  <td>Example</td>
                                   <td>Example</td>
                                   <td>Example</td>
                                   <td>Example</td>

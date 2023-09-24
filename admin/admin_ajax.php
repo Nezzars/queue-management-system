@@ -41,14 +41,36 @@
 
         $formattedDate = date("F j, Y", strtotime($datee));
 
+        $status_row = "";
+
+        if($row['status'] == "PENDING")
+            $status_row = "<span style='background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);border-radius: 10px;color: white;text-align: center;padding: 10px 20px;'>".$row['status']."</span>";
+        else if($row['status'] == "ONGOING")
+            $status_row = "<span style='background: linear-gradient(135deg, #23a6d5 0%, #23d5ab 100%);border-radius: 10px;color: white;text-align: center;padding: 10px 20px;'>".$row['status']."</span>";
+        else if($row['status'] == "DONE")
+            $status_row = "<span style='background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);border-radius: 10px;color: white;text-align: center;padding: 10px 20px;'>".$row['status']."</span>";
+
         $echo[1] .= "
             <tr>
-                <td>".$counter."</td>
-                <td>".strtoupper($row['full_name'])."</td>
-                <td>".$row['student_number']."</td>
-                <td>".$qweqwe."</td>
-                <td>".$row['purpose_of_request']."</td>
-                <td>".$formattedDate."</td>
+                <td style='vertical-align: middle; text-align: center;'>".$counter."</td>
+                <td style='vertical-align: middle; text-align: center;'>".strtoupper($row['full_name'])."</td>
+                <td style='vertical-align: middle; text-align: center;'>".$row['student_number']."</td>
+                <td style='vertical-align: middle; text-align: center;'>".$qweqwe."</td>
+                <td style='vertical-align: middle; text-align: center;'>".$row['purpose_of_request']."</td>
+                <td style='vertical-align: middle; text-align: center;' id='status_id_".$row['id']."'>".$status_row."</td>
+                <td style='vertical-align: middle; text-align: center;'>".$formattedDate."</td>
+                <td style='vertical-align: middle; text-align: center;'>
+                    <div class='dropdown123'>
+                        <button class='btn btn-secondary dropdown-toggle' type='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                            Update Status
+                        </button>
+                        <ul class='dropdown-menu'>
+                            <li><a class='dropdown-item' style='cursor:pointer;' onclick='update_status_func(\"".$row['id']."\", \"PENDING\")'>PENDING</a></li>
+                            <li><a class='dropdown-item' style='cursor:pointer;' onclick='update_status_func(\"".$row['id']."\", \"ONGOING\")'>ONGOING</a></li>
+                            <li><a class='dropdown-item' style='cursor:pointer;' onclick='update_status_func(\"".$row['id']."\", \"DONE\")'>DONE</a></li>
+                        </ul>
+                    </div>
+                </td>
             </tr>
         ";
 
@@ -394,6 +416,18 @@
         $response = json_encode($echos);
         echo $response;
     }
+
+    if($_POST["action"] == "update_status")
+  	{
+        global $con;
+		$id = $_POST['id'];
+		$status = $_POST['status'];
+
+        $sql = "UPDATE `ptc_student_appointments` SET status = '$status' WHERE id='$id'";
+        mysqli_query($con, $sql);
+
+		echo $status . " --- status_id_" . $id;
+	}
 ?>
 
 

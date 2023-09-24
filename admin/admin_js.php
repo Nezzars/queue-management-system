@@ -1046,3 +1046,39 @@ document.getElementById("left_nav_bar").addEventListener('mouseup', function(eve
         }
     }, 2000);
 </script>
+<script>
+  function update_status_func(id, status)
+  {
+    var data = 
+    {
+        action: 'update_status',
+        id: id,
+        status: status,
+    };
+
+    $.ajax({
+        url: 'admin_ajax.php',
+        type: 'post',
+        data: data,
+        success:function(response)
+        {
+          // alert(response);
+
+          var statusParts = response.trim().split(' --- ');
+
+          var status = statusParts[0];
+          var status_id = statusParts[1];
+
+          // alert(status);
+          // alert(status_id);
+
+          if(status == "PENDING")
+            document.getElementById(status_id).innerHTML = "<span style='background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);border-radius: 10px;color: white;text-align: center;padding: 10px 20px;'>"+status+"</span>";
+          else if(status == "ONGOING")
+            document.getElementById(status_id).innerHTML = "<span style='background: linear-gradient(135deg, #23a6d5 0%, #23d5ab 100%);border-radius: 10px;color: white;text-align: center;padding: 10px 20px;'>"+status+"</span>";
+          else if(status == "DONE")
+            document.getElementById(status_id).innerHTML = "<span style='background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);border-radius: 10px;color: white;text-align: center;padding: 10px 20px;'>"+status+"</span>";
+        }
+    });
+  }
+</script>
