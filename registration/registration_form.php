@@ -363,7 +363,7 @@ $today = date("Y-m-d");
         </div>
         <div class="form-row">
             <label for="gender">Student Type</label>
-            <select class="form-control form-control-sm mb-2" name="student_type_dropdownlist" id="student_type_dropdownlist">
+            <select class="form-select form-select-sm mb-2" name="student_type_dropdownlist" id="student_type_dropdownlist">
               <option value="" disabled selected>Choose...</option>
               <option value="Regular">Regular</option>
               <option value="Irregular">Irregular</option>
@@ -371,7 +371,18 @@ $today = date("Y-m-d");
         </div>
         <div class="form-row">
             <label for="email">Course</label>
-            <input type="text" required name="email" class="form-control mb-2" id="course_textfield" placeholder="Ex. Bachelor of Science in Information Technology (BSIT)" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
+            <select class="form-select form-select-sm mb-2" name="student_type_dropdownlist" id="course_textfield">
+              <option value="" disabled selected>Choose...</option>
+              <?php
+                $sql = "  SELECT * FROM ptc_courses;  ";
+                $result = mysqli_query($con, $sql);
+                while($row = mysqli_fetch_assoc($result))
+                {
+                  echo '<option value="'.$row['course'].'">'.$row['course'].'</option>';
+                }
+              ?>
+            </select>
+            <!-- <input type="text" required name="email" class="form-control mb-2" id="course_textfield" placeholder="Ex. Bachelor of Science in Information Technology (BSIT)" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100"> -->
         </div>
 
         <hr>
@@ -410,7 +421,7 @@ $today = date("Y-m-d");
                 
                 <div class="form-row">
                     <label for="gender">Gender</label>
-                    <select class="form-control form-control-sm mb-2" name="gender_dropdownlist" id="gender_dropdownlist">
+                    <select class="form-select form-select-sm mb-2" name="gender_dropdownlist" id="gender_dropdownlist">
                       <option value="" disabled selected>Choose...</option>
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
@@ -433,7 +444,7 @@ $today = date("Y-m-d");
                 </div>
                 <div class="form-row">
                     <label for="address">Province</label>
-                    <select class="form-control form-control-sm mb-2" name="province_dropdownlist" id="province_dropdownlist" onchange="select_province_ajax();">
+                    <select class="form-select form-select-sm mb-2" name="province_dropdownlist" id="province_dropdownlist" onchange="select_province_ajax();">
                       <option value="" disabled selected>Choose...</option>
                       <option value="Metro Manila">Metro Manila</option>
                       <?php
@@ -455,13 +466,13 @@ $today = date("Y-m-d");
                 </div>
                 <div class="form-row">
                     <label for="address">Town / City</label>
-                    <select class="form-control form-control-sm mb-2" name="town_city_dropdownlist" id="town_city_dropdownlist" onchange="select_town_city_ajax();">
+                    <select class="form-select form-select-sm mb-2" name="town_city_dropdownlist" id="town_city_dropdownlist" onchange="select_town_city_ajax();">
                       <!-- may laman na -->
                     </select>
                 </div>
                 <div class="form-row">
                     <label for="address">Barangay</label>
-                    <select class="form-control form-control-sm mb-2" name="barangay_dropdownlist" id="barangay_dropdownlist">
+                    <select class="form-select form-select-sm mb-2" name="barangay_dropdownlist" id="barangay_dropdownlist">
                       
                     </select>
                 </div>
