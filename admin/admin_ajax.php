@@ -67,8 +67,9 @@
                 <td style='vertical-align: middle; text-align: center;'>".$row['student_number']."</td>
                 <td style='vertical-align: middle; text-align: center;'>".$requested_documentss."</td>
                 <td style='vertical-align: middle; text-align: center;'>".$row['purpose_of_request']."</td>
-                <td style='vertical-align: middle; text-align: center;' id='status_id_".$row['id']."'>".$status_row."</td>
                 <td style='vertical-align: middle; text-align: center;'>".$formattedDate."</td>
+                <td style='vertical-align: middle; text-align: center;' id='status_id_".$row['id']."'>".$status_row."</td>
+                <td style='vertical-align: middle; text-align: center;' id='admin_processor_".$row['id']."'>".$row['admin_processor']."</td>
                 <td style='vertical-align: middle; text-align: center;'>
                     <div class='dropdown123'>
                         <button class=\"btn btn-secondary dropdown-toggle\" type=\"button\" onclick=\"toggleDropdown(".$row['id'].")\">Update Status</button>
@@ -430,12 +431,46 @@
         global $con;
 		$id = $_POST['id'];
 		$status = $_POST['status'];
+		$admin_processor = $_POST['admin_processor'];
 
-        $sql = "UPDATE `ptc_student_appointments` SET status = '$status' WHERE id='$id'";
+        $sql = "UPDATE `ptc_student_appointments` SET 
+
+        status = '$status',
+        admin_processor = '$admin_processor'
+        
+        WHERE id='$id'";
         mysqli_query($con, $sql);
 
-		echo $status . " --- status_id_" . $id;
+		echo $status . " --- " . $id . " --- " . $admin_processor;
 	}
+
+    if($_POST["action"] == "get_appointments_realtime")
+  	{
+        global $con;
+		$pinindot_na_date = $_POST['pinindot_na_date'];
+        $statuses = array();
+        $admin_processors = array();
+        $ids = array();
+        $index = 0;
+
+        $sql = "  SELECT * FROM ptc_student_appointments WHERE datee='$pinindot_na_date';  ";
+		$result = mysqli_query($con, $sql);
+        while($row = mysqli_fetch_assoc($result))
+        {
+            $statuses[$index] = $row['status'];
+            $admin_processors[$index] = $row['admin_processor'];
+            $ids[$index] = $row['id'];
+            $index++;
+        }
+
+        $response = array(
+            'statuses' => $statuses,
+            'admin_processors' => $admin_processors,
+            'ids' => $ids
+        );
+        
+        echo json_encode($response);
+    }
 ?>
 
 

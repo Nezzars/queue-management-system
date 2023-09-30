@@ -113,7 +113,7 @@
                     $requested_documentss .= " --- Others: $others_textfield";
             }
 
-            $query = "INSERT INTO ptc_student_appointments VALUES('', '$username', '$requested_documentss', '$purpose_of_request_textfield', 'PENDING', '$date_hidden')";
+            $query = "INSERT INTO ptc_student_appointments VALUES('', '$username', '$requested_documentss', '$purpose_of_request_textfield', 'PENDING', '', '$date_hidden')";
             mysqli_query($con, $query);
     
             $sql = "  SELECT * FROM ptc_student_appointments_history WHERE datee='$date_hidden';  ";

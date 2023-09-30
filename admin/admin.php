@@ -1019,13 +1019,15 @@
                                     <th style="text-align:center;vertical-align: middle; ">Student Number</th>
                                     <th style="text-align:center;vertical-align: middle; ">Requested Documents</th>
                                     <th style="text-align:center;vertical-align: middle; ">Purpose of request</th>
-                                    <th style="text-align:center;vertical-align: middle; ">Status</th>
                                     <th style="text-align:center;vertical-align: middle; ">Date</th>
+                                    <th style="text-align:center;vertical-align: middle; ">Status</th>
+                                    <th style="text-align:center;vertical-align: middle; ">Admin Processor</th>
                                     <th style="text-align:center;vertical-align: middle; ">Action</th>
                                 </tr>
                               </thead>
                               <tbody id="appointment_tbody">
                                 <tr>
+                                  <td>Example</td>
                                   <td>Example</td>
                                   <td>Example</td>
                                   <td>Example</td>

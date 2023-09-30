@@ -2,6 +2,7 @@
   require '../connections/my_cnx.php';
 ?>
 <script>
+  var pinindot_na_date = "";
   function r_and_r_all_radiobutton()
   {
     document.getElementById("r_and_r_all_panel").style.display = "block";
@@ -529,6 +530,7 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() 
   {
+
     var calendarEl1 = document.getElementById('calendar');
     calendarEl1.innerHTML = '';
 
@@ -536,6 +538,7 @@
 
     eventClick: function(info) { //function kapag kinlick ang mga button
     var iconClass = info.event.extendedProps.iconClass;
+    pinindot_na_date = moment(info.event.start).format('YYYY-MM-DD');
     var data = 
     {
         action: 'get_all_appointments_depends_on_date',
@@ -987,7 +990,7 @@ document.getElementById("left_nav_bar").addEventListener('mouseup', function(eve
         if(resize_window == true)
         {
           resize_window = false;
-          
+
             var calendarEl1 = document.getElementById('calendar');
             calendarEl1.innerHTML = '';
 
@@ -995,6 +998,7 @@ document.getElementById("left_nav_bar").addEventListener('mouseup', function(eve
 
             eventClick: function(info) { //function kapag kinlick ang mga button
             var iconClass = info.event.extendedProps.iconClass;
+            pinindot_na_date = moment(info.event.start).format('YYYY-MM-DD');
             var data = 
             {
                 action: 'get_all_appointments_depends_on_date',
@@ -1077,6 +1081,7 @@ document.getElementById("left_nav_bar").addEventListener('mouseup', function(eve
         action: 'update_status',
         id: id,
         status: status,
+        admin_processor: document.getElementById("topnavbar_name").innerHTML,
     };
 
     $.ajax({
@@ -1090,17 +1095,20 @@ document.getElementById("left_nav_bar").addEventListener('mouseup', function(eve
           var statusParts = response.trim().split(' --- ');
 
           var status = statusParts[0];
-          var status_id = statusParts[1];
+          var id = statusParts[1];
+          var admin_processorr = statusParts[2];
 
           // alert(status);
-          // alert(status_id);
+          // alert(admin_processorr);
 
           if(status == "PENDING")
-            document.getElementById(status_id).innerHTML = "<span style='background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);border-radius: 10px;color: white;text-align: center;padding: 10px 20px;'>"+status+"</span>";
+            document.getElementById("status_id_"+id).innerHTML = "<span style='background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);border-radius: 10px;color: white;text-align: center;padding: 10px 20px;'>"+status+"</span>";
           else if(status == "ONGOING")
-            document.getElementById(status_id).innerHTML = "<span style='background: linear-gradient(135deg, #23a6d5 0%, #23d5ab 100%);border-radius: 10px;color: white;text-align: center;padding: 10px 20px;'>"+status+"</span>";
+            document.getElementById("status_id_"+id).innerHTML = "<span style='background: linear-gradient(135deg, #23a6d5 0%, #23d5ab 100%);border-radius: 10px;color: white;text-align: center;padding: 10px 20px;'>"+status+"</span>";
           else if(status == "DONE")
-            document.getElementById(status_id).innerHTML = "<span style='background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);border-radius: 10px;color: white;text-align: center;padding: 10px 20px;'>"+status+"</span>";
+            document.getElementById("status_id_"+id).innerHTML = "<span style='background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);border-radius: 10px;color: white;text-align: center;padding: 10px 20px;'>"+status+"</span>";
+
+            document.getElementById("admin_processor_"+id).innerHTML = admin_processorr;
         }
     });
   }
@@ -1128,4 +1136,57 @@ document.getElementById("left_nav_bar").addEventListener('mouseup', function(eve
             }
         }
     }
+
+    $('#eventModal').on('hidden.bs.modal', function () {
+      pinindot_na_date = "";
+    });
+
+    function refresh_appointment_table() 
+    {
+        // alert(pinindot_na_date);
+        if(pinindot_na_date != "")
+        {
+          var data = 
+          {
+              action: 'get_appointments_realtime',
+              pinindot_na_date: pinindot_na_date,
+          };
+
+          $.ajax({
+              url: 'admin_ajax.php',
+              type: 'post',
+              data: data,
+
+              success:function(response)
+              {
+                response = JSON.parse(response);
+
+                var statuses = response.statuses;
+                var admin_processors = response.admin_processors;
+                var ids = response.ids;
+
+                // alert(statuses);
+                // alert(admin_processors);
+                // alert(ids);
+
+                for (let i = 0; i < ids.length; i++) 
+                {
+                  // alert(ids[i]);
+                  if(statuses[i] == "PENDING")
+                    document.getElementById("status_id_"+ids[i]).innerHTML = "<span style='background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);border-radius: 10px;color: white;text-align: center;padding: 10px 20px;'>"+statuses[i]+"</span>";
+                  else if(statuses[i] == "ONGOING")
+                    document.getElementById("status_id_"+ids[i]).innerHTML = "<span style='background: linear-gradient(135deg, #23a6d5 0%, #23d5ab 100%);border-radius: 10px;color: white;text-align: center;padding: 10px 20px;'>"+statuses[i]+"</span>";
+                  else if(statuses[i] == "DONE")
+                    document.getElementById("status_id_"+ids[i]).innerHTML = "<span style='background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);border-radius: 10px;color: white;text-align: center;padding: 10px 20px;'>"+statuses[i]+"</span>";
+
+                    document.getElementById("admin_processor_"+ids[i]).innerHTML = admin_processors[i];
+                }
+              }
+
+          });
+        }
+    }
+
+    // Call showAlert every 5 seconds (5000 milliseconds)
+    setInterval(refresh_appointment_table, 2000);
 </script>
