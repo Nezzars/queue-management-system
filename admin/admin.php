@@ -10,10 +10,10 @@
 
     session_start();
     
-    $query = "DELETE FROM `ptc_student_appointments` WHERE datee < CURDATE()";
-    mysqli_query($con, $query);
-    $query = "DELETE FROM `ptc_student_appointments_history` WHERE datee < CURDATE()";
-    mysqli_query($con, $query);
+    // $query = "DELETE FROM `ptc_student_appointments` WHERE datee < CURDATE()";
+    // mysqli_query($con, $query);
+    // $query = "DELETE FROM `ptc_student_appointments_history` WHERE datee < CURDATE()";
+    // mysqli_query($con, $query);
 ?>
 
 <!DOCTYPE html>
@@ -25,27 +25,43 @@
       // include '../cdn/cdns.php';
   ?>
   
-  <!-- Include Font Awesome for icons -->
-  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-  <!-- font-awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- swal --> 
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Include jQuery and Popper.js -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
-  <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' rel='stylesheet' />
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'></script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
-  <!-- Add Bootstrap CSS and JS for the modal -->
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.8/index.global.min.js'></script>
-  <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.8/index.global.min.js'></script>
-  <!-- datatables -->
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+<!-- Add Bootstrap CSS and JS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Include Font Awesome for icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- FullCalendar -->
+<link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' rel='stylesheet' />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
+
+<!-- FullCalendar (latest version) -->
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.8/index.global.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.8/index.global.min.js'></script>
+
+<!-- DataTables -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+
+<!-- multiselect -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
+
   <title>Administrator</title>
+
+  <!-- select2 -->
+  
 
   <style>
     .fc-event-slot-available 
@@ -307,6 +323,7 @@
           </ul>
       </div>
   </div>
+  <input type="hidden" id="process_coursess" value="<?php echo strtoupper($top_nav_bar['process_course']); ?>">
 
   <div class="navbar1" id="left_nav_bar" style="overflow-x:scroll; border-right:2px solid #90EE90">
     <center>
@@ -1017,6 +1034,7 @@
                                     <th style="text-align:center;vertical-align: middle; ">ID</th>
                                     <th style="text-align:center;vertical-align: middle; ">Full Name</th>
                                     <th style="text-align:center;vertical-align: middle; ">Student Number</th>
+                                    <th style="text-align:center;vertical-align: middle; ">Course</th>
                                     <th style="text-align:center;vertical-align: middle; ">Requested Documents</th>
                                     <th style="text-align:center;vertical-align: middle; ">Purpose of request</th>
                                     <th style="text-align:center;vertical-align: middle; ">Date</th>
@@ -1027,6 +1045,7 @@
                               </thead>
                               <tbody id="appointment_tbody">
                                 <tr>
+                                  <td>Example</td>
                                   <td>Example</td>
                                   <td>Example</td>
                                   <td>Example</td>
@@ -1086,11 +1105,11 @@
               <div class="modal-body">
               <form>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Username</label>
+                  <label for="username_admin_input">Username</label>
                   <input required type="text" class="form-control" id="username_admin_input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
+                    <label for="password_admin_input">Password</label>
                     <div class="input-group">
                         <input type="password" class="form-control" id="password_admin_input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
                         <div class="input-group-append">
@@ -1100,16 +1119,29 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group" id="process_course_innerHTML">
+                  <label for="process_course_dropdownlist">Process Course</label>
+                  <select class="form-control mb-2" id="process_course_dropdownlist" multiple>
+                      <?php
+                          $sql = "SELECT * FROM ptc_courses;";
+                          $result = mysqli_query($con, $sql);
+                          while($row = mysqli_fetch_assoc($result)) {
+                              echo '<option value="'.$row['id'].'">'.$row['course'].'</option>';
+                          }
+                      ?>
+                  </select>
+                </div>
+                
                 <div class="form-group">
-                  <label for="exampleInputEmail1">First Name</label>
+                  <label for="firstname_admin_input">First Name</label>
                   <input type="text" class="form-control" id="firstname_admin_input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Middle Name</label>
+                  <label for="middlename_admin_input">Middle Name</label>
                   <input type="text" class="form-control" id="middlename_admin_input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Last Name</label>
+                  <label for="lastname_admin_input">Last Name</label>
                   <input type="text" class="form-control" id="lastname_admin_input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
                 </div>
             </form>
@@ -1150,6 +1182,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group" id="update_process_course_innerHTML">
+                  <label for="update_process_course_dropdownlist">Process Course</label>
+                  <select class="form-control mb-2" id="update_process_course_dropdownlist" multiple>
+                      <?php
+                          $sql = "SELECT * FROM ptc_courses;";
+                          $result = mysqli_query($con, $sql);
+                          while($row = mysqli_fetch_assoc($result)) {
+                              echo '<option value="'.$row['id'].'">'.$row['course'].'</option>';
+                          }
+                      ?>
+                  </select>
+                </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">First Name</label>
                   <input type="text" class="form-control" id="update_firstname_admin_input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
@@ -1181,6 +1225,7 @@
                     <th>Full Name</th>
                     <th>Username</th>
                     <th>Admin Type</th>
+                    <th>Process Course</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -1191,13 +1236,34 @@
       
           while($row = mysqli_fetch_assoc($result))
           {
+            $qweqwe = $row['process_course'];
+
+            if (!empty($qweqwe)) {
+                $qweqwe_list = array_map('intval', explode(' --- ', $qweqwe));
+                
+                $requested_documentss = "<ul>";
+                
+                $sql1 = "SELECT * FROM ptc_courses WHERE id IN (" . implode(',', $qweqwe_list) . ")";
+                $result1 = mysqli_query($con, $sql1);
+                
+                while ($row1 = mysqli_fetch_assoc($result1)) {
+                    $requested_documentss .= "<li>" . $row1['course'] . "</li>";
+                }
+                
+                $requested_documentss .= "</ul>";
+            } else {
+                $requested_documentss = "";
+            }
+            
+
               echo '
               <tr>
-                <td>'.strtoupper($row['id']).'</td>
-                <td>'.strtoupper($row['full_name']).'</td>
-                <td>'.strtoupper($row['username']).'</td>
-                <td>'.strtoupper($row['type']).'</td>
-                <td>
+                <td style="vertical-align: middle; text-align: center;">'.strtoupper($row['id']).'</td>
+                <td style="vertical-align: middle; text-align: center;">'.strtoupper($row['full_name']).'</td>
+                <td style="vertical-align: middle; text-align: center;">'.strtoupper($row['username']).'</td>
+                <td style="vertical-align: middle; text-align: center;">'.strtoupper($row['type']).'</td>
+                <td style="vertical-align: middle; text-align: center;">'.$requested_documentss.'</td>
+                <td style="vertical-align: middle; text-align: center;">
                   <input type="button" value="Update" class="btn btn-success" onclick="open_update_modal(\''.trim($row['id']).'\');">
                   <input type="button" value="Delete" class="btn btn-danger" onclick="delete_admin_user(\''.trim($row['id']).'\');">
                 </td>
@@ -1211,6 +1277,7 @@
       </table>
     </div>
   </div>
+    <br>
 </div>
 <!-- ADMIN USERS PANEL -->
 <!-- MY ACCOUNT PANEL -->
@@ -1230,18 +1297,55 @@
 
       <div class="container-fluid">
         <form method="post">
-          <div class="mb-3 form-group">
+          <div class="mb-4 form-group">
             <input type="hidden" id="my_account_id">
-            <label class="form-label">Admin Type</label>
+            <label class="form-label"><b>Admin Type</b></label>
             <input required disabled readonly type="text" class="form-control" id="my_account_admin_type" aria-describedby="emailHelp" value="<?php echo $row['type']; ?>" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
           </div>
-          <div class="mb-3 form-group">
+          <div class="mb-4 form-group">
+            <label class="form-label"><b>Process Courses</b></label>
+            <?php
+              $usernamee = $top_nav_bar['username'];
+              $sql = "  SELECT * FROM ptc_admin WHERE username='$usernamee';  ";
+              $result = mysqli_query($con, $sql);
+          
+              if($row = mysqli_fetch_assoc($result))
+              {
+                $qweqwe = $row['process_course'];
+
+                if (!empty($qweqwe)) {
+                    $qweqwe_list = array_map('intval', explode(' --- ', $qweqwe));
+                    
+                    $requested_documentss = "<ul style='margin-left:40px;'>";
+                    
+                    $sql1 = "SELECT * FROM ptc_courses WHERE id IN (" . implode(',', $qweqwe_list) . ")";
+                    $result1 = mysqli_query($con, $sql1);
+                    
+                    while ($row1 = mysqli_fetch_assoc($result1)) {
+                        $requested_documentss .= "<li>" . $row1['course'] . "</li>";
+                    }
+                    
+                    $requested_documentss .= "</ul>";
+                } else {
+                    $requested_documentss = "";
+                }
+              }
+
+              echo $requested_documentss;
+            ?>
+            <!-- <ul>
+              <li>qweqwe</li>
+              <li>qweqwe</li>
+              <li>qweqwe</li>
+            </ul> -->
+          </div>
+          <div class="mb-4 form-group">
             <div></div>
-            <label class="form-label">Username</label>
+            <label class="form-label"><b>Username</b></label>
             <input required name="username" type="text" id="my_account_username" class="form-control" value="<?php echo $row['username']; ?>" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
           </div>
-          <div class="mb-3 form-group">
-              <label class="form-label">Password</label>
+          <div class="mb-4 form-group">
+              <label class="form-label"><b>Password</b></label>
               <div class="input-group">
                   <input required type="password" class="form-control" id="my_account_password" value="<?php echo $row['password']; ?>" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
                   <div class="input-group-append">
@@ -1251,16 +1355,16 @@
                   </div>
               </div>
           </div>
-          <div class="mb-3 form-group">
-            <label class="form-label">First Name</label>
+          <div class="mb-4 form-group">
+            <label class="form-label"><b>First Name</b></label>
             <input required name="first_name" type="text" id="my_account_first_name" class="form-control" value="<?php echo $row['first_name']; ?>" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
           </div>
-          <div class="mb-3 form-group">
-            <label class="form-label">Middle Name</label>
+          <div class="mb-4 form-group">
+            <label class="form-label"><b>Middle Name</b></label>
             <input required name="middle_name" type="text" id="my_account_middle_name" class="form-control" value="<?php echo $row['middle_name']; ?>" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
           </div>
-          <div class="mb-3 form-group">
-            <label class="form-label">Last Name</label>
+          <div class="mb-4 form-group">
+            <label class="form-label"><b>Last Name</b></label>
             <input required name="last_name" type="text" class="form-control" id="my_account_last_name" value="<?php echo $row['last_name']; ?>" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
           </div>
           <button type="button" class="btn btn-success" onclick="my_account_update_button();">Update</button>
@@ -1277,11 +1381,7 @@
 </body>
 
 
-
-
-
-
-
+<script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
 
 <?php
   include "admin_js.php";

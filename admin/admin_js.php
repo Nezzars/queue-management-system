@@ -59,12 +59,18 @@
   }
 </script>
 <script>
+  var tempp = document.getElementById("process_course_innerHTML").innerHTML;
+  var tempp2 = document.getElementById("update_process_course_innerHTML").innerHTML;
   function add_user_button(){
-
-   
+    
     // Clear input values
     document.getElementById("username_admin_input").value = "";
     document.getElementById("password_admin_input").value = "";
+
+    document.getElementById("process_course_innerHTML").innerHTML = "";
+    document.getElementById("process_course_innerHTML").innerHTML = tempp;
+    new MultiSelectTag('process_course_dropdownlist')
+
     document.getElementById("firstname_admin_input").value = "";
     document.getElementById("middlename_admin_input").value = "";
     document.getElementById("lastname_admin_input").value = "";
@@ -85,6 +91,15 @@
     var update_middlename_admin_input = document.getElementById("update_middlename_admin_input");
     var update_lastname_admin_input = document.getElementById("update_lastname_admin_input");
 
+    var selectElement12 = document.getElementById("update_process_course_dropdownlist");
+    var update_selected_process_course = [];
+
+    for (var i = 0; i < selectElement12.options.length; i++) {
+      if (selectElement12.options[i].selected) {
+        update_selected_process_course.push(selectElement12.options[i].value);
+      }
+    }
+
     if (update_username_admin_input.value == "")
     {
       update_username_admin_input.setCustomValidity("Please fill out this field.");
@@ -95,7 +110,14 @@
       update_password_admin_input.setCustomValidity("Please fill out this field.");
       update_password_admin_input.reportValidity();
     }
-    
+    else if(update_selected_process_course == "")
+    {
+      Swal.fire(
+        'Invalid!',
+        'Please select process Course!',
+        'error'
+      );
+    }
     else if (update_firstname_admin_input.value == "")
     {
       update_firstname_admin_input.setCustomValidity("Please fill out this field.");
@@ -122,6 +144,7 @@
           update_firstname_admin_input:update_firstname_admin_input.value.trim(),
           update_middlename_admin_input:update_middlename_admin_input.value.trim(),
           update_lastname_admin_input:update_lastname_admin_input.value.trim(),
+          update_selected_process_course:update_selected_process_course.join(" --- "),
       };
 
       $.ajax({
@@ -286,6 +309,16 @@
     var admin_firstname = document.getElementById("firstname_admin_input");
     var admin_middlename = document.getElementById("middlename_admin_input");
     var admin_lastname = document.getElementById("lastname_admin_input");
+
+    var selectElement = document.getElementById("process_course_dropdownlist");
+    var selected_process_course = [];
+
+    for (var i = 0; i < selectElement.options.length; i++) {
+      if (selectElement.options[i].selected) {
+        selected_process_course.push(selectElement.options[i].value);
+      }
+    }
+    
     if (admin_username.value == "")
     {
         admin_username.setCustomValidity("Please fill out this field.");
@@ -296,16 +329,18 @@
       admin_password.setCustomValidity("Please fill out this field.");
       admin_password.reportValidity();
     }
-    
+    else if(selected_process_course == "")
+    {
+      Swal.fire(
+        'Invalid!',
+        'Please select process Course!',
+        'error'
+      );
+    }
     else if (admin_firstname.value == "")
     {
       admin_firstname.setCustomValidity("Please fill out this field.");
       admin_firstname.reportValidity();
-    }
-    else if (admin_middlename.value == "")
-    {
-      admin_middlename.setCustomValidity("Please fill out this field.");
-      admin_middlename.reportValidity();
     }
     else if (admin_lastname.value == "")
     {
@@ -322,6 +357,7 @@
           admin_firstname:admin_firstname.value.trim(),
           admin_middlename:admin_middlename.value.trim(),
           admin_lastname:admin_lastname.value.trim(),
+          selected_process_course:selected_process_course.join(" --- "),
       };
 
       $.ajax({
@@ -477,6 +513,31 @@
           document.getElementById("update_middlename_admin_input").value = parsedResponse[3];
           document.getElementById("update_lastname_admin_input").value = parsedResponse[4];
           document.getElementById("update_id_admin_input").value = parsedResponse[5];
+          // document.getElementById("update_process_course_dropdownlist").value = parsedResponse[6];
+
+          document.getElementById("update_process_course_innerHTML").innerHTML = "";
+          document.getElementById("update_process_course_innerHTML").innerHTML = tempp2;
+          var parts = parsedResponse[6].split(" --- ");
+
+          if(parsedResponse[6] != "")
+          {
+            for (let index = 0; index < parts.length; index++) 
+            {
+              var selectElement1 = document.getElementById("update_process_course_dropdownlist");
+              var desiredValue = parts[index];
+
+              for (var i = 0; i < selectElement1.options.length; i++) {
+                if (selectElement1.options[i].value === desiredValue) {
+                  selectElement1.options[i].selected = true;
+                  break; 
+                }
+              }
+              // document.getElementById("update_process_course_dropdownlist").options[parts[index]].selected = true;
+            }
+          }
+          new MultiSelectTag('update_process_course_dropdownlist')
+
+          // alert(parsedResponse[6]);
 
           $('#update_user_modall').modal('show');
         }
@@ -543,6 +604,7 @@
     {
         action: 'get_all_appointments_depends_on_date',
         datee: moment(info.event.start).format('YYYY-MM-DD'),
+        process_courses:document.getElementById("process_coursess").value,
     };
 
     $.ajax({
@@ -1003,6 +1065,7 @@ document.getElementById("left_nav_bar").addEventListener('mouseup', function(eve
             {
                 action: 'get_all_appointments_depends_on_date',
                 datee: moment(info.event.start).format('YYYY-MM-DD'),
+                process_courses:document.getElementById("process_coursess").value,
             };
 
             $.ajax({
@@ -1040,6 +1103,7 @@ document.getElementById("left_nav_bar").addEventListener('mouseup', function(eve
 
 
                         // }
+                        // alert(parsedResponse[2]);
                     }
                 }
 

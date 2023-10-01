@@ -7,6 +7,7 @@
   {
     global $con;
     $datee = $_POST["datee"];
+    $process_courses = $_POST["process_courses"];
     $echo = array();
 
     $sql = "  SELECT * FROM ptc_student_appointments_history WHERE datee='$datee';  ";
@@ -21,7 +22,8 @@
         SELECT
             a.*,
             u.student_number,
-            u.full_name
+            u.full_name,
+            u.course
         FROM
             ptc_student_appointments a
         INNER JOIN
@@ -36,55 +38,82 @@
 
     while ($row = mysqli_fetch_assoc($result)) {
         
-        $qweqwe = $row['requested_documents'];
-        $qweqwe_list = explode(' --- ', $qweqwe);
-        // $qweqwe = str_replace(' --- ', ', ', $qweqwe);
-
-        $requested_documentss = "<ul>";
-
-        foreach ($qweqwe_list as $item)
+        // $row['course']   //complete BSIT
+        $idd = "";
+        $sql12 = "  SELECT * FROM ptc_courses WHERE course='".$row['course']."';  ";
+		$result12 = mysqli_query($con, $sql12);
+        if($row12 = mysqli_fetch_assoc($result12))
         {
-            $requested_documentss .= "<li>$item</li>";
+            $idd = $row12['id']; //2
         }
 
-        $requested_documentss .= "</ul>";
+        // $process_courses //1 --- 2
 
-        $formattedDate = date("F j, Y", strtotime($datee));
+        $process_courses_array = explode(' --- ', $process_courses);
+        $meron = in_array($idd, $process_courses_array);
 
-        $status_row = "";
+        if($meron == true)
+        {
+            $qweqwe = $row['requested_documents'];
+            $qweqwe_list = explode(' --- ', $qweqwe);
+            // $qweqwe = str_replace(' --- ', ', ', $qweqwe);
 
-        if($row['status'] == "PENDING")
-            $status_row = "<span style='background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);border-radius: 10px;color: white;text-align: center;padding: 10px 20px;'>".$row['status']."</span>";
-        else if($row['status'] == "ONGOING")
-            $status_row = "<span style='background: linear-gradient(135deg, #23a6d5 0%, #23d5ab 100%);border-radius: 10px;color: white;text-align: center;padding: 10px 20px;'>".$row['status']."</span>";
-        else if($row['status'] == "DONE")
-            $status_row = "<span style='background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);border-radius: 10px;color: white;text-align: center;padding: 10px 20px;'>".$row['status']."</span>";
+            $requested_documentss = "<ul>";
 
-        $echo[1] .= "
-            <tr>
-                <td style='vertical-align: middle; text-align: center;'>".$counter."</td>
-                <td style='vertical-align: middle; text-align: center;'>".strtoupper($row['full_name'])."</td>
-                <td style='vertical-align: middle; text-align: center;'>".$row['student_number']."</td>
-                <td style='vertical-align: middle; text-align: center;'>".$requested_documentss."</td>
-                <td style='vertical-align: middle; text-align: center;'>".$row['purpose_of_request']."</td>
-                <td style='vertical-align: middle; text-align: center;'>".$formattedDate."</td>
-                <td style='vertical-align: middle; text-align: center;' id='status_id_".$row['id']."'>".$status_row."</td>
-                <td style='vertical-align: middle; text-align: center;' id='admin_processor_".$row['id']."'>".$row['admin_processor']."</td>
-                <td style='vertical-align: middle; text-align: center;'>
-                    <div class='dropdown123'>
-                        <button class=\"btn btn-secondary dropdown-toggle\" type=\"button\" onclick=\"toggleDropdown(".$row['id'].")\">Update Status</button>
-                        <ul class='dropdown-menu' id='myDropdown".$row['id']."'>
-                            <li><a class='dropdown-item' style='cursor:pointer;' onclick='update_status_func(\"".$row['id']."\", \"PENDING\")'>PENDING</a></li>
-                            <li><a class='dropdown-item' style='cursor:pointer;' onclick='update_status_func(\"".$row['id']."\", \"ONGOING\")'>ONGOING</a></li>
-                            <li><a class='dropdown-item' style='cursor:pointer;' onclick='update_status_func(\"".$row['id']."\", \"DONE\")'>DONE</a></li>
-                        </ul>
-                    </div>
-                </td>
-            </tr>
-        ";
+            foreach ($qweqwe_list as $item)
+            {
+                $requested_documentss .= "<li>$item</li>";
+            }
 
-        $counter++;
+            $requested_documentss .= "</ul>";
+
+            $formattedDate = date("F j, Y", strtotime($datee));
+
+            $status_row = "";
+
+            if($row['status'] == "PENDING")
+                $status_row = "<span style='background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);border-radius: 10px;color: white;text-align: center;padding: 10px 20px;'>".$row['status']."</span>";
+            else if($row['status'] == "ONGOING")
+                $status_row = "<span style='background: linear-gradient(135deg, #23a6d5 0%, #23d5ab 100%);border-radius: 10px;color: white;text-align: center;padding: 10px 20px;'>".$row['status']."</span>";
+            else if($row['status'] == "DONE")
+                $status_row = "<span style='background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);border-radius: 10px;color: white;text-align: center;padding: 10px 20px;'>".$row['status']."</span>";
+
+
+            $parts = explode(' ', $row['course']);
+
+            if (count($parts) > 1) {
+                $abbreviation = trim($parts[count($parts) - 1], '()');
+            }
+
+            $echo[1] .= "
+                <tr>
+                    <td style='vertical-align: middle; text-align: center;'>".$counter."</td>
+                    <td style='vertical-align: middle; text-align: center;'>".strtoupper($row['full_name'])."</td>
+                    <td style='vertical-align: middle; text-align: center;'>".$row['student_number']."</td>
+                    <td style='vertical-align: middle; text-align: center;'>".$abbreviation."</td>
+                    <td style='vertical-align: middle; text-align: center;'>".$requested_documentss."</td>
+                    <td style='vertical-align: middle; text-align: center;'>".$row['purpose_of_request']."</td>
+                    <td style='vertical-align: middle; text-align: center;'>".$formattedDate."</td>
+                    <td style='vertical-align: middle; text-align: center;' id='status_id_".$row['id']."'>".$status_row."</td>
+                    <td style='vertical-align: middle; text-align: center;' id='admin_processor_".$row['id']."'>".$row['admin_processor']."</td>
+                    <td style='vertical-align: middle; text-align: center;'>
+                        <div class='dropdown123'>
+                            <button class=\"btn btn-secondary dropdown-toggle\" type=\"button\" onclick=\"toggleDropdown(".$row['id'].")\">Update Status</button>
+                            <ul class='dropdown-menu' id='myDropdown".$row['id']."'>
+                                <li><a class='dropdown-item' style='cursor:pointer;' onclick='update_status_func(\"".$row['id']."\", \"PENDING\")'>PENDING</a></li>
+                                <li><a class='dropdown-item' style='cursor:pointer;' onclick='update_status_func(\"".$row['id']."\", \"ONGOING\")'>ONGOING</a></li>
+                                <li><a class='dropdown-item' style='cursor:pointer;' onclick='update_status_func(\"".$row['id']."\", \"DONE\")'>DONE</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            ";
+
+            $counter++;
+        }
     }
+
+    // $echo[2]=$process_courses;
 
     // $echo[1] = "QWE";
 
@@ -101,6 +130,7 @@
         $admin_firstname = trim($_POST['admin_firstname']);
         $admin_middlename = trim($_POST['admin_middlename']);
         $admin_lastname = trim($_POST['admin_lastname']);
+        $selected_process_course = $_POST['selected_process_course'];
         $echos = array();
         
         $admin_fullname = $admin_firstname." ".$admin_lastname;
@@ -123,6 +153,7 @@
 
                 username,
                 password,
+                process_course,
                 full_name,
                 first_name,
                 middle_name,
@@ -133,6 +164,7 @@
                 
                 '$admin_username',
                 '$admin_password',
+                '$selected_process_course',
                 '$admin_fullname',
                 '$admin_firstname',
                 '$admin_middlename',
@@ -149,13 +181,33 @@
             $result = mysqli_query($con, $sql);
             while($row = mysqli_fetch_assoc($result))
             {
+                $qweqwe = $row['process_course'];
+
+                if (!empty($qweqwe)) {
+                    $qweqwe_list = array_map('intval', explode(' --- ', $qweqwe));
+                    
+                    $requested_documentss = "<ul>";
+                    
+                    $sql1 = "SELECT * FROM ptc_courses WHERE id IN (" . implode(',', $qweqwe_list) . ")";
+                    $result1 = mysqli_query($con, $sql1);
+                    
+                    while ($row1 = mysqli_fetch_assoc($result1)) {
+                        $requested_documentss .= "<li>" . $row1['course'] . "</li>";
+                    }
+                    
+                    $requested_documentss .= "</ul>";
+                } else {
+                    $requested_documentss = "";
+                }
+
                 $echos[1] .= '
                 <tr>
-                    <td>'.strtoupper($row['id']).'</td>
-                    <td>'.strtoupper($row['full_name']).'</td>
-                    <td>'.strtoupper($row['username']).'</td>
-                    <td>'.strtoupper($row['type']).'</td>
-                    <td>
+                    <td style="vertical-align: middle; text-align: center;">'.strtoupper($row['id']).'</td>
+                    <td style="vertical-align: middle; text-align: center;">'.strtoupper($row['full_name']).'</td>
+                    <td style="vertical-align: middle; text-align: center;">'.strtoupper($row['username']).'</td>
+                    <td style="vertical-align: middle; text-align: center;">'.strtoupper($row['type']).'</td>
+                    <td style="vertical-align: middle; text-align: center;">'.$requested_documentss.'</td>
+                    <td style="vertical-align: middle; text-align: center;">
                     <input type="button" value="Update" class="btn btn-success" onclick="open_update_modal(\''.trim($row['id']).'\');">
                     <input type="button" value="Delete" class="btn btn-danger" onclick="delete_admin_user(\''.trim($row['id']).'\');">
                     </td>
@@ -225,13 +277,33 @@
             $result = mysqli_query($con, $sql);
             while($row = mysqli_fetch_assoc($result))
             {
+                $qweqwe = $row['process_course'];
+
+                if (!empty($qweqwe)) {
+                    $qweqwe_list = array_map('intval', explode(' --- ', $qweqwe));
+                    
+                    $requested_documentss = "<ul>";
+                    
+                    $sql1 = "SELECT * FROM ptc_courses WHERE id IN (" . implode(',', $qweqwe_list) . ")";
+                    $result1 = mysqli_query($con, $sql1);
+                    
+                    while ($row1 = mysqli_fetch_assoc($result1)) {
+                        $requested_documentss .= "<li>" . $row1['course'] . "</li>";
+                    }
+                    
+                    $requested_documentss .= "</ul>";
+                } else {
+                    $requested_documentss = "";
+                }
+
                 $echos[1] .= '
                 <tr>
-                    <td>'.strtoupper($row['id']).'</td>
-                    <td>'.strtoupper($row['full_name']).'</td>
-                    <td>'.strtoupper($row['username']).'</td>
-                    <td>'.strtoupper($row['type']).'</td>
-                    <td>
+                    <td style="vertical-align: middle; text-align: center;">'.strtoupper($row['id']).'</td>
+                    <td style="vertical-align: middle; text-align: center;">'.strtoupper($row['full_name']).'</td>
+                    <td style="vertical-align: middle; text-align: center;">'.strtoupper($row['username']).'</td>
+                    <td style="vertical-align: middle; text-align: center;">'.strtoupper($row['type']).'</td>
+                    <td style="vertical-align: middle; text-align: center;">'.$requested_documentss.'</td>
+                    <td style="vertical-align: middle; text-align: center;">
                     <input type="button" value="Update" class="btn btn-success" onclick="open_update_modal(\''.trim($row['id']).'\');">
                     <input type="button" value="Delete" class="btn btn-danger" onclick="delete_admin_user(\''.trim($row['id']).'\');">
                     </td>
@@ -277,6 +349,7 @@
         $update_firstname_admin_input = trim($_POST['update_firstname_admin_input']);
         $update_middlename_admin_input = trim($_POST['update_middlename_admin_input']);
         $update_lastname_admin_input = trim($_POST['update_lastname_admin_input']);
+        $update_selected_process_course = $_POST['update_selected_process_course'];
         $echos = array();
         
         $update_fullname_admin_input = $update_firstname_admin_input." ".$update_lastname_admin_input;
@@ -302,6 +375,7 @@
             $sql = "UPDATE ptc_admin SET
                         username = '$update_username_admin_input',
                         password = '$update_password_admin_input',
+                        process_course = '$update_selected_process_course',
                         full_name = '$update_fullname_admin_input',
                         first_name = '$update_firstname_admin_input',
                         middle_name = '$update_middlename_admin_input',
@@ -318,13 +392,33 @@
             $result = mysqli_query($con, $sql);
             while($row = mysqli_fetch_assoc($result))
             {
+                $qweqwe = $row['process_course'];
+
+                if (!empty($qweqwe)) {
+                    $qweqwe_list = array_map('intval', explode(' --- ', $qweqwe));
+                    
+                    $requested_documentss = "<ul>";
+                    
+                    $sql1 = "SELECT * FROM ptc_courses WHERE id IN (" . implode(',', $qweqwe_list) . ")";
+                    $result1 = mysqli_query($con, $sql1);
+                    
+                    while ($row1 = mysqli_fetch_assoc($result1)) {
+                        $requested_documentss .= "<li>" . $row1['course'] . "</li>";
+                    }
+                    
+                    $requested_documentss .= "</ul>";
+                } else {
+                    $requested_documentss = "";
+                }
+
                 $echos[1] .= '
                 <tr>
-                    <td>'.strtoupper($row['id']).'</td>
-                    <td>'.strtoupper($row['full_name']).'</td>
-                    <td>'.strtoupper($row['username']).'</td>
-                    <td>'.strtoupper($row['type']).'</td>
-                    <td>
+                    <td style="vertical-align: middle; text-align: center;">'.strtoupper($row['id']).'</td>
+                    <td style="vertical-align: middle; text-align: center;">'.strtoupper($row['full_name']).'</td>
+                    <td style="vertical-align: middle; text-align: center;">'.strtoupper($row['username']).'</td>
+                    <td style="vertical-align: middle; text-align: center;">'.strtoupper($row['type']).'</td>
+                    <td style="vertical-align: middle; text-align: center;">'.$requested_documentss.'</td>
+                    <td style="vertical-align: middle; text-align: center;">
                     <input type="button" value="Update" class="btn btn-success" onclick="open_update_modal(\''.trim($row['id']).'\');">
                     <input type="button" value="Delete" class="btn btn-danger" onclick="delete_admin_user(\''.trim($row['id']).'\');">
                     </td>
@@ -373,6 +467,7 @@
             $echos[3] = $row['middle_name'];
             $echos[4] = $row['last_name'];
             $echos[5] = $row['id'];
+            $echos[6] = $row['process_course'];
         }
 
         $response = json_encode($echos);
@@ -406,13 +501,33 @@
                 $result = mysqli_query($con, $sql);
                 while($row = mysqli_fetch_assoc($result))
                 {
+                    $qweqwe = $row['process_course'];
+
+                    if (!empty($qweqwe)) {
+                        $qweqwe_list = array_map('intval', explode(' --- ', $qweqwe));
+                        
+                        $requested_documentss = "<ul>";
+                        
+                        $sql1 = "SELECT * FROM ptc_courses WHERE id IN (" . implode(',', $qweqwe_list) . ")";
+                        $result1 = mysqli_query($con, $sql1);
+                        
+                        while ($row1 = mysqli_fetch_assoc($result1)) {
+                            $requested_documentss .= "<li>" . $row1['course'] . "</li>";
+                        }
+                        
+                        $requested_documentss .= "</ul>";
+                    } else {
+                        $requested_documentss = "";
+                    }
+
                     $echos[1] .= '
                     <tr>
-                        <td>'.strtoupper($row['id']).'</td>
-                        <td>'.strtoupper($row['full_name']).'</td>
-                        <td>'.strtoupper($row['username']).'</td>
-                        <td>'.strtoupper($row['type']).'</td>
-                        <td>
+                        <td style="vertical-align: middle; text-align: center;">'.strtoupper($row['id']).'</td>
+                        <td style="vertical-align: middle; text-align: center;">'.strtoupper($row['full_name']).'</td>
+                        <td style="vertical-align: middle; text-align: center;">'.strtoupper($row['username']).'</td>
+                        <td style="vertical-align: middle; text-align: center;">'.strtoupper($row['type']).'</td>
+                        <td style="vertical-align: middle; text-align: center;">'.$requested_documentss.'</td>
+                        <td style="vertical-align: middle; text-align: center;">
                         <input type="button" value="Update" class="btn btn-success" onclick="open_update_modal(\''.trim($row['id']).'\');">
                         <input type="button" value="Delete" class="btn btn-danger" onclick="delete_admin_user(\''.trim($row['id']).'\');">
                         </td>
