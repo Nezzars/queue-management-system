@@ -1172,7 +1172,10 @@ document.getElementById("left_nav_bar").addEventListener('mouseup', function(eve
           else if(status == "DONE")
             document.getElementById("status_id_"+id).innerHTML = "<span style='background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);border-radius: 10px;color: white;text-align: center;padding: 10px 20px;'>"+status+"</span>";
 
-            document.getElementById("admin_processor_"+id).innerHTML = admin_processorr;
+            if(admin_processorr != "undefinedd")
+              document.getElementById("admin_processor_"+id).innerHTML = admin_processorr;
+            else
+              document.getElementById("admin_processor_"+id).innerHTML = "";
         }
     });
   }

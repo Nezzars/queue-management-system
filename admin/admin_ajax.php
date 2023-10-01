@@ -546,17 +546,35 @@
         global $con;
 		$id = $_POST['id'];
 		$status = $_POST['status'];
-		$admin_processor = $_POST['admin_processor'];
+		// $admin_processor = $_POST['admin_processor'];
+        if($status == "PENDING")
+        {
+            $admin_processor = "undefinedd";
 
-        $sql = "UPDATE `ptc_student_appointments` SET 
+            $sql = "UPDATE `ptc_student_appointments` SET 
 
-        status = '$status',
-        admin_processor = '$admin_processor'
+            status = '$status',
+            admin_processor = ''
+            
+            WHERE id='$id'";
+            mysqli_query($con, $sql);
+        }
+        else
+        {
+            $admin_processor = $_POST['admin_processor'];
+
+            $sql = "UPDATE `ptc_student_appointments` SET 
+
+            status = '$status',
+            admin_processor = '$admin_processor'
+            
+            WHERE id='$id'";
+            mysqli_query($con, $sql);
+        }
+
         
-        WHERE id='$id'";
-        mysqli_query($con, $sql);
 
-		echo $status . " --- " . $id . " --- " . $admin_processor;
+        echo $status . " --- " . $id . " --- " . $admin_processor;
 	}
 
     if($_POST["action"] == "get_appointments_realtime")
