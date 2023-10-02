@@ -1377,7 +1377,24 @@
       </div>
       <div class="mb-3">
         <label for="email">Course</label>
-        <input value="<?php echo $my_profile['course']; ?>" disabled type="text" required name="email" class="form-control mb-2" id="course_textfield" placeholder="Ex. Bachelor of Science in Information Technology (BSIT)">
+        <!-- <input value="<?php //echo $my_profile['course']; ?>" disabled type="text" required name="email" class="form-control mb-2" id="course_textfield" placeholder="Ex. Bachelor of Science in Information Technology (BSIT)"> -->
+        <select disabled class="form-control mb-2" name="email" id="course_textfield">
+          <?php
+            $sql = "  SELECT * FROM ptc_courses;  ";
+            $result = mysqli_query($con, $sql);
+            while($row = mysqli_fetch_assoc($result))
+            {
+              $selected = "";
+
+              if($my_profile['course'] == $row['course'])
+              {
+                $selected = "selected";
+              }
+
+              echo '<option '.$selected.' value="'.$row['course'].'">'.$row['course'].'</option>';
+            }
+          ?>
+        </select>
       </div>
       <div class="mb-3">
         <button class="btn btn-secondary" id="my_account_institute_information_edit_button_id" onclick="my_account_institute_information_edit_button();">&nbsp Edit &nbsp</button>
