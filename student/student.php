@@ -1207,14 +1207,16 @@
   <br>
   <div style="width: 95%; margin: auto; padding: 20px; background-color: white; border-top: 3px solid green; border-radius: 5px;">
     <div class="table-responsive">
-        <table id="department_table" class="table table-striped" style="overflow-x: auto; border-collapse: collapse; text-align: center;">
+        <table id="my_appointments_table" class="table table-striped" style="overflow-x: auto; border-collapse: collapse; text-align: center;">
             <thead class="thead-dark">
                 <tr>
-                    <th>ID</th>
-                    <th>Requested Documents</th>
-                    <th>Purpose of request</th>
-                    <th>Date</th>
-                    <th>Actions</th>
+                    <th style="text-align:center;vertical-align: middle; ">ID</th>
+                    <th style="text-align:center;vertical-align: middle; ">Requested Documents</th>
+                    <th style="text-align:center;vertical-align: middle; ">Purpose of request</th>
+                    <th style="text-align:center;vertical-align: middle; ">Date</th>
+                    <th style="text-align:center;vertical-align: middle; ">Status</th>
+                    <th style="text-align:center;vertical-align: middle; ">Admin Processor</th>
+                    <th style="text-align:center;vertical-align: middle; ">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -1225,20 +1227,46 @@
       
           while($row = mysqli_fetch_assoc($result))
           {
-            $requested_documents = $row['requested_documents'];
-            $modified_requested_documents = str_replace(" --- ", ", ", $requested_documents); 
+            $qweqwe = $row['requested_documents'];
+            $qweqwe_list = explode(' --- ', $qweqwe);
+            // $qweqwe = str_replace(' --- ', ', ', $qweqwe);
+
+            $requested_documentss = "<ul>";
+
+            foreach ($qweqwe_list as $item)
+            {
+                $requested_documentss .= "<li>$item</li>";
+            }
+
+            $requested_documentss .= "</ul>";
+
+            // $requested_documents = $row['requested_documents'];
+            // $modified_requested_documents = str_replace(" --- ", ", ", $requested_documents); 
 
             $datee = $row['datee'];
             $datetime = new DateTime($datee);
             $formatted_date = $datetime->format("F d, Y");
 
+
+            $status_row = "";
+
+            if($row['status'] == "PENDING")
+                $status_row = "<span style='background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);border-radius: 10px;color: white;text-align: center;padding: 10px 20px;'>".$row['status']."</span>";
+            else if($row['status'] == "ONGOING")
+                $status_row = "<span style='background: linear-gradient(135deg, #23a6d5 0%, #23d5ab 100%);border-radius: 10px;color: white;text-align: center;padding: 10px 20px;'>".$row['status']."</span>";
+            else if($row['status'] == "DONE")
+                $status_row = "<span style='background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);border-radius: 10px;color: white;text-align: center;padding: 10px 20px;'>".$row['status']."</span>";
+
+
               echo '
               <tr>
-                <td>'.$counter.'</td>
-                <td>'.strtoupper($modified_requested_documents).'</td>
-                <td>'.strtoupper($row['purpose_of_request']).'</td>
-                <td>'.strtoupper($formatted_date).'</td>
-                <td>
+                <td style="text-align:center;vertical-align: middle; ">'.$counter.'</td>
+                <td style="text-align:center;vertical-align: middle; ">'.strtoupper($requested_documentss).'</td>
+                <td style="text-align:center;vertical-align: middle; ">'.strtoupper($row['purpose_of_request']).'</td>
+                <td style="text-align:center;vertical-align: middle; ">'.strtoupper($formatted_date).'</td>
+                <td style="text-align:center;vertical-align: middle; ">'.$status_row.'</td>
+                <td style="text-align:center;vertical-align: middle; ">'.$row['admin_processor'].'</td>
+                <td style="text-align:center;vertical-align: middle; ">
                 <input type="button" value="Show QR" class="btn btn-info" onclick="show_qr_appointment('.$row['id'].', \''.$row['datee'].'\')">
                   <input type="button" value="Cancel" class="btn btn-danger" onclick="cancel_appointment('.$row['id'].', \''.$row['datee'].'\')">
                 </td>

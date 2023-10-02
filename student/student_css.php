@@ -583,3 +583,26 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
   }
 </style>
+<style>
+    /* Style for the ul */
+    #my_appointments_table ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Style for each li item */
+    #my_appointments_table li {
+        background-color: #f0f0f0;
+        padding: 5px;
+        margin: 5px 0;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease;
+    }
+
+    /* Change background color on hover */
+    #my_appointments_table li:hover {
+        background-color: #e0e0e0;
+    }
+</style>

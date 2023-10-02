@@ -271,7 +271,7 @@
 </script>
 <script>
 $(document).ready(function() {
-  $('#department_table').DataTable({
+  $('#my_appointments_table').DataTable({
     responsive: true
   });
 });
