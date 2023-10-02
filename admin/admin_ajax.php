@@ -121,6 +121,73 @@
     echo $response;
   }
 
+  if($_POST["action"] == "update_event_ajax")
+  {
+    global $con;
+
+    // echo "qwe";
+    
+    $event_textfield_on_update = trim($_POST['event_textfield_on_update']);
+    $month_select_update = trim($_POST['month_select_update']);
+    $day_select_update = trim($_POST['day_select_update']);
+    $event_id_textfield_on_update = trim($_POST['event_id_textfield_on_update']);
+
+    $date_formatted = "0000-$month_select_update-$day_select_update";
+    $existing = false;
+    $echos = array();
+
+    $sql = "SELECT * FROM ptc_holidays WHERE date_month_and_day = '$date_formatted'";
+    $result = mysqli_query($con, $sql);
+    if($row = mysqli_fetch_assoc($result))
+    {
+        if($row['id'] == $event_id_textfield_on_update)
+            $existing = false;
+        else
+            $existing = true;
+    }
+
+    // $existing = true;
+    if($existing == false)
+    {
+        $sql = "UPDATE `ptc_holidays` SET 
+        
+        holiday_name = '$event_textfield_on_update',
+        date_month_and_day = '$date_formatted'
+        
+        WHERE id='".$event_id_textfield_on_update."'";
+        mysqli_query($con, $sql);
+
+        $echos[0] = "update_success";
+        $echos[1] = "";
+
+        $sql = "SELECT * FROM ptc_holidays;";
+        $result = mysqli_query($con, $sql);
+        while($row = mysqli_fetch_assoc($result))
+        {
+            $echos[1] .= '
+            <tr>
+                <td style="vertical-align: middle; text-align: center;">'.$row['id'].'</td>
+                <td style="vertical-align: middle; text-align: center;">'.strtoupper($row['holiday_name']).'</td>
+                <td style="vertical-align: middle; text-align: center;">'.date("F d", strtotime($row['date_month_and_day'])).'</td>
+                <td style="vertical-align: middle; text-align: center;">
+                  <input type="button" value="Update" class="btn btn-success" onclick="event_open_update_modal(\''.trim($row['id']).'\');">
+                  <input type="button" value="Delete" class="btn btn-danger" onclick="event_delete_function(\''.trim($row['id']).'\');">
+                </td>
+              </tr>
+            ';
+        }
+
+        $response = json_encode($echos);
+        echo $response;
+    }
+    else
+    {
+        $echos[0] = "update_failed_dahil_may_existing_day_and_month";
+
+        $response = json_encode($echos);
+        echo $response;
+    }
+  }
 
   if($_POST["action"] == "add_event_ajax")
   {
@@ -535,6 +602,31 @@
             $echos[4] = $row['last_name'];
             $echos[5] = $row['id'];
             $echos[6] = $row['process_course'];
+        }
+
+        $response = json_encode($echos);
+        echo $response;
+    }
+
+    if($_POST["action"] == "get_admin_data_display_to_update_modal_event")
+    {
+        global $con;
+        $id = $_POST['id'];
+        $echos = array();
+
+        $sql = "  SELECT * FROM ptc_holidays WHERE id='$id';  ";
+		$result = mysqli_query($con, $sql);
+        if($row = mysqli_fetch_assoc($result))
+        {
+            $qwe = $row['date_month_and_day'];
+            $parts = explode("-", $qwe);
+            $month = $parts[1];  // $qwe = "04"
+            $day = $parts[2];
+
+            $echos[0] = $row['holiday_name'];
+            $echos[1] = $month;
+            $echos[2] = $day;
+            $echos[3] = $row['id'];
         }
 
         $response = json_encode($echos);

@@ -1345,7 +1345,7 @@
                     </td>
                   </tr>
                 </table>
-            </form>
+              </form>
               </div>
               <div class="modal-footer">
                 <!-- <button type="button" class="btn btn-primary" onclick="add_admin_function();">Add</button> -->
@@ -1357,66 +1357,63 @@
         </div>
 
         <!-- Modal Update User -->
-        <!-- <div class="modal fade" id="update_user_modall" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="update_user_modallLabel" aria-hidden="true">
+        <div class="modal fade" id="update_event_modall" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="update_event_modallLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="update_user_modallLabel">Update User</h5>
+                <h5 class="modal-title" id="update_event_modallLabel">Update User</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
               <form>
+                <!-- <div class="form-group"> -->
+                  <!-- <label for="event_textfield_on_update">Event ID</label> -->
+                  <input required type="hidden" class="form-control" id="event_id_textfield_on_update" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
+                <!-- </div> -->
                 <div class="form-group">
-                  <input type="hidden" id="update_id_admin_input">
-                  <label for="exampleInputEmail1">Username</label>
-                  <input required type="text" class="form-control" id="update_username_admin_input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
+                  <label for="event_textfield_on_update">Event Title</label>
+                  <input required type="text" class="form-control" id="event_textfield_on_update" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <div class="input-group">
-                        <input type="password" class="form-control" id="update_password_admin_input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
-                        <div class="input-group-append">
-                            <span class="input-group-text" id="update_passwordToggle">
-                                <i class="fas fa-eye"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group" id="update_process_course_innerHTML">
-                  <label for="update_process_course_dropdownlist">Process Course</label>
-                  <select class="form-control mb-2" id="update_process_course_dropdownlist" multiple>
-                      <?php
-                          // $sql = "SELECT * FROM ptc_courses;";
-                          // $result = mysqli_query($con, $sql);
-                          // while($row = mysqli_fetch_assoc($result)) {
-                          //     echo '<option value="'.$row['id'].'">'.$row['course'].'</option>';
-                          // }
-                      ?>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">First Name</label>
-                  <input type="text" class="form-control" id="update_firstname_admin_input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Middle Name</label>
-                  <input type="text" class="form-control" id="update_middlename_admin_input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Last Name</label>
-                  <input type="text" class="form-control" id="update_lastname_admin_input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
-                </div>
-            </form>
+                <table style="width:100%;">
+                  <tr>
+                    <th>Month</th>
+                    <th>Day</th>
+                  </tr>
+                  <tr>
+                    <td>
+                      <select id="month_select_update" style="width:80%;" class="form-control">
+                        <option value="01">January</option>
+                        <option value="02">February</option>
+                        <option value="03">March</option>
+                        <option value="04">April</option>
+                        <option value="05">May</option>
+                        <option value="06">June</option>
+                        <option value="07">July</option>
+                        <option value="08">August</option>
+                        <option value="09">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                      </select>
+                    </td>
+                    <td>
+                      <select id="day_select_update" style="width:80%;" class="form-control">
+
+                      </select>
+                    </td>
+                  </tr>
+                </table>
+              </form>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="update_admin_function();">Update</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="update_event_function();">Update</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
               </div>
             </div>
           </div>
-        </div> -->
+        </div>
     <br>
     <br>
     <div class="table-responsive">

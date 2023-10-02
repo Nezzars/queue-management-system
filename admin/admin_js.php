@@ -310,6 +310,66 @@
     }
   }
 
+  function update_event_function()
+  {
+    if (document.getElementById("event_textfield_on_update").value == "")
+    {
+      document.getElementById("event_textfield_on_update").setCustomValidity("Please fill out this field.");
+      document.getElementById("event_textfield_on_update").reportValidity();
+    }
+    else
+    {
+      var data = 
+      {
+          action: 'update_event_ajax',
+          event_textfield_on_update:document.getElementById("event_textfield_on_update").value.trim(),
+          month_select_update:document.getElementById("month_select_update").value.trim(),
+          day_select_update:document.getElementById("day_select_update").value.trim(),
+          event_id_textfield_on_update:document.getElementById("event_id_textfield_on_update").value.trim(),
+      };
+
+      $.ajax({
+      url: 'admin_ajax.php',
+      type: 'post',
+      data: data,
+
+      success:function(response)
+      {
+        // alert(response);
+        var parsedResponse = JSON.parse(response);
+        
+        if(parsedResponse[0].trim() == "update_success")
+        {
+          Swal.fire(
+            'Update Event!',
+            'Successfully Updated!',
+            'success'
+          );
+          $('#update_event_modall').modal('hide'); 
+
+          $('#events_table').DataTable().destroy();
+          setTimeout(function() {
+            document.getElementById("events_tbody").innerHTML = parsedResponse[1];
+            $('#events_table').DataTable();
+          }, 500);
+        }
+        else if(parsedResponse[0].trim() == "update_failed_dahil_may_existing_day_and_month")
+        {
+          // document.getElementById("month_select").focus();
+
+          Swal.fire(
+            'Failed!',
+            'Month and Day already existing!',
+            'error'
+          );
+        }
+        
+      }
+
+      });
+    }
+  }
+
   function add_event_function()
   {
     if (document.getElementById("event_textfield").value == "")
@@ -319,9 +379,6 @@
     }
     else
     {
-      // alert(document.getElementById("event_textfield").value);
-      // alert(document.getElementById("month_select").value);
-      // alert(document.getElementById("day_select").value);
       var data = 
       {
           action: 'add_event_ajax',
@@ -667,6 +724,34 @@
           $('#update_user_modall').modal('show');
         }
 
+    });
+  }
+
+  function event_open_update_modal(id)
+  {
+    var data = 
+    {
+        action: 'get_admin_data_display_to_update_modal_event',
+        id: id,
+    };
+
+    $.ajax({
+      url: 'admin_ajax.php',
+      type: 'post',
+      data: data,
+
+      success:function(response)
+      {
+        // alert(response);
+        var parsedResponse = JSON.parse(response);
+
+        document.getElementById("event_textfield_on_update").value = parsedResponse[0];
+        document.getElementById("month_select_update").value = parsedResponse[1];
+        document.getElementById("day_select_update").value = parsedResponse[2];
+        document.getElementById("event_id_textfield_on_update").value = parsedResponse[3];
+
+        $('#update_event_modall').modal('show');
+      }
     });
   }
 </script>
@@ -1463,5 +1548,54 @@ document.getElementById("left_nav_bar").addEventListener('mouseup', function(eve
         dayOption.value = i.toString().padStart(2, '0'); // Zero-pad the day
         dayOption.textContent = dayOption.value;
         daySelect.appendChild(dayOption);
+    }
+</script>
+<script>
+    // Get references to the month and day select elements
+    const monthSelect1 = document.getElementById('month_select_update');
+    const daySelect1 = document.getElementById('day_select_update');
+
+    // Define the number of days for each month
+    const daysInMonth1 = {
+        '01': 31, // January
+        '02': 29, // February (assuming a leap year)
+        '03': 31, // March
+        '04': 30, // April
+        '05': 31, // May
+        '06': 30, // June
+        '07': 31, // July
+        '08': 31, // August
+        '09': 30, // September
+        '10': 31, // October
+        '11': 30, // November
+        '12': 31, // December
+    };
+
+    // Populate the day select based on the selected month
+    monthSelect1.addEventListener('change', function () {
+        const selectedMonth1 = this.value;
+        const days = daysInMonth1[selectedMonth1];
+
+        // Clear existing options
+        daySelect1.innerHTML = '';
+
+        // Populate day options
+        for (let i = 1; i <= days; i++) {
+            const dayOption1 = document.createElement('option');
+            dayOption1.value = i.toString().padStart(2, '0'); // Zero-pad the day
+            dayOption1.textContent = dayOption1.value;
+            daySelect1.appendChild(dayOption1);
+        }
+    });
+
+    // Initial population of days based on the default selected month
+    const initialMonth1 = monthSelect1.value;
+    const initialDays1 = daysInMonth1[initialMonth1];
+
+    for (let i = 1; i <= initialDays1; i++) {
+        const dayOption1 = document.createElement('option');
+        dayOption1.value = i.toString().padStart(2, '0'); // Zero-pad the day
+        dayOption1.textContent = dayOption1.value;
+        daySelect1.appendChild(dayOption1);
     }
 </script>
