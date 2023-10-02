@@ -355,7 +355,14 @@
     ?>
     </ul>
     <ul class="navbar1-items" id="events_button">
-      <li style="cursor:pointer;" onclick="document.getElementById('events_with_icon_button').click();"><a onclick="show_events_panel();" style="cursor:pointer;" id="events_with_icon_button"><i class="fa fa-solid fa-calendar-days" style="color:green;"></i> &nbsp&nbsp Events</a></li>
+    <?php
+      if($_SESSION['admin_type'] == "Super Admin")
+      {
+        echo '
+          <li style="cursor:pointer;" onclick="document.getElementById(\'events_with_icon_button\').click();"><a onclick="show_events_panel();" style="cursor:pointer;" id="events_with_icon_button"><i class="fa fa-solid fa-calendar-days" style="color:green;"></i> &nbsp&nbsp Events</a></li>
+      ';
+      }
+    ?>
     </ul>
     
     <hr style="width:100%; margin-top:10px;">
