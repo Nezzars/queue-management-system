@@ -337,7 +337,10 @@
     }
     else
     {
-        $query = "INSERT INTO ptc_feedbacks (username, stars, comment, date_time) VALUES ('$username', '$stars', '$experience_textfield', NOW())";
+        date_default_timezone_set('Asia/Manila');
+        $date_today = date('Y-m-d H:i:s');
+
+        $query = "INSERT INTO ptc_feedbacks (username, stars, comment, date_time) VALUES ('$username', '$stars', '$experience_textfield', '$date_today')";
         mysqli_query($con, $query);
 
         $_SESSION['kakasubmit_lang_ng_feedback'] = true;
@@ -391,12 +394,15 @@
     $stars = $_POST["stars"];
     $experience_textfield = $_POST["experience_textfield"];
 
+    date_default_timezone_set('Asia/Manila');
+    $date_today = date('Y-m-d H:i:s');
+
     $sql = "UPDATE `ptc_feedbacks` SET 
     
     stars = '$stars' ,
     comment = '$experience_textfield' ,
     stars = '$stars' ,
-    date_time = NOW()
+    date_time = '$date_today'
     
     WHERE 
     
