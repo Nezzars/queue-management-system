@@ -354,6 +354,9 @@
       }
     ?>
     </ul>
+    <ul class="navbar1-items" id="events_button">
+      <li style="cursor:pointer;" onclick="document.getElementById('events_with_icon_button').click();"><a onclick="show_events_panel();" style="cursor:pointer;" id="events_with_icon_button"><i class="fa fa-solid fa-calendar-days" style="color:green;"></i> &nbsp&nbsp Events</a></li>
+    </ul>
     
     <hr style="width:100%; margin-top:10px;">
     <ul class="navbar1-items" id="my_account_button">
@@ -1280,6 +1283,174 @@
     <br>
 </div>
 <!-- ADMIN USERS PANEL -->
+<!-- EVENTS PANEL -->
+<div id="events_panel" class="left_nav_bar_buttons">
+  <h1 style="padding:10px; border:1px solid lightgray; text-align:center; background-color:#1F5642; color:white;"><b>Events</b> </h1>
+  <br>
+  <div style="width: 95%; margin: auto; padding: 20px; background-color: white; border-top: 3px solid green; border-radius: 5px;">
+    <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_event_modall" onclick="add_event_button();">
+          Add Event
+        </button>
+
+        <!-- Modal Add User -->
+        <div class="modal fade" id="add_event_modall" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="add_event_modallLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="add_event_modallLabel">Add Event</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="event_textfield">Event Title</label>
+                  <input required type="text" class="form-control" id="event_textfield" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
+                </div>
+                <table style="width:100%;">
+                  <tr>
+                    <th>Month</th>
+                    <th>Day</th>
+                  </tr>
+                  <tr>
+                    <td>
+                      <select id="month_select" style="width:80%;" class="form-control">
+                        <option value="01">January</option>
+                        <option value="02">February</option>
+                        <option value="03">March</option>
+                        <option value="04">April</option>
+                        <option value="05">May</option>
+                        <option value="06">June</option>
+                        <option value="07">July</option>
+                        <option value="08">August</option>
+                        <option value="09">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                      </select>
+                    </td>
+                    <td>
+                      <select id="day_select" style="width:80%;" class="form-control">
+
+                      </select>
+                    </td>
+                  </tr>
+                </table>
+            </form>
+              </div>
+              <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-primary" onclick="add_admin_function();">Add</button> -->
+                <button type="button" class="btn btn-primary" onclick="add_event_function();">Add</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal Update User -->
+        <!-- <div class="modal fade" id="update_user_modall" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="update_user_modallLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="update_user_modallLabel">Update User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <input type="hidden" id="update_id_admin_input">
+                  <label for="exampleInputEmail1">Username</label>
+                  <input required type="text" class="form-control" id="update_username_admin_input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="update_password_admin_input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="update_passwordToggle">
+                                <i class="fas fa-eye"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" id="update_process_course_innerHTML">
+                  <label for="update_process_course_dropdownlist">Process Course</label>
+                  <select class="form-control mb-2" id="update_process_course_dropdownlist" multiple>
+                      <?php
+                          // $sql = "SELECT * FROM ptc_courses;";
+                          // $result = mysqli_query($con, $sql);
+                          // while($row = mysqli_fetch_assoc($result)) {
+                          //     echo '<option value="'.$row['id'].'">'.$row['course'].'</option>';
+                          // }
+                      ?>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">First Name</label>
+                  <input type="text" class="form-control" id="update_firstname_admin_input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Middle Name</label>
+                  <input type="text" class="form-control" id="update_middlename_admin_input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Last Name</label>
+                  <input type="text" class="form-control" id="update_lastname_admin_input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="100">
+                </div>
+            </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="update_admin_function();">Update</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div> -->
+    <br>
+    <br>
+    <div class="table-responsive">
+        <table id="events_table" class="table table-striped" style="overflow-x: auto; border-collapse: collapse; text-align: center;">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Event Name</th>
+                    <th>Month and Day</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="events_tbody">
+        <?php
+          $sql = "  SELECT * FROM ptc_holidays;  ";
+          $result = mysqli_query($con, $sql);
+      
+          while($row = mysqli_fetch_assoc($result))
+          {
+              echo '
+              <tr>
+                <td style="vertical-align: middle; text-align: center;">'.$row['id'].'</td>
+                <td style="vertical-align: middle; text-align: center;">'.strtoupper($row['holiday_name']).'</td>
+                <td style="vertical-align: middle; text-align: center;">'.date("F d", strtotime($row['date_month_and_day'])).'</td>
+                <td style="vertical-align: middle; text-align: center;">
+                  <input type="button" value="Update" class="btn btn-success" onclick="event_open_update_modal(\''.trim($row['id']).'\');">
+                  <input type="button" value="Delete" class="btn btn-danger" onclick="event_delete_function(\''.trim($row['id']).'\');">
+                </td>
+              </tr>
+              ';
+          }
+        ?>
+        
+        
+        </tbody>
+      </table>
+    </div>
+  </div>
+    <br>
+</div>
+<!-- EVENTS PANEL -->
 <!-- MY ACCOUNT PANEL -->
 <div id="my_account_panel" class="left_nav_bar_buttons" >
   <h1 style="padding:10px; border:1px solid lightgray; text-align:center; background-color:#1F5642; color:white;"><b>My Account</b> </h1>

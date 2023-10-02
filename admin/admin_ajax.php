@@ -121,6 +121,164 @@
     echo $response;
   }
 
+
+  if($_POST["action"] == "add_event_ajax")
+  {
+    global $con;
+    
+    $event_textfield = trim($_POST['event_textfield']);
+    $month_select = trim($_POST['month_select']);
+    $day_select = trim($_POST['day_select']);
+
+    $date_formatted = "0000-$month_select-$day_select";
+    $existing = false;
+    $echos = array();
+
+    $sql = "SELECT * FROM ptc_holidays WHERE date_month_and_day = '$date_formatted'";
+    $result = mysqli_query($con, $sql);
+    if($row = mysqli_fetch_assoc($result))
+    {
+        $existing = true;
+    }
+
+    if($existing == false)
+    {
+        $sql = "INSERT INTO ptc_holidays (
+
+            holiday_name,
+            date_month_and_day
+
+        ) VALUES (
+            
+            '$event_textfield',
+            '$date_formatted'
+            
+            )";
+        $result = mysqli_query($con,$sql);
+
+        $echos[0] = "add_success";
+        $echos[1] = "";
+
+        $sql = "SELECT * FROM ptc_holidays;";
+        $result = mysqli_query($con, $sql);
+        while($row = mysqli_fetch_assoc($result))
+        {
+            $echos[1] .= '
+            <tr>
+                <td style="vertical-align: middle; text-align: center;">'.$row['id'].'</td>
+                <td style="vertical-align: middle; text-align: center;">'.strtoupper($row['holiday_name']).'</td>
+                <td style="vertical-align: middle; text-align: center;">'.date("F d", strtotime($row['date_month_and_day'])).'</td>
+                <td style="vertical-align: middle; text-align: center;">
+                  <input type="button" value="Update" class="btn btn-success" onclick="event_open_update_modal(\''.trim($row['id']).'\');">
+                  <input type="button" value="Delete" class="btn btn-danger" onclick="event_delete_function(\''.trim($row['id']).'\');">
+                </td>
+              </tr>
+            ';
+        }
+
+        $response = json_encode($echos);
+        echo $response;
+    }
+    else
+    {
+        $echos[0] = "add_failed_dahil_may_existing_day_and_month";
+
+        $response = json_encode($echos);
+        echo $response;
+    }
+
+
+
+    //   
+      
+    //   $admin_fullname = $admin_firstname." ".$admin_lastname;
+    //   $admin_type= "Admin";
+
+
+    //   $admin_username = strtolower($admin_username); // Convert to lowercase and trim whitespace
+
+    //   
+
+    //   if($username_existing == false)
+    //   {
+    //       $sql = "INSERT INTO ptc_admin (
+
+    //           username,
+    //           password,
+    //           process_course,
+    //           full_name,
+    //           first_name,
+    //           middle_name,
+    //           last_name,
+    //           type
+
+    //       ) VALUES (
+              
+    //           '$admin_username',
+    //           '$admin_password',
+    //           '$selected_process_course',
+    //           '$admin_fullname',
+    //           '$admin_firstname',
+    //           '$admin_middlename',
+    //           '$admin_lastname',
+    //           '$admin_type'
+              
+    //           )";
+    //       $result = mysqli_query($con,$sql);
+
+    //       $echos[0] = "add_success";
+    //       $echos[1] = "";
+
+    //       $sql = "SELECT * FROM ptc_admin;";
+    //       $result = mysqli_query($con, $sql);
+    //       while($row = mysqli_fetch_assoc($result))
+    //       {
+    //           $qweqwe = $row['process_course'];
+
+    //           if (!empty($qweqwe)) {
+    //               $qweqwe_list = array_map('intval', explode(' --- ', $qweqwe));
+                  
+    //               $requested_documentss = "<ul>";
+                  
+    //               $sql1 = "SELECT * FROM ptc_courses WHERE id IN (" . implode(',', $qweqwe_list) . ")";
+    //               $result1 = mysqli_query($con, $sql1);
+                  
+    //               while ($row1 = mysqli_fetch_assoc($result1)) {
+    //                   $requested_documentss .= "<li>" . $row1['course'] . "</li>";
+    //               }
+                  
+    //               $requested_documentss .= "</ul>";
+    //           } else {
+    //               $requested_documentss = "";
+    //           }
+
+    //           $echos[1] .= '
+    //           <tr>
+    //               <td style="vertical-align: middle; text-align: center;">'.strtoupper($row['id']).'</td>
+    //               <td style="vertical-align: middle; text-align: center;">'.strtoupper($row['full_name']).'</td>
+    //               <td style="vertical-align: middle; text-align: center;">'.strtoupper($row['username']).'</td>
+    //               <td style="vertical-align: middle; text-align: center;">'.strtoupper($row['type']).'</td>
+    //               <td style="vertical-align: middle; text-align: center;">'.$requested_documentss.'</td>
+    //               <td style="vertical-align: middle; text-align: center;">
+    //               <input type="button" value="Update" class="btn btn-success" onclick="open_update_modal(\''.trim($row['id']).'\');">
+    //               <input type="button" value="Delete" class="btn btn-danger" onclick="delete_admin_user(\''.trim($row['id']).'\');">
+    //               </td>
+    //           </tr>
+    //           ';
+    //       }
+
+    //       $response = json_encode($echos);
+    //       echo $response;
+    //   }
+    //   else
+    //   {
+    //       $echos[0] = "add_failed_dahil_may_existing_username";
+
+    //       $response = json_encode($echos);
+    //       echo $response;
+    //   }
+  }
+
     if($_POST["action"] == "add_admin_ajax")
     {
         global $con;
@@ -534,6 +692,45 @@
                     </tr>
                     ';
                 }
+            }
+        }
+        
+        $response = json_encode($echos);
+        echo $response;
+    }
+
+    if($_POST['action'] == "delete_event_ajax")
+    {
+        global $con;
+        session_start();
+        $id = $_POST['id'];
+        $echos = array();
+
+        $sql = "  SELECT * FROM ptc_holidays WHERE id='$id';  ";
+		$result = mysqli_query($con, $sql);
+        if($row = mysqli_fetch_assoc($result))
+        {
+            $echos[0] = "delete_success";
+
+            $query = "DELETE FROM `ptc_holidays` WHERE id = '$id'";
+            mysqli_query($con, $query);
+
+            $echos[1] = "";
+            $sql = "SELECT * FROM ptc_holidays;";
+            $result = mysqli_query($con, $sql);
+            while($row = mysqli_fetch_assoc($result))
+            {
+                $echos[1] .= '
+                <tr>
+                    <td style="vertical-align: middle; text-align: center;">'.$row['id'].'</td>
+                    <td style="vertical-align: middle; text-align: center;">'.strtoupper($row['holiday_name']).'</td>
+                    <td style="vertical-align: middle; text-align: center;">'.date("F d", strtotime($row['date_month_and_day'])).'</td>
+                    <td style="vertical-align: middle; text-align: center;">
+                    <input type="button" value="Update" class="btn btn-success" onclick="event_open_update_modal(\''.trim($row['id']).'\');">
+                    <input type="button" value="Delete" class="btn btn-danger" onclick="event_delete_function(\''.trim($row['id']).'\');">
+                    </td>
+                </tr>
+                ';
             }
         }
         

@@ -78,6 +78,13 @@
 
   }
 
+  function add_event_button(){
+    
+    //clear input values
+    document.getElementById("event_textfield").value = "";
+
+  }
+
 
 </script>
 
@@ -303,7 +310,69 @@
     }
   }
 
-  function add_admin_function(){
+  function add_event_function()
+  {
+    if (document.getElementById("event_textfield").value == "")
+    {
+      document.getElementById("event_textfield").setCustomValidity("Please fill out this field.");
+      document.getElementById("event_textfield").reportValidity();
+    }
+    else
+    {
+      // alert(document.getElementById("event_textfield").value);
+      // alert(document.getElementById("month_select").value);
+      // alert(document.getElementById("day_select").value);
+      var data = 
+      {
+          action: 'add_event_ajax',
+          event_textfield:document.getElementById("event_textfield").value.trim(),
+          month_select:document.getElementById("month_select").value.trim(),
+          day_select:document.getElementById("day_select").value.trim(),
+      };
+
+      $.ajax({
+      url: 'admin_ajax.php',
+      type: 'post',
+      data: data,
+
+      success:function(response)
+      {
+        var parsedResponse = JSON.parse(response);
+        
+        if(parsedResponse[0].trim() == "add_success")
+        {
+          Swal.fire(
+            'New Event!',
+            'Successfully Added!',
+            'success'
+          );
+          $('#add_event_modall').modal('hide'); 
+
+          $('#events_table').DataTable().destroy();
+          setTimeout(function() {
+            document.getElementById("events_tbody").innerHTML = parsedResponse[1];
+            $('#events_table').DataTable();
+          }, 500);
+        }
+        else if(parsedResponse[0].trim() == "add_failed_dahil_may_existing_day_and_month")
+        {
+          // document.getElementById("month_select").focus();
+
+          Swal.fire(
+            'Failed!',
+            'Month and Day already existing!',
+            'error'
+          );
+        }
+        
+      }
+
+      });
+    }
+  }
+
+  function add_admin_function()
+  {
     var admin_username = document.getElementById("username_admin_input");
     var admin_password = document.getElementById("password_admin_input");
     var admin_firstname = document.getElementById("firstname_admin_input");
@@ -426,6 +495,62 @@
 });
 </script>
 <script>
+  function event_delete_function(id)
+  {
+    Swal.fire({
+      title: 'Warning!',
+      text: "Are you sure you want to Delete this Event?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        var data = 
+        {
+            action: 'delete_event_ajax',
+            id: id,
+        };
+
+        $.ajax({
+        url: 'admin_ajax.php',
+        type: 'post',
+        data: data,
+
+        success:function(response)
+        {
+          var parsedResponse = JSON.parse(response);
+
+          if(parsedResponse[0] == "delete_success")
+          {
+            Swal.fire(
+              'Deleted!',
+              'Deleting data successfully!',
+              'success'
+            );
+
+            $('#events_table').DataTable().destroy();
+            setTimeout(function() {
+              document.getElementById("events_tbody").innerHTML = parsedResponse[1];
+              $('#events_table').DataTable();
+            }, 500);
+          }
+        }
+
+        });
+      } else {
+        // User clicked "No" or closed the dialog
+        Swal.fire(
+          'Cancelled',
+          'Your action has been cancelled.',
+          'error'
+        );
+      }
+    });
+  }
+
   function delete_admin_user(id)
   {
     Swal.fire({
@@ -654,7 +779,7 @@
     if (iconClass == 'fa fa-regular fa-calendar') {
         var iconHtml = iconClass ? '<i class="' + iconClass + '"></i> <span id="title_label"><br> ' + info.event.title + '<br></span>  <br> ' : '';
         return {
-        html: iconHtml + "Holiday"
+        html: iconHtml + "Event"
         };
     } else if (iconClass == 'fa fa-solid fa-check') {
         var iconHtml = iconClass ? '<i class="' + iconClass + '"></i> <span id="title_label"><br>Slot Available<br></span>  <br> ' : '';
@@ -708,6 +833,12 @@
 <script>
 $(document).ready(function() {
   $('#admin_users_table').DataTable({
+    responsive: true
+  });
+});
+
+$(document).ready(function() {
+  $('#events_table').DataTable({
     responsive: true
   });
 });
@@ -795,11 +926,13 @@ $(document).ready(function() {
     document.getElementById('dashboard_panel').style.display = "Inherit";
     document.getElementById('appointments_panel').style.display = "none";
     document.getElementById('admin_users_panel').style.display = "none";
+    document.getElementById('events_panel').style.display = "none";
     document.getElementById('my_account_panel').style.display = "none";
 
     document.getElementById("dashboard_button").style.backgroundColor = "lightgreen";
     document.getElementById("appointments_button").style.backgroundColor = "white";
     document.getElementById('admin_users_button').style.backgroundColor = "white";
+    document.getElementById('events_button').style.backgroundColor = "white"; //
     document.getElementById("my_account_button").style.backgroundColor = "white";
     
     if(mobile_view == true)
@@ -814,11 +947,13 @@ $(document).ready(function() {
     document.getElementById('dashboard_panel').style.display = "none";
     document.getElementById('appointments_panel').style.display = "Inherit";
     document.getElementById('admin_users_panel').style.display = "none";
+    document.getElementById('events_panel').style.display = "none";
     document.getElementById('my_account_panel').style.display = "none";
 
     document.getElementById("dashboard_button").style.backgroundColor = "white";
     document.getElementById("appointments_button").style.backgroundColor = "lightgreen";
     document.getElementById('admin_users_button').style.backgroundColor = "white";
+    document.getElementById('events_button').style.backgroundColor = "white"; //
     document.getElementById("my_account_button").style.backgroundColor = "white";
 
     resize_window = true;
@@ -835,11 +970,34 @@ $(document).ready(function() {
     document.getElementById('dashboard_panel').style.display = "none";
     document.getElementById('appointments_panel').style.display = "none";
     document.getElementById('admin_users_panel').style.display = "Inherit";
+    document.getElementById('events_panel').style.display = "none";
     document.getElementById('my_account_panel').style.display = "none";
 
     document.getElementById("dashboard_button").style.backgroundColor = "white";
     document.getElementById("appointments_button").style.backgroundColor = "white";
     document.getElementById('admin_users_button').style.backgroundColor = "lightgreen";
+    document.getElementById('events_button').style.backgroundColor = "white"; //
+    document.getElementById("my_account_button").style.backgroundColor = "white";
+
+    if(mobile_view == true)
+    {
+      $('#left_nav_bar').animate({ marginLeft: '-250px' }); //display = "none"
+      document.getElementById("checkbox_leftnavbar").checked = false;
+    }
+  }
+  function show_events_panel()
+  {
+    // alert("qwe");
+    document.getElementById('dashboard_panel').style.display = "none";
+    document.getElementById('appointments_panel').style.display = "none";
+    document.getElementById('admin_users_panel').style.display = "none";
+    document.getElementById('events_panel').style.display = "Inherit"; //
+    document.getElementById('my_account_panel').style.display = "none";
+
+    document.getElementById("dashboard_button").style.backgroundColor = "white";
+    document.getElementById("appointments_button").style.backgroundColor = "white";
+    document.getElementById('admin_users_button').style.backgroundColor = "white";
+    document.getElementById('events_button').style.backgroundColor = "lightgreen"; //
     document.getElementById("my_account_button").style.backgroundColor = "white";
 
     if(mobile_view == true)
@@ -854,11 +1012,13 @@ $(document).ready(function() {
     document.getElementById('dashboard_panel').style.display = "none";
     document.getElementById('appointments_panel').style.display = "none";
     document.getElementById('admin_users_panel').style.display = "none";
+    document.getElementById('events_panel').style.display = "none";
     document.getElementById('my_account_panel').style.display = "Inherit";
 
     document.getElementById("dashboard_button").style.backgroundColor = "white";
     document.getElementById("appointments_button").style.backgroundColor = "white";
     document.getElementById('admin_users_button').style.backgroundColor = "white";
+    document.getElementById('events_button').style.backgroundColor = "white"; //
     document.getElementById("my_account_button").style.backgroundColor = "lightgreen";
 
     if(mobile_view == true)
@@ -915,13 +1075,12 @@ $(document).ready(function() {
     for ($i = 0; $i < count($date_month_and_day); $i++) 
     {
       $qwe = $date_month_and_day[$i];
-      $modifiedDate = date('Y') . substr($qwe, 4);
-
+      $modifiedDate = substr($qwe, 5);
       $classNames = "fc-event-holidayy";
       $iconClass = "fa fa-regular fa-calendar";
       
       $ifs .= "
-          else if (eventDate.format('YYYY-MM-DD') == '" . $modifiedDate . "') {
+          else if (eventDate.format('MM-DD') == '" . $modifiedDate . "') {
               var event = {
                   title: '" . $holiday_name[$i] . "',
                   start: eventDate.format('YYYY-MM-DD'),
@@ -1116,7 +1275,7 @@ document.getElementById("left_nav_bar").addEventListener('mouseup', function(eve
             if (iconClass == 'fa fa-regular fa-calendar') {
               var iconHtml = iconClass ? '<i class="' + iconClass + '"></i> <span id="title_label"><br> ' + info.event.title + '<br></span>  <br> ' : '';
               return {
-                html: iconHtml + "Holiday"
+                html: iconHtml + "Event"
               };
             } else if (iconClass == 'fa fa-solid fa-check') {
               var iconHtml = iconClass ? '<i class="' + iconClass + '"></i> <span id="title_label"><br>Slot Available<br></span>  <br> ' : '';
@@ -1256,4 +1415,53 @@ document.getElementById("left_nav_bar").addEventListener('mouseup', function(eve
 
     // Call showAlert every 5 seconds (5000 milliseconds)
     setInterval(refresh_appointment_table, 2000);
+</script>
+<script>
+    // Get references to the month and day select elements
+    const monthSelect = document.getElementById('month_select');
+    const daySelect = document.getElementById('day_select');
+
+    // Define the number of days for each month
+    const daysInMonth = {
+        '01': 31, // January
+        '02': 29, // February (assuming a leap year)
+        '03': 31, // March
+        '04': 30, // April
+        '05': 31, // May
+        '06': 30, // June
+        '07': 31, // July
+        '08': 31, // August
+        '09': 30, // September
+        '10': 31, // October
+        '11': 30, // November
+        '12': 31, // December
+    };
+
+    // Populate the day select based on the selected month
+    monthSelect.addEventListener('change', function () {
+        const selectedMonth = this.value;
+        const days = daysInMonth[selectedMonth];
+
+        // Clear existing options
+        daySelect.innerHTML = '';
+
+        // Populate day options
+        for (let i = 1; i <= days; i++) {
+            const dayOption = document.createElement('option');
+            dayOption.value = i.toString().padStart(2, '0'); // Zero-pad the day
+            dayOption.textContent = dayOption.value;
+            daySelect.appendChild(dayOption);
+        }
+    });
+
+    // Initial population of days based on the default selected month
+    const initialMonth = monthSelect.value;
+    const initialDays = daysInMonth[initialMonth];
+
+    for (let i = 1; i <= initialDays; i++) {
+        const dayOption = document.createElement('option');
+        dayOption.value = i.toString().padStart(2, '0'); // Zero-pad the day
+        dayOption.textContent = dayOption.value;
+        daySelect.appendChild(dayOption);
+    }
 </script>

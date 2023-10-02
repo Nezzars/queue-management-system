@@ -23,7 +23,7 @@
       text-align: center;
       width:97%;
       cursor:pointer;
-      background-color:#F72D93;
+      background-color:#17A2B8;
       font-size:14px;
       color:white;
     }

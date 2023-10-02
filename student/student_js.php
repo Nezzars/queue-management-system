@@ -455,13 +455,13 @@ $(document).ready(function() {
     for ($i = 0; $i < count($date_month_and_day); $i++) 
     {
       $qwe = $date_month_and_day[$i];
-      $modifiedDate = date('Y') . substr($qwe, 4);
+      $modifiedDate = substr($qwe, 5);
 
       $classNames = "fc-event-holidayy";
       $iconClass = "fa fa-regular fa-calendar";
       
       $ifs .= "
-          else if (eventDate.format('YYYY-MM-DD') == '" . $modifiedDate . "') {
+          else if (eventDate.format('MM-DD') == '" . $modifiedDate . "') {
               var event = {
                   title: '" . $holiday_name[$i] . "',
                   start: eventDate.format('YYYY-MM-DD'),
@@ -584,7 +584,7 @@ $(document).ready(function() {
                     {
                         Swal.fire(
                             'Invalid!',
-                            '<b>'+info.event.title+'</b><br><br>This day is holiday!',
+                            '<b>'+info.event.title+'</b><br><br>Sorry, You can\'t make appointment on event day!',
                             'info'
                         )
                     }
@@ -640,7 +640,7 @@ $(document).ready(function() {
             if (iconClass == 'fa fa-regular fa-calendar') {
               var iconHtml = iconClass ? '<i class="' + iconClass + '"></i> <span id="title_label"><br> ' + info.event.title + '<br></span>  <br> ' : '';
               return {
-                html: iconHtml + "Holiday"
+                html: iconHtml + "Event"
               };
             } else if (iconClass == 'fa fa-solid fa-check') {
               var iconHtml = iconClass ? '<i class="' + iconClass + '"></i> <span id="title_label"><br>Slot Available<br></span>  <br> ' : '';
@@ -765,7 +765,7 @@ $(document).ready(function() {
                     {
                         Swal.fire(
                             'Invalid!',
-                            '<b>'+info.event.title+'</b><br><br>This day is holiday!',
+                            '<b>'+info.event.title+'</b><br><br>Sorry, you can\'t make an appointment on the event day!',
                             'info'
                         )
                     }
@@ -821,7 +821,7 @@ $(document).ready(function() {
             if (iconClass == 'fa fa-regular fa-calendar') {
               var iconHtml = iconClass ? '<i class="' + iconClass + '"></i> <span id="title_label"><br> ' + info.event.title + '<br></span>  <br> ' : '';
               return {
-                html: iconHtml + "Holiday"
+                html: iconHtml + "Event"
               };
             } else if (iconClass == 'fa fa-solid fa-check') {
               var iconHtml = iconClass ? '<i class="' + iconClass + '"></i> <span id="title_label"><br>Slot Available<br></span>  <br> ' : '';
